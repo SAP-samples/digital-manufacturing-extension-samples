@@ -1,0 +1,5 @@
+{
+	"baseUrl": "https://api.eu10.dmc.cloud.sap",
+	"plant": "EV10", 
+	"sfc": "EV1704"
+}

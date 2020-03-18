@@ -1,0 +1,12 @@
+ID: business-process-paas-extension-getorderdata
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+ - name: apimodule
+   type: nodejs
+   path: apimodule
+   provides:
+    - name: apimodule_api
+      properties:
+         url: ${default-url}

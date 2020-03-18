@@ -1,0 +1,19 @@
+{
+  "name": "extdemocli",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=8.11.3"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@sap/faas": ">=0.7.0",
+    "mocha": "=7.0.0"
+  },
+  "files": [
+    "lib",
+    "faas.json",
+    "package.json"
+  ]
+}

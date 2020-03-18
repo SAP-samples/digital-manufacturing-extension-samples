@@ -1,0 +1,4 @@
+<mvc:View controllerName="sap.custom.plugins.urlintegration.controller.MainView" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" class="viewBackground">
+	<Button icon="{view>/actionButtonLogoUrl}" text="{view>/actionButtonName}" press="onActionButtonPress" class="urlIntegrationActionButton"/>
+</mvc:View>
