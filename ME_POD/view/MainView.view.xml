@@ -33,12 +33,6 @@
 									press="signOffSFC" class="sapcustomPodButton sapUiSmallMarginEnd"/>
 								<Button type="Emphasized" width="3.9rem" tooltip="{i18n>common.button.complete}" icon="sap-icon://flag" enabled="{viewModel>/Complete}"
 									press="completeSFC" class="sapcustomPodButton sapUiSmallMarginEnd"/>
-								<Button type="Default" width="3.9rem" tooltip="{i18n>common.button.setTorque}" icon="sap-icon://wrench"
-									class="sapcustomPodButton sapUiSmallMarginEnd"/>
-								<Button type="Default" width="3.9rem" tooltip="{i18n>common.button.IOXPAssist}" icon="sap-icon://video" press="handleIOXPAssist"
-									class="sapcustomPodButton sapUiSmallMarginEnd"/>
-								<Button type="Default" width="3.9rem" tooltip="{i18n>common.button.reports}" icon="sap-icon://manager-insight"
-									class="sapcustomPodButton sapUiSmallMarginEnd"/>
 							</f:actions>
 						</f:DynamicPageTitle>
 					</f:title>
@@ -89,22 +83,6 @@
 					<!-- DynamicPage Content -->
 					<f:content>
 						<l:Splitter height="100%" width="100%">
-							<!--					<FlexBox direction="Column" alignItems="Start" class="buttonBarPadding sideToolBar" height="100%">
-						<layoutData>
-							<l:SplitterLayoutData size="4.5rem" resizable="false"/>
-						</layoutData>
-						<items>
-							<Button type="Success" width="3.5rem" tooltip="Start" icon="sap-icon://fob-watch" class="sapcustomPodButton" enabled="{viewModel>/Start}"
-								press="startSFC"/>
-							<Button type="Negative" width="3.5rem" tooltip="Signoff" icon="sap-icon://past" class="sapcustomPodButton" enabled="{viewModel>/SignOff}"
-								press="signOffSFC"/>
-							<Button type="Emphasized" width="3.5rem" tooltip="Complete" icon="sap-icon://flag" class="sapcustomPodButton"
-								enabled="{viewModel>/Complete}" press="completeSFC"/>
-							<Button type="Transparent" width="3.5rem" tooltip="Set Torque" icon="sap-icon://wrench" class="sapcustomPodButton"/>
-							<Button type="Transparent" width="3.5rem" tooltip="IOXP Assist" icon="sap-icon://video" class="sapcustomPodButton"/>
-							<Button type="Transparent" width="3.5rem" tooltip="Reports" icon="sap-icon://manager-insight" class="sapcustomPodButton"/>
-						</items>
-					</FlexBox>-->
 							<l:Splitter height="100%" orientation="Vertical" width="100%">
 								<l:layoutData>
 									<l:SplitterLayoutData size="auto"/>
