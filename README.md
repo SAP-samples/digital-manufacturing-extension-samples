@@ -21,6 +21,10 @@ For more information, please check the readme files in the different folders.
 | Business Process Extension | Get Custom Fields from Order Data | In this example we demonstrate how to retrieve order-specific custom data depending on the current material (SFC) that is being worked on. This data can then be passed to external systems to trigger additional processes or to validate that certain conditions are met. | [Get-Custom-Fields-From-Order-Data-Using-SFC](DMC_BusinessProcesses/1-Get-Custom-Fields-From-Order-Data-Using-SFC)  |
 UI Extension | Custom Plugin for DMC PODs  | This custom plugin provides the sample implementation of a generic button which can be used in the POD Designer. When the user clicks the button in the POD, a URL will be called and parameters can be passed to the target application. | [Custom-Plugin-for-DMC-PODs](DMC_UX/1-Create-a-Generic-Button-And-Register-As-Custom-PoD-Plugin/CustomPodPlugin)  |
 
+## SAP Manufacturing Execution Extension Samples
+SAP Manufacturing Execution (SAP ME) is a powerful, enterprise-level, scalable, manufacturing business solution that enables global manufacturers to manage and control manufacturing and shop floor operations.
+With the new release of SAP ME 15.4, all the PAPIs are exposed as REST API’s which enables SAPUI5 based extensions of Production Operator Dashboards (POD) without SAP ME Software Development Kit (SDK).
+Using the sample extensions provided will allow you to learn and understand how to build your SAPUI5 based extensions of Production Operator Dashboards to use with SAP ME.
 
 ## How to obtain support
 If you have issues with a sample, please open a report using [GitHub issues](../../issues).
