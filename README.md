@@ -29,12 +29,6 @@ Using the sample extensions provided will allow you to learn and understand how 
 
 ![](resources/images/me_ext_pod.png)
 
-## Prerequisites
-* SAP ME 15.4 (SP 0 Patch 1)
-* SAP MII 15.4
-
-## Deployment
-
 ## How to obtain support
 If you have issues with a sample, please open a report using [GitHub issues](../../issues).
 
