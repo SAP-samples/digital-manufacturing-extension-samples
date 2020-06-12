@@ -29,6 +29,8 @@ Using the sample extensions provided will allow you to learn and understand how 
 
 ![](resources/images/me_ext_pod.png)
 
+Link: [SAP ME UI5 Extension POD](ME_POD)
+
 ## How to obtain support
 If you have issues with a sample, please open a report using [GitHub issues](../../issues).
 
