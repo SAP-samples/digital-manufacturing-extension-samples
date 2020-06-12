@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Operation POD</title>
+		<script id="sap-ui-bootstrap"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_fiori_3"
+			data-sap-ui-resourceroots='{"com.sap.me.customOperationPOD": "./"}'
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-preload="async"
+			data-sap-ui-libs="sap.m">
+		</script>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				new sap.m.Shell({
+					appWidthLimited: false,
+					app: new sap.ui.core.ComponentContainer({
+						height : "100%",
+						name : "com.sap.me.customOperationPOD",
+						settings: {
+						      componentData: { "UserFirst" : "SITE" ,
+						    	  				"UserLast" : "ADMIN",
+						    	  				"UserID" : "SITE_ADMIN"
+						    	  			}
+						    }
+					})
+				}).placeAt("content");
+			});
+		</script>
+	</head>
+	<body class="sapUiBody" id="content">
+	</body>
+</html>
