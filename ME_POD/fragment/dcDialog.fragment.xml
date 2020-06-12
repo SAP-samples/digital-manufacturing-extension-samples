@@ -1,0 +1,13 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog contentHeight="30rem"
+		title="{dataCollectionSuggestionModel>description}"
+		class="sapUiPopupWithPadding"
+		items="{dataCollectionSuggestionModel>/validValueList}"
+		confirm="_handleDCValueHelpClose"
+		cancel="_handleDCValueHelpClose">
+		<StandardListItem
+			title="{dataCollectionSuggestionModel>value}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

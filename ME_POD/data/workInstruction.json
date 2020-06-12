@@ -1,0 +1,16 @@
+[
+	{
+		"nameWithRevision": "ASSEMBLY/1",
+		"description": "File Work Instruction for Assembly",
+		"url": "https://sapui5.hana.ondemand.com/test-resources/sap/ui/vk/demokit/tutorial/VIT/01/src/models/cooper.vds"
+	}, {
+		"nameWithRevision": "EV10_WIRE_PCB/1",
+		"description": "EV10_WIRE_PCB/1",
+		"url":"https://sapui5.hana.ondemand.com/test-resources/sap/ui/vk/demokit/tutorial/VIT/04/src/models/boxTestModel.vds"
+	}, {
+		"nameWithRevision": "GIF/1",
+		"description": "GIF/1",
+		"url":"https://upst.fwdcdn.com/img/top-logo-ua-mod3.gif"
+	}
+]
+

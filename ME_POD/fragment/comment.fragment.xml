@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover title="{i18n>plugin.comments.lbl}" class="sapUiPopupWithPadding" placement="Auto" initialFocus="commentText">
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button id="commentSave" text="{i18n>common.button.save}" enabled="{commentModel>/valueNotCollected}" press="handleCommentSave"/>
+				<Button id="commentCancel" text="{i18n>cancel}" press="handleCommentCancel"/>
+			</Toolbar>
+		</footer>
+		<VBox>
+			<TextArea id="commentText" value="{commentModel>/enteredComment}" rows="3" width="15em" enabled="{commentModel>/valueNotCollected}"/>
+		</VBox>
+	</Popover>
+</core:FragmentDefinition>

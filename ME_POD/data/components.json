@@ -1,0 +1,18 @@
+[
+	{
+		"componentWithRevision": "D2O_DMC_BODY_STANDARD/A",
+		"description": "Control Head Body",
+		"qtyRequired": "1",
+		"qtyRemaining": "1"
+	}, {
+		"componentWithRevision": "D2O_DMC_COVER_BLUE/A",
+		"description": "Kunststoffabdeckung blau",
+		"qtyRequired": "1",
+		"qtyRemaining": "1"
+	}, {
+		"componentWithRevision": "D2O_DMC_ALLEN_SCREW/A",
+		"description": "Allen Screw",
+		"qtyRequired": "3",
+		"qtyRemaining": "3"
+	}
+]
