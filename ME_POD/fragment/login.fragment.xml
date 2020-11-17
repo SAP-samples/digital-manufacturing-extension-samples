@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" displayBlock="true" xmlns="sap.m">
+	<Dialog id="loginDialog" title="{i18n>login.title}" contentWidth="500px" contentHeight="180px">
+		<content>
+			<f:SimpleForm id="loginForm" editable="true" layout="ResponsiveGridLayout" labelSpanL="2" labelSpanM="2" emptySpanL="0" emptySpanM="0"
+				columnsL="3" columnsM="3" class="editableForm" minWidth="1000" maxContainerCols="2">
+				<f:content>
+					<Label text="{i18n>login.userName}" labelFor="user"/>
+					<Input id="user" placeholder="{i18n>login.userPrompt}" value="{loginModel>/USERNAME}"/>
+					<Label text="Password" labelFor="password"/>
+					<Input id="password" type="{i18n>login.password}" placeholder="{i18n>login.passwordPrompt}" value="{loginModel>/PASSWORD}"/>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<buttons>
+			<Button text="{i18n>login.confirm}" type="Accept" press="fnCheckUser"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

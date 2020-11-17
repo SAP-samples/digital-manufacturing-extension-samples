@@ -1,0 +1,75 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout">
+	<Dialog id="dialog" title="{i18n>browseDialog.operation.title}" afterClose="onClose" contentHeight="2000px">
+		<content>
+			<fb:FilterBar id="filterBar" showGoOnFB="false" showClearOnFB="true" showFilterConfiguration="false" filterBarExpanded="false"
+				filterContainerWidth="225px" clear="onOperationFilterBarClear" basicSearch="operationSearchField">
+				<fb:content>
+					<l:VerticalLayout visible="false">
+						<SearchField id="operationSearchField" showSearchButton="false" liveChange="onOperationLiveChange" maxLength="200"/>
+					</l:VerticalLayout>
+				</fb:content>
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem groupName="basic" name="operation" label="{i18n>common.operation.lbl}" visibleInFilterBar="true">
+						<fb:control>
+							<Input id="operationFilter" change="onOperationFilterBarChange" class="mesUpperCaseTransform" maxLength="200"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="basic" name="description" label="{i18n>common.description.lbl}" visibleInFilterBar="true">
+						<fb:control>
+							<Input id="descriptionFilter" change="onOperationFilterBarChange" maxLength="200"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="basic" name="status" label="{i18n>common.status.lbl}" visibleInFilterBar="true">
+						<fb:control>
+							<Select id="statusFilter" selectedKey="ALL" change="onOperationFilterBarChange">
+								<items>
+									<core:Item key="ALL" text="" />
+									<core:Item key="201" text="Releasable"/>
+									<core:Item key="202" text="Frozen"/>
+									<core:Item key="203" text="Obsolete"/>
+									<core:Item key="204" text="Hold"/>
+									<core:Item key="205" text="New"/>
+								</items>
+							</Select>
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+			<Table id="operationResultTable"
+				items="{ path: 'operationSuggestionModel>/' }"
+				mode="SingleSelectMaster" selectionChange="onSelectOperation" growing="true" growingThreshold="20" growingScrollToLoad="true">
+				<columns>
+					<Column>
+						<Text text="{i18n>common.operationActivity.lbl}"/>
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+						<Text text="{i18n>common.description.lbl}"/>
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+						<Text text="{i18n>common.version.lbl}"/>
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+						<Text text="{i18n>common.status.lbl}"/>
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+						<Text text="{i18n>common.currentVersion.lbl}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{operationSuggestionModel>operation}"/>
+							<Text text="{operationSuggestionModel>description}"/>
+							<Text text="{operationSuggestionModel>revision}"/>
+							<Text text="{ path: 'operationSuggestionModel>statusRef', type: 'sap.ui.model.odata.type.String', formatter: '.formatter.getOperationStatusDescription' }"/>
+							<Text text="{operationSuggestionModel>currentRevision}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<beginButton>
+			<Button id="closeButton" text="{i18n>common.cancel.btn}" tooltip="{i18n>common.cancel.btn}" press="onOperationFilterCancel"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

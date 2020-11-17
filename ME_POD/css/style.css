@@ -1,0 +1,88 @@
+/* Enter your custom styles here */
+.sapMScrollCont.sapUiResponsiveContentPadding>.sapMScrollContScroll {
+    padding: 1rem 1rem;
+    box-sizing: border-box;
+}
+
+.buttonBarPadding {
+    padding: 0.5rem 0.5rem;
+}
+
+.startBtn .sapMBtnIcon {
+    color: rgb(5, 204, 58);
+}
+
+.signOffBtn .sapMBtnIcon {
+    color: rgb(250, 20, 20);
+}
+
+.completeBtn .sapMBtnIcon {
+    color: rgb(10, 0, 0);
+}
+
+.sideToolBar{
+    background-color: #fff;
+    border-right: 1px solid #d9d9d9;
+}
+
+.sapcustomPodButton {
+    height: 3.9rem;
+    width: 3.9rem
+}
+.sapcustomPodButton.sapMBtn {
+    height: 3.9rem;
+
+}
+
+.sapcustomPodButton > .sapMBtnInner {
+    height: 3.5rem;
+    min-width: 2.00rem;
+}
+
+.sapcustomPodButton > .sapMBtnInner > .sapMBtnIcon {
+    line-height: 3.000rem;
+    width: 2.000rem;
+    font-size: 2.000rem;
+    max-height: 1.500rem;
+    margin-left: 0.4375rem;
+    margin-right: 0.4375rem;
+    margin-top:0.2rem;
+}
+
+.sapFDynamicPageTitleActionsBar {
+    height: 3.9rem !important;
+    margin-left: -0.2rem;
+}
+
+
+.sapMesUpperCaseTransform {
+}
+ /* 1.58.2 version */
+.sapMesUpperCaseTransform > .sapMInputBaseContentWrapper > .sapMInputBaseInner {
+   text-transform: uppercase;
+}
+ /* pre-1.58.2 version */
+.sapMesUpperCaseTransform > .sapMInputDivWrapper > .sapMInputBaseInner {
+   text-transform: uppercase;
+}
+
+
+
+.GridDataSample .exampleDiv {
+	height: 7rem;
+	width: 100%;
+	background-color: #A9EAFF;
+}
+
+.GridDataSample .exampleDiv>p,
+.GridDataSample .propertiesDisplay {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.GridDataSample p {
+	margin: 0;
+	text-align: center;
+	line-height: 150%;
+}

@@ -1,0 +1,76 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout">
+	<Dialog id="dialog" title="{i18n>browseDialog.resource.title}" afterClose="onClose" contentHeight="2000px">
+		<content>
+			<fb:FilterBar id="filterBar" showGoOnFB="false" showClearOnFB="true" showFilterConfiguration="false" filterBarExpanded="false"
+				filterContainerWidth="225px" clear="onResourceFilterBarClear" basicSearch="resourceSearchField">
+				<fb:content>
+					<l:VerticalLayout visible="false">
+						<SearchField id="resourceSearchField" showSearchButton="false" liveChange="onResourceLiveChange" maxLength="200"/>
+					</l:VerticalLayout>
+				</fb:content>
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem groupName="basic" name="resource" label="{i18n>common.resource.lbl}" visibleInFilterBar="true">
+						<fb:control>
+							<Input id="resourceFilter" change="onResourceFilterBarChange" class="mesUpperCaseTransform" maxLength="200"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="basic" name="description" label="{i18n>common.description.lbl}" visibleInFilterBar="true">
+						<fb:control>
+							<Input id="descriptionFilter" change="onResourceFilterBarChange" maxLength="200"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="basic" name="status" label="{i18n>common.status.lbl}" visibleInFilterBar="true">
+						<fb:control>
+							<Select id="statusFilter" selectedKey="ALL" change="onResourceFilterBarChange">
+								<items>
+									<core:Item key="ALL" text="" />
+									<core:Item key="0" text="Unknown"/>
+									<core:Item key="1" text="Productive"/>
+									<core:Item key="2" text="Standby"/>
+									<core:Item key="3" text="Engineering"/>
+									<core:Item key="301" text="Enabled"/>
+									<core:Item key="302" text="Disabled"/>
+									<core:Item key="303" text="Hold"/>
+									<core:Item key="4" text="Scheduled Down"/>
+									<core:Item key="5" text="Unscheduled Down"/>
+									<core:Item key="6" text="Non-scheduled"/>
+									<core:Item key="HOLD_CONSEC_NC_R" text="Hold Consec NC"/>
+									<core:Item key="HOLD_SPC_VIOL_R" text="Hold SPC Violation"/>
+									<core:Item key="HOLD_SPC_WARN_R" text="Hold SPC Warning"/>
+									<core:Item key="HOLD_YLD_RATE_R" text="Hold Yield Rate"/>
+								</items>
+							</Select>
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+			<Table id="resourceResultTable" items="{ path: 'resourceSuggestionModel>/' }" mode="SingleSelectMaster" selectionChange="onSelectResource"
+				growing="true" growingThreshold="20" growingScrollToLoad="true">
+				<columns>
+					<Column>
+						<Text text="{i18n>common.resource.lbl}"/>
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+						<Text text="{i18n>common.description.lbl}"/>
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
+						<Text text="{i18n>common.status.lbl}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{resourceSuggestionModel>resource}"/>
+							<Text text="{resourceSuggestionModel>description}"/>
+							<Text
+								text="{ parts: [ 'resourceSuggestionModel>statusRef', 'resourceSuggestionModel>site' ], formatter: '.formatter.getResourceStatusDescription' }"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<beginButton>
+			<Button id="closeButton" text="{i18n>common.cancel.btn}" tooltip="{i18n>common.cancel.btn}" press="onResourceFilterCancel"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>
