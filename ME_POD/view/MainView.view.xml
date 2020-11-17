@@ -1,0 +1,375 @@
+<mvc:View controllerName="com.sap.me.customOperationPOD.controller.MainView" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:vm="sap.ui.comp.variants" xmlns:vk="sap.ui.vk" xmlns:form="sap.ui.layout.form" xmlns:tnt="sap.tnt">
+	<App id="idAppControl" class="sapUiSizeCozy">
+		<tnt:ToolPage id="toolPage">
+			<tnt:header>
+				<f:ShellBar title="{headingModel>/title}" secondTitle="Site: {parametersModel>/Site}"
+					homeIcon="https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg.adapt.svg/1493030643828.svg" showCopilot="false"
+					showSearch="false" showMenuButton="false" showNavButton="false" showNotifications="true" showProductSwitcher="false">
+					<f:profile>
+						<f:Avatar initials="{headingModel>/User}"/>
+					</f:profile>
+					<f:additionalContent>
+						<OverflowToolbarButton type="Transparent" text="" icon="sap-icon://switch-views" press="handleThemeSelection"/>
+					</f:additionalContent>
+				</f:ShellBar>
+			</tnt:header>
+			<tnt:mainContents>
+				<f:DynamicPage id="dynamicPageId" headerExpanded="false" class="sapUiNoContentPadding">
+					<!-- DynamicPage Title -->
+					<f:title>
+						<f:DynamicPageTitle>
+							<f:heading>
+								<vm:VariantManagement standardItemText="{parametersModel>/Resource}"></vm:VariantManagement>
+							</f:heading>
+							<f:snappedContent>
+								<Label text="{i18n>common.operation.lbl}: {parametersModel>/Operation}"/>
+							</f:snappedContent>
+							<f:actions>
+								<Button type="Success" width="3.9rem" tooltip="{i18n>common.button.start}" icon="sap-icon://fob-watch" enabled="{viewModel>/Start}"
+									press="startSFC" class="sapcustomPodButton sapUiSmallMarginEnd"/>
+								<Button type="Negative" width="3.9rem" tooltip="{i18n>common.button.signOff}" icon="sap-icon://past" enabled="{viewModel>/SignOff}"
+									press="signOffSFC" class="sapcustomPodButton sapUiSmallMarginEnd"/>
+								<Button type="Emphasized" width="3.9rem" tooltip="{i18n>common.button.complete}" icon="sap-icon://flag" enabled="{viewModel>/Complete}"
+									press="completeSFC" class="sapcustomPodButton sapUiSmallMarginEnd"/>
+							</f:actions>
+						</f:DynamicPageTitle>
+					</f:title>
+					<!-- DynamicPage Header -->
+					<f:header>
+						<f:DynamicPageHeader pinnable="true">
+							<f:content>
+								<fb:FilterBar id="filterBar" useToolbar="false" search="handleSearch" clear="onClear"  showClearOnFB="false" showGoOnFB="false" showFilterConfiguration="false">
+									<fb:filterGroupItems>
+										<fb:FilterGroupItem groupName="INTERNAL_GROUP" visibleInFilterBar="true" partOfCurrentVariant="false" mandatory="{/inputFilterMandatory}"
+											name="INPUT" label="{i18n>sfcFilterLabel}" labelTooltip="{/inputFilterTooltip}" visible="true">
+											<fb:control>
+												<Input id="inputFilter" placeholder="{/inputFilterPlaceholder}" type="Text" showValueHelp="false" class="sapMesUpperCaseTransform"
+													value="{parametersModel>/sfc}" maxLength="{/inputFilterMaxLength}" width="{/inputFilterWidth}" change="onChange"></Input>
+											</fb:control>
+										</fb:FilterGroupItem>
+										<fb:FilterGroupItem groupName="INTERNAL_GROUP" visibleInFilterBar="true" partOfCurrentVariant="false" mandatory="true" name="OPERATION"
+											label="{i18n>operationFilterLabel}" labelTooltip="{/workCenterFilterTooltip}" visible="true">
+											<fb:control>
+												<Input id="operationFilter" type="Text" value="{parametersModel>/Operation}" placeholder="{/workCenterFilterPlaceholder}"
+													showSuggestion="true" showValueHelp="true" valueHelpRequest="showOperationDialog" class="sapMesUpperCaseTransform" change="onChange"
+													suggestionItems="{ path: 'plant>/Workcenters', templateShareable: true }">
+													<suggestionItems>
+														<core:ListItem key="{plant>ref}" text="{plant>workcenter}"
+															additionalText="{=(${plant>description}!==${plant>workcenter})?${plant>description}:null}"/>
+													</suggestionItems>
+												</Input>
+											</fb:control>
+										</fb:FilterGroupItem>
+										<fb:FilterGroupItem groupName="INTERNAL_GROUP" visibleInFilterBar="true" partOfCurrentVariant="false" mandatory="true" name="RESOURCE"
+											label="{i18n>resourceFilterLabel}" labelTooltip="{/resourceFilterTooltip}" visible="{/resourceFilterVisible}">
+											<fb:control>
+												<Input id="resourceFilter" type="Text" value="{parametersModel>/Resource}" placeholder="{/resourceFilterPlaceholder}" showSuggestion="true"
+													showValueHelp="true" valueHelpRequest="showResourceDialog" class="sapMesUpperCaseTransform" change="onChange"
+													suggestionItems="{ path: 'plant>/Resources', templateShareable: true }">
+													<suggestionItems>
+														<core:ListItem key="{plant>resource}" text="{plant>resource}"
+															additionalText="{=(${plant>description}===${plant>resource})?null:${plant>description}}"/>
+													</suggestionItems>
+												</Input>
+											</fb:control>
+										</fb:FilterGroupItem>
+									</fb:filterGroupItems>
+								</fb:FilterBar>
+							</f:content>
+						</f:DynamicPageHeader>
+					</f:header>
+					<!-- DynamicPage Content -->
+					<f:content>
+						<l:Splitter height="100%" width="100%">
+							<l:Splitter height="100%" orientation="Vertical" width="100%">
+								<l:layoutData>
+									<l:SplitterLayoutData size="auto"/>
+								</l:layoutData>
+								<ScrollContainer id="mainLayout" width="100%" height='100%' vertical='true' class="sapUiResponsiveContentPadding">
+									<Table id="idWorkList" items="{workListModel>/}" alternateRowColors="true" sticky="ColumnHeaders,HeaderToolbar" mode="SingleSelectMaster"
+										selectionChange="fnWorkListSelection">
+										<headerToolbar>
+											<OverflowToolbar>
+												<Title text="{i18n>plugin.worklist.lbl}" level="Auto"/>
+											</OverflowToolbar>
+										</headerToolbar>
+										<infoToolbar>
+											<OverflowToolbar id="vsdFilterBar" visible="false">
+												<Text id="vsdFilterLabel"/>
+											</OverflowToolbar>
+										</infoToolbar>
+										<columns>
+											<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin"><Text text="{i18n>plugin.sfc.lbl}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin"><Text text="{i18n>plugin.materialDescription.lbl}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End" width="7rem"><Text text="{i18n>plugin.sfcQty.lbl}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="7rem"><Text text="{i18n>plugin.status.lbl}"/></Column>
+										</columns>
+										<items>
+											<ColumnListItem type="Active">
+												<cells>
+													<ObjectIdentifier title="{workListModel>sfc}"/>
+													<Text text="{workListModel>itemDescription}"/>
+													<Text text="{workListModel>qty}"/>
+													<core:Icon src="{ path: 'workListModel>statusCode', formatter: '.formatter.getStatusIcon' }" visible="true"
+														color="{ path: 'workListModel>statusCode', formatter: '.formatter.getStatusColor' }"></core:Icon>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</ScrollContainer>
+								<ScrollContainer id="charLayout" width="100%" height='100%' vertical='true' class="sapUiResponsiveContentPadding">
+									<Table id="idCharList" items="{charcterModel>/}" alternateRowColors="true" sticky="ColumnHeaders,HeaderToolbar">
+										<headerToolbar>
+											<OverflowToolbar>
+												<Title text="{i18n>plugin.charcteristicList.lbl}" level="Auto"/>
+											</OverflowToolbar>
+										</headerToolbar>
+										<columns>
+											<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin"><Text text="{i18n>plugin.charcteristicDesc.lbl}"/></Column>
+											<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin"><Text text="{i18n>plugin.charcteristicValue.lbl}"/></Column>
+										</columns>
+										<items>
+											<ColumnListItem type="Inactive">
+												<cells>
+													<ObjectIdentifier title="{charcterModel>characteristicDescription}"/>
+													<Text text="{charcterModel>characteristicValueDesc}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</ScrollContainer>
+							</l:Splitter>
+							<VBox width="100%" height='100%'>
+								<layoutData>
+									<l:SplitterLayoutData size="auto"/>
+								</layoutData>
+								<VBox width="100%" height="100%">
+									<IconTabBar expanded="true" expandable="false" id="idIconTabBar2" class="sapUiNoContentPadding" stretchContentHeight="true"
+										backgroundDesign="Transparent" applyContentPadding="false">
+										<items>
+											<IconTabFilter icon="sap-icon://work-history" iconColor="Critical" design="Horizontal" count="" text="{i18n>plugin.workInstructionList.lbl}"
+												key="WI">
+												<content>
+													<VBox height="100%" width="100%">
+														<!--														<IconTabBar id="wiIconBar" expanded="true" expandable="false" class="sapUiNoContentPadding" items="{workInstructionModel>/}"
+															stretchContentHeight="true" select="fnWISelect">
+															<items>
+																<IconTabFilter text="{workInstructionModel>description}" key="{workInstructionModel>wiName}"></IconTabFilter>
+															</items>
+														</IconTabBar>-->
+														<TabContainer items="{workInstructionModel>/}" id="wiIconBar" showAddNewButton="false" itemSelect="fnWISelect" itemClose="fnWICloseHandler">
+															<items>
+																<TabContainerItem name="{workInstructionModel>description}"/>
+															</items>
+														</TabContainer>
+													</VBox>
+												</content>
+											</IconTabFilter>
+											<IconTabFilter icon="sap-icon://org-chart" iconColor="Positive" design="Horizontal" count="" text="{i18n>plugin.componentList.lbl}"
+												key="Assembly">
+												<l:VerticalLayout width="100%" class="gridWrapper">
+													<l:Grid containerQuery="true" vSpacing="0" defaultSpan="L12 M12 S12">
+														<ScrollContainer id="mainLayout2" width="100%" vertical='true' class="sapUiResponsiveContentPadding" height="16.5rem">
+															<Table id="idWorkList2" items="{path : 'componentModel>/', sorter : { path : 'qtyRemaining', group : '.getGroup' } }"
+																alternateRowColors="true" sticky="ColumnHeaders,HeaderToolbar" mode="None">
+																<columns>
+																	<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" visible="true"><Text text="{i18n>plugin.componentVersion.lbl}"/></Column>
+																	<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" visible="true"><Text text="{i18n>plugin.description.lbl}"/></Column>
+																	<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End" visible="true"><Text text="{i18n>plugin.requiredQuantity.lbl}"/></Column>
+																	<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End" visible="true"><Text text="{i18n>plugin.remainingQuantity.lbl}"/></Column>
+																	<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" visible="true"><Text text="{i18n>plugin.action.lbl}"/></Column>
+																</columns>
+																<items>
+																	<ColumnListItem type="Active">
+																		<cells>
+																			<ObjectIdentifier title="{componentModel>componentWithRevision}"/>
+																			<Text text="{componentModel>description}"/>
+																			<Text text="{componentModel>qtyRequired}"/>
+																			<Text text="{componentModel>qtyRemaining}"/>
+																			<Button type="Accept" text="{i18n>common.buttons.assemble}" press="assembleComponent"
+																				enabled="{ path: 'componentModel>qtyRemaining', formatter: '.formatter.getComponentStatus' }"/>
+																		</cells>
+																	</ColumnListItem>
+																</items>
+															</Table>
+														</ScrollContainer>
+														<ScrollContainer id="mainLayout3" width="100%" vertical='true' class="sapUiNoContentPadding" visible="true">
+															<Panel id="assyPointPanel" accessibleRole="Region" backgroundDesign="Solid" height="100%" width="100%" class="sapUiNoContentPadding">
+																<headerToolbar>
+																	<Toolbar>
+																		<Title id="assemblyHeaderText" text="{i18n>plugin.assembleComponents.lbl}"/>
+																		<ToolbarSpacer/>
+																		<Title id="assyPointMode" text=""/>
+																		<!--<Button id="toolbarCloseButton" icon="sap-icon://decline" press="onClosePress" tooltip="Close"/>-->
+																	</Toolbar>
+																</headerToolbar>
+																<VBox fitContainer="true" height="100%" renderType="Bare">
+																	<MessageStrip id="assyMessageStrip" showIcon="true" text="{/pluginStatusText}" type="{viewModel>/pluginStatusType}" visible="false"
+																		class="sapUiSmallMargin sapUiTinyMarginBottom">
+																		<layoutData>
+																			<FlexItemData growFactor="0" shrinkFactor="0"/>
+																		</layoutData>
+																	</MessageStrip>
+																	<ProgressIndicator id="progressIndicator" class="sapUiSmallMargin sapUiTinyMarginTopBottom"
+																		displayValue="{ parts: [{path:'assemblyDataModel>/qtyRequired'}, {path:'assemblyDataModel>/qtyRequired'}], formatter: '.getProgressIndicatorLabel' }"
+																		showValue="true"
+																		percentValue="{ parts: ['assemblyDataModel>/qtyRequired', 'assemblyDataModel>/qtyRequired'], formatter: '.getProgressIndicatorPercentValue' }"
+																		state="Success" visible="{viewModel>/isProgressBarVisible}" width="auto">
+																		<layoutData>
+																			<FlexItemData growFactor="0" shrinkFactor="0"/>
+																		</layoutData>
+																	</ProgressIndicator>
+																	<form:SimpleForm class="dmeScrollableInner" layout="ResponsiveGridLayout">
+																		<!-- tells FlexBox(VBox) that this section should take all available vertical space -->
+																		<form:layoutData>
+																			<FlexItemData growFactor="1" shrinkFactor="1"/>
+																		</form:layoutData>
+																		<!-- COMPONENT DETAILS -->
+																		<!-- Layout data of the controls in this form makes fields to display in two columns in wide container -->
+																		<form:SimpleForm id="assyPointDetailForm" editable="true" title="{i18n>plugin.componentDetails.lbl}"
+																			visible="{viewModel>/areDetailsVisible}" layout="ResponsiveGridLayout" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1">
+																			<form:layoutData>
+																				<l:GridData span="XL6 L6 M12 S12"/>
+																			</form:layoutData>
+																			<form:content>
+																				<Label text="{i18n>plugin.componentName.lbl}" required="false">
+																					<layoutData>
+																						<l:GridData span="XL3 L3 M3 S12"/>
+																					</layoutData>
+																				</Label>
+																				<Input id="assyCompName2" class="sapMesUpperCaseTransform" value="{assemblyDataModel>/component}" editable="false">
+																					<layoutData>
+																						<l:GridData span="XL4 L4 M4 S12"/>
+																					</layoutData>
+																				</Input>
+																				<Label text="{i18n>plugin.version.lbl}" required="false">
+																					<layoutData>
+																						<l:GridData span="XL2 L2 M2 S12"/>
+																					</layoutData>
+																				</Label>
+																				<Input id="assyCompVer2" class="sapMesUpperCaseTransform" value="{assemblyDataModel>/revision}" editable="false">
+																					<layoutData>
+																						<l:GridData span="XL2 L2 M2 S12"/>
+																					</layoutData>
+																				</Input>
+																				<Label text="{i18n>plugin.description.lbl}" required="false">
+																					<layoutData>
+																						<l:GridData span="XL3 L3 M3 S12"/>
+																					</layoutData>
+																				</Label>
+																				<Text id="assyCompDesc2" class="sapMesUpperCaseTransform" text="{assemblyDataModel>/description}">
+																					<layoutData>
+																						<l:GridData span="XL4 L4 M4 S12"/>
+																					</layoutData>
+																				</Text>
+																				<Label text="{i18n>plugin.quantity.lbl}" required="false">
+																					<layoutData>
+																						<l:GridData span="XL2 L2 M2 S12"/>
+																					</layoutData>
+																				</Label>
+																				<Input id="assyQty2" class="sapMesUpperCaseTransform" value="{assemblyDataModel>/qtyToAssemble}">
+																					<layoutData>
+																						<l:GridData span="XL2 L2 M2 S12"/>
+																					</layoutData>
+																				</Input>
+																			</form:content>
+																		</form:SimpleForm>
+																		<!-- ASSEMBLY DATA -->
+																		<l:VerticalLayout>
+																			<l:layoutData>
+																				<l:GridData span="XL6 L6 M12 S12"/>
+																			</l:layoutData>
+																			<form:SimpleForm id="assyPointAssyDataForm" editable="true" title="{i18n>plugin.assemblyData.lbl}" visible="{viewModel>/areDetailsVisible}"
+																				layout="ResponsiveGridLayout" adjustLabelSpan="false" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" emptySpanXL="2"
+																				emptySpanL="2" emptySpanM="2" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+																				<form:content>
+																					<Label text="{viewModel>/assemblyFieldDescription}" visible="{viewModel>/showSerialVisible}"/>
+																					<Input id="Serial" value="{assemblyDataModel>/assemblyDataCollection}" visible="{viewModel>/showSerialVisible}"/>
+																				</form:content>
+																			</form:SimpleForm>
+																			<Toolbar visible="{= ${viewModel>/areDetailsVisible} &amp;&amp; ${viewModel>/showNoAssyDataText}}">
+																				<ToolbarSpacer/>
+																				<Text text="{i18n>plugin.noData}"/>
+																				<ToolbarSpacer/>
+																			</Toolbar>
+																		</l:VerticalLayout>
+																	</form:SimpleForm>
+																	<Toolbar design="Solid">
+																		<ToolbarSpacer/>
+																		<Button id="assemblyButton" class="sapUiSmallMarginEnd" type="Emphasized" text="{i18n>common.button.add}"
+																			enabled="{viewModel>/isReadyForAssembly}" press="onAddPress" width="7em"/>
+																		<layoutData>
+																			<FlexItemData growFactor="0" shrinkFactor="0"/>
+																		</layoutData>
+																	</Toolbar>
+																</VBox>
+															</Panel>
+														</ScrollContainer>
+													</l:Grid>
+												</l:VerticalLayout>
+											</IconTabFilter>
+											<IconTabFilter icon="sap-icon://measuring-point" iconColor="Default" design="Horizontal" count=""
+												text="{i18n>plugin.dataCollectionList.lbl}" key="DC">
+												<content>
+													<ScrollContainer id="mainLayout4" width="100%" height="16.5rem" vertical='true' class="sapUiResponsiveContentPadding">
+														<Table id="idWorkList3" items="{dataCollectionModel>/}" alternateRowColors="true" sticky="ColumnHeaders,HeaderToolbar">
+															<columns>
+																<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" visible="true"><Text text="{i18n>plugin.datacollectionGroupVersion.lbl}"/></Column>
+																<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End" visible="true"><Text text=""/></Column>
+															</columns>
+															<items>
+																<ColumnListItem type="Active">
+																	<cells>
+																		<ObjectIdentifier title="{dataCollectionModel>dcGroup}/{dataCollectionModel>revision}"/>
+																		<Button type="Emphasized" text="{i18n>common.button.collect}" press="collectData"/>
+																	</cells>
+																</ColumnListItem>
+															</items>
+														</Table>
+													</ScrollContainer>
+													<ScrollContainer id="mainLayout5" width="100%" height="16.5rem" vertical='true' class="sapUiResponsiveContentPadding">
+														<Table id="idDCList" items="{dataCollectionDetailModel>/}" alternateRowColors="true" sticky="ColumnHeaders,HeaderToolbar">
+															<columns>
+																<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" visible="true"><Text text="{i18n>plugin.parameterName.lbl}"/></Column>
+																<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Begin" visible="true"><Text text="{i18n>plugin.parameterValue.lbl}"/></Column>
+																<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" width="6rem" visible="true"><Text text="{i18n>plugin.comments.lbl}"/></Column>
+															</columns>
+															<items>
+																<ColumnListItem type="Active">
+																	<cells>
+																		<ObjectIdentifier title="{dataCollectionDetailModel>description}"/>
+																		<Input type="Text" value="{dataCollectionDetailModel>enteredValue}"
+																			valueHelpOnly="{ path: 'dataCollectionDetailModel>dataType', formatter: '.formatter.getDCValueHelpOnly' }"
+																			showValueHelp="{ path: 'dataCollectionDetailModel>dataType', formatter: '.formatter.getDCValueHelpOnly' }"
+																			valueHelpRequest="dataListValueHelp" editable="{dataCollectionDetailModel>valueNotCollected}"/>
+																		<Button icon="sap-icon://comment" press="enterComments"/>
+																	</cells>
+																</ColumnListItem>
+															</items>
+														</Table>
+													</ScrollContainer>
+													<Toolbar design="Solid">
+														<ToolbarSpacer/>
+														<Button id="dcButton" class="sapUiSmallMarginEnd" type="Emphasized" text="{i18n>common.button.save}" press="fnLogDC" width="7em"
+															enabled="{dataCollectionViewModel>/save}"/>
+														<layoutData>
+															<FlexItemData growFactor="0" shrinkFactor="0"/>
+														</layoutData>
+													</Toolbar>
+												</content>
+											</IconTabFilter>
+										</items>
+									</IconTabBar>
+								</VBox>
+							</VBox>
+						</l:Splitter>
+					</f:content>
+					<!-- DynamicPage Footer -->
+					<!--			<f:footer></f:footer>-->
+				</f:DynamicPage>
+			</tnt:mainContents>
+		</tnt:ToolPage>
+	</App>
+</mvc:View>
