@@ -1,0 +1,41 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Popover
+        id="assembledComponentDataPopover"
+        showHeader="true"
+        contentWidth="450px"
+        resizable="false"
+        placement="Left"
+        title="{i18n>assembledDataPopoverTitle}"
+        afterOpen="onAssembledDataPopoverOpened"
+        afterClose="onAssembledDataPopoverClose">
+       <Table
+           id="assemblyDataTable"
+           width="100%"
+           inset="false"
+           backgroundDesign="Solid"
+           mode="None"
+           class="sapUiSizeCompact"
+           items="{
+               path: 'AssembledData>/dataFields'
+           }">
+           <columns>
+               <Column width="50%" hAlign="Begin" vAlign="Middle" >
+                   <Text text="{i18n>assembledDataType.LABEL}" wrapping="false"/>
+               </Column>
+               <Column width="50%" hAlign="Begin" vAlign="Top" >
+                   <Text text="{i18n>assembledDataValue.LABEL}" wrapping="false"/>
+               </Column>
+           </columns>
+           <items>
+               <ColumnListItem>
+                   <cells>
+                       <Label text="{AssembledData>fieldName}"/>
+                       <Label text="{AssembledData>fieldValue}" design="Bold" wrapping="true"/>
+                   </cells>
+               </ColumnListItem>
+           </items>
+       </Table>
+    </Popover>
+</core:FragmentDefinition>

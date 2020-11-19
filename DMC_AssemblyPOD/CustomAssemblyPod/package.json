@@ -1,0 +1,14 @@
+{
+  "name": "CustomAssemblyPod",
+  "description": "",
+  "devDependencies": {
+    
+  },
+  "dependencies": {
+    "@sap/approuter": "6.5.0"
+  },
+  "scripts": {
+	"start": "node node_modules/@sap/approuter/approuter.js",
+    "test": "grunt unit_and_integration_tests"
+  }
+}

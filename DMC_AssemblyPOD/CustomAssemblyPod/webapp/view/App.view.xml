@@ -1,0 +1,9 @@
+<mvc:View
+    controllerName="sap.custom.assemblypod.controller.App"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true">
+    <Shell>
+        <App id="appLayout"/>
+    </Shell>
+</mvc:View>
