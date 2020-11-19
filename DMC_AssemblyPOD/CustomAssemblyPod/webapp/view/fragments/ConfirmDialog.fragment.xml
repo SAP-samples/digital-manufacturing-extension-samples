@@ -1,0 +1,27 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+
+    controllerName="sap.dm.dme.dcplugins.dataCollectionEntryPlugin.controller.PluginView"
+    >
+  <Dialog
+	    id="ConfirmDialog"
+	    title="{i18n>confirmDialog.sfcCompleted}"
+	    resizable="false"
+	    draggable="true"
+        contentWidth="300px"
+        contentHeight="105px">
+    
+	    <content>
+	    	<HBox justifyContent="Center">
+	   			<HBox width="50%" justifyContent="SpaceAround">
+	   				<Button id="cancelButton" icon="sap-icon://decline" press="_handleConfirmDialogCancel" tooltip="{i18n>confirmDialog.cancel}" class="sapAssemblyPodConfirmButton" type="Reject" />
+	       			<Button id="confirmButton" icon="sap-icon://flag" press="_handleConfirmDialogOK" tooltip="{i18n>confirmDialog.complete}" class="sapAssemblyPodConfirmButton" type="Accept" />        
+		        </HBox>
+	        </HBox>
+	    </content>
+    
+  </Dialog>
+</core:FragmentDefinition>

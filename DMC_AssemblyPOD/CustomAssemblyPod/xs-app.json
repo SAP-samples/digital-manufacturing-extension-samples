@@ -1,0 +1,18 @@
+{
+	"welcomeFile": "/ui/index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutEndpoint": "/do/logout"
+	},
+	"routes": [{
+		"source": "^/ui/(.*)$",
+		"target": "$1",
+		"localDir": "webapp"
+	}, {
+		"source": "^/dmeapi/(.*)$",
+		"target": "$1",
+		"destination": "ASSEMBLY_POD_DEST",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	}]
+}
