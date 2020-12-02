@@ -1,0 +1,95 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<VBox id="operationLayout" width="35%" height="100%" direction="Column" backgroundDesign="Solid">
+	    <items>
+            <HBox id="sfcInfoHeader" class="sapUiTinyMarginBottom sapUiNoMarginBegin sapUiNoMarginEnd" height="95px">
+                <items>
+		            <HBox class="sapSfcInfoHeaderIconContainer sapUiMediumMarginBegin" justifyContent="Start" alignContent="Center" width="15%">
+		                <core:Icon src="{/statusIcon}" size="38px" 
+		                           backgroundColor="{/backgroundColor}" activeBackgroundColor="{/backgroundColor}" hoverBackgroundColor="{/backgroundColor}" 
+		                           color="{/foregroundColor}" activeColor="{/foregroundColor}" hoverColor="{/foregroundColor}" >
+	                    </core:Icon>
+		            </HBox>
+	                <VBox height="100%" justifyContent="Center">
+	                    <items>
+                            <HBox >
+                                 <items>
+                                    <Label id="sfcLabelField" text="{i18n>sfcLabel}:" tooltip="{i18n>sfcLabelTooltip}" class="sapSfcInfoSfcLabel" />
+                                    <Label id="sfcValueField" text="{/sfc}" design="Bold" class="sapSfcInfoSfcValue" />
+                                </items>
+                            </HBox>
+                            <Label id="materialDescriptionValueField" text="{/materialDescription}" class="sapSfcInfoMaterialValue" />
+                        </items>
+	                </VBox>
+                </items>
+            </HBox>
+            <HBox class="sfcOrderInfoSection sapUiSmallMarginTop sapUiNoMarginBottom sapUiNoMarginBegin sapUiSmallMarginEnd" >
+                <items>
+                    <HBox id="materialImageContainer" class="sapsfcInfoHeaderIconContainer" 
+                          justifyContent="Center" alignContent="Center" width="30%">
+                        <Image id="materialImageThumbnail" src="{/materialfileThumbnail}" height="124px"/>
+                    </HBox>
+                    <VBox id="sfcOrderInfoContainer" width="70%" height="100%" justifyContent="Center">
+                        <items>
+                            <HBox width="100%" class="sapUiSmallMarginBottom" >
+                                 <items>
+                                    <Label id="orderLabelField" text="{i18n>orderLabel}:" tooltip="{i18n>orderLabelTooltip}" />
+                                    <Label id="orderValueField" text="{/shopOrder}" design="Bold" class="sapSfcInfoHeaderValueMargin" wrapping="true"/>
+                                </items>
+                            </HBox>
+                            <HBox width="100%" class="sapUiSmallMarginBottom" >
+                                 <items>
+                                    <Label id="materialLabelField" text="{i18n>materialLabel}:" tooltip="{i18n>materialLabelTooltip}" />
+                                    <Label id="materialValueField" text="{/material}" design="Bold" class="sapSfcInfoHeaderValueMargin" />
+                                </items>
+                            </HBox>
+                            <HBox width="100%" class="sapUiSmallMarginBottom" >
+                                 <items>
+                                    <Label id="startDateLabelField" text="{i18n>startDateLabel}:" tooltip="{i18n>startDateLabelTooltip}" />
+                                    <Label id="startDateValueField" design="Bold" class="sapSfcInfoHeaderValueMargin"
+                                           text="{
+                                               path: '/startDatetime',
+                                               type: 'sap.ui.model.type.Date',
+                                               formatOptions: {
+                                                  style: 'medium'
+                                               }
+                                           }" 
+                                     />
+                                </items>
+                            </HBox>
+                            <HBox width="100%" class="sapUiSmallMarginBottom" >
+                                 <items>
+                                    <Label id="endDateLabelField" text="{i18n>endDateLabel}:" tooltip="{i18n>endDateLabelTooltip}" />
+                                    <Label id="endDateValueField" design="Bold" class="sapSfcInfoHeaderValueMargin"
+                                           text="{
+                                               path: '/endDatetime',
+                                               type: 'sap.ui.model.type.Date',
+                                               formatOptions: {
+                                                  style: 'medium'
+                                               }
+                                           }" 
+                                     />
+                                </items>
+                            </HBox>
+                        </items>
+                    </VBox>
+                </items>
+            </HBox>
+            <HBox class="sapDmeHorizontalSeparator sapUiNoMarginTop sapUiNoMarginBegin sapUiNoMarginBottom sapUiSmallMarginEnd" height="2px" />
+            <VBox class="sapUiSmallMarginTop sapUiMediumMarginBegin sapUiSmallMarginEnd" height="100%" >
+				<items>
+	                <Label id="sfcQuantityLabelField" text="{i18n>activeSfcQuantityLabel}" />
+	                <Label id="sfcQuantityValueField" text="{/sfcQuantity}" design="Bold" class="sapSfcInfoHeaderValueMargin" />
+                    <Label text=""/>
+		            <Label id="operationLabelField" text="{i18n>operationLabel}"/>
+		            <Label id="operationStepLabelField" text="{/operationStepId}" design="Bold" class="sapSfcInfoHeaderValueMargin" />
+                    <Label text=""/>
+                    <Label id="operationDescriptionLabelField" text="{i18n>operationDescriptionLabel}"/>
+                    <Label id="operationDescriptionValueField" text="{/operationDescription}" design="Bold" />
+				</items>
+
+            </VBox>    
+	    </items>
+	</VBox>
+</core:FragmentDefinition>
