@@ -1,0 +1,25 @@
+ID: mta_CustomAssemblyPod
+_schema-version: '2.1'
+version: 0.0.1
+modules:
+  - name: CustomAssemblyPod
+    type: html5
+    path: CustomAssemblyPod
+    parameters:
+      disk-quota: 512M
+      memory: 512M
+    requires:
+      - name: uaa_mta_CustomAssemblyPod
+      - name: destination_hmi_pod_plugin
+resources:
+  - name: uaa_mta_CustomAssemblyPod
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+    type: org.cloudfoundry.managed-service
+  - name: destination_hmi_pod_plugin
+    parameters:
+      service-plan: lite
+      service: destination
+    type: org.cloudfoundry.managed-service

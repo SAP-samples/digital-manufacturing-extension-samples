@@ -1,0 +1,121 @@
+
+/* set input to display upper case */
+.sapAssemblyPodUpperCaseTransform > .sapMInputBaseContentWrapper > .sapMInputBaseInner {
+   text-transform: uppercase;
+}
+
+/* fix so breadcrumb does not show as dropdown */
+.sapAssemblyPodNavigation > div:first-child {
+	width: 100%;
+}
+
+.sapAssemblyHeaderBar {
+    padding-top: 16px;
+    /* padding-left: 16px; */
+}
+
+.sapAssemblyHeaderBar .sapMLabel {
+    font-size: 1.3rem;
+}
+
+.sapAssemblyHeaderBar .sapMBreadcrumbs {
+    font-size: 1.3rem;
+}
+
+.sapAssemblyHeaderBar .sapMBreadcrumbs .sapMText {
+    font-size: 1.3rem;
+    font-weight: normal;
+}
+
+.sapAssemblyHeaderBar .sapMBreadcrumbs .sapMLnk {
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+.sapAssemblyHeaderBar .sapMBreadcrumbs .sapMBreadcrumbsSeparator {
+    font-size: 1.3rem;
+    line-height: 1.4;
+}
+
+.sapAssemblyHeaderBar .sapMText {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.sapAssemblyHeaderLabel {
+	margin-left: 0.25rem;
+}
+
+.sapMainPageContent {
+    background-color: rgb(231,236,232);
+}
+
+.sapAssemblyPageContent {
+	background-color: rgb(231,236,232);
+}
+
+/* Confirmation button styles */
+.sapAssemblyPodConfirmButton {
+    height: auto;
+    width: 70px;
+}
+
+.sapAssemblyPodConfirmButton > .sapMBtnInner {
+	height: 70px;
+	width: 70px;
+}
+
+.sapAssemblyPodConfirmButton > .sapMBtnInner > .sapMBtnIcon {
+    font-size: 2.375rem;
+    line-height: 4.375rem;
+    max-height: 4.375rem;
+}
+
+.sapDmeHorizontalSeparator {
+    border-top-color: rgb(211, 211, 211);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-right-style: none;
+}
+.sapDmeVerticalSeparator {
+    border-right-color: rgb(211, 211, 211);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-top-style: none;
+}
+
+.sapSfcInfoHeaderIconContainer {
+    margin-top: 27px;
+}
+
+.sapSfcInfoHeaderValueMargin {
+    margin-left: 4px;
+}
+
+.sapSfcInfoHeaderBottonMargin {
+    margin-bottom: 8px;
+}
+
+.sapSfcInfoSfcLabel {
+    color: white;
+    font-size: 1.3rem;
+}
+
+.sapSfcInfoSfcValue {
+    margin-left: 4px;
+    color: white;
+    font-size: 1.3rem;
+}
+
+.sapSfcInfoMaterialValue {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.sapAssemblyScanComponentsContainer {
+	margin-top: 1.4rem;
+}
