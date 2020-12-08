@@ -26,7 +26,13 @@ The major steps are:
 #### 1. Prepare your Editor  
 Clone the repository to your editor and build the application. SAP WebIDE provides easy build and deploy capability to SCP but this can be achieved with local editors as well. 
 #### 2. Configure the Destination 
-Create a destination in the SAP Cloud Platform tenant, please refer the following screenshot for sample values. The destination name should match with the name given in xs-app.json file. The credentials can be fetched from the service key of Digital Manufacturing Cloud instance in your SAP Cloud Platform Account.  
+Create a destination in the SAP Cloud Platform tenant, please refer the following screenshot for sample values. 
+- ***Destination*** : It should match with the name given in xs-app.json file. 
+- ***URL*** : It can be found in the endpoint of SAP API Business Hub. For DMC Production instance, it should be `https://api.[region].dmc.cloud.sap`. For DMC Quality instance, it should be `https://api.test.[region].dmc.cloud.sap`. The list of available URLs can be found in the SAP API Business Hub. 
+- ***Client ID*** : It can be fetched from the value of "clientid" in the service key of Digital Manufacturing Cloud instance in your SAP Cloud Platform Account.
+- ***Client Secret*** : It can be fetched from the value of "clientsecret" in the service key of Digital Manufacturing Cloud instance in your SAP Cloud Platform Account.
+- ***Token Service URL*** : It can be fetched from the value of "url" in the service key of Digital Manufacturing Cloud instance in your SAP Cloud Platform Account, and add "/oauth/token" in the end. For example, `https://[subaccount].authentication.[region].hana.ondemand.com/oauth/token`.
+
 ![](Destination.png)
 #### 3. Deploy to your SAP Cloud Platform Tenant
 After building the application the MTAR file will be available in the mta_archieves folder which can be deployed to SAP Cloud Platform.
