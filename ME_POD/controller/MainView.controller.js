@@ -1438,7 +1438,6 @@ sap.ui.define([
 						url: url,
 						type: method,
 						beforeSend: function (xhr) {
-							//xhr.setRequestHeader("Authorization", "Basic " + btoa("site_admin:Visiprise1"));
 							xhr.setRequestHeader("Authorization", "Basic " + btoa("i301873:Selva@1234"));
 						},
 						success: function (data) {
