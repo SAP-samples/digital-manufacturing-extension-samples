@@ -168,7 +168,6 @@ sap.ui.define([
 					url: url,
 					type: 'GET',
 					beforeSend: function (xhr) {
-						//xhr.setRequestHeader("Authorization", "Basic " + btoa("site_admin:Visiprise1"));
 						xhr.setRequestHeader("Authorization", "Basic " + btoa(loginData.USERNAME + ":" + loginData.PASSWORD));
 					},
 					success: function (data) {
@@ -1438,8 +1437,6 @@ sap.ui.define([
 						url: url,
 						type: method,
 						beforeSend: function (xhr) {
-							//xhr.setRequestHeader("Authorization", "Basic " + btoa("site_admin:Visiprise1"));
-							xhr.setRequestHeader("Authorization", "Basic " + btoa("i301873:Selva@1234"));
 						},
 						success: function (data) {
 							resolve(data);
