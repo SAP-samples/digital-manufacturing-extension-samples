@@ -114,16 +114,17 @@ We will be loading the basic data that will be needed for bootcamp excercise and
 
 This is the collection from [SAP API Hub](https://api.sap.com/package/SAPDigitalManufacturingCloud/rest), you can also download the below collection to work with postman.
 
-[Download postman collection](./assets/collection.json)
-
-[Download postman environment]()
-
-***************************need to add details to show the one flow.***********************
+- [Download postman collection](./assets/collection.json)
+- [Download postman environment](./assets/environment.json)
 
 Import collection in Postman
 ![Screenshot](assets/postman.png)
 
+Import environment in Postman
+![Screenshot](assets/postman_env.png)
 
+Your postman is ready to use
+![Screenshot](assets/postman_exec.png)
 
 ## BTP Services for DMC Extensions
 * SAP Business Application Studio
