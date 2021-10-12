@@ -1,6 +1,6 @@
 site_name: DMC Extensibility Bootcamp
-site_url: https://pages.github.tools.sap/DigitalManufacturingExtensions/DMC-Extensibility-Bootcamp-Participant-Guide/
-repo_url: https://github.tools.sap/DigitalManufacturingExtensions/DMC-Extensibility-Bootcamp-Participant-Guide/
+site_url: ""
+repo_url: "https://github.com/SAP-samples/digital-manufacturing-extension-samples"
 
 theme:
     name: null
