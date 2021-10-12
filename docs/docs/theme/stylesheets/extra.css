@@ -1,0 +1,20 @@
+body {
+    background:  #000;
+}
+
+.md-container {
+    background: #fff;
+}
+
+.md-logo img {
+    height: 32px;
+	width: auto;
+}
+
+.md-header-nav__button {
+    margin:0;
+}
+
+.md-footer-meta {
+    display: none;
+}
