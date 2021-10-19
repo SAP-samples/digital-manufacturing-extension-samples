@@ -20,10 +20,18 @@ extra_css:
     - 'theme/stylesheets/extra.css'
 
 nav:
-    - Bootcamp Agenda:
-        -  'Content': 'index.md'
-    - Participant Guide:
-        -  'Content': 'ParticipantGuide.md'
+    - Unit 1: 
+        -  'Overview': 'index.md'
+        -  'BTP Extension Suite': 'BTPExtensionSuite.md'
+        -  'DMC Use Cases': 'DMCUseCases.md'
+        -  'Bootcamp Scenario': 'BootcampUseCase.md'
+    - Unit 2: 
+        -  'Content': 'Field&IntegrationExtensions.md'
+    - Unit 3: 
+        -  'Content': 'InAppExtensions.md'
+    - Exercise 1:
+        -  'Exercise 1.1': 'Exercise1.1.md'
+        -  'Exercise 1.2': 'Exercise1.2.md'
 
 markdown_extensions:
     - attr_list
