@@ -1,22 +1,31 @@
-# SAP DMC Exensibility Bootcamp
+# Unit 1 - Digital Manufacturing Cloud Extensibility Overview
 
-## Abstract
-Digital Manufacturing Cloud Exentions enable our customers to automate and extend business processes, configure process variants based on the local shop floor constraints. In this bootcamp, we will explore the latest extensibility capability, provide the hand-on exercises for the business use cases and explain the role Digital Manufacutring Extensions in the bigger story.
+## Overview
+The DMC Extensibility Bootcamp is designed to provide participants with hands-on experience developing and deploying simple DMC extensions.  The bootcamp will be delivered through a combination of live instruction of extensibility topics and several exercises to highlight how DMC extensions can be used to enhance or replace standard DMC functionality.  Extensibility use cases will be discussed in detail and applied to individual processes in a business case for a discrete manufacturing assembly scenario, however all discussed use cases apply to process industry scenarios as well.
 
-## Language
-English
+## Disclaimer
+Note, that this bootcamp is intended to give an introduction in the topics and not for deploying productive applications.
 
-## Key Dates
-
-| Date | Content | Exercise
-| ---------------- | ---------------- | ---------------- |
-| Oct 20 | BTP Extension Suite Overview and Introducing Digital Manufacturing Cloud Extensibility|
-| Oct 21 | Integration of custom fields from ERP and In-App Extensibility | Exercise 1 "Create and Release Production Order" |
-| Oct 25 | Machine Learning Extensions on the shop floor | Exercise 2 "Perform Assembly Operation with visual inspection" |
-| Oct 26 | Business Process Extensions connecting sensor data | Exercise 3 "Perform Inspection Operation (1/2)"|
-| Oct 27 | UI Extensions with custom POD plugins and Side by Side Extensions | Exercise 4 "Perform Inspection Operation (2/2)"|
-| Oct 28 | Machine Monitoring | Exercise 5 "Machine Monitoring" |
-| Nov 1 | KPI Extensions and Wrap up | |
+## Learning objectives
+- Brief overview of BTP Extension Suite
+- Overview of DMC Extensibility
+- Introduction to Bootcamp scenario
 
 ## Audience
-Partner Technical, Functional and Development Consultants, Architects
+- Consultants
+- Developers
+- Development Managers
+- Architects
+- Plant Managers
+
+## Prerequisites
+- DMC Tenant
+- BTP Trial Account [Create a BTP Trial Account](https://developers.sap.com/tutorials/hcp-create-trial-account.html)
+
+## How to Obtain Support
+
+In case you have a question, find a bug, or otherwise need support to use SAP products, use:
+
+- [Digital Manufacturing Community](https://community.sap.com/topics/digital-manufacturing)
+
+- [SAP BTP Support Components](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/08d1103928fb42f3a73b3f425e00e13c.html)
