@@ -32,6 +32,10 @@ nav:
     - Exercise 1:
         -  'Exercise 1.1': 'Exercise1.1.md'
         -  'Exercise 1.2': 'Exercise1.2.md'
+    - FAQ: 
+        -  'Content': 'FAQ.md'
+    - Participant Guide: 
+        -  'Content': 'ParticipantGuide.md'
 
 markdown_extensions:
     - attr_list
