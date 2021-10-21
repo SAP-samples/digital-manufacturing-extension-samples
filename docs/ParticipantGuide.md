@@ -164,3 +164,4 @@ Collection:
 * Integrating MS Teams - [https://blogs.sap.com/2021/09/17/integrating-microsoft-teams-with-sap-digital-manufacturing-cloud](https://blogs.sap.com/2021/09/17/integrating-microsoft-teams-with-sap-digital-manufacturing-cloud)
 * AI/ML Solution for Visual Inspection - [https://blogs.sap.com/2020/12/14/ai-ml-solution-for-visual-inspection-overview-how-to-close-the-production-gap-for-machine-learning](https://blogs.sap.com/2020/12/14/ai-ml-solution-for-visual-inspection-overview-how-to-close-the-production-gap-for-machine-learning)
 * DMC Roadmap Explorer - [https://roadmaps.sap.com/board?PRODUCT=73555000100800001492&range=CURRENT-LAST#Q4%202021](https://roadmaps.sap.com/board?PRODUCT=73555000100800001492&range=CURRENT-LAST#Q4%202021)
+* Recording on SAP DMC Extensibility Bootcamp System Provisioning Session 5 - https://sapvideoa35699dc5.hana.ondemand.com/?entry_id=1_0txquezd
