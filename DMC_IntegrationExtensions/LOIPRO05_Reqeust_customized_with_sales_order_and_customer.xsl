@@ -626,21 +626,22 @@
                 <!-- Sample for customFieldDtoList -->
                 <customFieldDTOList>
                     <customFieldDTO>
-                        <attribute>DATA_FIELD_SO_1</attribute>
-                        <value>
-                            <xsl:value-of select="IDOC/E1AFKOL/E1AFFLL/E1AFVOL[1]/VORNR"/>
-                        </value>
-                    </customFieldDTO>
-                    <customFieldDTO>
-                        <attribute>DATA_FIELD_SO_2</attribute>
-                        <value>I Will Be Displayed In DMC</value>
-                    </customFieldDTO>
-                    <customFieldDTO>
                         <attribute>CD_SALES_ORDER_ID</attribute>
                         <value> 
                             <xsl:value-of select="IDOC/E1AFKOL/E1AFPOL/KDAUF"/>
                         </value>
                     </customFieldDTO>
+                    <customFieldDTO>
+                        <attribute>CD_ACTIVITY_ID</attribute>
+                        <value>
+                            <xsl:value-of select="IDOC/E1AFKOL/E1AFFLL/E1AFVOL[1]/VORNR"/>
+                        </value>
+                    </customFieldDTO>
+                    <customFieldDTO>
+                        <attribute>CD_FIXED_VALUE</attribute>
+                        <value>I Will Be Displayed In DMC</value>
+                    </customFieldDTO>
+                    
                     <customFieldDTO>
                         <attribute>CD_CUSTOMER_NAME</attribute>
                         <value><xsl:value-of select="IDOC/E1AFKOL/E1AFPOL/NAME1"/></value>
