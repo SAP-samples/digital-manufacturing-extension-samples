@@ -1,0 +1,39 @@
+{
+	"id": "49daea9a-8131-4ecf-b2ee-4e3acc061ca1",
+	"name": "DMC SelfStudy",
+	"values": [
+		{
+			"key": "clientid",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "clientsecret",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "currentAccessToken",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "baseUrl",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "plant",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-07-28T10:31:26.268Z",
+	"_postman_exported_using": "Postman/8.8.0"
+}
