@@ -1,21 +1,19 @@
 'use strict';
 const request = require("request");
 
-//"https://api.test.eu20.dmc.cloud.sap",
-
 const params =
   {
-    "baseUrl": "<>", 
-    "plant": "<>",
-    "order": "<>"
+    "baseUrl": process.env.baseUrl,
+    "plant": process.env.plant,
+    "order": process.env.order
   }
 
 const auth_config = 
 {
-  "url": "<>",
-  "clientid": "<>",
-  "clientsecret": "<>",
-  "grant_type" : "client_credentials"
+  "url": process.env.url,
+  "clientid": process.env.clientid,
+  "clientsecret": process.env.clientsecret,
+  "grant_type": process.env.grant_type
 }
 
 const SYS_URL = params.baseUrl;
@@ -72,6 +70,7 @@ const httpService = {
 const dmcService = {
   getOrderDetail : function(plant,order){
     return new Promise( (resolve , reject)=>{
+      console.log("URL ---" + URL.getOrderDetail + "?order=" + order + "&plant=" + plant);
       httpService.get({
         url : URL.getOrderDetail + "?order=" + order + "&plant=" + plant
       },(err , httpResponse , body)=>{
@@ -94,6 +93,7 @@ module.exports = {
         orderdetails,
         identifiers,
         finalresult = {};
+
                
     if(event.data !== undefined){
             
@@ -104,6 +104,8 @@ module.exports = {
       let stringArray = event.data.identifiers[0].substring(0,identifiers[0].length-4).split('-');
       orderValue = stringArray[0];
       plantValue = stringArray[1];
+      console.log("Order Value: " + orderValue);
+      console.log("Plant Value: " + plantValue);
       finalresult = event.data;
 
     }
@@ -115,7 +117,9 @@ module.exports = {
     return new Promise((resolve , reject)=>{
       dmcService.getOrderDetail(plantValue, orderValue).then((result)=>{
  
+        //console.log(result);
         orderdetails =  JSON.parse(result);
+        
 
         let array = [];
         let newSeq;
