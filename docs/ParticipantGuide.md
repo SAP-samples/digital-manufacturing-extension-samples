@@ -9,7 +9,7 @@
 ## Prerequisite
 
 - `node` ([Node.js](https://nodejs.org/en/download/) version 12.x or 14.x is recommended)
--  `SAP Fiori Tools` [https://www.npmjs.com/package/@sap/generator-fiori]()
+-  `SAP Fiori Tools` [https://www.npmjs.com/package/@sap/generator-fiori](https://www.npmjs.com/package/@sap/generator-fiori)
 - `docker` (for example, [Docker Desktop](https://www.docker.com/products/docker-desktop) for macOS or Windows)
 - A source code editor ([Visual Studio Code](https://code.visualstudio.com/) is recommended)
 - `bash` or `zsh` shell to run the command snippets on MacOS or Linux, or [Git Bash](https://gitforwindows.org/) for Windows, MinGW, or [Cygwin](https://www.cygwin.com/))
@@ -78,7 +78,7 @@ SAP BTP’s XSUAA is used to access the Kyma runtime. Please follow the steps to
 
 ### Step 4 - Getting started with Business Application Studio
 
-SAP Business Application Studio is a development environment available on SAP Business Technology Platform. To get started, please follow the link: [https://developers.sap.com/tutorials/appstudio-onboarding.html]()
+SAP Business Application Studio is a development environment available on SAP Business Technology Platform. To get started, please follow the link: [https://developers.sap.com/tutorials/appstudio-onboarding.html](https://developers.sap.com/tutorials/appstudio-onboarding.html)
 
 ### Step 5 - Install SAP Plant Connectivity
 With SAP Plant Connectivity (PCo), SAP provides a software component that enables the exchange of data between an SAP system and the industry-specific standard data sources of different manufacturers, for example, process control systems, plant Historian systems, and SPC systems.
@@ -114,16 +114,17 @@ We will be loading the basic data that will be needed for bootcamp excercise and
 
 This is the collection from [SAP API Hub](https://api.sap.com/package/SAPDigitalManufacturingCloud/rest), you can also download the below collection to work with postman.
 
-- [Download postman collection](./assets/collection.json)
-- [Download postman environment](./assets/environment.json)
+[Download postman collection](./assets/collection.json)
+
+[Download postman environment](./assets/environments.json)
 
 Import collection in Postman
 ![Screenshot](assets/postman.png)
 
-Import environment in Postman
+Environment:
 ![Screenshot](assets/postman_env.png)
 
-Your postman is ready to use
+Collection:
 ![Screenshot](assets/postman_exec.png)
 
 ## BTP Services for DMC Extensions
@@ -154,12 +155,12 @@ Your postman is ready to use
 ## References
 * DMC Extensibility Webinar -Digital Manufacturing Cloud Extensibility Overview - [PDF](https://d.dam.sap.com/a/QAGDuqa) | [Recording](https://wiki.scn.sap.com/wiki/display/SCM/Events+and+Webinars+for+SAP+Digital+Manufacturing+Cloud#:~:text=Extensibility%20Overview%20PDF%20%7C-,Recording,-15%20June%202021)
 * SAP Extension Suite Learning Journey - [https://learning.sap.com/learning-journey/building-extensions-with-sap-extension-suite](https://learning.sap.com/learning-journey/building-extensions-with-sap-extension-suite)
-* Getting ready for Extensions - [https://blogs.sap.com/2020/04/16/sap-digital-manufacturing-cloud-ready-for-extensions/ ]()
-* Sample Code - [https://github.com/SAP-samples/digital-manufacturing-extension-samples]()
-* DMC Business API Hub - [https://api.sap.com/package/SAPDigitalManufacturingCloud?section=Artifacts ]()
+* Getting ready for Extensions - [https://blogs.sap.com/2020/04/16/sap-digital-manufacturing-cloud-ready-for-extensions/](https://blogs.sap.com/2020/04/16/sap-digital-manufacturing-cloud-ready-for-extensions/)
+* Sample Code - [https://github.com/SAP-samples/digital-manufacturing-extension-samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples)
+* DMC Business API Hub - [https://api.sap.com/package/SAPDigitalManufacturingCloud?section=Artifacts ](https://api.sap.com/package/SAPDigitalManufacturingCloud?section=Artifacts)
 * DMC Integration Extensions 
-    - [https://blogs.sap.com/2021/08/24/sap-digital-manufacturing-cloud-integration-extension]() 
-    - [https://blogs.sap.com/2020/04/16/sap-digital-manufacturing-cloud-ready-for-extensions]()
-* Integrating MS Teams - [https://blogs.sap.com/2021/09/17/integrating-microsoft-teams-with-sap-digital-manufacturing-cloud]()
-* AI/ML Solution for Visual Inspection - [https://blogs.sap.com/2020/12/14/ai-ml-solution-for-visual-inspection-overview-how-to-close-the-production-gap-for-machine-learning]()
+    - [https://blogs.sap.com/2021/08/24/sap-digital-manufacturing-cloud-integration-extension](https://blogs.sap.com/2021/08/24/sap-digital-manufacturing-cloud-integration-extension) 
+    - [https://blogs.sap.com/2020/04/16/sap-digital-manufacturing-cloud-ready-for-extensions](https://blogs.sap.com/2020/04/16/sap-digital-manufacturing-cloud-ready-for-extensions)
+* Integrating MS Teams - [https://blogs.sap.com/2021/09/17/integrating-microsoft-teams-with-sap-digital-manufacturing-cloud](https://blogs.sap.com/2021/09/17/integrating-microsoft-teams-with-sap-digital-manufacturing-cloud)
+* AI/ML Solution for Visual Inspection - [https://blogs.sap.com/2020/12/14/ai-ml-solution-for-visual-inspection-overview-how-to-close-the-production-gap-for-machine-learning](https://blogs.sap.com/2020/12/14/ai-ml-solution-for-visual-inspection-overview-how-to-close-the-production-gap-for-machine-learning)
 * DMC Roadmap Explorer - [https://roadmaps.sap.com/board?PRODUCT=73555000100800001492&range=CURRENT-LAST#Q4%202021](https://roadmaps.sap.com/board?PRODUCT=73555000100800001492&range=CURRENT-LAST#Q4%202021)
