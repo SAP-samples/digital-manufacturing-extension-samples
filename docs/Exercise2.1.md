@@ -7,7 +7,7 @@ In this exercise, we would like to show you how to write your own business appli
 
 - SAP BTP, Kyma runtime instance
 - [Docker](https://www.docker.com/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime. Please also refer to SAP Tutorial for Install the Kubernetes Command Line Tool. [https://developers.sap.com/tutorials/cp-kyma-download-cli.html](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) 
 
 ## Step 1: Build your own business application
 1. Access to your Kyma Dashboard.
@@ -26,14 +26,14 @@ In this exercise, we would like to show you how to write your own business appli
 
 6. Open the folder "api-mssql-nodejs" which is under "DMC_ProcessExtensions" in the Visual Studio Code.
 ![](assets/Exercise3.1_OpenInVSCode.png)
-
-7. Build and push the image to your Docker repository.
+ 
+7. (Optional) Build and push the image to your Docker repository.
 	
 		docker build -t {your-docker-account}/mssqlnodejs -f docker/Dockerfile .
 	
 		docker push {your-docker-account}/mssqlnodejs
 
-8. Replace the image name with your docker account in the /k8s/deployment.yaml file.
+8. (Optional) Replace the image name with your docker account in the /k8s/deployment.yaml file.
 ![](assets/Exercise3.1_ModifyDeploymentFile.png)
 
 9. Apply the Deployment.
@@ -433,7 +433,7 @@ In this exercise, we would like to show you how to write your own business appli
 
 1. 	Open "POD Designer" App and select your own POD (e.g. DMC_BOOTCAMP_POD).
 
-2. Select the "Evaluate" button, and click "Configuration" button to show the configuration panel.
+2. Select the "Validate" button, and click "Configuration" button to show the configuration panel.
 	![](assets/Exercise3.1_ConfigureEvaulateButton.png)
 
 3. Click "Assign Actions" button and click "Add" Button to add the action.
