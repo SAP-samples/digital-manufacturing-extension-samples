@@ -4,7 +4,7 @@ USE BootcampDB;
 GO
 CREATE TABLE DCs
 (
-    RowID int NOT NULL PRIMARY KEY,
+    RowID numeric(18,0) IDENTITY(1,1) NOT NULL PRIMARY KEY,
     SFC nvarchar(10) NOT NULL,
     TorqueLeftValue decimal(10,3) NOT NULL ,
     TorqueLeftLowerValue decimal(10,3) NOT NULL,
@@ -17,9 +17,9 @@ CREATE TABLE DCs
 );
 GO
 INSERT INTO DCs
-    (RowID, SFC, TorqueLeftValue, TorqueLeftLowerValue, TorqueLeftUpperValue, TorqueRightValue, TorqueRightLowerValue, TorqueRightUpperValue, Evaluation, Count)
-VALUES(0, "EBC100005", 20, 40, 60, 88, 20, 80, 0, 1)
+    (SFC, TorqueLeftValue, TorqueLeftLowerValue, TorqueLeftUpperValue, TorqueRightValue, TorqueRightLowerValue, TorqueRightUpperValue, Evaluation, Count)
+VALUES("EBC100005", 20, 40, 60, 88, 20, 80, 0, 1)
 INSERT INTO DCs
-    (RowID, SFC, TorqueLeftValue, TorqueLeftLowerValue, TorqueLeftUpperValue, TorqueRightValue, TorqueRightLowerValue, TorqueRightUpperValue, Evaluation, Count)
-VALUES(1, "EBC100005", 19, 40, 60, 89, 20, 80, 0, 2)
+    (SFC, TorqueLeftValue, TorqueLeftLowerValue, TorqueLeftUpperValue, TorqueRightValue, TorqueRightLowerValue, TorqueRightUpperValue, Evaluation, Count)
+VALUES("EBC100005", 19, 40, 60, 89, 20, 80, 0, 2)
 GO

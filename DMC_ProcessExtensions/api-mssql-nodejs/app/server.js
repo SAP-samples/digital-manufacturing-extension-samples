@@ -59,8 +59,6 @@ app.post('/api/v1/dcs',async function (req, res) {
     }
     
     console.log("EvaluationCurrent: " + finalresult.evaluationCurrent.toString());
-    
-    //let rowid = await getRowID(); 
 
     let fail_count = await getFailCount(req.body.SFC);
 
@@ -89,24 +87,6 @@ app.post('/api/v1/dcs',async function (req, res) {
 
     res.send(finalresult);
 });
-
-async function getRowID() {
-
-    try {
-        let rowid;
-        console.log ("Enter getRowID function");
-        // connect to the database
-        let pool = await sql.connect(dbConfig);
-        console.log ("GetRowID function DB connected");
-        let result = await pool.request().query('select count(*) as count FROM DCs')
-        console.log("GetRowID function Result:" + JSON.stringify(result));
-        rowid = result.recordset[0].count;
-        console.log ("Row ID: " + rowid);
-        return rowid;
-    } catch (err) {
-        console.log (err);
-    }
-}
 
 sql.on('error', err => {
     // ... error handler
