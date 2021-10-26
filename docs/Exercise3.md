@@ -82,7 +82,7 @@ This will consist of 3 categories of image.
    
 ![](assets/Exercise_2/Downloaded_Zip.PNG) 
    
-   We have now successfully created a Machine Model which we will consume in DMC in a future step.
+   We have now successfully created a Machine Model which we will consume in DMC in a future step. But you can use the pre-built model files from us available in the "DMC_MLExtensions" folder.
    
 ## Step 2: Validate your Non Conformance Code Structure
  
