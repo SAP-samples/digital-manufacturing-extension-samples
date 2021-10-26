@@ -22,11 +22,24 @@ In this exercise, we would like to show you how you can release Production Order
 6. Enter the name of your function, e.g get-nextnumber and click Create.
 ![](assets/Exercise1.1_CreateFunction.png)
 
-6. Go to the "Source" tab under "Code" tab, copy the sample code "index.js" from [Github Sample Code](https://github.tools.sap/DigitalManufacturingExtensions/DMCExtensibilityBootcamp/blob/master/DMC_InAppExtensions/index.js) and paste in the inline editor.
+6. Go to the "Source" tab under "Code" tab, copy the sample code "index.js" under the folder "DMC_InAppExtensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
 ![](assets/Exercise1.1_CopyIndexJS.png)
 
-7. Go to the "Dependencies" tab under "Code" tab, copy the sample code "package.json" from [Github Sample Code](https://github.tools.sap/DigitalManufacturingExtensions/DMCExtensibilityBootcamp/blob/master/DMC_InAppExtensions/package.json) and paste in the inline editor.
+7. Go to the "Dependencies" tab under "Code" tab, copy the sample code "package.json" under the folder "DMC_InAppExtensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
 ![](assets/Exercise1.1_CopyPackageJson.png)
+
+8. In the Environment Variables area, add the following environment varaibles.
+
+		Variable Name 	Value
+		grant_type		client_credentials
+		clientsecret	<your DMC Client Secret>
+		clientid		<your DMC Client Id>
+		url				<your DMC Token Service URL> e.g. https://<subaccount>.authentication.eu20.hana.ondemand.com/oauth/token
+		baseUrl			<your DMC Public API URL> e.g. https://api.test.eu20.dmc.cloud.sap
+		plant			<your default plant>
+		order			<your default order>
+		
+	![](assets/Exercise1.2_EnvironmentVariable.png)
 
 8. Click "Save" button, which automatically triggers the build and deployment process. Once it is finished, your function will be in the "RUNNING" status.
 ![](assets/Exercise1.1_SaveCodeChanges.png)
@@ -114,7 +127,7 @@ In this exercise, we would like to show you how you can release Production Order
 ## Step 4: Release the SFC to check the result
 1. Open "Manage Orders" App.
 
-2. Choose the Production Order with the material "FORKLIFT-ASSY".
+2. Choose the Production Order with the material "LIFTER-ASSY".
 ![](assets/Exercise1.2_SelectOrder.png)
 
 3. Go to the "Custom Data" tab. Check the data of the custom attribute  "Sales Order" is not empty.
