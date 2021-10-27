@@ -1,0 +1,14 @@
+#chatroomserverservice.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapi-service 
+  labels:
+    app: nodeapi-service
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: nodeapi 

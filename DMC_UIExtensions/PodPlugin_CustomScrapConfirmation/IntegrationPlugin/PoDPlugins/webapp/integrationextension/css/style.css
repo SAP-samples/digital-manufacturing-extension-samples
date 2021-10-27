@@ -1,0 +1,10 @@
+/* Enter your custom styles here */
+.viewBackground{
+	background: rgb(53, 74, 95)!important;
+	text-align: center;
+}
+
+.urlIntegrationActionButton{
+	width: 180px;
+	bottom: 1rem;
+}
