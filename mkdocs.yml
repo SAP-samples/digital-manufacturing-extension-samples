@@ -1,6 +1,6 @@
 site_name: DMC Extensibility Bootcamp
-site_url: ""
-repo_url: "https://github.com/SAP-samples/digital-manufacturing-extension-samples"
+site_url: https://github.tools.sap/pages/dmcextensibilitybootcamp
+repo_url: https://github.tools.sap/DigitalManufacturingExtensions/DMCExtensibilityBootcamp
 
 theme:
     name: null
@@ -32,10 +32,33 @@ nav:
     - Exercise 1:
         -  'Exercise 1.1': 'Exercise1.1.md'
         -  'Exercise 1.2': 'Exercise1.2.md'
+    - Unit 4: 
+        -  'Content': 'BusinessProcessExtensions.md'
+    - Exercise 2:
+        -  'Exercise 2.1': 'Exercise2.1.md'
+        -  'Exercise 2.2': 'Exercise2.2.md'
+    - Unit 5: 
+        -  'Content': 'MachineLearningExtensions.md'
+    - Exercise 3:
+        -  'Exercise 3': 'Exercise3.md'
+    
+    - Unit 6: 
+        -  'Content': 'PODExtensions.md'
+    - Unit 7: 
+        -  'Content': 'SidebysideExtensions.md'
+    - Exercise 4:
+        -  'Exercise 4.1': 'Exercise4.1.md'
+        -  'Exercise 4.2': 'Exercise4.2.md'
+        -  'Exercise 4.3': 'Exercise4.3.md'
+        -  'Exercise 4.4': 'Exercise4.4.md'
+    - Unit 8: 
+        -  'Content': 'MachineExtensions.md'
+    - Exercise 5:
+        -  'Content': 'Exercise5.md'
+    - Unit 9: 
+        -  'Content': 'Summary.md'
     - FAQ: 
-        -  'Content': 'FAQ.md'
-    - Participant Guide: 
-        -  'Content': 'ParticipantGuide.md'
+        - 'Frequently Asked Questions': 'FAQ.md'
 
 markdown_extensions:
     - attr_list
