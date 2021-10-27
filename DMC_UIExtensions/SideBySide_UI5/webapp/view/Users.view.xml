@@ -1,0 +1,129 @@
+<mvc:View controllerName="kyma.sample.app.controller.Users" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Page id="page" title="{i18n>title}">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Image src="https://unpkg.com/fundamental-styles@0.10.0/dist/images/sap-logo.png" />
+					<Label text="{i18n>title}" />
+				</contentLeft>
+
+			</Bar>
+		</customHeader>
+		<content>
+			<IconTabBar
+				id="idIconTabBarNoIcons"
+				expanded="{device>/isNoPhone}"
+				class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter text="Users" key="info">
+						
+						<MessageStrip text="{viewModel>/errorMsgTxt}" visible="{viewModel>/isMsgStripVisible}" type="Error" enableFormattedText="true" showIcon="true" showCloseButton="true" class="sapUiMediumMarginBottom"></MessageStrip>
+
+						<Table inset="true" items="{orders>/recordset}" busy="{viewModel>/isBusy}">
+							<columns>
+								<Column>
+									<header>
+										<Label text="{i18n>orderid}"></Label>
+									</header>
+								</Column>
+								<Column>
+									<header>
+										<Label text="{i18n>description}"></Label>
+									</header>
+								</Column>
+								<Column>
+									<header>
+										<Label text="{i18n>personalId}"></Label>
+									</header>
+								</Column>
+								<Column>
+									<header>
+										<Label text="{i18n>actions}"></Label>
+									</header>
+								</Column>
+							</columns>
+							<headerToolbar>
+								<Toolbar>
+									<content>
+										<Title text="{i18n>orders}" />
+										<ToolbarSpacer></ToolbarSpacer>
+										<Button icon="sap-icon://add" press="onAddOrder" />
+									</content>
+								</Toolbar>
+							</headerToolbar>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{orders>userId}" />
+										<Text text="{orders>description}" />
+										<Text text="{orders>personalId}" />
+										<HBox>
+											<Button icon="sap-icon://delete" press="onShowDeleteConfirm" />
+											<Button icon="sap-icon://edit" press="onShowEdit" />
+										</HBox>
+									</cells>
+								</ColumnListItem>
+							</items>
+
+						</Table>
+
+					</IconTabFilter>
+					<!-- <IconTabFilter text="Resource Status" key="attachments">
+						
+						<Table inset="true" items="{orders>/recordset}" busy="{viewModel>/isBusy}">
+							<columns>
+								<Column>
+									<header>
+										<Label text="{i18n>orderid}"></Label>
+									</header>
+								</Column>
+								<Column>
+									<header>
+										<Label text="{i18n>description}"></Label>
+									</header>
+								</Column>
+								<Column>
+									<header>
+										<Label text="{i18n>personallId}"></Label>
+									</header>
+								</Column>
+								<Column>
+									<header>
+										<Label text="{i18n>actions}"></Label>
+									</header>
+								</Column>
+							</columns>
+							<headerToolbar>
+								<Toolbar>
+									<content>
+										<Title text="{i18n>orders}" />
+										<ToolbarSpacer></ToolbarSpacer>
+										<Button icon="sap-icon://add" press="onAddOrder" />
+									</content>
+								</Toolbar>
+							</headerToolbar>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{orders>userId}" />
+										<Text text="{orders>description}" />
+										<Text text="{orders>personnelId}" />
+										<HBox>
+											<Button icon="sap-icon://delete" press="onShowDeleteConfirm" />
+											<Button icon="sap-icon://edit" press="onShowEdit" />
+										</HBox>
+									</cells>
+								</ColumnListItem>
+							</items>
+
+						</Table>
+
+
+					</IconTabFilter> -->
+				</items>
+			</IconTabBar>
+			
+			
+		</content>
+	</Page>
+</mvc:View>
