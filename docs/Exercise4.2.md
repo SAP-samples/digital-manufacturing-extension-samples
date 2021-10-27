@@ -1,20 +1,23 @@
 
-# Exercise 4.2 - Perform Inspection Operation (1/2)
+# Exercise 4.2 - Perform Inspection Operation (2/2)
 
 ## Create Custom POD plugin
 1. Login into you Application Business Studio
 2. Create a pod plugin:
     - Create from scrach (refer [Production Operator Dashboard Plugin Developer's Guide][1])
     - Copy and modify from SAP [samples][2], its under directory DMC_UX/1-Create-a-Generic-Button-And-Register-As-Custom-PoD-Plugin
-    - Using the finished [sample](https://github.com/SAP-samples/digital-manufacturing-extension-samples/DMC_UIExtensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
-3. Download the samples and extract it.
+    - Using the finished [sample](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_UIExtensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
+3. clone the samples and navigate to the samples folder 'DMC_UIExtensions/PodPlugin_CustomScrapConfirmation'
+```
+git clone https://github.com/SAP-samples/digital-manufacturing-extension-samples.git
+```
 4. Go back to Applicaton Business Studio, and select 'Terminal' from menu and click 'New Terminal'
 ![](assets/New_TERMINAL.png)
 5. Create folder under directory /user/projects
 ![](assets/CREATE_FOLDER.png)
 6. Open the folder you just created, and drag the content in step 3 into your Business Application Studio, then wait for the upload complete
 ![](assets/Open_folder.png)
-![](assets/Drag Sample into Business Studio.png)
+![](assets/Drag_Sample_into_Business_Studio.png)
 
 7. Expand the root folder, the structure will look like below
 ![](assets/structure.png)
@@ -316,16 +319,16 @@ sap.ui.define([
 ## Build and Deploy
 1. Right click the mta.yaml and select 'Build MTA Proejct'
 - Verify there *mtar file generated under folder mta_archives
-![](assets/mtar file.png)
+![](assets/mtar_file.png)
 - Login to Cloud Foundry from terminal by executing:
     - cf api your_api_endpoint (can be found as below from your DMC cockpit)
 ![](assets/api_endpoint.png)
     - cf login
     - follow the command prompt to proceed
 - Right the mtar file under folder mta_archives and select 'Deploy MTA Archive'
-![](assets/Deploy archive.png)
+![](assets/Deploy_archive.png)
 - Wait for the process complete
-![](assets/deploy done.png)
+![](assets/deploy_done.png)
 
 ## Verify the deployment from sub account Cockpit
 1. Login into your sub account in Cloud Foundry
@@ -352,7 +355,7 @@ sap.ui.define([
 - Open app POD Designer
 - Open a POD you want to edit or copy from
 - Select your plugin from the Plugins, drag and drop to an plugin container(Shopfloor Extension)
-![](assets/add pod plugin.png)
+![](assets/add_pod_plugin.png)
 - Config the plugin
     - Click the config button, and config values you exposed from the PropertyEditor.js
     - ApplicationUrl is the host of your Kyma service: 
