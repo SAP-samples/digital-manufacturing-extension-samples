@@ -1,0 +1,16 @@
+#chatroomserverservice.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: kymasql-service 
+  labels:
+    app: kymasql-service
+spec:
+  type: NodePort
+  ports:
+  - port: 1433
+    targetPort: 1433
+    nodePort: 30020 
+    protocol: TCP
+  selector:
+    app: kymasql 

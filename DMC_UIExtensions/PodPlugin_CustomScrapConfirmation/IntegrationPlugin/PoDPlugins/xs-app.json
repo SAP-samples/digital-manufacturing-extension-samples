@@ -1,0 +1,14 @@
+{
+  "welcomeFile": "/PoDPlugins/index.html",
+  "authenticationMethod": "none",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+      "source": "^/PoDPlugins/(.*)$",
+      "target": "$1",
+      "localDir": "webapp"
+    }
+  ]
+}

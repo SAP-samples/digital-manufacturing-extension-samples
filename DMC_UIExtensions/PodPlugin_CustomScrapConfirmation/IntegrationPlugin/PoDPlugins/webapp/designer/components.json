@@ -1,0 +1,13 @@
+{
+	"components": [
+		{
+			"id": "IntegrationExtension",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.custom.plugins.integrationextension",
+			"propertyEditor": "sap.custom.plugins.integrationextension.builder.PropertyEditor",
+			"i18n": "sap.custom.plugins.integrationextension.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER", "OPERATION"]
+		}
+	]
+}

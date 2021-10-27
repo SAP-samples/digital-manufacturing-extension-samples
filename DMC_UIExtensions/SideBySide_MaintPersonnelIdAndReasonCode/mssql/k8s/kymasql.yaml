@@ -1,0 +1,27 @@
+#spring-music.yaml
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: kymasql 
+spec:
+  selector:
+    matchLabels:
+      app: kymasql 
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: kymasql 
+    spec:
+      containers:
+      - name: kymasql 
+        image: taranggupta1987/mssql:latest # change to your docker account
+        imagePullPolicy: Always
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: "DMC_Bootcamp123"
+        ports:
+        - containerPort: 1433
+          protocol: TCP
