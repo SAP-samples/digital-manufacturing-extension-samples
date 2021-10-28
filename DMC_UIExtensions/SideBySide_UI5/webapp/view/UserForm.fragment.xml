@@ -8,8 +8,8 @@
                         <Input value="{/userId}" id="orderIdTxt" />
                         <Label text="{i18n>description}" />
                         <TextArea value="{/description}"></TextArea>
-                        <Label text="{i18n>personallId}" />
-                        <TextArea value="{/personnelId}"></TextArea>
+                        <Label text="{i18n>personalId}" />
+                        <TextArea value="{/personalId}"></TextArea>
                     </f:content>
                 </f:SimpleForm>
             </l:content>

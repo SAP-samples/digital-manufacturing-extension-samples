@@ -88,7 +88,7 @@ In this exercise, we would like to show you how to write your own side by side e
 13. Enter the name (e.g nodeapi) and hostname (e.g nodeapi) to create API rule.
 ![](assets/Exercise3.2_createapirule.png)
 
-14. To test the API, you can use Postman to send a POST request to `http://<API_URL>:<API_PORT>/api/v1/users` with the below sample JSON content in the body.
+14. To test the API, you can use Postman to send a GET request to `http://<API_URL>:<API_PORT>/api/v1/users` with the below sample JSON content in the body.
 
 		{
             "recordsets": [[{"userId": "tarang.gupta@sap.com","description": "tarang.gupta@sap.com","personalId": "456"}, {"userId": "wei.zhou03@sap.com","description": "wei.zhou03@sap.com","personalId": "123"}]],
