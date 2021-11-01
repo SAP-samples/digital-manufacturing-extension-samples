@@ -89,14 +89,14 @@ Personas:
 - Business User
 - Citizen Data Scientist
 
-![](assets/indexLectureSlide31.png)
+![](docs/assets/indexLectureSlide31.png)
 
 ## Note
 Our recommended extensibility platform for DMC is Kyma, however, it can be use case specific which may lead into different recommendations. Please know that DMC extensions can also be done with Cloud Foundry using a PaaS environment (or hyperscaler options which have not been fully explored).  The main difference picking between these two options, outside of our recommendation, is the lifecycle and costs. Kyma takes care of the lifecycle, scalability, monitoring, deployment, etc. of the extensions but is more expensive while Cloud Foundry/PaaS will have lower upfront costs but can be costly in terms of complexity, time, etc. to implement lifecycle management separately.
 
 ## Real World Customer Examples
-![](assets/indexLectureSlide33.png)
-![](assets/indexLectureSlide34.png)
+![](docs/assets/indexLectureSlide33.png)
+![](docs/assets/indexLectureSlide34.png)
 
 Each extension area has a folder in which you can find different sample code according to scenario and to the implementation technology used.
 
