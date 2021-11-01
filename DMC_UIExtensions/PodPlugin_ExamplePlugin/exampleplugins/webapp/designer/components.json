@@ -1,0 +1,36 @@
+{
+    "components" : [
+        {
+           "id": "exampleViewPlugin",
+           "type": "VIEW_PLUGIN",
+           "allowMultipleInstances": false,
+           "name": "sap.ext.exampleplugins.exampleViewPlugin",
+           "propertyEditor": "sap.ext.exampleplugins.exampleViewPlugin.builder.PropertyEditor",
+           "i18n": "sap.ext.exampleplugins.exampleViewPlugin.i18n.i18n",
+           "productionProcessEnabled": true,
+           "productionProcessTitle": "Example View Plugin",
+           "supportedPodTypes": ["WORK_CENTER","OPERATION"]
+        },
+        {
+           "id": "exampleExecutionPlugin",
+           "type": "EXECUTION_PLUGIN",
+           "allowMultipleInstances": false,
+           "name": "sap.ext.exampleplugins.exampleExecutionPlugin",
+           "propertyEditor": "sap.ext.exampleplugins.exampleExecutionPlugin.builder.PropertyEditor",
+           "i18n": "sap.ext.exampleplugins.exampleExecutionPlugin.i18n.i18n",
+           "productionProcessEnabled": true,
+           "productionProcessTitle": "Example Execution Plugin",
+           "supportedPodTypes": ["WORK_CENTER","OPERATION"]
+        },
+        {
+           "id": "exampleWipPlugin",
+           "type": "VIEW_PLUGIN",
+           "allowMultipleInstances": false,
+           "name": "sap.ext.exampleplugins.exampleWipPlugin",
+           "propertyEditor": "sap.ext.exampleplugins.exampleWipPlugin.builder.PropertyEditor",
+           "i18n": "sap.ext.exampleplugins.exampleWipPlugin.i18n.i18n",
+           "productionProcessEnabled": false,
+           "supportedPodTypes": ["WORK_CENTER"]
+        }
+    ]
+}

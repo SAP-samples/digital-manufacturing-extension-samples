@@ -1,0 +1,47 @@
+<mvc:View controllerName="sap.ext.exampleplugins.controller.MainView"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m">
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="{i18n>title}">
+                    <content>
+                        <Panel width="auto" class="sapUiResponsiveMargin">
+                            <headerToolbar>
+                                <OverflowToolbar height="3rem">
+                                    <Title text="{i18n>title}"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <content>
+                                <l:BlockLayout id="BlockLayout" background="Light">
+                                    <l:BlockLayoutRow>
+                                        <l:BlockLayoutCell title="Example Execution Plugin">
+                                            <Text
+                                                id="text1"
+                                                wrappingType="Hyphenated"
+                                                text="Demonstrates an 'Execution' type plugin that contains a configuration option to select a Action button to execute when the POD runs.  This plugin is also defined to be usable in a Production Process defined in SFD." />
+                                        </l:BlockLayoutCell>
+                                        <l:BlockLayoutCell title="Example View Plugin">
+                                            <Text
+                                                id="text2"
+                                                wrappingType="Hyphenated"
+                                                text="Demonstrates a 'View' type plugin that displays current selection information in the POD during runtime.  This also demonstrates how to define implement the neccessary functions to subscribe to a custom notification event. This plugin is also defined to be usable in a Production Process defined in SFD." />
+                                        </l:BlockLayoutCell>
+                                        <l:BlockLayoutCell title="Example Work in process Plugin">
+                                            <Text
+                                                id="text3"
+                                                wrappingType="Hyphenated"
+                                                text="Demonstrates a 'View' type plugin that renders all orders defined for a selected Work Center.  It allows drill down into the order details.  It demonstrates calling a public API to get the order information.  This plugin is only available for the Work Center POD." />
+                                        </l:BlockLayoutCell>
+                                    </l:BlockLayoutRow>
+                                </l:BlockLayout>
+                            </content>
+                        </Panel>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>

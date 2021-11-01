@@ -1,0 +1,37 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+    <HBox id="headerBar" height="120px" backgroundDesign="Solid" class="sapAssemblyHeaderBar sapUiMediumMarginBegin sapUiMediumMarginEnd sapUiSmallMarginTop">
+        <VBox width="100%" >
+            <HBox width="100%" justifyContent="Start" alignContent="Center">
+		        <l:HorizontalLayout class="sapUiMediumMarginEnd">
+		            <Label id="workCenterLabelField" text="{i18n>workCenterLabel}:" tooltip="{i18n>workCenterLabelTooltip}"/>
+		            <Label id="workCenterValueField" text="{/workCenter}" design="Bold" class="sapAssemblyHeaderLabel"/>
+		        </l:HorizontalLayout>
+		        <l:HorizontalLayout class="sapUiMediumMarginEnd">
+		            <Label id="resourceLabelField" text="{i18n>resourceLabel}:" tooltip="{i18n>resourceLabelTooltip}"/>
+		            <Label id="resourceValueField" text="{/resource}" design="Bold" class="sapAssemblyHeaderLabel"/>
+		        </l:HorizontalLayout>
+		        <l:HorizontalLayout class="sapUiMediumMarginEnd">
+		            <Label id="plantLabelField" text="{i18n>plantLabel}:" tooltip="{i18n>plantLabelTooltip}"/>
+		            <Label id="plantValueField" text="{/plant}" design="Bold" class="sapAssemblyHeaderLabel"/>
+		        </l:HorizontalLayout>
+            </HBox>
+            <HBox width="100%" justifyContent="Start" alignContent="Center" class="sapAssemblyPodNavigation sapUiSmallMarginTop ">
+		        <Breadcrumbs id="headerBreadcrumb" visible="false" />
+                <Text id="headerPageDescription" visible="false" text="{
+	                  path: '/currentDate',
+	                  type: 'sap.ui.model.type.Date',
+	                  formatOptions: {
+	                    pattern: 'EEE, MMM d, yyyy'
+	                  }
+	                }" 
+                />
+            </HBox>
+        </VBox>
+        <VBox>
+            <Image src="{/customerLogo}" densityAware="true"/>
+        </VBox>
+   </HBox>
+</core:FragmentDefinition>

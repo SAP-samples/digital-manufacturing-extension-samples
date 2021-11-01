@@ -1,0 +1,82 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Popover
+        id="orderPopover"
+        showHeader="true"
+        contentWidth="450px"
+        resizable="true"
+        placement="Left"
+        title="Order Information">
+        <f:SimpleForm id="orderSimpleForm"
+            editable="false"
+	        layout="ResponsiveGridLayout"
+	        adjustLabelSpan="false"
+	        labelSpanXL="4"
+	        labelSpanL="4"
+	        labelSpanM="4"
+	        labelSpanS="12"
+	        emptySpanXL="1"
+	        emptySpanL="1"
+	        emptySpanM="1"
+	        emptySpanS="0"
+	        columnsXL="1"
+	        columnsL="1"
+	        columnsM="1" >
+            <f:content>
+                <Label text="Order Type" />
+                <Text text="{/orderType}" />
+                
+                <Label text="Order Status" />
+                <Text text="{/orderStatus}" />
+                
+                <Label text="Priority" />
+                <Text text="{/priority}" />
+                
+                <Label text="Planned Start Date" />
+                <Text text="{
+                     path: '/orderPlannedStartDateTime',
+                     type: 'sap.ui.model.type.Date',
+                     formatOptions: {
+                        style: 'medium'
+                     }
+                 }" />
+                
+                <Label text="Planned End Date" />
+                <Text text="{
+                     path: '/orderPlannedCompleteDateTime',
+                     type: 'sap.ui.model.type.Date',
+                     formatOptions: {
+                        style: 'medium'
+                     }
+                 }" />
+                
+                <Label text="Build Quantity" />
+                <Text text="{/buildQuantity}" />
+                
+                <Label text="Released Quantity" />
+                <Text text="{/releasedQuantity}" />
+                
+                <Label text="Ordered Quantity" />
+                <Text text="{/orderedQuantity}" />
+                
+                <Label text="Scrapped Quantity" />
+                <Text text="{/scrappedQuantity}" />
+                
+                <Label text="Done Quantity" />
+                <Text text="{/doneQuantity}" />
+                
+                <Label text="Rejected Quantity" />
+                <Text text="{/quantityRejected}" />
+                
+                <Label text="In-Queue Quantity" />
+                <Text text="{/quantityInQueue}" />
+                
+                <Label text="In-Work Quantity" />
+                <Text text="{/quantityInWork}" />
+                
+            </f:content>
+        </f:SimpleForm>
+    </Popover>
+</core:FragmentDefinition>
