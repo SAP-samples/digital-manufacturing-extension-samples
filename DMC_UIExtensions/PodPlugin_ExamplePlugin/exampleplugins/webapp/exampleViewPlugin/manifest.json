@@ -1,0 +1,26 @@
+{
+    "sap.app": {
+        "id": "sap.ext.exampleplugins.exampleViewPlugin",
+        "type": "component",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "embeddedBy": "../"
+    },
+
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "sap.ext.exampleplugins.exampleViewPlugin.view.PluginView",
+            "type": "XML",
+            "id": "processPluginView"
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "sap.ext.exampleplugins.exampleViewPlugin.i18n.i18n"
+                }
+            }
+        }
+    }
+}

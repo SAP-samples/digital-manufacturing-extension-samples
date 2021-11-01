@@ -1,0 +1,98 @@
+<core:FragmentDefinition 
+    xmlns:m="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:layout="sap.suite.ui.commons.networkgraph.layout"
+    xmlns="sap.suite.ui.commons.networkgraph">
+	<Graph enableWheelZoom="false"
+		   orientation="TopBottom"
+		   nodes="{/nodes}"
+		   lines="{/lines}"
+		   layout="Layered"
+		   searchSuggest="suggest"
+		   search="search"
+		   id="graph">
+		<layoutAlgorithm>
+			<layout:LayeredLayout
+					mergeEdges="true"
+					nodePlacement="Simple"
+					nodeSpacing="40"/>
+		</layoutAlgorithm>
+        <statuses>
+            <Status key="WorkCenterStatus" title="Work Center" backgroundColor="sapUiChart2"
+                    contentColor="sapUiContentShadowColor" headerContentColor="sapUiContentContrastShadowColor"
+                    borderColor="sapUiContentShadowColor" selectedBackgroundColor="sapUiChartPaletteSequentialHue11Dark2"
+                    selectedBorderColor="sapUiChartPaletteSequentialHue11Dark2" selectedContentColor="sapUiContentContrastShadowColor"
+                    hoverBorderColor="sapUiContentShadowColor" hoverContentColor="black"
+                    hoverBackgroundColor="sapUiChartPaletteSequentialHue2Light2" legendColor="sapUiChart2" 
+                    useFocusColorAsContentColor="true"/>
+            <Status key="OrderStatus" title="Order" backgroundColor="sapUiChart4"
+                    contentColor="sapUiContentShadowColor" headerContentColor="sapUiContentContrastShadowColor"
+                    borderColor="sapUiContentShadowColor" selectedBackgroundColor="sapUiChartPaletteSequentialHue11Dark2"
+                    selectedBorderColor="sapUiChartPaletteSequentialHue11Dark2" selectedContentColor="sapUiContentContrastShadowColor"
+                    hoverBorderColor="sapUiContentShadowColor" hoverContentColor="black"
+                    hoverBackgroundColor="sapUiChartPaletteSequentialHue4Light2" legendColor="sapUiChart4" 
+                    useFocusColorAsContentColor="true"/>
+            <Status key="SfcStatus" title="SFC" backgroundColor="sapUiChartPaletteSequentialNeutralDark2"
+                    contentColor="sapUiContentShadowColor" headerContentColor="sapUiContentContrastShadowColor"
+                    borderColor="sapUiContentShadowColor" selectedBackgroundColor="sapUiChartPaletteSequentialHue11Dark2"
+                    selectedBorderColor="sapUiChartPaletteSequentialHue11Dark2" selectedContentColor="sapUiContentContrastShadowColor"
+                    hoverBorderColor="sapUiContentShadowColor" hoverContentColor="black"
+                    hoverBackgroundColor="sapUiChartPaletteSequentialHue9Light3" legendColor="sapUiChartPaletteSequentialNeutralDark2" 
+                    useFocusColorAsContentColor="true"/>
+            <Status key="MaterialStatus" title="Material" backgroundColor="sapUiChart3"
+                    contentColor="sapUiContentShadowColor" headerContentColor="sapUiContentContrastShadowColor"
+                    borderColor="sapUiContentShadowColor" selectedBackgroundColor="sapUiChartPaletteSequentialHue11Dark2"
+                    selectedBorderColor="sapUiChartPaletteSequentialHue11Dark2" selectedContentColor="sapUiContentContrastShadowColor"
+                    hoverBorderColor="sapUiContentShadowColor" hoverContentColor="black"
+                    hoverBackgroundColor="sapUiChartPaletteSequentialHue3Light2" legendColor="sapUiChart3" 
+                    useFocusColorAsContentColor="true"/>
+            <Status key="RoutingStatus" title="Routing" backgroundColor="sapUiChart4"
+                    contentColor="sapUiContentShadowColor" headerContentColor="sapUiContentContrastShadowColor"
+                    borderColor="sapUiContentShadowColor" selectedBackgroundColor="sapUiChartPaletteSequentialHue11Dark2"
+                    selectedBorderColor="sapUiChartPaletteSequentialHue11Dark2" selectedContentColor="sapUiContentContrastShadowColor"
+                    hoverBorderColor="sapUiContentShadowColor" hoverContentColor="black"
+                    hoverBackgroundColor="sapUiChartPaletteSequentialHue4Light2" legendColor="sapUiChart4" 
+                    useFocusColorAsContentColor="true"/>
+            <Status key="OperationStatus" title="Operation" backgroundColor="sapUiChart1"
+                    contentColor="sapUiContentShadowColor" headerContentColor="sapUiContentContrastShadowColor"
+                    borderColor="sapUiContentShadowColor" selectedBackgroundColor="sapUiChartPaletteSequentialHue11Dark2"
+                    selectedBorderColor="sapUiChartPaletteSequentialHue11Dark2" selectedContentColor="sapUiContentContrastShadowColor"
+                    hoverBorderColor="sapUiContentShadowColor" hoverContentColor="black"
+                    hoverBackgroundColor="sapUiChartPaletteSequentialHue1Light2" legendColor="sapUiChart1" 
+                    useFocusColorAsContentColor="true"/>
+            <Status key="BomStatus" title="Bill of Material" backgroundColor="sapUiChart5"
+                    contentColor="sapUiContentShadowColor" headerContentColor="sapUiContentContrastShadowColor"
+                    borderColor="sapUiContentShadowColor" selectedBackgroundColor="sapUiChartPaletteSequentialHue11Dark2"
+                    selectedBorderColor="sapUiChartPaletteSequentialHue11Dark2" selectedContentColor="sapUiContentContrastShadowColor"
+                    hoverBorderColor="sapUiContentShadowColor" hoverContentColor="black"
+                    hoverBackgroundColor="sapUiChartPaletteSequentialHue2Light2" legendColor="sapUiChart5" 
+                    useFocusColorAsContentColor="true"/>
+        </statuses>
+		<nodes>
+			<Node icon="{src}"
+				  key="{id}"
+                  title="{title}"
+				  description="{description}"
+				  width="120"
+				  collapsed="{collapsed}"
+				  attributes="{attributes}"
+				  showActionLinksButton="false"
+				  showDetailButton="false"
+				  descriptionLineSize="0"
+				  shape="Box"
+				  status="{status}">
+				<customData>
+					<core:CustomData key="parent" value="{parent}"/>
+					<core:CustomData key="childCount" value="{childCount}"/>
+                    <core:CustomData key="data" value="{data}"/>
+				</customData>
+				<attributes>
+					<ElementAttribute label="{label}" value="{value}"/>
+				</attributes>
+			</Node>
+		</nodes>
+		<lines>
+			<Line from="{from}" to="{to}" arrowOrientation="None" press="linePress" />
+		</lines>
+	</Graph>
+</core:FragmentDefinition>
