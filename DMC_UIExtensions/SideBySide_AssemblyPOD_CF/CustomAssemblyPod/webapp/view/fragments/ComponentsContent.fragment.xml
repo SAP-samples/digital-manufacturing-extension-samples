@@ -1,0 +1,99 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	
+    <VBox id="componentsLayout" width="65%" height="100%" direction="Column" class=" sapUiSmallMarginBegin sapUiMediumMarginEnd" >
+    	<VBox>
+ 	       	<HBox class="sapAssemblyScanComponentsContainer sapUiNoMarginBottom" height="100px" justifyContent="End" alignContent="Center">
+                <Input id="scanComponent" width="300px" placeholder="{i18n>scanComponentPlaceholder}" 
+                       showValueHelp="true" change="onComponentChange" class="sapAssemblyPodComponentScanField"/>
+            </HBox>
+            
+	        <items>                            
+	            <HBox class="sapUiTinyMarginTop sapUiNoMarginBottom" height="100%">
+	                <Table
+	                    id="componentTable"
+	                    visible="true"
+	                    items="{
+	                            path: '/sfcAssemblyData',
+	                            parameters: {
+	                                $select: ['component','remainingQuantity', 'componentSequence']
+	                            }
+	                        }"
+	                    alternateRowColors="true"
+	                    mode="SingleSelectMaster"
+	                    itemPress="onComponentSelectionChange">
+	                    <columns>
+	                        <Column width="5rem">
+	                            <Label text="{i18n>componentSequence}" />
+	                        </Column>
+	                        <Column width="15rem">
+	                            <Label text="{i18n>componentDescription}" />
+	                        </Column>
+	                        <Column width="10rem">
+	                            <Label text="{i18n>componentType}" />
+	                        </Column>
+	                        <Column width="5rem">
+	                            <Label text="{i18n>action}" />
+	                        </Column>                           
+	                    </columns>
+	                    <items>
+	                        <ColumnListItem vAlign="Middle"
+	                                type="Active"
+	                                highlight="{
+	                                    path: 'remainingQuantity',
+	                                    type: 'sap.ui.model.odata.type.Object',
+	                                    formatter: '.formatter.getStatusHighlight'
+	                        }">
+	                            <cells>
+	                                <ObjectIdentifier
+	                                    title="{
+	                                        path: 'componentSequence',
+	                                        type: 'sap.ui.model.odata.type.String'                                                                                      
+	                                    }"
+	                                     />
+	                                    
+	                                <Text
+	                                    text="{
+	                                        parts: ['component', 'componentVersion', 'requiredQuantity', 'remainingQuantity'],
+	                                        formatter: '.formatter.getDescriptionFormat'
+	                                    }" />
+	                                    
+	                                <ObjectIdentifier
+	                                    title="{
+	                                        path: 'assemblyDataType',
+	                                        type: 'sap.ui.model.odata.type.String'
+	                                    }" />
+	                                    
+	                               <Button
+	                                    icon="sap-icon://sys-cancel"
+	                                    tooltip="{i18n>removeComponentTooltip}"
+	                                    enabled="{
+	                                        path: 'remainingQuantity',
+	                                        type: 'sap.ui.model.odata.type.Object',
+	                                        formatter: '.formatter.getActionButtonState'
+	                                    }"
+	                                    app:component="{
+	                                        path: 'component',
+	                                        type: 'sap.ui.model.odata.type.String'
+	                                    }"
+	                                    press="onRemoveComponent"/>
+	                                
+	                            </cells>
+	                        </ColumnListItem>
+	                    </items>
+	                </Table>  
+	            </HBox> 
+	        </items>        
+        </VBox>
+        
+        <HBox class="sapUiNoMarginTop sapUiSmallMarginBottom" justifyContent="End">
+	             <Button id="completeButton" icon="sap-icon://flag" press="onComplete" tooltip="{i18n>confirmDialog.complete}" 
+	                     class="sapAssemblyPodConfirmButton" type="Accept" enabled="{/allAssembled}" />
+	  	</HBox>
+	  	
+    </VBox>
+    
+
+</core:FragmentDefinition>

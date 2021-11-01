@@ -1,0 +1,52 @@
+<core:FragmentDefinition 
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core">
+    <Popover
+        id="sfcPopover"
+        showHeader="true"
+        contentWidth="450px"
+        resizable="true"
+        placement="Left"
+        title="SFC">
+        <f:SimpleForm id="sfcSimpleForm"
+            editable="false"
+            layout="ResponsiveGridLayout"
+            adjustLabelSpan="false"
+            labelSpanXL="4"
+            labelSpanL="4"
+            labelSpanM="4"
+            labelSpanS="12"
+            emptySpanXL="1"
+            emptySpanL="1"
+            emptySpanM="1"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1" >
+            <f:content>
+                <Label text="SFC" />
+                <Text text="{/sfc}" />
+                
+                <Label text="Quantity" />
+                <Text text="{/quantity}" />
+                
+                <Label text="Scrapped Quantity" />
+                <Text text="{/scrappedQuantity}" />
+                
+                <Label text="Done Quantity" />
+                <Text text="{/doneQuantity}" />
+                
+                <Label text="Rejected Quantity" />
+                <Text text="{/quantityRejected}" />
+                
+                <Label text="In-Queue Quantity" />
+                <Text text="{/quantityInQueue}" />
+                
+                <Label text="In-Work Quantity" />
+                <Text text="{/quantityInWork}" />
+                
+            </f:content>
+        </f:SimpleForm>
+    </Popover>
+</core:FragmentDefinition>
