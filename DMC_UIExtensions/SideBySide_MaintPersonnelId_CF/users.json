@@ -1,0 +1,17 @@
+[
+	{
+		"userId": "User1",
+		"personnelId": "P1",
+		"id": 0
+	},
+	{
+		"userId": "User2",
+		"personnelId": "P2",
+		"id": 1
+	},
+	{
+		"userId": "User3",
+		"personnelId": "P3",
+		"id": 2
+	}
+]
