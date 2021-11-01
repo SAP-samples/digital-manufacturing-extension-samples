@@ -1,0 +1,13 @@
+{
+  "name": "dmc-extension",
+  "description": "Sample Extension",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "latest",
+    "body-parser": "latest"
+  },  
+  "scripts": {
+    "start": "node server.js"
+  }
+}
