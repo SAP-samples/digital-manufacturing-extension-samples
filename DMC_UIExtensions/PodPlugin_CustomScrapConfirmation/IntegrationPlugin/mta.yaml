@@ -17,10 +17,10 @@ modules:
            \"allowedMethods\": [\"GET\",\"POST\"],
            \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
            \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
-           \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-industry-type\",\"x-dme-plant\"],
+           \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-industry-type\",\"x-dme-plant\",\"x-features\"],
            \"exposeHeaders\": [\"Accept\",\"Authorization\",\"X-Requested-With\",\"X-Sap-Cid\",
            \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"X-Csrf-Token\",
-           \"Content-Type\",\"x-dme-industry-type\",\"x-dme-plant\"]}]"
+           \"Content-Type\",\"x-dme-industry-type\",\"x-dme-plant\",\"x-features\"]}]"
    #build-parameters:
       #builder: grunt
    requires:
