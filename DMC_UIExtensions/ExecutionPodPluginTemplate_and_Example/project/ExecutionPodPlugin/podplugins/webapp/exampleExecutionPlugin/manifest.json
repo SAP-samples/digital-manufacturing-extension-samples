@@ -1,0 +1,23 @@
+{
+    "sap.app": {
+        "id": "vendor.ext.executionplugins.exampleExecutionPlugin",
+        "type": "component",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "embeddedBy": "../",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}"
+    }, 
+    "sap.ui5": {
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "vendor.ext.executionplugins.exampleExecutionPlugin.i18n.i18n"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "podplugins",
+  "version": "0.0.1",
+  "description": "",
+  "devDependencies": {},
+  "dependencies": {
+    "@sap/approuter": "11.0.1"
+  },
+  "scripts": {
+  }
+}
