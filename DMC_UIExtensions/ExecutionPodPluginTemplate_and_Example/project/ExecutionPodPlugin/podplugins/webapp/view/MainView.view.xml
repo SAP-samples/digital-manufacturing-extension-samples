@@ -1,0 +1,47 @@
+<mvc:View controllerName="vendor.ext.executionplugins.controller.MainView"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m">
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="{i18n>title}">
+                    <content>
+                        <Panel width="auto" class="sapUiResponsiveMargin">
+                            <headerToolbar>
+                                <OverflowToolbar height="3rem">
+                                    <Title text="{i18n>title}"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <content>
+                                <l:BlockLayout id="BlockLayout" background="Light">
+                                    <l:BlockLayoutRow>
+                                        <l:BlockLayoutCell title="Example for Execution Plugin">
+                                            <Text
+                                                id="text1"
+                                                wrappingType="Hyphenated"
+                                                text="This plugin demonstrates how to implement an Execution type plugin. The Property Editor provides a value help buttom to allow selecting an Action Button for Start and Complete which is to be executed by this plugin. A switch describes whether this plugin will run synchronously or asynchronously. When running in asynchronous mode, the plugin must tell the POD framework when it is done running. In synchronous mode, the plugin is done upon return from the execute() function. Operation filter controls if SFC should be processed at specific operation. Plugin business logic assumes that only one SFC is selected." />
+                                        </l:BlockLayoutCell>    
+                                       <l:BlockLayoutCell title="Execution Plugin Template">
+                                            <Text
+                                                id="text2"
+                                                wrappingType="Hyphenated"
+                                                text="This plugin is a template for POD Execution Plugin implementation. Implement business logic inside execute() method." />
+                                        </l:BlockLayoutCell>        
+                                         <l:BlockLayoutCell title="Asynch Execution Plugin Template">
+                                            <Text
+                                                id="text3"
+                                                wrappingType="Hyphenated"
+                                                text="This plugin is a template for Asynch POD Execution Plugin implementation. Implement business logic inside execute() method." />
+                                        </l:BlockLayoutCell>                                   
+                                    </l:BlockLayoutRow>
+                                </l:BlockLayout>
+                            </content>
+                        </Panel>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>
