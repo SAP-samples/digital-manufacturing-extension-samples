@@ -1,0 +1,31 @@
+{
+    "sap.app": {
+        "id": "vendor.ext.viewplugins.viewPluginTemplate",
+        "type": "component",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "embeddedBy": "../"
+    },
+
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "vendor.ext.viewplugins.viewPluginTemplate.view.PluginView",
+            "type": "XML",
+            "id": "viewPluginTemplate"
+        },
+        "resources": {
+            "css": [{
+                "uri": "css/style.css"
+            }]
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "vendor.ext.viewplugins.viewPluginTemplate.i18n.i18n"
+                }
+            }
+        }
+    }
+}

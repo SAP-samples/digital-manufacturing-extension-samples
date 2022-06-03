@@ -1,0 +1,25 @@
+{
+    "components" : [
+        {
+           "id": "vendorViewPlugin",
+           "type": "VIEW_PLUGIN",
+           "allowMultipleInstances": false,
+           "name": "vendor.ext.viewplugins.exampleViewPlugin",
+           "propertyEditor": "vendor.ext.viewplugins.exampleViewPlugin.builder.PropertyEditor",
+           "i18n": "vendor.ext.viewplugins.exampleViewPlugin.i18n.i18n",
+           "productionProcessEnabled": true,
+           "productionProcessTitle": "Example View Plugin",
+           "supportedPodTypes": ["WORK_CENTER","OPERATION", "ORDER", "OTHER", "MONITOR"]
+        },
+        {
+            "id": "vendorViewPluginTemplate",
+            "type": "VIEW_PLUGIN",
+            "allowMultipleInstances": false,
+            "name": "vendor.ext.viewplugins.viewPluginTemplate",
+            "propertyEditor": "vendor.ext.viewplugins.viewPluginTemplate.builder.PropertyEditor",
+            "i18n": "vendor.ext.viewplugins.viewPluginTemplate.i18n.i18n",
+            "productionProcessEnabled": false,
+            "supportedPodTypes": ["WORK_CENTER","OPERATION", "ORDER", "OTHER", "MONITOR"]
+        }
+    ]
+}
