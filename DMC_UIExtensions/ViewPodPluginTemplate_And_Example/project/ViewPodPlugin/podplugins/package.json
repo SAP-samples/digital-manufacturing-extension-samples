@@ -1,0 +1,12 @@
+{
+  "name": "viewpodplugins",
+  "version": "0.0.1",
+  "description": "",
+  "devDependencies": {},
+  "dependencies": {
+    "@sap/approuter": "11.0.1"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  }
+}
