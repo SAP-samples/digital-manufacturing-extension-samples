@@ -1,0 +1,42 @@
+_schema-version: '3.2'
+ID: ExampleViewPluginsMTA
+version: 0.0.1
+modules:
+ - name: vendor-viewplugin
+   type: html5
+   path: podplugins
+   parameters:
+      disk-quota: 512M
+      memory: 256M
+   properties:
+        httpHeaders:
+        - X-Frame-Options: deny
+        CORS: "[{\"uriPattern\": \"^/podplugins/(.*)$\",\"allowedOrigin\": [
+               {\"host\": \"<DMC_HOST1>\",\"protocol\": \"https\"},
+               {\"host\": \"<DMC_HOST2>\",\"protocol\": \"https\"}],
+               \"allowedMethods\": [\"GET\",\"OPTIONS\"],
+               \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
+                     \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
+                     \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"],
+               \"exposeHeaders\": [\"Accept\",\"Authorization\",\"X-Requested-With\",\"X-Sap-Cid\",
+                     \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"X-Csrf-Token\",
+                     \"Content-Type\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"]}]"
+   build-parameters:
+    supported-platforms: [CF]
+   requires:
+    - name: uaa_ExampleViewPluginsMTA
+    - name: dest_ExampleViewPluginsMTA
+resources:
+ - name: uaa_ExampleViewPluginsMTA
+   parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+   type: org.cloudfoundry.managed-service
+
+ - name: dest_ExampleViewPluginsMTA
+   parameters:
+      service-plan: lite
+      service: destination
+   type: org.cloudfoundry.managed-service
+

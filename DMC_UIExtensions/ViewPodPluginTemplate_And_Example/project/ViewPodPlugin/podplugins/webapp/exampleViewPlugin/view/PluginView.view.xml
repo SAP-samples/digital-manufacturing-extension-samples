@@ -1,0 +1,164 @@
+<mvc:View 
+    xmlns:l="sap.ui.layout" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" 
+    controllerName="vendor.ext.viewplugins.exampleViewPlugin.controller.PluginView" 
+    width="100%" 
+    height="100%">
+    <Panel id="podModelPluginPanel" width="100%" height="100%" expandable="false" expanded="true" accessibleRole="Region" backgroundDesign="Transparent">
+        <headerToolbar>
+            <Toolbar height="3rem">
+                <Title text="{i18n>title}"/>
+                <ToolbarSpacer/>
+                <Button id="closeButton" icon="sap-icon://decline" press="onClosePress"/>
+            </Toolbar>
+        </headerToolbar>
+        <content>
+            <VBox id="podModelPluginPanelContent" width="100%" height="100%">
+                <items>
+                    <HBox width="100%">
+                        <items>
+                            <Label id="podTypeLabel" text="{i18n>podType}:" class="sapUiTinyMarginEnd"/>
+                            <Label id="podType" text="{/podType}" width="100%" />
+                        </items>
+                    </HBox>
+                    <HBox width="100%">
+                        <items>
+                            <Label id="inputTypeLabel" text="{i18n>inputType}:" class="sapUiTinyMarginEnd"/>
+                            <Label id="inputType" text="{/inputType}" width="100%" />
+                        </items>
+                    </HBox>
+                    <HBox width="100%" visible="{= ${/podType} === 'WORK_CENTER'}">
+                        <items>
+                            <Label id="workCenterLabel" text="{i18n>workCenter}:" class="sapUiTinyMarginEnd"/>
+                            <Label id="workCenter" text="{/workCenter}" width="100%" />
+                        </items>
+                    </HBox>
+                    <HBox width="100%" visible="{= ${/podType} === 'WORK_CENTER'}">
+                        <items>
+                            <Label id="operationLabel" text="{i18n>operation}:" class="sapUiTinyMarginEnd"/>
+                            <Label id="operation" text="{/operation}" width="100%" />
+                        </items>
+                    </HBox>
+                    <HBox width="100%">
+                        <items>
+                            <Label id="resourceLabel" text="{i18n>resource}:" class="sapUiTinyMarginEnd"/>
+                            <Label id="resource" text="{/resource}" width="100%" />
+                        </items>
+                    </HBox>
+                    <HBox width="100%">
+                        <items>
+                            <Label id="selectionCountTypeLabel" text="{i18n>selectionCount}:" class="sapUiTinyMarginEnd"/>
+                            <Label id="selectionCount" text="{/selectionCount}" width="100%" />
+                        </items>
+                    </HBox>
+                    <Table
+                        id="selectionsTable"
+                        backgroundDesign="Solid"
+                        inset="false"
+                        width="100%"
+                        mode="SingleSelectMaster"
+                        items="{
+                            path: '/selections'
+                        }">
+                        <columns>
+                            <Column hAlign="Begin">
+                                <Text text="Input"  wrapping="false"/>
+                            </Column>
+                            <Column hAlign="Begin">
+                                <Text text="SFC"  wrapping="false"/>
+                            </Column>
+                            <Column hAlign="Begin">
+                                <Text text="Material" />
+                            </Column>
+                            <Column hAlign="Begin">
+                                <Text text="Shop Order" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{input}"/>
+                                    <Text text="{sfc}"/>
+                                    <Text text="{material}"/>
+                                    <Text text="{processLot}"/>
+                                    <Text text="{shopOrder}"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                    <HBox width="100%" visible="{= ${/podType} === 'WORK_CENTER'}">
+                        <items>
+                            <Label id="operationCountLabel" text="Operations:" class="sapUiTinyMarginEnd"/>
+                            <Label id="operationCount" text="{/operationCount}" width="100%" />
+                        </items>
+                    </HBox>
+                    <Table
+                        id="operationsTable"
+                        backgroundDesign="Solid"
+                        inset="false"
+                        width="100%"
+                        mode="SingleSelectMaster"
+                        visible="{= ${/podType} === 'WORK_CENTER'}"
+                        items="{
+                            path: '/operations'
+                        }">
+                        <columns>
+                            <Column hAlign="Begin">
+                                <Text text="operation"/>
+                            </Column>
+                            <Column hAlign="Begin">
+                                <Text text="Version"/>
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{operation}"/>
+                                    <Text text="{version}"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                    <HBox width="100%" visible="{= ${/podType} === 'WORK_CENTER'}">
+                        <items>
+                            <Label id="customFieldsLabel" text="Custom Fields:" class="sapUiTinyMarginEnd"/>
+                        </items>
+                    </HBox>
+                     <Table
+                        id="customFieldsTable"
+                        backgroundDesign="Solid"
+                        inset="false"
+                        width="100%"
+                        visible="{= ${/podType} === 'WORK_CENTER'}"
+                        items="{
+                            path: '/materialCustomFields'
+                        }">
+                        <columns>
+                            <Column hAlign="Begin">
+                                <Text text="Field"/>
+                            </Column>
+                            <Column hAlign="Begin">
+                                <Text text="Value"/>
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{attribute}"/>
+                                    <Text text="{value}"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                    <VBox width="100%" visible="{/notificationsEnabled}">
+                        <items>
+                            <Label id="notificationLabel" text="Notification Message:" class="sapUiTinyMarginEnd"/>
+                            <TextArea id="notificationText" value="{/notificationMessage}" growing="true" width="100%"/>
+                        </items>
+                    </VBox>
+                </items>
+            </VBox>
+        </content>
+    </Panel>
+</mvc:View>
