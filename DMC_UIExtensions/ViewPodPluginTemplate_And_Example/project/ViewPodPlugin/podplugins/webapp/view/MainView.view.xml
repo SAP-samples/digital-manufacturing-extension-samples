@@ -21,7 +21,7 @@
                                             <Text
                                                 id="text2"
                                                 wrappingType="Hyphenated"
-                                                text="Demonstrates a 'View' type plugin that displays current selection information in the POD during runtime.  This also demonstrates how to define implement the neccessary functions to subscribe to a custom notification event. This plugin is also shows how to call public API to read material custom data." />
+                                                text="Demonstrates a 'View' type plugin that displays current selection information in the POD during runtime.  This also demonstrates how to define and implement the necessary functions to subscribe to a custom notification event. This plugin also shows how to call public API to read material custom data." />
                                         </l:BlockLayoutCell>
                                         <l:BlockLayoutCell title="View Plugin Template">
                                             <Text
