@@ -81,7 +81,6 @@
                                     <Text text="{input}"/>
                                     <Text text="{sfc}"/>
                                     <Text text="{material}"/>
-                                    <Text text="{processLot}"/>
                                     <Text text="{shopOrder}"/>
                                 </cells>
                             </ColumnListItem>
