@@ -1,0 +1,26 @@
+{
+    "name": "dme-advauditapp-ms-srv",
+    "engines": {
+        "node": ">=14.18.1",
+        "npm": ">=8.3.0"
+    },
+    "dependencies": {
+        "@sap-cloud-sdk/core": "^1.54.2",
+        "@sap/hana-client": "2.10.20",
+        "@sap/instance-manager": "3.3.4",
+        "@sap/logging": "6.1.1",
+        "@sap/xsenv": "3.1.1",
+        "@sap/xsjs": "6.6.2",
+        "@sap/xsodata": "7.5.5",
+        "@sap/xssec": "3.2.10",
+        "append-query": "2.1.1",
+        "cfenv": "^1.2.4",
+        "express": "4.17.1",
+        "node-cache": "^5.1.2",
+        "passport": "0.5.0",
+        "request": "2.88.2"
+    },
+    "scripts": {
+        "start": "node server.js"
+    }
+}
