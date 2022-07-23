@@ -1,0 +1,99 @@
+_schema-version: "3.2"
+ID: dme-advauditapp-ui
+version: 1.0.1
+modules:
+  - name: dme-advauditapp-ui-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: dme-advauditapp-ui-destination-service
+        parameters:
+          content-target: true
+      - name: dme-advauditapp-ui_html_repo_host
+        parameters:
+          service-key:
+            name: dme-advauditapp-ui_html_repo_host-key
+      - name: uaa_dme-advauditapp-ui
+        parameters:
+          service-key:
+            name: uaa_dme-advauditapp-ui-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: advauditapp_dme_advauditapp_ui_html_repo_host
+              ServiceInstanceName: dme-advauditapp-ui-html5-app-host-service
+              ServiceKeyName: dme-advauditapp-ui_html_repo_host-key
+              sap.cloud.service: advauditapp
+            - Authentication: OAuth2UserTokenExchange
+              Name: advauditapp_uaa_dme_advauditapp_ui
+              ServiceInstanceName: dme-advauditapp-ui-xsuaa-service
+              ServiceKeyName: uaa_dme-advauditapp-ui-key
+              sap.cloud.service: advauditapp
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+  - name: dme-advauditapp-ui-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: dme-advauditapp-ui_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - sapdmdmeauditlogs.zip
+          name: sapdmdmeauditlogs
+          target-path: resources/
+  - name: sapdmdmeauditlogs
+    type: html5
+    path: auditlogs
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+resources:
+  - name: dme-advauditapp-ui-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                Name: dme-advauditapp-ms
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://${org}-${space}-dme-advauditapp-ms.${default-domain}
+                HTML5.ForwardAuthToken: true
+                HTML5.DynamicDestination: true
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: dme-advauditapp-ui-destination-service
+      service-plan: lite
+  - name: dme-advauditapp-ui_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: dme-advauditapp-ui-html5-app-host-service
+      service-plan: app-host
+  - name: uaa_dme-advauditapp-ui
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: dme-advauditapp-ui-xsuaa-service
+      service-plan: application
+parameters:
+  deploy_mode: html5-repo
