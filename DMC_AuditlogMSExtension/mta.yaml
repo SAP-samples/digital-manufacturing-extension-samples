@@ -1,0 +1,97 @@
+ID: com.sap.dm.dme.advauditapp.ms
+_schema-version: "3.1"
+version: 1.0.1
+
+parameters:
+  enable-parallel-deployments: true
+
+modules:
+  - name: dme-advauditapp-ms
+    type: javascript.nodejs
+    path: "srv/"
+    parameters:
+      domain: ${default-domain}
+      host: "${org}-${space}-dme-advauditapp-ms"
+      buildpack: nodejs_buildpack
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+    provides:
+      - name: auditlog_api
+        properties:
+          url: ${default-url}
+          application: ${app-name}
+    properties:
+      DT_CLUSTER_ID: dme-advauditapp
+      SAP_JWT_TRUST_ACL: '[ { "clientid" : "*", "identityzone" : "*" } ]'
+    requires:
+      - name: auditlog-management
+      - name: auditlog-uaa
+      - name: auditlog-registry
+      - name: auditlog-destination
+
+resources:
+  - name: auditlog-management
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: auditlog-management
+      service-plan: default
+      
+  - name: auditlog-uaa
+    type: org.cloudfoundry.managed-service
+    requires: 
+      - name: auditlog_api
+    properties:
+      XSAPPNAME: ${xsuaa-app}
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+      xsuaa-app: ${space}-~{auditlog_api/application}
+      config:
+        xsappname: ${xsuaa-app}
+  - name: auditlog-registry
+    type: org.cloudfoundry.managed-service
+    requires:
+      - name: auditlog-uaa
+    parameters:
+      service: saas-registry
+      service-plan: application
+      service-name: auditlog-registry
+      config:
+        xsappname: ~{auditlog-uaa/XSAPPNAME}
+        appName: dme-advauditapp
+        displayName: 'Audit App MS'
+        description: 'DMC Advanced Audit Log Viewer'
+        category: 'SaaS Multitenant Apps'
+        appUrls:
+          onSubscription: https://${org}-${space}-dme-advauditapp-ms.${default-domain}/callback/v1.0/tenants/{tenantId}
+          getDependencies: https://${org}-${space}-dme-advauditapp-ms.${default-domain}/callback/v1.0/dependencies
+  - name: auditlog-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        init_data:
+          instance:
+            existing_destinations_policy: ignore
+            destinations:
+              - Name: app-cfapi
+                Description: CF Cloud Controller API
+                URL: ${controller-url}
+                Type: HTTP
+                ProxyType: Internet
+                Authentication: OAuth2Password
+                tokenServiceURL: ${authorization-url}/oauth/token
+                clientId: cf
+                clientSecret:
+                User: <SetValueInCockpit>
+                Password: <SetValueInCockpit>
+              - Name: auditlog-destination
+                Description: Auditlog Client Credentials
+                URL: https://services.odata.org/Northwind/Northwind.svc
+                Type: HTTP
+                ProxyType: Internet
+                Authentication: NoAuthentication
