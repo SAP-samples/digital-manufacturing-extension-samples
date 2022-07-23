@@ -74,7 +74,7 @@ resources:
                 Name: dme-advauditapp-ms
                 ProxyType: Internet
                 Type: HTTP
-                URL: https://${org}-${space}-dme-advauditapp-ms.${dmc-domain}
+                URL: https://${org}-${space}-dme-advauditapp-ms.${default-domain}
                 HTML5.ForwardAuthToken: true
                 HTML5.DynamicDestination: true
             existing_destinations_policy: update
