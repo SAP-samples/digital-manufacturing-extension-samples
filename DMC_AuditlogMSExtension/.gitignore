@@ -1,0 +1,37 @@
+#Eclipse project files
+.project
+.settings
+
+# UI deployer generated files
+dist/
+uideployer/resources/
+mta_archives/
+
+#Maven generated folders
+target/
+
+#NodeJS generated folders
+npm.tar.gz
+node.tar.gz
+node/
+node_modules/
+etc/
+bower_components/
+resources/
+.ui5/
+.mes-ui-lib
+/**/Component-preload.js
+npm-debug.log
+
+#Files generated during test execution
+coverage/
+.coverage/
+.sonar/
+.reports/
+
+#IntelliJ IDEA project files
+.idea/
+*.iml
+
+#MacOS files
+.DS_Store
