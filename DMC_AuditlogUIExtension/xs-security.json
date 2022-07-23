@@ -1,6 +1,6 @@
 {
     "xsappname": "dme-advauditapp-ui",
-    "tenant-mode": "dedicated",
+    "tenant-mode": "shared",
     "description": "Security profile of called application",
     "scopes": [
         {
