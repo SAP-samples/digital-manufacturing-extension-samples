@@ -8,11 +8,11 @@
     <f:DynamicPage id="dynamicPageId" showFooter="false" class="sapUiResponsiveContentPadding">
         <!-- DynamicPage Title -->
         <f:title>
-            <!-- <f:DynamicPageTitle>
-				<f:heading>
-					<Title id="idPageTitle" text="{i18n>advancedAuditViewer}"/>
-				</f:heading>
-			</f:DynamicPageTitle> -->
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title id="idPageTitle" text="{i18n>advancedAuditViewer}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
         </f:title>
         <!-- DynamicPage Header -->
         <f:header>
@@ -31,12 +31,18 @@
                         </fb:FilterGroupItem>
                         <fb:FilterGroupItem groupName="__$INTERNAL$" name="idMasterDataObjFilter" label="{i18n>masterDataLabel}" labelTooltip="Tooltip Master Data filter" partOfCurrentVariant="true" visibleInFilterBar="true">
                             <fb:control>
-                                <Input id="idMasterDataObj" placeholder="Enter Master Data" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/>
+                                <!-- <Input id="idMasterDataObj" placeholder="Enter Master Data" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/> -->
+                                <Select items="{oAuditModel>/mdo}" selectedKey="" change="handleMDOChanged">
+                                    <core:Item key="{oAuditModel>key}" text="{oAuditModel>key}" />
+                                </Select>
                             </fb:control>
                         </fb:FilterGroupItem>
                         <fb:FilterGroupItem groupName="__$INTERNAL$" name="idUserFilter" label="{i18n>userLabel}" labelTooltip="Tooltip User filter" partOfCurrentVariant="true" visibleInFilterBar="true">
                             <fb:control>
-                                <Input id="idUser" placeholder="Enter User" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/>
+                                <!-- <Input id="idUser" placeholder="Enter User" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/> -->
+                                <Select items="{oAuditModel>/users}" selectedKey="" change="handleUserChanged">
+                                    <core:Item key="{oAuditModel>key}" text="{oAuditModel>key}" />
+                                </Select>
                             </fb:control>
                         </fb:FilterGroupItem>
                     </fb:filterGroupItems>
@@ -47,7 +53,7 @@
             <Table id="auditLogTable" items="{oAuditModel>/auditlogs}" class="sapFDynamicPageAlignContent" width="auto" growing="true" growingThreshold="20" growingScrollToLoad="true">
                 <headerToolbar>
                     <Toolbar>
-                        <Title id="masterListTitle" text="{i18n>flpTitle}" level="H3"/>
+                        <Title id="masterListTitle" text="{i18n>flpTitle} ({oAuditModel>/auditcount})" level="H3"/>
                     </Toolbar>
                 </headerToolbar>
                 <columns>
