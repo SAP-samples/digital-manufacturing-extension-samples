@@ -18,11 +18,12 @@ sap.ui.define([
             onInit: function () {
                 var oModel = new JSONModel({
                     auditlogs: [],
+                    masterlogs: [],
                     users: {},
-                    mdo: {},
+                    auditcount: 0,
+                    mdo: { "": { key: "" } },
                     fromDate: new Date(Date.now() - (1000 * 60 * 20)),
-                    toDate: new Date(Date.now()),
-                    pMasterData: ""
+                    toDate: new Date(Date.now())
                 });
                 oModel.setSizeLimit(100000);
                 this.getView().setModel(oModel, "oAuditModel");
@@ -77,11 +78,51 @@ sap.ui.define([
                 return true;
             },
 
+            handleMDOChanged: function (oEvent) {
+                var aAuditLogs = this.getView().getModel("oAuditModel").getData().masterlogs;
+                var sSelectedKey = oEvent.getSource().getSelectedKey();
+                var aFilteredLogs = [];
+
+                if (sSelectedKey === "") {
+                    this._setTableHeaderCount(aAuditLogs.length);
+                    this.getView().getModel("oAuditModel").setProperty("/auditlogs", aAuditLogs);
+                    return;
+                }
+
+                aAuditLogs.forEach(element => {
+                    if (element.type === sSelectedKey) { aFilteredLogs.push(element); }
+                });
+
+                this._setTableHeaderCount(aFilteredLogs.length);
+                this.getView().getModel("oAuditModel").setProperty("/auditlogs", aFilteredLogs);
+
+            },
+            handleUserChanged: function (oEvent) {
+                var aAuditLogs = this.getView().getModel("oAuditModel").getData().masterlogs;
+                var sSelectedKey = oEvent.getSource().getSelectedKey();
+                var aFilteredLogs = [];
+
+                if (sSelectedKey === "") {
+                    this._setTableHeaderCount(aAuditLogs.length);
+                    this.getView().getModel("oAuditModel").setProperty("/auditlogs", aAuditLogs);
+                    return;
+                }
+
+                aAuditLogs.forEach(element => {
+                    if (element.user === sSelectedKey) { aFilteredLogs.push(element); }
+                });
+
+                this._setTableHeaderCount(aFilteredLogs.length);
+                this.getView().getModel("oAuditModel").setProperty("/auditlogs", aFilteredLogs);
+            },
+
             getAuditLog: function (mParameters) {
                 var sUrl = this.getOwnerComponent().getDataSourceUriByName("auditlog-RestSource");
                 this.ajaxGet(sUrl + "getaudits", mParameters, function (oResponseData) {
                     var aFormattedLogs = this._formatResponseData(oResponseData);
+                    this._setTableHeaderCount(aFormattedLogs.length);
                     this.getView().getModel("oAuditModel").setProperty("/auditlogs", aFormattedLogs);
+                    this.getView().getModel("oAuditModel").setProperty("/masterlogs", aFormattedLogs);
                 }.bind(this), function (oError) {
                     if (oError !== undefined) {
                         MessageBox.error(oError.message);
@@ -89,14 +130,20 @@ sap.ui.define([
                 });
             },
 
+            _setTableHeaderCount: function (iLength) {
+                this.getView().getModel("oAuditModel").setProperty("/auditcount", iLength);
+            },
+
             _formatResponseData: function (aAuditLogs) {
                 var aObjectList = [];
+                var oAuditMetadata = this.getView().getModel("oAuditModel").getData();
                 for (var iAuditLogIndex = 0; iAuditLogIndex < aAuditLogs.length; iAuditLogIndex++) {
 
                     var oMessageObj = JSON.parse(aAuditLogs[iAuditLogIndex].message);
                     var iAttributeSize = oMessageObj.attributes.length;
                     for (var iAttributeIndex = 0; iAttributeIndex < iAttributeSize; iAttributeIndex++) {
 
+                        //Prepare table rows
                         var jsonObj = {};
                         jsonObj.id = oMessageObj.object.id.entityId;
                         jsonObj.type = oMessageObj.object.type;
@@ -106,8 +153,15 @@ sap.ui.define([
                         jsonObj.time = new Date(oMessageObj.time);
                         jsonObj.user = oMessageObj.user;
                         aObjectList.push(jsonObj);
+
+                        //Prepare filter bar objects
+                        oAuditMetadata.mdo[oMessageObj.object.type.toString()] = { key: oMessageObj.object.type };
+                        oAuditMetadata.users[oMessageObj.user.toString()] = { key: oMessageObj.user };
                     }
                 }
+
+                this.getView().getModel("oAuditModel").setProperty("/mdo", oAuditMetadata.mdo);
+                this.getView().getModel("oAuditModel").setProperty("/users", oAuditMetadata.users);
                 return aObjectList;
             },
 
