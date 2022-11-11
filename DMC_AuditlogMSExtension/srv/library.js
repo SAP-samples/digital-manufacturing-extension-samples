@@ -2,7 +2,8 @@ module.exports = {
     getAuditLog: getAuditLog,
     getSubscriptions: getSubscriptions,
     createRoute: createRoute,
-    deleteRoute: deleteRoute
+    deleteRoute: deleteRoute,
+    clearAuditLogCache: clearAuditLogCache
 };
 
 const cfenv = require('cfenv');
@@ -12,6 +13,9 @@ const core = require('@sap-cloud-sdk/core');
 
 const axios = require('axios');
 const qs = require('qs');
+
+var cachedToken = "";
+var auditLogCache = [];
 
 async function getAuditLog(alm, mParams) {
     try {
@@ -24,28 +28,57 @@ async function getAuditLog(alm, mParams) {
             }
         };
         const res1 = await axios(options1);
-
-        console.log("XSUAA Bearer Token: " + res1.data.access_token);
+        cachedToken = res1.data.access_token;
 
         try {
             const options2 = {
                 method: 'GET',
                 url: alm.url + '/auditlog/v2/auditlogrecords',
+                params: {
+                    "time_from": mParams.timeFrom,
+                    "time_to": mParams.timeTo
+                },
                 headers: {
-                    Authorization: 'Bearer ' + res1.data.access_token
+                    Authorization: 'Bearer ' + cachedToken
                 }
             };
             const res2 = await axios(options2);
             const auditlogs = res2.data;
-            const filteredLogs = [];
+            console.log("Response header: " + res2.headers.paging);
+            auditLogCache = filterConfigurationLogs(auditlogs);
 
-            //Return only audit.configuration messages
-            auditlogs.forEach(element => {
-                if (element.category === 'audit.configuration') {
-                    filteredLogs.push(element);
-                }
-            });
-            return filteredLogs;
+            // //If Paging value is present, start the loop
+            var loop = (res2.headers.paging !== "") || (res2.headers.paging !== undefined);
+            var handle = res2.headers.paging;
+
+            //Code to handle server-side paging of audit log retrieval
+            // while (loop) {
+            //     try {
+            //         const options3 = {
+            //             method: 'GET',
+            //             url: alm.url + '/auditlog/v2/auditlogrecords?' + handle,
+            //             headers: {
+            //                 Authorization: 'Bearer ' + cachedToken
+            //             }
+            //         };
+
+            //         const res3 = await axios(options3);
+            //         const logs = res3.data;
+            //         console.log("Response header: " + res3.headers.paging);
+            //         auditLogCache.concat(filterConfigurationLogs(logs));
+
+            //         //Loop should continue as long as paging value in header is present
+            //         loop = (res3.headers.paging !== "") || (res3.headers.paging !== undefined);
+            //         handle = res3.headers.paging;
+
+            //     } catch (err) {
+            //         console.log(err.stack);
+            //         return err.message;
+            //     }
+            // }
+
+            return auditLogCache;
+
         } catch (err) {
             console.log(err.stack);
             return err.message;
@@ -54,6 +87,22 @@ async function getAuditLog(alm, mParams) {
         console.log(err.stack);
         return err.message;
     }
+};
+
+
+function filterConfigurationLogs(auditlogs) {
+    const filteredLogs = [];
+    //Return only audit.configuration messages
+    auditlogs.forEach(element => {
+        if (element.category === 'audit.configuration') {
+            filteredLogs.push(element);
+        }
+    });
+    return filteredLogs;
+};
+
+function clearAuditLogCache() {
+    auditLogCache = [];
 };
 
 async function getSubscriptions(registry) {

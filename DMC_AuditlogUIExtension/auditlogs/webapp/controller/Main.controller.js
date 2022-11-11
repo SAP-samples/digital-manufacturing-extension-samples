@@ -41,8 +41,9 @@ sap.ui.define([
                     "time_from": sFromDateString,
                     "time_to": sToDateString
                 };
-
+                this.getView().setBusy(true);
                 this.getAuditLog(mParams);
+                this.getView().setBusy(false);
             },
             /**
              * Determines whether the current time range selection is valid for the request.
@@ -171,7 +172,8 @@ sap.ui.define([
                     url: sRequestContext,
                     contentType: APPLICATION_JSON,
                     data: vParameters,
-                    headers: this.getHeaders(this.mTokenDeferred ? null : "Fetch")
+                    headers: this.getHeaders(this.mTokenDeferred ? null : "Fetch"),
+                    timeout: 5000
                 };
 
                 var fnExtractTokenWrapper = function (oData, sStatus, oXhr) {

@@ -165,53 +165,12 @@ app.get('/dme/advauditapp-ms/getaudits', function (req, res) {
     let timeFrom = req.query.time_from;
     let timeTo = req.query.time_to;
 
-    if (!timeFrom) {
-        const tempDate = new Date(Date.now() - (1000 * 60 * 5)); // 5 minutes ago
-        timeFrom = tempDate.toISOString().substring(0, 16);
-    }
-
-    if (!timeTo) {
-        const tempDate = new Date(Date.now()); // now
-        timeTo = tempDate.toISOString().substring(0, 16);
-    }
-
-    //Retrieve oauth url, client id and client secret details of subscriber account
-    // try {
-    //     var authorization = req.headers.authorization;
-    //     if (authorization !== null && authorization !== undefined) {
-    //         var parts = authorization.split(' ');
-    //         var token = parts[1];
-    //         var config = xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsuaa;
-    //         xssec.createSecurityContext(token, config, function (error, securityContext, tokenInfo) {
-    //             if (error) {
-    //                 console.log('Security Context creation failed');
-    //                 console.log(error.stack);
-    //                 return;
-    //             }
-    //             console.log('Security Context created successfully, Token Info :%s', JSON.stringify({ user: tokenInfo.getPayload(), header: tokenInfo.getHeader() }));
-    //             console.log("ISS URL: " + tokenInfo.getPayload().iss);
-
-
-    //         });
-
-    //     }
-    //     else { throw new Error("No authorization header"); }
-
-
-    // }
-    // catch (error) {
-    //     console.log(error.stack);
-    //     res.statusCode = 401;
-    //     res.send(JSON.stringify({ status: error.message }));
-    // }
-
     var mParams = {
         timeFrom: timeFrom,
         timeTo: timeTo
-        // token: token,
-        // url: tokenInfo.getPayload().iss
     };
 
+    lib.clearAuditLogCache();
 
     //Perform call via auditlog API using retrieved credentials
     lib.getAuditLog(services.alm, mParams).then(
