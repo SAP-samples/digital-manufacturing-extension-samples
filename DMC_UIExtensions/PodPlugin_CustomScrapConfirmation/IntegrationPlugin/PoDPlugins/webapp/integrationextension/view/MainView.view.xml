@@ -1,4 +1,4 @@
-<mvc:View controllerName="sap.custom.plugins.integrationextension.controller.MainView" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+<mvc:View controllerName="sap.custom.plugins.integrationextension.integrationextension.controller.MainView" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" class="viewBackground">
 	<Panel id="dcEntryViewPanel" width="100%" height="100%" accessibleRole="Region" backgroundDesign="Transparent" class="sapUiNoContentPadding">
 <!--
@@ -61,7 +61,7 @@
         <Button type="Accept" text="Save Context" press="onActionButtonPress" >
             
         </Button>
-        <Button type="Accept" text="Get Details " press="onGetDetailsButtonPress" >
+        <Button type="Accept" text="Get SFC Details " press="onGetDetailsButtonPress" >
             
         </Button>
         </contentRight>
