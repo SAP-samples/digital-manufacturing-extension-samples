@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (PluginViewController, JSONModel, MessageToast) {
     "use strict";
 
-    return PluginViewController.extend("sap.custom.plugins.integrationextension.controller.MainView", {
+    return PluginViewController.extend("sap.custom.plugins.integrationextension.integrationextension.controller.MainView", {
         onInit: function () {
             PluginViewController.prototype.onInit.apply(this, arguments);
 
@@ -131,22 +131,11 @@ sap.ui.define([
             if (shopOrder != null){
                 this.getView().byId("SHOPORDER").setValue(shopOrder.shopOrder);
 
-                var url = this._oPodController.getPublicApiRestDataSourceUri()+'/pe/api/v1/process/processDefinitions/start?key=REG_7531a14d-65d1-44ef-a263-658bcbb4aea3';
+                var url = this._oPodController.getPublicApiRestDataSourceUri()+'/sfc/v1/sfcdetail?plant=' + plant + '&sfc=' + this.getPodSelectionModel().getSelection().getSfc().sfc;
                 var that=this;
-                this._oPodController.ajaxPostRequest(url, {'InPlant':plant, 'InSFC': this.getPodSelectionModel().getSelection().getSfc().sfc},
+                this._oPodController.ajaxGetRequest(url, null,
                     function (oResponseData) {
                         console.log(oResponseData);
-                        /*
-                        if (oResponseData["customValues"] !=null){
-                            var values = oResponseData["customValues"];
-                            that.getView().byId("SALESORDER").setValue('');
-                            for (var i =0 ; i <values.length; i++){
-                                if(values[i]["attribute"]==that.getConfiguration().SalesOrderField){
-                                    that.getView().byId("SALESORDER").setValue(values[i]["value"]);
-                                    break;
-                                }
-                            }
-                        }     */              
                     
                 },
                 function (oError, sHttpErrorMessage) {
