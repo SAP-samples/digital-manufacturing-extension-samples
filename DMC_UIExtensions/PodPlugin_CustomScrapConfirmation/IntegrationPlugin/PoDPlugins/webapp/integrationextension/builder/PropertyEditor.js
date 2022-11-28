@@ -6,14 +6,14 @@ sap.ui.define([
     
     var oFormContainer;
 
-    return PropertyEditor.extend( "sap.custom.plugins.integrationextension.builder.PropertyEditor" ,{
+    return PropertyEditor.extend( "sap.custom.plugins.integrationextension.integrationextension.builder.PropertyEditor" ,{
 
 		constructor: function(sId, mSettings){
 			PropertyEditor.apply(this, arguments);
 			
 			this.setI18nKeyPrefix("customComponentListConfig.");
-			this.setResourceBundleName("sap.custom.plugins.integrationextension.i18n.builder");
-			this.setPluginResourceBundleName("sap.custom.plugins.integrationextension.i18n.i18n");
+			this.setResourceBundleName("sap.custom.plugins.integrationextension.integrationextension.i18n.builder");
+			this.setPluginResourceBundleName("sap.custom.plugins.integrationextension.integrationextension.i18n.i18n");
 		},
 		
 		addPropertyEditorContent: function(oPropertyFormContainer){

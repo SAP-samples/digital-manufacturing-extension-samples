@@ -18,7 +18,7 @@ Iflows nodes use XSLT or custom developed exits to transform data into the requi
 - Integration Configurations between DMC and S/4 HANA has been setup
 - You have access to the SAP CI tenant
 - You have access to the DMC tenant
-- Plant Conversion Rules configured(this is reuquired if plant id different between DMC and S/4 HANA)
+- Plant Conversion Rules configured(this is required if plant id different between DMC and S/4 HANA)
 
 ## BTP Components
 - SAP Integration Suite

@@ -6,18 +6,15 @@
 2. Create a pod plugin:
     - Create from scrach (refer [Production Operator Dashboard Plugin Developer's Guide][1])
     - Copy and modify from SAP [samples][2], its under directory DMC_UX/1-Create-a-Generic-Button-And-Register-As-Custom-PoD-Plugin
-    - Using the finished [sample](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_UIExtensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
-3. clone the samples and navigate to the samples folder 'DMC_UIExtensions/PodPlugin_CustomScrapConfirmation'
-```
-git clone https://github.com/SAP-samples/digital-manufacturing-extension-samples.git
-```
+    - Using the finished [sample](https://github.com/SAP-samples/digital-manufacturing-extension-samples/DMC_UIExtensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
+3. Download the samples and extract it.
 4. Go back to Applicaton Business Studio, and select 'Terminal' from menu and click 'New Terminal'
 ![](assets/New_TERMINAL.png)
 5. Create folder under directory /user/projects
 ![](assets/CREATE_FOLDER.png)
 6. Open the folder you just created, and drag the content in step 3 into your Business Application Studio, then wait for the upload complete
 ![](assets/Open_folder.png)
-![](assets/Drag_Sample_into_Business_Studio.png)
+![](assets/Drag Sample into Business Studio.png)
 
 7. Expand the root folder, the structure will look like below
 ![](assets/structure.png)
@@ -28,17 +25,28 @@ git clone https://github.com/SAP-samples/digital-manufacturing-extension-samples
 ## Modify the content (Optional)
 1. Open the mta.yaml, modify existing/add new **CORS** item, the host is the DMC tenant root url you want allow access from.
 ![](assets/Mta_file.png)
+![](assets/MTA_FILE_HOST.png)
 ``` 
 DMC_URL(in sample): dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap
 ```
-- Navigate to folder urlintegraion, and open manifest.json, if you renamed the urlintegration folder, do a global replace with sap.custom.plugins.urlintegration --> sap.custom.plugins.yournewname will be good enough.
+- Navigate to folder urlintegraion, and open manifest.json, if you renamed the urlintegration folder, do a global replace with sap.custom.plugins.urlintegration --> sap.custom.plugins.yournewname.yournewname.yournewname will be good enough.
+```
+Files list:
+./PoDPlugins/webapp/designer/components.json
+./PoDPlugins/webapp/integrationextension/Component.js
+./PoDPlugins/webapp/integrationextension/manifest.json
+./PoDPlugins/webapp/integrationextension/builder/PropertyEditor.js
+./PoDPlugins/webapp/integrationextension/controller/MainView.controller.js
+./PoDPlugins/webapp/integrationextension/view/MainView.view.xml
+
+```
 ![](assets/manifestjson.png)
 ![](assets/replacespace.png)
 - Edit the i18n.properties to rename your applcation
 ![](assets/renameapp.png)
 - Modify the components.json in designer to change what kind of PODs your plugin can be selected.
 ![](assets/supported_types.png)
-- Modify the PropertyEditor.js to define the properties canbe configured in POD designer
+- Modify the PropertyEditor.js to define the properties can be configured in POD designer
 ![](assets/PropertyEditors.png)
 - Edit the MainView.view.xml in view and MainView.controller.js in controller to implement your logic
 ![](assets/mainview-ori.png)
@@ -50,13 +58,10 @@ appTitle=PoDPlugins
 appDescription=App Description
 ```
 ```xml
-<mvc:View controllerName="sap.custom.plugins.integrationextension.controller.MainView" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+<mvc:View controllerName="sap.custom.plugins.integrationextension.integrationextension.controller.MainView" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" class="viewBackground">
 	<Panel id="dcEntryViewPanel" width="100%" height="100%" accessibleRole="Region" backgroundDesign="Transparent" class="sapUiNoContentPadding">
-<!--
-	  <headerToolbar><Toolbar height="3rem">
-    <Button icon="{view>/actionButtonLogoUrl}" text="{view>/actionButtonName}" press="onActionButtonPress" class="urlIntegrationActionButton"/> </Toolbar>
-	  </headerToolbar>-->
+
     <content>
 
     <l:HorizontalLayout>
@@ -113,7 +118,7 @@ appDescription=App Description
         <Button type="Accept" text="Save Context" press="onActionButtonPress" >
             
         </Button>
-        <Button type="Accept" text="Get Details " press="onGetDetailsButtonPress" >
+        <Button type="Accept" text="Get SFC Details " press="onGetDetailsButtonPress" >
             
         </Button>
         </contentRight>
@@ -128,7 +133,7 @@ sap.ui.define([
 ], function (PluginViewController, JSONModel, MessageToast) {
     "use strict";
 
-    return PluginViewController.extend("sap.custom.plugins.integrationextension.controller.MainView", {
+    return PluginViewController.extend("sap.custom.plugins.integrationextension.integrationextension.controller.MainView", {
         onInit: function () {
             PluginViewController.prototype.onInit.apply(this, arguments);
 
@@ -254,22 +259,11 @@ sap.ui.define([
             if (shopOrder != null){
                 this.getView().byId("SHOPORDER").setValue(shopOrder.shopOrder);
 
-                var url = this._oPodController.getPublicApiRestDataSourceUri()+'/pe/api/v1/process/processDefinitions/start?key=REG_7531a14d-65d1-44ef-a263-658bcbb4aea3';
+                var url = this._oPodController.getPublicApiRestDataSourceUri()+'/sfc/v1/sfcdetail?plant=' + plant + '&sfc=' + this.getPodSelectionModel().getSelection().getSfc().sfc;
                 var that=this;
-                this._oPodController.ajaxPostRequest(url, {'InPlant':plant, 'InSFC': this.getPodSelectionModel().getSelection().getSfc().sfc},
+                this._oPodController.ajaxGetRequest(url, null,
                     function (oResponseData) {
                         console.log(oResponseData);
-                        /*
-                        if (oResponseData["customValues"] !=null){
-                            var values = oResponseData["customValues"];
-                            that.getView().byId("SALESORDER").setValue('');
-                            for (var i =0 ; i <values.length; i++){
-                                if(values[i]["attribute"]==that.getConfiguration().SalesOrderField){
-                                    that.getView().byId("SALESORDER").setValue(values[i]["value"]);
-                                    break;
-                                }
-                            }
-                        }     */              
                     
                 },
                 function (oError, sHttpErrorMessage) {
@@ -318,17 +312,18 @@ sap.ui.define([
 
 ## Build and Deploy
 1. Right click the mta.yaml and select 'Build MTA Proejct'
+![](assets/build-with-mta-context.png)
 - Verify there *mtar file generated under folder mta_archives
-![](assets/mtar_file.png)
+![](assets/mtar file.png)
 - Login to Cloud Foundry from terminal by executing:
     - cf api your_api_endpoint (can be found as below from your DMC cockpit)
 ![](assets/api_endpoint.png)
     - cf login
     - follow the command prompt to proceed
-- Right the mtar file under folder mta_archives and select 'Deploy MTA Archive'
-![](assets/Deploy_archive.png)
+- Right click the mtar file under folder mta_archives and select 'Deploy MTA Archive'
+![](assets/Deploy archive.png)
 - Wait for the process complete
-![](assets/deploy_done.png)
+![](assets/deploy done.png)
 
 ## Verify the deployment from sub account Cockpit
 1. Login into your sub account in Cloud Foundry
@@ -355,12 +350,12 @@ sap.ui.define([
 - Open app POD Designer
 - Open a POD you want to edit or copy from
 - Select your plugin from the Plugins, drag and drop to an plugin container(Shopfloor Extension)
-![](assets/add_pod_plugin.png)
+![](assets/add pod plugin.png)
 - Config the plugin
     - Click the config button, and config values you exposed from the PropertyEditor.js
     - ApplicationUrl is the host of your Kyma service: 
     ```
-    https://nodeapi.def8f02.kyma.shoot.live.k8s-hana.ondemand.com
+    https://dmc-persno-reason-code.c-51e1e9a.kyma.shoot.live.k8s-hana.ondemand.com
     ```
     - ExecutionPath is the service path you save sfc based personnel info and variance reason code: 
     ```

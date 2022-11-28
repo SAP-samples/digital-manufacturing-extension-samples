@@ -14,7 +14,7 @@
     - SaveBody will save current body as property and Merge Body will restore the body and merge the expect value fetched from the former step Request Reply
     - Config the iflow for external parameters or Edit the default values, Address is the service url you can request the personnel id and variance reason code with parameter pattern 'SFC:sfc#':
     ```
-    https://nodeapi.def8f02.kyma.shoot.live.k8s-hana.ondemand.com/api/v1/sfc
+   https://dmc-persno-reason-code.c-51e1e9a.kyma.shoot.live.k8s-hana.ondemand.com
     ```
     ![](assets/EDIT_EXT_PAR.png)
     ![](assets/EXT_PAR_CFG.png)
@@ -37,8 +37,9 @@
 
 ## Apply your iflow in app 'Manage Integration Workflows'
 1. Login to your DMC tenant and open 'Manage Integration Workflows'
-- Navigate to item 'ProdnOrdConf2_CREATE_ENTRY'
-- Type the address your defined for iflow ProcessDirect adater in 'Custom Pre-XSLT Workflow'
+- Select Outbound type
+- Navigate to item 'Production Order Cofirmation'
+- Edit the item and set the address your defined for iflow ProcessDirect adater in 'Custom Pre-XSLT Workflow'
 ![](assets/PREXSLT_CFG.png)
     - The standard XSLT has the mapping to handle Personnel Number and Variance Reason Code, so we don't need do customize on XSLT in this case
 - Save it.
@@ -51,11 +52,18 @@
 ![](assets/ASSIGN_ERP_YIELD.png)
 - Assign the directive and save if not assigned
 ## Manage Plants 
-1. Open app 'Manage Plants' and select the plant you are working with
-2. Select the Integration Mode as 'S/4HANA', select ERP Time Zone, Language
-3. Set the ERP Destination.(The destination should be the one configured in CPI cockpit)
+- Open app 'Manage Business Settings' under the plant you are working with
+- Select 'Integration' from the left pane
+- Select the Integration Mode as 'S/4HANA', select ERP Time Zone, Language
+- Set the ERP Destination.(The destination should be the one configured in CPI cockpit)
+- Save it
 ![](assets/MANAGE_PLANTS.png)
 
+## Manage Materails
+- Open app 'Manage Materials' under the plant you are working with
+- Select the Material you need to work with
+- Set 'Autocomplete and Confirm' to true and save
+![](assets/MAT_AUTO_COMPLETE.png)
 
 ## Yield confirmation with Personal Id and Variance reason code
 1. Open POD 'DMC_BOOTCAMP_POD' from POD Designer

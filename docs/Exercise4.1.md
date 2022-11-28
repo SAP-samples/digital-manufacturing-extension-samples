@@ -15,7 +15,7 @@ In this exercise, we would like to show you how to write your own side by side e
 1. Access to your Kyma Dashboard.
 ![](assets/Exercise1.1_AccessKymaDashboard.png)
 
-2. Under the "Namespaces" section, click the "Add new namespace" button to create a new namespace. 
+2. Under the "Namespaces" section, click the "Create Namespace" button to create a new namespace. 
 ![](assets/Exercise1.1_AddNewNamespace2.png)
 
 3. Enter the name of your namespace, e.g dev.
@@ -85,10 +85,10 @@ In this exercise, we would like to show you how to write your own side by side e
 12. In the Kyma Dashboard, go to "Services" and click "nodeapi-service" service. Clicke "Expose Service" button to create API rule for this service.
 ![](assets/Exercise3.2_exposeservice.png)
 
-13. Enter the name (e.g nodeapi) and hostname (e.g nodeapi) to create API rule.
+13. Enter the name (e.g nodeapi) and Subdomain name (e.g nodeapi) to create API rule.
 ![](assets/Exercise3.2_createapirule.png)
 
-14. To test the API, you can use Postman to send a GET request to `http://<API_URL>:<API_PORT>/api/v1/users` with the below sample JSON content in the body.
+14. To test the API, you can use Postman to send a POST request to `http://<API_URL>:<API_PORT>/api/v1/users` with the below sample JSON content in the body.
 
 		{
             "recordsets": [[{"userId": "tarang.gupta@sap.com","description": "tarang.gupta@sap.com","personalId": "456"}, {"userId": "wei.zhou03@sap.com","description": "wei.zhou03@sap.com","personalId": "123"}]],
