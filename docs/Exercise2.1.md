@@ -13,7 +13,7 @@ In this exercise, we would like to show you how to write your own business appli
 1. Access to your Kyma Dashboard.
 ![](assets/Exercise1.1_AccessKymaDashboard.png)
 
-2. Under the "Namespaces" section, click the "Add new namespace" button to create a new namespace. 
+2. Under the "Namespaces" section, click the "Create Namespace" button to create a new namespace. 
 ![](assets/Exercise1.1_AddNewNamespace2.png)
 
 3. Enter the name of your namespace, e.g dmc-extension.
@@ -54,10 +54,10 @@ In this exercise, we would like to show you how to write your own business appli
 		NAME                                READY   STATUS    RESTARTS   AGE
 		mssqlnodejs-5d4bbb47b5-7hjsr        2/2     Running   0          93s
 	
-12. In the Kyma Dashboard, go to "Services" and click "mssqlnodejs-service" service. Clicke "Expose Service" button to create API rule for this service.
+12. In the Kyma Dashboard, go to "Services" and click "mssqlnodejs-service" service. Click "Create API Rule" button to create API rule for this service.
 ![](assets/Exercise3.1_ExposeService.png)
 
-13. Enter the name (e.g dmc-bp-nodejs-api) and hostname (e.g dmc-bp-nodejs-api) to create API rule.
+13. Enter the name (e.g dmc-bp-nodejs-api) and Subdomain name (e.g dmc-bp-nodejs-api) to create API rule.
 ![](assets/Exercise3.1_CreateAPIRule.png)
 
 14. To test the API, you can use Postman to send a POST request to `https://<API_URL>:<API_PORT>/api/v1/dcs` with the below sample JSON content in the body.

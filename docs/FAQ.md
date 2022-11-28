@@ -1,51 +1,254 @@
 # Frequently Asked Questions
 
-### Can we do extensions in DMC with demo and test licence we have as partner
-Yes you can and you can start testing the concepts of DMC Extensibility building artifacts in BTP trial account.
+## General
 
-### Can you show us what kind of tables are exposed from DMC via OData services? 
-DMC does not expose the tables rather data is exposed via public REST APIs. Here is a list DMC APIs exposed and documented in [SAP API Hub](https://api.sap.com/package/SAPDigitalManufacturingCloud/rest)
+### Can we do extentions to DMC with demo and test licence we have as partner
 
-### What kind of In-App extensions are possible withing DMC?
-There are whole range of possibilities with In-App Extensions such as extend existing APIs, trigger parallel processes, augment API outputs, custom Fields support and enriching integration content listening to stanard events. The activity hook can be a pre or post event. 
+You can always start testing the concepts of DMC Extensibility building artifacts in trial account.
 
-### Is it theoretically possible to customize a POD button to open a link with a dynamic parameter that is filled with the currently selected shop order?
-Yes, it is possible with a custom POD Plugin. 
+### Is Mendix still used as a no/low code plattform?
 
-### How can we migrate the activity hooks and how can we interact with external databases or systems (MII, external services) as we do with the hooks?
-This would be similar to how to tackle some of the In-App extension scenarios and interaction with external databases can happen in production process deisgner using APIs. Also, there is further work in progress in this area to make it more usable. 
-
-### What is the alternate solution for MII and can we keep using the same.
-We dont have direct replacement for MII. And absolutely, we can reuse the services from MII along with the new capabilities in Production Process Designer to orchestrate some of the business logic needed for custom processes and extensions.
-
-### Where can we put our own implemented web services?
-Custom API/webservices can be deployed in PaaS account or in Kyma environment and can be linked to production process deisgner. We have some demos around this in the bootcamp event. 
-
-Also, the service enhancements done at the shop floor such as Printing enhancements, Shop-order creation, SFC lifecycle checking, Customized ME-ERP backflushing, Scrap extension etc. can be addressed using the extensive array of extensibility mechanisms in DMC. Some of the conversation would be realized in the bootcamp excercises. 
-
-### Where can we create our own schema and how can access it from DMC?
-Customers/partners can have their own schema to store the custom objects/data in PaaS account or Kyma environment. We have some demo also on the bootcamp event.  
-
-### How we can refresh POD from Machine Connectivity trigger?
-We can subscribe to machine tags and refresh POD by sending notifications events.
-
-### Can we show notifications on POD as per the changes in tag vaue changes?
-Yes, this can be done using the POD Messages or customers and partners can write POD plugins which can listen for the notification event. 
-
-### Is it correct to say SAP ME Java SDK knowledge is obsolete in SAP DMC or is there any Java involved?
-The extensions built in DMC can be microservices bringing the whole notion of persistence, service and UI. And building microservice in the cloud is language agnostic, so definitely the knowledge and design patterns can be repurposed here. 
-
-### For the Machine Learning piece, data is critical. Do we have the ability to do SDI or some kind of SLT tool, for extracting high volume of information? 
-This work is in requirment phase followed by the design phase.
-
-### How can we create/extend our own PODs? 
-We can create custom PODs using standard plugins through configuration or through building new custom POD plugins. The custom plugins can be built in PaaS environment or in Kyma.
+Yes, Mendix is a LC offering we have on our price list to offer our customers the choice.
 
 ### Is there a guideline how to migrate existing SAP ME HTML plug-ins to DMC?
-Currently there are no guidelines to migrate ME POD plugins to DMC, but we are currently evaluating the feasibility.
 
-### How is the transport between different systems (development, test, productive) managed?
-You can find the description here: [Cloud Transport Management](https://discovery-center.cloud.sap/serviceCatalog/cloud-transport-management?region=all)
+No, we dont have yet any guidelines to migrate SAP ME POD Plugins to DME. But we will work on it and provide some guidelines in future.  
+
+### Can you show us what kind of tables are exposed from DMC via Odata services ? As you know, DMC is unique compare to other systems, because things process very fast and would need real time information to make extensions/triggers ?
+
+Here is list DMC APIs exposed in SAP API Hub which can give sense of all objects - [https://api.sap.com/package/SAPDigitalManufacturingCloud/rest](https://api.sap.com/package/SAPDigitalManufacturingCloud/rest)
+
+### Is it correct to say SAP ME Java SDK knowledge is obsolete in SAP DMC or is there any Java involced?
+
+SAP ME Java SDK Knowledge will not be obsolete. Having this knowledge already will help partners and customers to adopt to the DMC Cloud SDK faster since our DMC Cloud extensions framework is similar to ME extensions framework.
+
+### How we are managing overall source control and version management in Kyma or Cloud Foundry ?
+
+Since these are patners extensions, you can use any source control system to manage your source. For example you can use Github. Keep in mind that Kyma environment has the integration with Github.
+
+### Is it possible to extend e.g. the sfc start-process like done in SAP ME with a Service Extension? So that the Extension is not limited to a POD-button.
+
+No currently it is not possible, we are working on a similar service extension framework in DMC. We are at the design phase now.
+
+### Can the SAP HR module be linked to DMC for the labor management?
+
+No, but it is possible with custom intgeration logic.
+
+### Whats price for KYMA and CF when we use?
+
+Please work with your partner account representative.
+
+### Is there a way to see system logs for Standard DMC components ?
+
+No, it is not possible for customers or partners to view the contents of the logs generated by DMC. The logs are fully administrated by SAP.
+
+### Can DMC be connected to extenal DBs directly without MII, if yes then how DMC enabled us to build logic (as MII is eliminated) ?
+
+DMC will not connect to external DBs. Your custom code can connect to external dbs.
+
+### Is there a process to record Machine downtime and maintenance.
+
+DMC resources can be brought down for Scheduled and Unscheduled maintenance and this feature is supported in DMC. If there is any notification needed to notify this event, you could use DMC Alerts feature.
+
+### Any restrictions for Custom field Labels
+
+Only alphanumeric characters, dash, and underscore are allowed for the data field name.
+
+### Support for Decimal / Date types in Custom Fields
+
+No, we dont support data types in custom fields. We only support free text (String) in custom field. We expect partners/customers to handle the values based the value & type they maintain in these custom fields. 
+
+### How can our created function be moved to a production or test environment in Kyma? Or in other words, how is the change of the function managed if it is used in production environemnt?
+
+It is partner's or customer's responsibility to manage the deployment of custom code or functions in Kyma.
+
+### Is it possible to call DMC API with named Users
+
+No it is not possible. But we are looking into this.
+
+### I have error message "You have exceeded the total routes for your organization's quota." How to configure this?
+
+Usually trial account has 10 routes available with limited resources. You might want to remove an old application in order to free up routes.
+
+### No authentication in the exercise. Is it possible to use auth?
+
+Yes, you could protect your custom code behind some authentication/authroization.
+
+### Why Manage Alerts Tile not visible for me?
+
+"Should be assigned via Role collection - Supervisor Role. Role ""Alert_Admin"" is needed to see this tile.
+
+### Is there documentation for Role Collections
+
+https://help.sap.com/viewer/de1d05db7d6e42f6ac2ba773dd5fd555/latest/en-US/ab5fe5c310b14a1c95ef1056d63c08f3.html
+
+### In DMC can you give user authorisation at Plant Level (eg Role Collection at plant level)?
+
+No, we dont currently support that. But we will look into the possibilities and relevance of implementing in future.
 
 
+## In-Application Extension
+
+### What kind of extensions are possible withing DMC?
+
+  Custom fields
+  Integration extensions / enrichment
+  Custom POD Plugins
+  Process Extensions
+  Extension Hook Points
+  Service interception on Pre, Post, Exception extention points
+  Events / Automatic Triggers
+
+### Can you also do an In-App extension with the S/4 Hana public cloud?
+
+To an extend. UI5 Flexibility for Key Users should be available (to my knowledge, but I'm not 100% sure). Also, a side-by-side extension with ABAP environment is possible: [https://developers.sap.com/mission.abap-env-connect-s4hana.html
+](https://developers.sap.com/mission.abap-env-connect-s4hana.html)
+
+### What are list of the list of events/triggers supported in DMC?
+
+We currently support the event types Extended Warehouse Management Staging Confirmed, Goods Receipt Completed, Insepction Results Collection, Order Created, Order Released, Resouce Bin Unloaded, Resource Loaded, resouce Status Changed, SFC Operation Activity Completed, SFC Started and SFC Yield. Please refer SAP Help documentation for the updated list of events.
+
+
+
+
+## POD Extension
+
+### Is it theoretically possible to customize a POD button to open a link with a dynamic parameter that is filled with the currently selected shop order?
+
+This is currently supported by assigning a Transaction to a POD Action Button in which you provide the URL to open and optional query parameters to pass.  Currently the link opens in a new Tab however there have been requests to also support opening in a new window.
+
+### How we can refresh POD from Machine Connectivity trigger?
+
+The POD supports notification messages for Select, Start, Complete and Data Collection as part of core.  Depending on which message is received the core plugins will refresh.   Custom plugins can also be created that can receive “custom” events.  When the plugin receives a custom event via the public API call, it can perform tasks that include firing events to core plugins that will cause refreshing.
+
+### But status is not of SFC in POD changing!! When trigger event from machine connectivity using registry
+
+If notifications messages are enabled for the POD and the Select, Start and Complete messages are enabled, The worklist / operation list will be refreshed when the Select, Start or Complete API’s are called.
+
+### Can we show notifications on POD as per the changes in tag vaue changes?
+
+If you created a custom plugin to receive custom events, you could send the custom event to the POD, the custom plugin would receive the event and could perform actions based on the payload.
+
+### In side by side extension, would it possible to create our own app and publish as tile in DMC instead of in SAP DMC POD?
+
+We support defining a “Custom” pod in pod designer that gives you access to all the core plugins as well as custom plugins. POD Designer could be used to created the custom POD and publish the tile.
+
+### Can you give an example of a UI5 component / POD Plugin running on a client browser as being "faceless"?
+
+Usually they are used where the user wants to execute a backend API based on whatever context information that is in the POD; start, complete, signoff plugins are all faceless (i.e. they are called execution plugins with no view)
+
+### Is there a diffrence in building POD plugins for process order and production order
+
+No difference, but it depends on the context.
+
+### Can we deploy the custom podplugin ui5 app into SAP DMC?
+
+Custom POD Plugins will be deployed to BTP (PaaS) environment or Kyma. They are going to be consumed in DMC whis SaaS layer.
+
+### Is it possible to publish side by extesion UI app as a tile?
+
+Not possible, This functionality is in the roadmap, coming soon.
+
+### Is it possible to debug custom POD plugin in development environment?
+
+Not possoble currently.
+
+
+
+
+## Integration Extension
+
+### Is the SAP Integration suite the same like CPI - Cloud plattform integration?
+
+CPI is part of the SAP Integration Suite and includes a number of other offerings such as API Management.
+
+### Regarding changes on Workflows: Are those plant specific or does the change affect all available plants?
+
+No, they are not plant specific but it affects all plants.
+
+### How many properties are not there in standard XSLT but which can be configured or custom mapped?
+
+**To be answered**
+
+### Is the error workflow (iflow) called only on errors or also on successfull execution? Is there any pass-handler workflow as well?
+
+We have Fail Handler iFlow which is invoked only on errors. We dont have anything for Pass Handler.
+
+### How to add new workflow in Manage Integration Workflow or we just have to use standard one and use pre xslt transformation?
+
+Currently not available. But it will be investigated for enabling in future.
+
+### What type of language are supported in the iflow scripts?
+
+javascript or groovy
+
+
+## Machine Learning Extension
+
+### For the Machine Learning piece, data is critical. Do we have the ability to do 
+or some kind of SLT tool, for extracting high volume of information? Gathering this via API would be an overkill.
+
+**To be answered**
+
+### Can you create multiple rules for a single material in Scenario Defintion?
+
+Yes, but unique key is plant, material, operation so only 1 model for that key
+
+### Is Scenario ID the same as Scenario Name?
+
+No, it is not very intuitive but you can get scenario ID from the URL.
+
+### Authorizations in postman - getting 403 error, is the token expired or is there more auth needed?
+
+If the service key is old it may not contain necessary security scope context for this new API.  Create new service instance and service key.
+
+### Where is the postman collection for visual inspection / inspection log?
+
+https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_MLExtensions
+
+### Where in the URL is the Scenario ID?
+URL string segment after ./home/.  Can also use the GET API to retrieve Scenario ID
+
+### How does performing visual inspection work with uploading an image rather than taking a picture real-time?
+
+This was shown in the exercise via postman but can be used for any service that can deliver the base64 encoded image string via service call
+
+### Can you make POD message dynamic in PP?
+
+Yes, with script task to create string and push it to POD message
+
+### Can we add custom fields to a production process extension to be passed from the POD, beyond standard context parameters like SFC, operation, etc.?
+
+You can go retrieve your custom parameters by using the standard context parameters in the custom PP.  Planned feature to intercept service framework and trigger own logic
+
+### What data source would you use for images with PCo.  Assume the file data source?
+
+Depends on your scenario.  If needing to read from a nework drive, yes.  Some equipment can perform API calls directly.
+
+
+
+## Report Extension
+
+### For reporting we get very less data in dashboard designer, is there any way to get more detailed data for reporting ?
+
+We are planning to have API based reporting framework which will allow more extension points for customer to extend and enrich the data.
+
+### Any plan for SPC chart in the future?
+
+Planned for the year 2022.
+
+### Isn't it possible to integrate ECC data with SDI to the insights solution and built custom KPI's in combination with DMCe data already?
+
+We are investigating the possibility of using DI/DWC for this requirement.
+
+### Can we expose Standard OEE KPI data collected through DMCe in DMCi to third party reporting system ?
+
+We are currently working on an API based reporting framework which will allow the customers/partners to access the OEE data.
+
+
+## Transport Management
+
+### How is the "transport" between different systems (development, test, productive) managed?
+
+You can find the description here: [https://discovery-center.cloud.sap/serviceCatalog/cloud-transport-management?region=all]()
 

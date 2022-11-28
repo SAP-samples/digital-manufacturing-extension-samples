@@ -4,7 +4,7 @@ sap.ui.define([
 ], function (ProductionUIComponent, Device) {
 	"use strict";
 
-	return ProductionUIComponent.extend("sap.custom.plugins.integrationextension.Component", {
+	return ProductionUIComponent.extend("sap.custom.plugins.integrationextension.integrationextension.Component", {
 		metadata: {
 			manifest: "json"
 		}

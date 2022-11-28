@@ -4,222 +4,187 @@
 ## Overview
 In this exercise, we would like to show an example of Visual inspection during the production process at a specific Operation.
 A Machine learning model will be used to process a visual image to determine a successful pass or fail for the inspection.
-
-There are a number of steps required to transact this scenario.Firstly we require to create and train a Machine Learning Model to be able to determine if the assembly image represents a pass or fail. Once the model is created it can than be integrated into DMC.
-
-## Pre-requisites
-- [AI/ML Role Management](https://help.sap.com/viewer/48311ee421904ba38d0592e30e2437a1/latest/en-US/d3abdf70b0fe4c64859f3850d56e5b3d.html)
    
-## Step 1: Build The Machine Learning Model
+## Step 1: Build the Machine Learning Model
 
-There are many tools available to build and train a Machine Learning Model. In this example we will make use of Google's Teachable Machine which is a quick and easy tool to create and train a model. The model will be based on images of a Valve Head assembly.
+There are many tools available to build and train a Machine Learning Model. In this example, we will make use of Google Teachable Machine which is a quick and easy tool to create and train a model.
 
-This will consist of 3 categories of image.
+The model will be based on images of a Valve Head assembly. This will consist of 3 categories of image:
 
-  --SCREW_LEFT (Missing Left Hand side Screw)
+* SCREW_LEFT (Missing Left Hand side Screw)
 
-  --SCREW_RIGHT (Missing Right Hand side Screw)
+* SCREW_RIGHT (Missing Right Hand side Screw)
 
-  --OK (Acceptable image with no inconsistancy)
+* OK (Acceptable image with no inconsistancy)
 
-- Access Google's Teachable Machine [Teachable_Machine](https://teachablemachine.withgoogle.com/)
-   ![](assets/Exercise_2/teachable_machine.PNG)
-   and click on "Get Started"
+### 1. Access Google Teachable Machine
 
- - Create a Model
-   Select an "Image Project"
+Link: [Teachable_Machine](https://teachablemachine.withgoogle.com/)
 
-   ![](assets/Exercise_2/Image_Poject.PNG)
+Click on 'Get Started' button.
+	
+![](assets/Exercise_2/teachable_machine.PNG)
 
-   Select "Standard Image Model"
+### 2. Create a Model
+
+Select the 'Image Project'.
    
-   ![](assets/Exercise_2/Standard_Model.PNG) 
+![](assets/Exercise_2/Image_Project.PNG)
 
-   The Following will be displayed.
+Choose 'Standard Image Model'.
+   
+![](assets/Exercise_2/Standard_Model.PNG) 
+
+The following User Interface will exist:
 
 ![](assets/Exercise_2/Initial_Class.PNG) 
    
-   The desired classes can now be created. In this case three classes. SCREW_LEFT, SCREW_RIGHT, OK. The third class can be inserted with the "Add Class" button
+The desired classes can now be created. In this case three classes: SCREW_LEFT, SCREW_RIGHT, OK. The third class can be inserted with the 'Add Class' button.
 
 ![](assets/Exercise_2/Defined_Classes.PNG) 
 
- - Upload Images
+### 3. Upload Images
 
-   The sample images relevant to each class can now be uploaded by clicking the "Upload" button within the relevant class.
+The sample images relevant to each class can now be uploaded by clicking the 'Upload' button within the relevant class.
    
-   Upload of the SCREW_LEFT images is shown. This can be achieved by dragging selected images across from a folder repository to the highlighted area.
-   
-   This must be repeated for each Class defined.
+Upload of the SCREW_LEFT images is shown. This can be achieved by dragging selected images across from a folder repository to the highlighted area. This should be repeated for each Class defined.
    
 ![](assets/Exercise_2/Screw_Left_Images.PNG)   
    
-   Once all images have been uploaded to the relevant Classes the result should look something like this.
+Once all images have been uploaded to the relevant classes, the result should look like in this way.
    
 ![](assets/Exercise_2/Model_With_Images.PNG)   
 
- - Train The Model
+### 4. Train the Model
 
-   We can now Train the Model, by using the uploaded sample images for each class to give intelligence to the Model allowing it to decide if an image supplied to it is good or bad.
+We can now Train the Model, by using the uploaded sample images for each class to give intelligence to the Model allowing it to decide if an image supplied to it is good or bad.
    
-   This is done by clicking "Train Model"
-   
-   After a short delay (generally around 30 seconds), the model will display as "Trained".
+Click 'Train Model'. 
+
+After a short delay (generally around 30 seconds), the model will display as 'Trained'.
    
 ![](assets/Exercise_2/Model_Trained.PNG)   
    
    
- - Export Model
+### 5. Export the Model
 
-   The model can now be exported by selecting "Export Model"
+The model can now be exported by selecting 'Export Model'.
    
 ![](assets/Exercise_2/Export_Model.PNG) 
 
-   and then selecting the "Download" radio button and clicking "Download My Model"
+and then selecting the "Download" radio button and clicking 'Download My Model'.
    
 ![](assets/Exercise_2/Download_Model.PNG) 
 
-   This results in a zip file being downloaded which will contain 3 files similar to the following.
+This result in a zip file being downloaded will contain 3 files similar to the following structure.
    
 ![](assets/Exercise_2/Downloaded_Zip.PNG) 
    
-   We have now successfully created a Machine Model which we will consume in DMC in a future step. But you can use the pre-built model files from us available in the "DMC_MLExtensions" folder.
+We have now successfully created a machine learning model which we will consume in DMC in further steps.
    
-## Step 2: Validate your Non Conformance Code Structure
+## Step 2: Configure Nonconformance Code Structure
  
- - Manage Non Conformances
+### 1. Create Nonconformance Code
 
-      Within DMC select the "Manage Nonconformance Codes" tile. 
-	  
-![](assets/Exercise_2/Manage_NC_Tile.PNG) 
-
-   and create two new Non Conformances for "SCREW_LEFT" and "SCREW_RIGHT".
+Go to 'Manage Nonconformance Codes' app, and create two new Nonconformance code for **SCREW_LEFT** and **SCREW_RIGHT**.
    
-   NOTE: These NC codes should match the names of the Classes created within the Machine Model in Step 1.
+**NOTE**: These NC codes should match the names of the classes within the machine learning model created in Step 1.
    
 ![](assets/Exercise_2/NC_SCREW_LEFT.PNG) 
 ![](assets/Exercise_2/NC_SCREW_RIGHT.PNG) 
  
- - Manage Non Conformance Groups
+### 2. Create Nonconformance Group
 
-   Within DMC select the "Manage Nonconformance Groups" tile.
-   
-![](assets/Exercise_2/Manage_NC_Groups_Tile.PNG) 
+Go to 'Manage Nonconformance Groups' app, and create a new Nonconformance Group.
 
-  and create a new Nconformance Group
-  
-![](assets/Exercise_2/Create_NC_Group.PNG) 
-  
-  this Non Conformance Group should contain the two Non Conformance codes created previously
+This Nonconformance Group should contain the two Nonconformance codes created previously.
   
 ![](assets/Exercise_2/NC_Group.PNG)  
 
 
 ## Step 3: Manage AI/ML Scenario
+*This step will enable us to build the machine learning scenario allowing us to associate the previously generated machine learning model and Nonconformance code structure.*
 
- - Create an AI/ML Scenario
+### 1. Create an AI/ML Scenario
 
-   This step will enable us to build the Machine Learning scenario allowing us to associate the previously generated machine model and Non Conformance Code structure.
-
-   Within DMC select the "Manage AI/ML Scenarios" tile, and "Create" a new scenario
-   
-![](assets/Exercise_2/Manage_AIML_Tile.PNG)    
-
-   and select the "Predictive Quality: Visual Inspection" scenario
-   
+Go to 'Manage AI/ML Scenarios' app, and create a new scenario by selecting the 'Predictive Quality: Visual Inspection' scenario.
    
 ![](assets/Exercise_2/AIML_Select_Scenario.PNG)  
    
-   Enter a name and description for the Scenario, 
+Enter a name and description for the Scenario, e.g. BOOTCAMP_VISUAL_INSP
 
 ![](assets/Exercise_2/AIML_Step1.PNG)     
 
-   Define the Scenario Available Combintation by clicking "define" and associate the associated DMC Objects.
+Define the Scenario Available Combintation by clicking 'Define' and associate the relevant DMC Objects.
 
 ![](assets/Exercise_2/AIML_Scenario_Availability.PNG)     
 
-   Click "Add" and the expected result is as below
+Click 'Add' and the expected result is shown as below:
    
 ![](assets/Exercise_2/AIML_Step1_end.PNG)
    
- - Click on Step 2 to Configure the Scenario and populate as shown
+Click 'Step 2' to configure the Scenario, choose the Visual Inspection Type to be 'Image Multi Class Classification', and select the Inspection Mode to be 'Assisted'.
   
 ![](assets/Exercise_2/AIML_Step2_config.PNG)
 
-   Now the files generated for the Machine Learning Model in our initial excercise task need to be added to the scenario.
-   Either Click Add to select files, or drag and drop files into the panel area.
-   
-   Two files require to be added, "weights.bin" and "model.json" 
+Now the files generated for the machine learning model in previous steps need to be added to the scenario. Either by clicking 'Add' to select files, or drag and drop files into the panel area. 
 
-![](assets/Exercise_2/AIML_Step2_Addfiles.PNG)
-   
-   with a result similar to below
+There are two files required to be added, **weights.bin** and **model.json**. 
    
 ![](assets/Exercise_2/AIML_Step2_Addedfiles.PNG)
 
-  Model Input and Preprocessing Steps should be configured as follows
+Model input and preprocessing steps should be configured as follows:
   
 ![](assets/Exercise_2/AIML_Step2_ModelInput.PNG)
 
- - Clicking Step 3 moves the screen onto "Scenario Deployment" and requires the additon of the Non Conformance Codes that should be considered in the evaluation process in the POD Plugin. 
-   These Non Conformance Codes are the codes created previously
+ Click 'Step 3' to the 'Scenario Deployment' step, and requires the additon of the classification classes that will be considered in the evaluation process in the POD Plugin. 
   
 ![](assets/Exercise_2/AIML_Step3.PNG)
 
-   Firstly add the Non Conformance Group of "MISSING SCREW"
+Add the Nonconformance Group 'MISSING_SCREW', and then add a Conformance Class e.g. OK
    
 ![](assets/Exercise_2/AIML_Step3_AddNCGroup.PNG)
 ![](assets/Exercise_2/AIML_Step3_AddNCGroup_MissScrew.PNG)
-
-   and then add a Conformance Class
-   
-   Each Entry requires a Class Title to be entered as below
+ 
+Each Entry requires a Class Title to be entered as below:
    
 ![](assets/Exercise_2/AIML_Step3_AddNCClassTitle.PNG) 
 
- - Clicking Step 4 allows us the option to test the scenario 
+Click 'Step 4', and this step will allow us to have an option to test the scenario.
    
 ![](assets/Exercise_2/AIML_Step4.PNG) 
 
-   By then clicking Review we have the ability to check and review the scenario prior to Deployment.
-   
-   The model can be deployed by clicking "Save and Activate". The resultant model will then display as "ACTIVATED" on the main AI/ML page
+Click 'Review', and we can check the configurations in previous steps. The model can be deployed by clicking 'Save and Activate'. The resultant model will then display as 'Activated' on the main AI/ML page.
    
 ![](assets/Exercise_2/AIML_Step4_Activated.PNG) 
 
- 
-
 ## Step 4: Test and Transact the Scenario
 
- - Create and Relase and SFC against a Shop order relating to the LIFTER-ASSY material
+Create and relase an SFC against a shop order relating to the LIFTER-ASSY material.
 
- - Open the predefined DMC Partner POD
+Open the predefined DMC BootCamp POD.
 
- - Select and Start the desired SFC and Operation.
+Select and start the desired SFC and Operation.
 
 ![](assets/Exercise_2/AIML_Step5.PNG) 
 
-   Once Started select the Visual Inspector Tab
+Shift to the Visual Inspector tab, the Webcam associated with the PC / Laptop device being used by the operator can be used to capture an image of the assembled product for verification in the POD.
    
 ![](assets/Exercise_2/AIML_Step5_VI_Display.PNG) 
 
-   The Webcam associated with the PC / Laptop device being used by the operator can be used to capture an image of the assembled product for verification in the POD.
+In this example, we will force a predetermined image into the POD. This will be done via a Postman API call.
    
-   In this example we will force a predetermined image into the POD.
+In order to achieve this, the image to be passed via the API should be converted to a BASE-64 form. This can be realized via a tool such as     [Base64 Converter](https://codebeautify.org/image-to-base64-converter) .
    
-   This will be done via a postman postman API call.
-   
-   In order to achieve this, the image to be passed via the API should be converted to a BASE-64 form. This can be achieved via a tool such as     [Base64 Converter](https://codebeautify.org/image-to-base64-converter)
-   
-   Within Postman, From the Postman Collection select the POST InspectionLog from the Visual Inspection folder.
+Within Postman, import the Postman Collection.Select the 'POST InspectionLog' from the Visual Inspection folder.
 ![](assets/Exercise_2/AIML_Step5_Postman1.PNG)    
 
-   The Body should be configured as shown, ensuring all inputs (eg plant, sfc) correspond to required values. The BASE-64 converted file content should also be inserted.
+The Body should be configured as below, ensuring all inputs (e.g. plant, SFC) correspond to required values. The BASE-64 converted file content should also be inserted.
    
 ![](assets/Exercise_2/AIML_Step5_Postman_Input.PNG)    
    
-   SEND the API.   
-   
-   A successful posting will result in the selected image being displayed in the POD, with a calculated result suggesting if the image is either conformant or non conformant to the process.
-   In this example the model has calculated probability of the "left screw" being mssing in the assembly is 44%
+After sending the POST request, a successful posting will result in the selected image being displayed in the POD, with a calculated result suggesting if the image is either conformant or nonconformant to the process.  
+
+In this example, the model has calculated probability of the left screw being missing in the assembly is 99%.
    
 ![](assets/Exercise_2/AIML_Step5_VI_Result.PNG)
