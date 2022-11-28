@@ -7,7 +7,7 @@ In this exercise, we would like to show you how you can release Production Order
 1. Access to your Kyma Dashboard.
 ![](assets/Exercise1.1_AccessKymaDashboard.png)
 
-2. Under the "Namespaces" section, click the "Add new namespace" button to create a new namespace. 
+2. Under the "Namespaces" section, click the "Create Namespace" button to create a new namespace. 
 ![](assets/Exercise1.1_AddNewNamespace2.png)
 
 3. Enter the name of your namespace, e.g dmc-extension.
@@ -22,35 +22,41 @@ In this exercise, we would like to show you how you can release Production Order
 6. Enter the name of your function, e.g get-nextnumber and click Create.
 ![](assets/Exercise1.1_CreateFunction.png)
 
-6. Go to the "Source" tab under "Code" tab, copy the sample code "index.js" under the folder "DMC_InAppExtensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
+7. Go to the "Source" tab under "Code" tab, copy the sample code "index.js" under the folder "DMC_InAppExtensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
 ![](assets/Exercise1.1_CopyIndexJS.png)
 
-7. Go to the "Dependencies" tab under "Code" tab, copy the sample code "package.json" under the folder "DMC_InAppExtensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
+8. Go to the "Dependencies" tab under "Code" tab, copy the sample code "package.json" under the folder "DMC_InAppExtensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
 ![](assets/Exercise1.1_CopyPackageJson.png)
 
-8. In the Environment Variables area, add the following environment varaibles.
+9. In the Environment Variables area, add the following custom variables and secret variables.
 
 		Variable Name 	Value
 		grant_type		client_credentials
-		clientsecret	<your DMC Client Secret>
-		clientid		<your DMC Client Id>
 		url				<your DMC Token Service URL> e.g. https://<subaccount>.authentication.eu20.hana.ondemand.com/oauth/token
 		baseUrl			<your DMC Public API URL> e.g. https://api.test.eu20.dmc.cloud.sap
 		plant			<your default plant>
 		order			<your default order>
+		clientsecret	<secret contain your DMC Client Secret>
+		clientid		<secret contain your DMC Client Id>
 		
 	![](assets/Exercise1.2_EnvironmentVariable.png)
 
-8. Click "Save" button, which automatically triggers the build and deployment process. Once it is finished, your function will be in the "RUNNING" status.
+	For the secret variables, go to Configuration > Secrets tab to create secret.
+	![](assets/Exercise1.2_CreateSecret.png)
+
+	You can maintain some security artifacts within this secret. In our case, it should be client id and client secret of your DMC tenant.
+	![](assets/Exercise1.2_SecretValue.png)
+
+10. Click "Save" button, which automatically triggers the build and deployment process. Once it is finished, your function will be in the "RUNNING" status.
 ![](assets/Exercise1.1_SaveCodeChanges.png)
 
-9. Go to the "Configuration" tab and click the "Expose Function" button.
+11. Go to the "Configuration" tab and click the "Create API Rule" button.
 ![](assets/Exercise1.1_ExposeFunction.png)
 
-10. Enter the name (e.g dmc-in-app-extension) and hostname (e.g dmc-in-app-extension) to create API rule.
+12. Enter the name (e.g dmc-in-app-extension) and Subdomain name (e.g dmc-in-app-extension) to create API rule.
 ![](assets/Exercise1.1_CreateAPIRule.png)
 
-11. You can find your API End Point URL under the "API Rules". 
+13. You can find your API End Point URL under the "API Rule". 
 ![](assets/Exercise1.1_DisplayAPIRule.png)
 
 
