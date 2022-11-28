@@ -1,0 +1,9 @@
+Getting Ready with Kyma - https://developers.sap.com/tutorials/cp-kyma-download-cli.html
+
+Get a list of all kubectl commands - https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+
+set kubeconfig=<>
+kubectl config get-contexts
+
+
+
