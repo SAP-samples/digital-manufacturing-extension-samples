@@ -17,3 +17,7 @@ APIExternalProducer.js
 .*/APIExternalProducer.js
 /mta_archives/
 **/site/**
+**/.vscode/**
+.DS_Store
+**/.DS_Store
+.DS_Store?
