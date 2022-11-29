@@ -39,16 +39,11 @@
 ![](assets/S4_RCCLORD_2.png)
 - If the Plant id are dirrent between DMC and S/4 HANA, you need do the plant conversion, refer [Plant Conversion](https://help.sap.com/viewer/c86ca4026fae4cb3ba66ed751866175b/latest/en-US/28923c635ae1463898b039b78d5137f7.html?q=Plant%20Conversion)
 
-## Step 4 - Verify Release Production Order
+## Step 4 - Verify Production Order
 1. Open app Manage Orders
 2. Select the order you created from DMC or SAP S/4 HANA
 3. Review the order, you should be able verify the Sales Order ID and Customer Name from tab 'Custom Data'
 ![](assets/MO_VERIFYORDER.png)
-4. Click button 'Release'
-5. Enter quantity you want to release and click button 'Release' to release the order
-![](assets/MO_ReleaseOrder.png)
-6. Verify that number of SFCs added corresponding to your new quantity released
-![](assets/DMC_AFTTER_REL.png)
 
 ## Step 5 - Create Production Orders from DMC
 1. Open app Manage Orders and click 'Create'
