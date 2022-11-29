@@ -17,11 +17,13 @@
 
 
 ## Step 2 - Define Rules for populate values for the fields
-1. Open app Manage Integration Workflows and select LOIPRO05_PRODORDER
+1. Open app Manage Integration Workflows and select Production Order Download (LOIPRO05), select Production Order Download (LOIPRO05 V2) if you already enabled V2 version for LOIPRO05 processing
 2. Copy the value from section 'Standard XSLT'
-3. Modify the value populating rule by goto the end of block of 'shopOrderIn', uncomments the section dev team reserved and build your own one, save it to Custom XSLT section. [Sample XSLT](https://github.com/SAP-samples/digital-manufacturing-extension-samples/blob/main/DMC_IntegrationExtensions/LOIPRO05_Reqeust_customized_with_sales_order_and_customer.xsl)
+3. Modify the value populating rule by goto the end of block of 'shopOrderIn', uncomments the section dev team reserved and build your own one, save it to Custom XSLT section. [Sample XSLT](https://github.com/SAP-samples/digital-manufacturing-extension-samples/blob/main/DMC_IntegrationExtensions/LOIPRO05_Reqeust_customized_with_sales_order_and_customer.xsl); For V2, search 'Sample for custom field on order level' to locate it.[Sample XSLT V2](https://github.com/SAP-samples/digital-manufacturing-extension-samples/blob/main/DMC_IntegrationExtensions/LOIPRO05_Reqeust_customized_with_sales_order_and_customer_V2.xsl)
 
 ![](assets/MIW_LOIPRO05_MAPPING.png)
+
+4. 
 
 ## Step 3 - Create Production Orders from SAP S/4 HANA
 1. Login to SAP S/4 HANA system
