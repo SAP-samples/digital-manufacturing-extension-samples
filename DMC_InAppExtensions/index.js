@@ -120,11 +120,19 @@ module.exports = {
         //console.log(result);
         orderdetails =  JSON.parse(result);
         
+        let customdata;
+        
+        for (let i=0; i < orderdetails.customValues.length; i++) {
+          if (orderdetails.customValues[i].attribute == "CD_SALES_ORDER_ID"){
+            customdata = orderdetails.customValues[i].value;
+          }
+        }
+        console.log(customdata);
 
         let array = [];
         let newSeq;
         for (let iter=0; iter < identifiers.length; iter++) {
-          newSeq = orderdetails.customValues[0].value + identifiers[iter].substring(identifiers[iter].length-4,identifiers[iter].length);
+          newSeq = customdata + identifiers[iter].substring(identifiers[iter].length-4,identifiers[iter].length);
           console.log("newSeq: " + newSeq);
           array.push(newSeq);
         }
