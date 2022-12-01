@@ -5,7 +5,7 @@
 1. Login into you Application Business Studio
 2. Create a pod plugin:
     - Create from scrach (refer [Production Operator Dashboard Plugin Developer's Guide][1])
-    - Copy and modify from SAP [samples][2], its under directory DMC_UX/1-Create-a-Generic-Button-And-Register-As-Custom-PoD-Plugin
+    - Copy and modify from SAP [samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_UX/1-Create-a-Generic-Button-And-Register-As-Custom-PoD-Plugin)
     - Using the finished [sample](https://github.com/SAP-samples/digital-manufacturing-extension-samples/DMC_UIExtensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
 3. Download the samples and extract it.
 4. Go back to Applicaton Business Studio, and select 'Terminal' from menu and click 'New Terminal'
@@ -14,7 +14,7 @@
 ![](assets/CREATE_FOLDER.png)
 6. Open the folder you just created, and drag the content in step 3 into your Business Application Studio, then wait for the upload complete
 ![](assets/Open_folder.png)
-![](assets/Drag Sample into Business Studio.png)
+![](assets/Drag_Sample_into_Business_Studio.png)
 
 7. Expand the root folder, the structure will look like below
 ![](assets/structure.png)
@@ -23,13 +23,8 @@
 ![](assets/result.png)
 
 ## Modify the content (Optional)
-1. Open the mta.yaml, modify existing/add new **CORS** item, the host is the DMC tenant root url you want allow access from.
-![](assets/Mta_file.png)
-![](assets/MTA_FILE_HOST.png)
-``` 
-DMC_URL(in sample): dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap
-```
-- Navigate to folder urlintegraion, and open manifest.json, if you renamed the urlintegration folder, do a global replace with sap.custom.plugins.urlintegration --> sap.custom.plugins.yournewname.yournewname.yournewname will be good enough.
+
+1. Navigate to folder urlintegraion, and open manifest.json, if you renamed the urlintegration folder, do a global replace with sap.custom.plugins.urlintegration --> sap.custom.plugins.{yournewname}.{yournewname} will be good enough.
 ```
 Files list:
 ./PoDPlugins/webapp/designer/components.json
@@ -42,16 +37,16 @@ Files list:
 ```
 ![](assets/manifestjson.png)
 ![](assets/replacespace.png)
-- Edit the i18n.properties to rename your applcation
+2. Edit the i18n.properties to rename your applcation
 ![](assets/renameapp.png)
-- Modify the components.json in designer to change what kind of PODs your plugin can be selected.
+3. Modify the components.json in designer to change what kind of PODs your plugin can be selected.
 ![](assets/supported_types.png)
-- Modify the PropertyEditor.js to define the properties can be configured in POD designer
+4. Modify the PropertyEditor.js to define the properties can be configured in POD designer
 ![](assets/PropertyEditors.png)
-- Edit the MainView.view.xml in view and MainView.controller.js in controller to implement your logic
+5. Edit the MainView.view.xml in view and MainView.controller.js in controller to implement your logic
 ![](assets/mainview-ori.png)
 ![](assets/contoller-ori.png)
-- In my sample, I renamed the application title to 'Shopfloor Extension' in i18.properties and builder.properties, and renamed the urlintegration folder to integrationextension, make ui changes in MainView.view.xml and MainView.controller.js and properties defination in PropertyEditor.js
+6. In my sample, I renamed the application title to 'Shopfloor Extension' in i18.properties and builder.properties, and renamed the urlintegration folder to integrationextension, make ui changes in MainView.view.xml and MainView.controller.js and properties defination in PropertyEditor.js
 ```properties
 title=Shopfloor Extension
 appTitle=PoDPlugins
@@ -311,51 +306,61 @@ sap.ui.define([
 ```
 
 ## Build and Deploy
-1. Right click the mta.yaml and select 'Build MTA Proejct'
+1. Open the mta.yaml, modify existing/add new **CORS** item, the host is the DMC tenant root url you want allow access from.
+![](assets/Mta_file.png)
+![](assets/MTA_FILE_HOST.png)
+``` 
+DMC_URL(in sample): dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap
+```
+2. Right click the mta.yaml and select 'Build MTA Proejct'
 ![](assets/build-with-mta-context.png)
-- Verify there *mtar file generated under folder mta_archives
-![](assets/mtar file.png)
-- Login to Cloud Foundry from terminal by executing:
+3. Verify there *mtar file generated under folder mta_archives
+![](assets/mtar_file.png)
+4. Login to Cloud Foundry from terminal by executing:
     - cf api your_api_endpoint (can be found as below from your DMC cockpit)
 ![](assets/api_endpoint.png)
     - cf login
     - follow the command prompt to proceed
-- Right click the mtar file under folder mta_archives and select 'Deploy MTA Archive'
-![](assets/Deploy archive.png)
-- Wait for the process complete
-![](assets/deploy done.png)
+5. Right click the mtar file under folder mta_archives and select 'Deploy MTA Archive'
+![](assets/Deploy_archive.png)
+6. Wait for the process complete
+![](assets/deploy_done.png)
 
 ## Verify the deployment from sub account Cockpit
 1. Login into your sub account in Cloud Foundry
-- Select the space you deployed your plugin application to
-- Find your application and click it
+2. Select the space you deployed your plugin application to
+3. Find your application and click it
 ![](assets/status.png)
-- You will be able find informations about your application, like Start/Stop/Restart information from Events and application logs from Logs
+5. You will be able find informations about your application, like Start/Stop/Restart information from Events and application logs from Logs
 ![](assets/applicationinfo.png)
 
 
-[1]: https://help.sap.com/viewer/product/SAP_DIGITAL_MANUFACTURING_CLOUD/latest/en-US?task=develop_task
+[1]: https://help.sap.com/docs/SAP_DIGITAL_MANUFACTURING_CLOUD?task=develop_task
 [2]: https://github.com/SAP-samples/digital-manufacturing-extension-samples.git
 
 ## Create Service Registry
 1. Open app 'Manage Service Registry'
-- Switch to 'UI Extensions' tab and click 'Create'
+2. Switch to 'UI Extensions' tab and click 'Create'
 ![](assets/create_svc_reg.png)
-- Input fields like below and save.
+3. Input fields like below and save.
 ![](assets/Service_Registry.png)
+    URL: your application host url deployed in BTP
 
+    Namespace: keep it same as your application(only replace '.' with '/')
+
+    Path: the folder name that contains webapp and *json files
 
 ## Add your plugin into customized POD
 1. Login to your DMC tenant
-- Open app POD Designer
-- Open a POD you want to edit or copy from
-- Select your plugin from the Plugins, drag and drop to an plugin container(Shopfloor Extension)
+2. Open app POD Designer
+3. Open a POD you want to edit or copy from
+4. Select your plugin from the Plugins, drag and drop to an plugin container(Shopfloor Extension)
 ![](assets/add pod plugin.png)
-- Config the plugin
+5. Config the plugin
     - Click the config button, and config values you exposed from the PropertyEditor.js
     - ApplicationUrl is the host of your Kyma service: 
     ```
-    https://dmc-persno-reason-code.c-51e1e9a.kyma.shoot.live.k8s-hana.ondemand.com
+    https://node.fe160ce.kyma.ondemand.com
     ```
     - ExecutionPath is the service path you save sfc based personnel info and variance reason code: 
     ```
@@ -370,9 +375,9 @@ sap.ui.define([
     CD_SALES_ORDER_ID
     ```
 ![](assets/configedvalues.png)
-- Save amd click preview button to preview your POD
+6. Save amd click preview button to preview your POD
 ![](assets/previewpod.png)
-- Add other components into POD to meet your requirements
-- Save and publish the POD when design is done
+7. Add other components into POD to meet your requirements
+8. Save and publish the POD when design is done
 
 
