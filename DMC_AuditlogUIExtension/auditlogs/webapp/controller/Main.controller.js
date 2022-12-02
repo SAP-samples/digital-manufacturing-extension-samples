@@ -10,6 +10,7 @@ sap.ui.define([
         "use strict";
 
         var X_CSRF_TOKEN = "X-CSRF-Token";
+        var PAGING = "paging";
         var APPLICATION_JSON = "application/json";
 
         return Controller.extend("sap.dm.dme.auditlogs.controller.Main", {
@@ -118,16 +119,53 @@ sap.ui.define([
 
             getAuditLog: function (mParameters) {
                 var sUrl = this.getOwnerComponent().getDataSourceUriByName("auditlog-RestSource");
-                this.ajaxGet(sUrl + "getaudits", mParameters, function (oResponseData) {
-                    var aFormattedLogs = this._formatResponseData(oResponseData);
-                    this._setTableHeaderCount(aFormattedLogs.length);
-                    this.getView().getModel("oAuditModel").setProperty("/auditlogs", aFormattedLogs);
-                    this.getView().getModel("oAuditModel").setProperty("/masterlogs", aFormattedLogs);
+                this.byId("auditLogTable").setBusy(true);
+                this.ajaxGet(sUrl + "getaudits", mParameters, function (oResponseData, sStatus, oXhr) {
+                    this.aFormattedLogs = this._formatResponseData(oResponseData);
+                    this.updateAuditLogTable();
+                    this.currentHandle = oXhr.getResponseHeader(PAGING) != "undefined" ? decodeURIComponent(oXhr.getResponseHeader(PAGING).substr(7)) : "";
+                    this.byId("auditLogTable").setBusy(false);
                 }.bind(this), function (oError) {
                     if (oError !== undefined) {
                         MessageBox.error(oError.message);
                     }
+                    this.byId("auditLogTable").setBusy(false);
                 });
+            },
+
+            loadMoreAuditLogs: function(oEvent){
+                if(oEvent.getParameter("reason").toLowerCase() === "growing" && this.currentHandle &&  !this.byId("auditLogTable").getBusy()) {
+                    var mParams = {
+                        "handle": this.currentHandle
+                    };
+                    var sUrl = this.getOwnerComponent().getDataSourceUriByName("auditlog-RestSource");
+                    this.fetchAuditLogsOnGrowing(sUrl, mParams);
+                }
+            },
+
+            fetchAuditLogsOnGrowing : function(sUrl, mParams){
+                this.byId("auditLogTable").setBusy(true);
+                this.ajaxGet(sUrl + "getaudits", mParams, function (oResponseData, sStatus, oXhr) {
+                    var latestFormattedLogs = this._formatResponseData(oResponseData);
+                    this.aFormattedLogs = this.aFormattedLogs.concat(latestFormattedLogs);
+                    this.updateAuditLogTable();
+                    this.currentHandle = oXhr.getResponseHeader(PAGING) != "undefined" ? decodeURIComponent(oXhr.getResponseHeader(PAGING).substr(7)) : "";
+                    this.byId("auditLogTable").setBusy(false);
+                }.bind(this), function (oError) {
+                    if (oError !== undefined) {
+                        MessageBox.error(oError.message);
+                    }
+                    this.byId("auditLogTable").setBusy(false);
+                });
+            },
+
+            updateAuditLogTable : function(){
+                var oModel = this.getView().getModel("oAuditModel");
+                oModel.refresh();
+                oModel.setSizeLimit(this.aFormattedLogs.length);
+                this._setTableHeaderCount(this.aFormattedLogs.length);
+                oModel.setProperty("/auditlogs", this.aFormattedLogs);
+                oModel.setProperty("/masterlogs", this.aFormattedLogs);
             },
 
             _setTableHeaderCount: function (iLength) {
@@ -179,7 +217,7 @@ sap.ui.define([
                     if (sToken) {
                         this.mTokenDeferred = jQuery.Deferred().resolve(sToken);
                     }
-                    fnSuccess(oData);
+                    fnSuccess(oData, sStatus, oXhr);
                 }.bind(this);
                 var that = this;
                 this.processRequest(jQuery.ajax(oSettings), that.mTokenDeferred ? fnSuccess : fnExtractTokenWrapper, fnFailure);
@@ -187,7 +225,9 @@ sap.ui.define([
 
             processRequest: function (oRequest, fnSuccess, fnFailure) {
                 oRequest
-                    .done(fnSuccess)
+                    .done(function (oData, sStatus, oXhr) {
+                        fnSuccess(oData, sStatus, oXhr);
+                    })
                     .fail(function (oXhr, sStatus, sErrorMessage) {
                         fnFailure(oXhr.responseJSON, sErrorMessage, oXhr.status);
                     });
