@@ -31,6 +31,11 @@ async function getAuditLog(alm, mParams) {
             const options2 = {
                 method: 'GET',
                 url: alm.url + '/auditlog/v2/auditlogrecords',
+                params: {
+                    "time_from": mParams.timeFrom,
+                    "time_to": mParams.timeTo,
+                    "handle": mParams.handle
+                },
                 headers: {
                     Authorization: 'Bearer ' + res1.data.access_token
                 }
@@ -45,7 +50,13 @@ async function getAuditLog(alm, mParams) {
                     filteredLogs.push(element);
                 }
             });
-            return filteredLogs;
+            // return filteredLogs;
+            // Return paging & filtered logs
+            const result = [];
+            result.push(res2.headers['paging']);
+            result.push(filteredLogs);
+            return result;
+//
         } catch (err) {
             console.log(err.stack);
             return err.message;
