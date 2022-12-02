@@ -50,7 +50,7 @@
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
-            <Table id="auditLogTable" items="{oAuditModel>/auditlogs}" class="sapFDynamicPageAlignContent" width="auto" growing="true" growingThreshold="20" growingScrollToLoad="true">
+            <Table id="auditLogTable" items="{oAuditModel>/auditlogs}" class="sapFDynamicPageAlignContent" width="auto" growing="true" growingThreshold="100" growingScrollToLoad="true" updateStarted="loadMoreAuditLogs">
                 <headerToolbar>
                     <Toolbar>
                         <Title id="masterListTitle" text="{i18n>flpTitle} ({oAuditModel>/auditcount})" level="H3"/>
