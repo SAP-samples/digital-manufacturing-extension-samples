@@ -2,7 +2,7 @@
 # Exercise 4.2 - Perform Inspection Operation (2/2)
 
 ## Create Custom POD plugin
-1. Login into you Application Business Studio
+1. Login into your Application Business Studio
 2. Create a pod plugin:
     - Create from scrach (refer [Production Operator Dashboard Plugin Developer's Guide][1])
     - Copy and modify from SAP [samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_UX/1-Create-a-Generic-Button-And-Register-As-Custom-PoD-Plugin)
@@ -37,7 +37,7 @@ Files list:
 ```
 ![](assets/manifestjson.png)
 ![](assets/replacespace.png)
-2. Edit the i18n.properties to rename your applcation
+2. Edit the 'title' in i18n.properties and builder.properties to rename your application
 ![](assets/renameapp.png)
 3. Modify the components.json in designer to change what kind of PODs your plugin can be selected.
 ![](assets/supported_types.png)
