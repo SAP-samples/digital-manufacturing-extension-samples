@@ -38,7 +38,7 @@
 ## Apply your iflow in app 'Manage Integration Workflows'
 1. Login to your DMC tenant and open 'Manage Integration Workflows'
 - Select Outbound type
-- Navigate to item 'Production Order Cofirmation'
+- Navigate to item 'Production Order Confirmation'
 - Edit the item and set the address your defined for iflow ProcessDirect adater in 'Custom Pre-XSLT Workflow'
 ![](assets/PREXSLT_CFG.png)
     - The standard XSLT has the mapping to handle Personnel Number and Variance Reason Code, so we don't need do customize on XSLT in this case
