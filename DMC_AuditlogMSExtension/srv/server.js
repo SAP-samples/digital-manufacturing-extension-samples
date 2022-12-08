@@ -18,8 +18,6 @@ const lib = require('./library');
 xsenv.loadEnv();
 const services = xsenv.getServices({
     alm: { label: 'auditlog-management' }
-    // registry: { tag: 'SaaS' },
-    // uaa: { tag: 'xsuaa' }
 });
 
 passport.use(new JWTStrategy(xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsuaa));
@@ -27,10 +25,6 @@ passport.use(new JWTStrategy(xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsua
 app.use(passport.initialize());
 
 app.use(bodyParser.json());
-
-// app.use(passport.authenticate("JWT", {
-//     session: false,
-// }));
 
 app.get("/health", function (req, res) {
     res.status(200).json({ "Status": "UP" });
@@ -164,59 +158,20 @@ app.get('/auditlogs/v1/saas/dependencies', function (req, res) {
 app.get('/dme/advauditapp-ms/getaudits', function (req, res) {
     let timeFrom = req.query.time_from;
     let timeTo = req.query.time_to;
-
-    if (!timeFrom) {
-        const tempDate = new Date(Date.now() - (1000 * 60 * 5)); // 5 minutes ago
-        timeFrom = tempDate.toISOString().substring(0, 16);
-    }
-
-    if (!timeTo) {
-        const tempDate = new Date(Date.now()); // now
-        timeTo = tempDate.toISOString().substring(0, 16);
-    }
-
-    //Retrieve oauth url, client id and client secret details of subscriber account
-    // try {
-    //     var authorization = req.headers.authorization;
-    //     if (authorization !== null && authorization !== undefined) {
-    //         var parts = authorization.split(' ');
-    //         var token = parts[1];
-    //         var config = xsenv.getServices({ xsuaa: { tag: 'xsuaa' } }).xsuaa;
-    //         xssec.createSecurityContext(token, config, function (error, securityContext, tokenInfo) {
-    //             if (error) {
-    //                 console.log('Security Context creation failed');
-    //                 console.log(error.stack);
-    //                 return;
-    //             }
-    //             console.log('Security Context created successfully, Token Info :%s', JSON.stringify({ user: tokenInfo.getPayload(), header: tokenInfo.getHeader() }));
-    //             console.log("ISS URL: " + tokenInfo.getPayload().iss);
-
-
-    //         });
-
-    //     }
-    //     else { throw new Error("No authorization header"); }
-
-
-    // }
-    // catch (error) {
-    //     console.log(error.stack);
-    //     res.statusCode = 401;
-    //     res.send(JSON.stringify({ status: error.message }));
-    // }
+    let handle = req.query.handle;
 
     var mParams = {
         timeFrom: timeFrom,
-        timeTo: timeTo
-        // token: token,
-        // url: tokenInfo.getPayload().iss
+        timeTo: timeTo,
+        handle: handle
     };
-
 
     //Perform call via auditlog API using retrieved credentials
     lib.getAuditLog(services.alm, mParams).then(
         function (result) {
-            res.status(200).json(result);
+            res.set('paging', result[0]);         //push header-paging
+            res.status(200).json(result[1]);      //push body
+//            res.status(200).json(result);
         },
         function (err) {
             console.log(err.stack);
