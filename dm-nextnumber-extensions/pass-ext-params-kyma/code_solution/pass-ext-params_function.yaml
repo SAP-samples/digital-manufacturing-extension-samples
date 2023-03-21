@@ -1,0 +1,39 @@
+apiVersion: serverless.kyma-project.io/v1alpha1
+kind: Function
+metadata: 
+  labels: 
+    app: pass-ext-params
+  name: pass-ext-params
+spec:
+  buildResources:
+    limits:
+      cpu: 700m
+      memory: 700Mi
+    requests:
+      cpu: 200m
+      memory: 200Mi
+  deps: "{ \n  \"name\": \"pass-ext-params\",\n  \"version\": \"1.0.0\",\n  \"dependencies\":
+    {}\n}"
+  maxReplicas: 1
+  minReplicas: 1
+  resources:
+    limits:
+      cpu: 25m
+      memory: 32Mi
+    requests:
+      cpu: 10m
+      memory: 16Mi
+  runtime: nodejs14
+  source: |-
+    module.exports = {
+        main: async function(event, context) {
+            let result = event.data;
+            console.log("Trace Extension parameters : %j", result);
+            let extensionParameters = result.extensionParameters;
+            if (extensionParameters) {
+                let plant = extensionParameters["PLANT"];
+                console.log("Trace Extension parameter PLANT : %s", plant);
+            }
+            return result;
+        }
+    }

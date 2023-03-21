@@ -115,7 +115,7 @@ With the new release of SAP ME 15.4, all the PAPIs are exposed as REST API’s w
 Using the sample extensions provided will allow you to learn and understand how to build your SAPUI5 based extensions of Production Operator Dashboards to use with SAP ME.
 ## Description
 
-![](resources/images/me_ext_pod.png)
+![](docs/assets/images/me_ext_pod.png)
 
 Link: [SAP ME UI5 Extension POD](ME_POD)
 
