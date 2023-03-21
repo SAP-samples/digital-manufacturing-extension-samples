@@ -24,7 +24,7 @@ In this exercise, we would like to show you how to write your own business appli
 
 5. Download the sample code from [DMC Extensibility Bootcamp Github Samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples).
 
-6. Open the folder "api-mssql-nodejs" which is under "DMC_ProcessExtensions" in the Visual Studio Code.
+6. Open the folder "api-mssql-nodejs" which is under "dm-process-extensions" in the Visual Studio Code.
 ![](assets/Exercise3.1_OpenInVSCode.png)
  
 7. (Optional) Build and push the image to your Docker repository.

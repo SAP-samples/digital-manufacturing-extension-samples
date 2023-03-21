@@ -6,7 +6,7 @@
 - Navigate into your package, open tab 'Artifacts' and click Edit
 - Click Add and select type 'Integration Flow', and fill the mandatory fields
 ![](assets/Create_Iflow.png)
-- Choose 'Upload' and browse the iflow zip file downloaded from [Z_PRODORD_CONF_PERS_CODE_FETCH.zip](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_IntegrationExtensions), you can skip create iflow yourself.
+- Choose 'Upload' and browse the iflow zip file downloaded from [Z_PRODORD_CONF_PERS_CODE_FETCH.zip](../dm-integration-extensions/), you can skip create iflow yourself.
 ![](assets/ILFOW_UPLOAD.png)
 - Adding the iflow components to meet your requirements
     - Inbound adapter should be ProcessDirect, and the Address you specified will be used in DMC app 'Manage Integration workflows'
