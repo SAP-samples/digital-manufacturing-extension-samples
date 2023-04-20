@@ -154,7 +154,7 @@ Collection:
 
 ## References
 * DMC Extensibility Webinar -Digital Manufacturing Cloud Extensibility Overview - [PDF](https://d.dam.sap.com/a/QAGDuqa) | [Recording](https://wiki.scn.sap.com/wiki/display/SCM/Events+and+Webinars+for+SAP+Digital+Manufacturing+Cloud#:~:text=Extensibility%20Overview%20PDF%20%7C-,Recording,-15%20June%202021)
-* SAP Extension Suite Learning Journey - [https://learning.sap.com/learning-journey/building-extensions-with-sap-extension-suite](https://learning.sap.com/learning-journey/building-extensions-with-sap-extension-suite)
+* SAP Extension Suite Learning Journey - [Build side-by-side extensions on SAP BTP](https://learning.sap.com/learning-journey/build-side-by-side-extensions-on-sap-btp)
 * Getting ready for Extensions - [https://blogs.sap.com/2020/04/16/sap-digital-manufacturing-cloud-ready-for-extensions/](https://blogs.sap.com/2020/04/16/sap-digital-manufacturing-cloud-ready-for-extensions/)
 * Sample Code - [https://github.com/SAP-samples/digital-manufacturing-extension-samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples)
 * DMC Business API Hub - [https://api.sap.com/package/SAPDigitalManufacturingCloud?section=Artifacts ](https://api.sap.com/package/SAPDigitalManufacturingCloud?section=Artifacts)
