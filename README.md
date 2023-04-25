@@ -5,12 +5,11 @@ SAP Digital Manufacturing provides an out-of-the-box Manufacturing Execution Sys
 
 ## Description
 In SAP Digital Manufacturing we distinguish between the following major areas for extensions:
-- POD Extension
+- POD Plugin Extension
 - Side by side Extension
 - Core Plugin Extension
 - Integration Extension
-- In-App Extension
-- Next Number Extension
+- In-App Service Extension
 - ML Extension
 
 ## Sample Extensions
