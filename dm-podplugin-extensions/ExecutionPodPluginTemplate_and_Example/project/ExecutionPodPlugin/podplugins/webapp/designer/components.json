@@ -1,0 +1,37 @@
+{
+    "components" : [
+        {
+            "id": "vendorExecutionPluginTemplate",
+            "type": "EXECUTION_PLUGIN",
+            "allowMultipleInstances": false,
+            "name": "vendor.ext.executionplugins.executionPluginTemplate",
+            "propertyEditor": "vendor.ext.executionplugins.executionPluginTemplate.builder.PropertyEditor",
+            "i18n": "vendor.ext.executionplugins.executionPluginTemplate.i18n.i18n",
+            "productionProcessEnabled": true, 
+            "productionProcessTitle": "Execution Plugin Template",        
+            "supportedPodTypes": ["WORK_CENTER","OPERATION", "ORDER", "OTHER", "MONITOR"]
+        },
+        {
+            "id": "vendorAsynchExecutionPluginTemplate",
+            "type": "EXECUTION_PLUGIN",
+            "allowMultipleInstances": false,
+            "name": "vendor.ext.executionplugins.asynchExecutionPluginTemplate",
+            "propertyEditor": "vendor.ext.executionplugins.asynchExecutionPluginTemplate.builder.PropertyEditor",
+            "i18n": "vendor.ext.executionplugins.asynchExecutionPluginTemplate.i18n.i18n",
+            "productionProcessEnabled": true, 
+            "productionProcessTitle": "Asynch Execution Plugin Template",        
+            "supportedPodTypes": ["WORK_CENTER","OPERATION", "ORDER", "OTHER", "MONITOR"]
+        },
+        {
+           "id": "vendorExecutionPluginExample",
+           "type": "EXECUTION_PLUGIN",
+           "allowMultipleInstances": false,
+           "name": "vendor.ext.executionplugins.exampleExecutionPlugin",
+           "propertyEditor": "vendor.ext.executionplugins.exampleExecutionPlugin.builder.PropertyEditor",
+           "i18n": "vendor.ext.executionplugins.exampleExecutionPlugin.i18n.i18n",
+           "productionProcessEnabled": true, 
+           "productionProcessTitle": "Example for Execution Plugin",       
+           "supportedPodTypes": ["WORK_CENTER","OPERATION", "ORDER", "OTHER", "MONITOR"]
+        }   
+    ]
+}

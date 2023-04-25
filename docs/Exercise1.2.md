@@ -22,10 +22,10 @@ In this exercise, we would like to show you how you can release Production Order
 6. Enter the name of your function, e.g get-nextnumber and click Create.
 ![](assets/Exercise1.1_CreateFunction.png)
 
-7. Go to the "Source" tab under "Code" tab, copy the sample code "index.js" under the folder "DMC_InAppExtensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
+7. Go to the "Source" tab under "Code" tab, copy the sample code "index.js" under the folder "dm-inapp-extensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
 ![](assets/Exercise1.1_CopyIndexJS.png)
 
-8. Go to the "Dependencies" tab under "Code" tab, copy the sample code "package.json" under the folder "DMC_InAppExtensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
+8. Go to the "Dependencies" tab under "Code" tab, copy the sample code "package.json" under the folder "dm-inapp-extensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
 ![](assets/Exercise1.1_CopyPackageJson.png)
 
 9. In the Environment Variables area, add the following custom variables and secret variables.

@@ -5,8 +5,8 @@
 1. Login into your Application Business Studio
 2. Create a pod plugin:
     - Create from scrach (refer [Production Operator Dashboard Plugin Developer's Guide][1])
-    - Copy and modify from SAP [samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_UX/1-Create-a-Generic-Button-And-Register-As-Custom-PoD-Plugin)
-    - Using the finished [sample](https://github.com/SAP-samples/digital-manufacturing-extension-samples/DMC_UIExtensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
+    - Copy and modify from SAP [samples](../dm-ui-extensions/ViewPodPluginTemplate_And_Example/project/ViewPodPlugin/)
+    - Using the finished [sample](../dm-ui-extensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
 3. Download the samples and extract it.
 4. Go back to Applicaton Business Studio, and select 'Terminal' from menu and click 'New Terminal'
 ![](assets/New_TERMINAL.png)
@@ -335,7 +335,7 @@ DMC_URL(in sample): dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap
 ![](assets/applicationinfo.png)
 
 
-[1]: https://help.sap.com/docs/SAP_DIGITAL_MANUFACTURING_CLOUD?task=develop_task
+[1]: https://help.sap.com/docs/SAP_DIGITAL_MANUFACTURING?task=develop_task
 [2]: https://github.com/SAP-samples/digital-manufacturing-extension-samples.git
 
 ## Create Service Registry
