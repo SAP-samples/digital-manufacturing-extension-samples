@@ -1,0 +1,42 @@
+_schema-version: '3.2'
+ID: ExampleCustomCorePluginsMTA
+version: 0.0.1
+modules:
+ - name: plugins
+   type: html5
+   path: plugins
+   parameters:
+      disk-quota: 512M
+      memory: 256M
+   properties:
+        httpHeaders:
+        - X-Frame-Options: deny
+        CORS: "[{\"uriPattern\": \"^/plugins/(.*)$\",\"allowedOrigin\": [
+               {\"host\": \"dmcdev1-dm-canary-dev-execution.cfapps.sap.hana.ondemand.com\",\"protocol\": \"https\"},
+               {\"host\": \"localhost\",\"protocol\": \"http\",\"port\": 10000}],
+               \"allowedMethods\": [\"GET\",\"OPTIONS\"],
+               \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
+                     \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
+                     \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"],
+               \"exposeHeaders\": [\"Accept\",\"Authorization\",\"X-Requested-With\",\"X-Sap-Cid\",
+                     \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"X-Csrf-Token\",
+                     \"Content-Type\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"]}]"
+   build-parameters:
+    supported-platforms: [CF]
+   requires:
+    - name: uaa_ExampleCustomPluginsMTA
+    - name: dest_ExampleCustomPluginsMTA
+resources:
+ - name: uaa_ExampleCustomPluginsMTA
+   parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+   type: org.cloudfoundry.managed-service
+
+ - name: dest_ExampleCustomPluginsMTA
+   parameters:
+      service-plan: lite
+      service: destination
+   type: org.cloudfoundry.managed-service
+

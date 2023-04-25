@@ -1,6 +1,0 @@
-{
-  "url": "<token_url>",
-  "clientid": "<client_id>",
-  "clientsecret": "<client_secret>",
-  "grant_type" : "<grant_type>"
-}

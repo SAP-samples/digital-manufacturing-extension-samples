@@ -7,9 +7,9 @@ Assembly Template POD into Web IDE, make modifications as needed, and deploy it 
 account. 
 
 ## Pre-requisites
-1. SAP Cloud Platform Account
-2. SAP Cloud Platform subaccount Entitlement for Application Runtime
-3. SAP Cloud Platform subaccount Entitlement for Destination
+1. BTP Account
+2. BTP subaccount Entitlement for Application Runtime
+3. BTP subaccount Entitlement for Destination
 
 
 ### Template Assembly POD Landing Page
@@ -20,7 +20,7 @@ account.
 
 ## Getting Started
 
-Please check [SAP Help Portal - Digital Manufacturing Cloud](https://help.sap.com/viewer/product/SAP_DIGITAL_MANUFACTURING_CLOUD/latest/en-US "SAP Help Portal - Digital Manufacturing Cloud") for general information.
+Please check [SAP Help Portal - Digital Manufacturing Cloud](https://help.sap.com/viewer/product/SAP_DIGITAL_MANUFACTURING/latest/en-US "SAP Help Portal - Digital Manufacturing Cloud") for general information.
 
 The major steps are:
 ### 1. Prepare your Editor  
