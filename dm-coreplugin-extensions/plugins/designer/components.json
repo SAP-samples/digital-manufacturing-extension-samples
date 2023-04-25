@@ -1,0 +1,35 @@
+{
+    "components" : [],
+    "extensions": [
+        {
+           "provider": "sap/example/plugins/worklistExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.plugins.worklistPlugin",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        },
+        {
+           "provider": "sap/example/plugins/guidedStepsExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.plugins.guidedStepsPlugin",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        },
+        {
+           "provider": "sap/example/plugins/assemblyPointExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.assyplugins.assemblyPointPlugin",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        }
+    ]
+}
