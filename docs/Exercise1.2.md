@@ -22,22 +22,24 @@ In this exercise, we would like to show you how you can release Production Order
 6. Enter the name of your function, e.g get-nextnumber and click Create.
 ![](assets/Exercise1.1_CreateFunction.png)
 
-7. Go to the "Source" tab under "Code" tab, copy the sample code "index.js" under the folder "dm-inapp-extensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
+7. Go to the "Source" tab under "Code" tab, copy the sample code from file ["index.js"](https://github.com/SAP-samples/digital-manufacturing-extension-samples/blob/main/dm-inapp-service-extensions/sample-service-extension/index.js) under the folder "dm-inapp-extensions" from Github Sample Code and paste in the inline editor.
 ![](assets/Exercise1.1_CopyIndexJS.png)
 
-8. Go to the "Dependencies" tab under "Code" tab, copy the sample code "package.json" under the folder "dm-inapp-extensions" from [Github Sample Code](https://github.com/SAP-samples/digital-manufacturing-extension-samples) and paste in the inline editor.
+8. Go to the "Dependencies" tab under "Code" tab, copy the sample code from file ["package.json"](https://github.com/SAP-samples/digital-manufacturing-extension-samples/blob/main/dm-inapp-service-extensions/sample-service-extension/package.json) under the folder "dm-inapp-extensions" from Github Sample Code and paste in the inline editor.
 ![](assets/Exercise1.1_CopyPackageJson.png)
 
 9. In the Environment Variables area, add the following custom variables and secret variables.
 
-		Variable Name 	Value
-		grant_type		client_credentials
-		url				<your DMC Token Service URL> e.g. https://<subaccount>.authentication.eu20.hana.ondemand.com/oauth/token
-		baseUrl			<your DMC Public API URL> e.g. https://api.test.eu20.dmc.cloud.sap
-		plant			<your default plant>
-		order			<your default order>
-		clientsecret	<secret contain your DMC Client Secret>
-		clientid		<secret contain your DMC Client Id>
+| Variable Name |  Value  | Explananation |
+|:-----|:--------:|------:|
+| grant_type   | `client_credentials` |     -   |
+| url   | your DMC Token Service URL e.g. `https://<subaccount>.authentication.eu20.hana.ondemand.com/oauth/token` |   should not leave out the path `/oauth/token` |
+| baseUrl   | your DMC Public API URL e.g. `https://api.test.eu20.dmc.cloud.sap` |   public api end point of dmc service instance, find in service key the attribute "public-api-endpoint" |
+| clientsecret   | secret contain your DMC Client Secret |    find in service key |
+| clientid   | secret contain your DMC Client Id |    find in service key |
+| plant   | your default plant, e.g. `EBC300` |    optional |
+| order   | your default order, e.g. `1890392` |    optional |
+
 		
 	![](assets/Exercise1.2_EnvironmentVariable.png)
 
@@ -122,7 +124,7 @@ In this exercise, we would like to show you how you can release Production Order
 2. Go to "SFC Release" Tab and select the material you would like to add the extension. E.g. LIFTER-ASSY.
 ![](assets/Exercise1.2_SelectMaterial.png)
 
-3. For the parameter "Prefix", enter `{ORDER_NAME}-{PLANT}_`. `{ORDER_NAME}` and `{PLANT}` are the replaceable parameters. It will replace the field name with the value of the field. `{PLANT}` is the plant where the material is being used. `{ORDER_NAME}` is the The order of the SFC number. Add a split character `-` in the middle in order to split these two fields in the extension. 
+3. For the parameter "Prefix", enter `{ORDER_NAME}-{PLANT}_`. In the parameter, `{ORDER_NAME}` and `{PLANT}` are the replaceable parameters. It will replace the field name with the value of the field. `{PLANT}` is the plant where the material is being used. `{ORDER_NAME}` is the The order of the SFC number. Add a split character `-` in the middle in order to split these two fields in the extension. 
  [Replaceable Parameters for Use in Manage Next Numbers](https://help.sap.com/viewer/97c9e9b9fac74be2a023638cd1700b46/latest/en-US/3d61498ec33e44438ae9f32eb8b77e12.html)
 
 4. For the parameter "Sequence Length", enter `3`.
