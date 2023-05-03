@@ -294,20 +294,20 @@
             <!-- Sample for custom field on order level -->
             <CustomFieldList>
                 <CustomField>
-                    <attribute>CD_SALES_ORDER_ID</attribute>
-                    <value><xsl:value-of select="E1AFPOL/KDAUF"/></value>
+                    <Attribute>CD_SALES_ORDER_ID</Attribute>
+                    <Value><xsl:value-of select="E1AFPOL/KDAUF"/></Value>
                 </CustomField>
                 <CustomField>
-                    <attribute>CD_ACTIVITY_ID</attribute>
-                    <value><xsl:value-of select="E1AFFLL/E1AFVOL[1]/VORNR"/></value>
+                    <Attribute>CD_ACTIVITY_ID</Attribute>
+                    <Value><xsl:value-of select="E1AFFLL/E1AFVOL[1]/VORNR"/></Value>
                 </CustomField>
                 <CustomField>
-                    <attribute>CD_FIXED_VALUE</attribute>
-                        <value>I Will Be Displayed in DMC</value>
+                    <Attribute>CD_FIXED_VALUE</Attribute>
+                        <Value>I Will Be Displayed in DMC</Value>
                 </CustomField>
                 <CustomField>
-                    <attribute>CD_CUSTOMER_NAME</attribute>
-                        <value><xsl:value-of select="E1AFPOL/NAME1"/></value>
+                    <Attribute>CD_CUSTOMER_NAME</Attribute>
+                        <Value><xsl:value-of select="E1AFPOL/NAME1"/></Value>
                 </CustomField>
             </CustomFieldList>
             <!-- -->
