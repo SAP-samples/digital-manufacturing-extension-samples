@@ -1,7 +1,7 @@
 {
 	"_version": "1.12.0",
 	"sap.app": {
-		"id": "sap.custom.plugins.integrationextension.integrationextension",
+		"id": "sap.custom.plugins.integrationextension",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -51,7 +51,7 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "sap.custom.plugins.integrationextension.integrationextension.view.MainView",
+			"viewName": "sap.custom.plugins.integrationextension.view.MainView",
 			"type": "XML",
 			"async": true,
 			"id": "MainView"
@@ -90,7 +90,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "sap.custom.plugins.integrationextension.integrationextension.i18n.i18n"
+					"bundleName": "sap.custom.plugins.integrationextension.i18n.i18n"
 				}
 			}
 		},

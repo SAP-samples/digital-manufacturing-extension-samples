@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (PluginViewController, JSONModel, MessageToast) {
     "use strict";
 
-    return PluginViewController.extend("sap.custom.plugins.integrationextension.integrationextension.controller.MainView", {
+    return PluginViewController.extend("sap.custom.plugins.integrationextension.controller.MainView", {
         onInit: function () {
             PluginViewController.prototype.onInit.apply(this, arguments);
 
@@ -131,7 +131,7 @@ sap.ui.define([
             if (shopOrder != null){
                 this.getView().byId("SHOPORDER").setValue(shopOrder.shopOrder);
 
-                var url = this._oPodController.getPublicApiRestDataSourceUri()+'/sfc/v1/sfcdetail?plant=' + plant + '&sfc=' + this.getPodSelectionModel().getSelection().getSfc().sfc;
+                var url = 'https://{pod_plugin_host}/external/api' + '/sfc/v1/sfcdetail?plant=' + plant + '&sfc=' + this.getPodSelectionModel().getSelection().getSfc().sfc;
                 var that=this;
                 this._oPodController.ajaxGetRequest(url, null,
                     function (oResponseData) {
