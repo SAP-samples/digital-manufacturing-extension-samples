@@ -24,7 +24,7 @@
 
 ## Modify the content (Optional)
 
-1. Navigate to folder urlintegraion, and open manifest.json, if you renamed the urlintegration folder, do a global replace with sap.custom.plugins.urlintegration --> sap.custom.plugins.{yournewname}.{yournewname} will be good enough.
+1. Navigate to folder urlintegraion, and open manifest.json, if you renamed the urlintegration folder, do a global replace with sap.custom.plugins.urlintegration --> sap.custom.plugins.{yournewname}. will be good enough.
 ```
 Files list:
 ./PoDPlugins/webapp/designer/components.json
