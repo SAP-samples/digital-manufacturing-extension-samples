@@ -9,6 +9,13 @@
       "source": "^/PoDPlugins/(.*)$",
       "target": "$1",
       "localDir": "webapp"
+    },
+    {
+      "source": "^/external/api/(.*)$",
+      "target": "$1",
+      "destination": "EXTERNAL_API_DEST",
+      "csrfProtection": false,
+      "authenticationType": "none"
     }
   ]
 }
