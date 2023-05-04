@@ -101,9 +101,8 @@ module.exports = {
 
       identifiers = event.data.identifiers;
 
-      let stringArray = event.data.identifiers[0].substring(0,identifiers[0].length-4).split('-');
-      orderValue = stringArray[0];
-      plantValue = stringArray[1];
+      orderValue = event.data.extensionParameters.ORDER_NAME;
+      plantValue = event.data.extensionParameters.PLANT;
       console.log("Order Value: " + orderValue);
       console.log("Plant Value: " + plantValue);
       finalresult = event.data;
