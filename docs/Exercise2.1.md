@@ -22,12 +22,19 @@ In this exercise, we would like to show you how to write your own business appli
 4. Under the "Namespaces" section, select the newly created namespace to access that.
 ![](assets/Exercise1.1_SelectNamespace.png)
 
-5. Download the sample code from [DMC Extensibility Bootcamp Github Samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples).
+5. Download the sample code [dm-process-extensions](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/dm-inapp-service-extensions) from DM Extensibility Bootcamp Github Samples.
+
+This folder contains the codes for three DM process extensions, and in this exercise we will use the first one:
+
+- api-mssql-nodejs
+- dm-nextnumber-extensions
+- sample-service-extension
 
 6. Open the folder "api-mssql-nodejs" which is under "dm-process-extensions" in the Visual Studio Code.
+
 ![](assets/Exercise3.1_OpenInVSCode.png)
  
-7. (Optional) Build and push the image to your Docker repository.
+7. (Optional) Build and push the image to your Docker repository. This step may take a long time, you can skip it.
 	
 		docker build -t {your-docker-account}/mssqlnodejs -f docker/Dockerfile .
 	
@@ -36,7 +43,7 @@ In this exercise, we would like to show you how to write your own business appli
 8. (Optional) Replace the image name with your docker account in the /k8s/deployment.yaml file.
 ![](assets/Exercise3.1_ModifyDeploymentFile.png)
 
-9. Apply the Deployment.
+9. Apply the Deployment. The command means to deply using the configuration in the file `deployment.yaml` onto the namespace `dmc-extension`.
 
 		kubectl -n dmc-extension apply -f ./k8s/deployment.yaml
 
@@ -54,7 +61,19 @@ In this exercise, we would like to show you how to write your own business appli
 		NAME                                READY   STATUS    RESTARTS   AGE
 		mssqlnodejs-5d4bbb47b5-7hjsr        2/2     Running   0          93s
 	
-12. In the Kyma Dashboard, go to "Services" and click "mssqlnodejs-service" service. Click "Create API Rule" button to create API rule for this service.
+12. In the Kyma Dashboard, in the namespace `dmc-extension`, under the tab "Discovery and Network", click "API Rules" and click "+ Create API Rule". 
+- You can generate a randum name. 
+- Under "Service" section, for the field "Service Name", choose from the drop down list `mssqlnodejs-service` service, and input for the field "Port" value `80`. 
+- Under "Gateway" section, for the field "Host", choose from the dropdown list `*.<your-cluster-id>.kyma.ondemand.com`. Note the assertion message "Host can not be a wildcard, replace * with subdomain name", so replace the asterisk mark with a subdomain name, e.g. `dmc-bp-nodejs-api`. Note the folded fields here are "Namespace" and "Name", these have assigned the default value `kyma-system` and `kyma-gateway`, so we can leave them as they are.
+- leave the rest as as they are, and click "Create" button to create API rule for the service.
+
+| Field |  Value  |
+|:-----|:--------:|
+| Name   | randomly generated |
+| Service Name | `mssqlnodejs-service` |
+| Port | `80` |
+| Host | e.g. `<subdomain>.<your-cluster-id>.kyma.ondemand.com` |
+
 ![](assets/Exercise3.1_ExposeService.png)
 
 13. Enter the name (e.g dmc-bp-nodejs-api) and Subdomain name (e.g dmc-bp-nodejs-api) to create API rule.
