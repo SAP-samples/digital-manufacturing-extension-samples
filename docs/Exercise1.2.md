@@ -31,9 +31,9 @@ In this exercise, we would like to show you how you can release Production Order
 9. In the Environment Variables area, add the following custom variables and secret variables.
 
 | Variable Name |  Value  | Explananation |
-|:-----|:--------:|------:|
+|:-----|:--------|:------|
 | grant_type   | `client_credentials` |     -   |
-| url   | your DMC Token Service URL e.g. `https://<subaccount>.authentication.eu20.hana.ondemand.com/oauth/token` |   should not leave out the path `/oauth/token` |
+| url   | your DMC Token Service URL e.g. `https://<subaccount-subdomain>.authentication.eu20.hana.ondemand.com/oauth/token` |   should not leave out the path `/oauth/token` |
 | baseUrl   | your DMC Public API URL e.g. `https://api.test.eu20.dmc.cloud.sap` |   public api end point of dmc service instance, find in service key the attribute "public-api-endpoint" |
 | clientsecret   | secret contain your DMC Client Secret |    find in service key |
 | clientid   | secret contain your DMC Client Id |    find in service key |
@@ -54,23 +54,25 @@ You can maintain some security artifacts within this secret. In our case, it sho
 10. Click "Save" button, which automatically triggers the build and deployment process. Once it is finished, your function will be in the "RUNNING" status.
 ![](assets/Exercise1.1_SaveCodeChanges.png)
 
-11. Go to the "Configuration" tab and click the "Create API Rule" button.
+11. In the Kyma Dashboard, in the namespace `dmc-extension`, under the tab "Discovery and Network", click "API Rules" and click "+ Create API Rule".
 ![](assets/Exercise1.1_ExposeFunction.png)
 
-12. Enter the name (e.g dmc-in-app-extension) and Subdomain name (e.g dmc-in-app-extension) to create API rule.
+12. Enter the name (e.g dmc-in-app-extension) and Subdomain name (e.g dmc-in-app-extension_{function_name}) to create API rule.
 ![](assets/Exercise1.1_CreateAPIRule.png)
 
 13. You can find your API End Point URL under the "API Rule". 
 ![](assets/Exercise1.1_DisplayAPIRule.png)
 
+To test the service, you can use Postman to send GET - https://dmc-in-app-extension_{function_name}:443/order/v1/orders
+
 
 ## Step 2: Register your extension in service registry
-1. Open "Manage Service Registery" App in SAP DMC.
+1. Open "Manage Service Registery" App in SAP DM.
 
 2. Click "Create" button.
 ![](assets/Exercise1.2_CreateService.png)
 
-3. Under "Header" tab, for the parameter "Server Name", enter the name accordingly. E.g."Ext_getnextnumber".
+3. Under "Header" tab, for the parameter "Server Name", enter the name accordingly. E.g."Ext_getnextnumber_{your_name}".
 
 4. Under "Header" tab, for the paramter "Group", select "FaaS".
 

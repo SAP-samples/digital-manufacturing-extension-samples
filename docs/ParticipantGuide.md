@@ -107,10 +107,12 @@ SAP Digital Manufacturing Cloud for execution uses SAP Cloud Integration to comm
 
 Follow this link for more details [Integration with SAP ERP or SAP S/4HANA](https://help.sap.com/viewer/c86ca4026fae4cb3ba66ed751866175b/latest/en-US/351c4ef7bb4c4c4a8d7f9562988575c5.html)
 
-### Step 9 - Load DMC Demo Data to be done by SAP team
-We will be loading the basic data that will be needed for bootcamp excercise and for this we need create key Digital manufacturing instance and you can follow this [link](https://help.sap.com/viewer/34f67db3b755405e8145c578221f012c/latest/en-US/29d18581dab1438c92a79f28adcc8142.html#loio29d18581dab1438c92a79f28adcc8142__subsection-im5) to get or create the key as needed.
+### Step 9 - Load DMC Demo Data to be done (by SAP Team)
+In this step we will be loading the basic data that will be needed for bootcamp excercise and for this we need information from service key of your Digital manufacturing instance.
 
-### Step 10 - Postman collection for DMC
+You can follow this [link](https://help.sap.com/viewer/34f67db3b755405e8145c578221f012c/latest/en-US/29d18581dab1438c92a79f28adcc8142.html#loio29d18581dab1438c92a79f28adcc8142__subsection-im5) to get or create the key as needed, and then send them to us.
+
+### Step 10 - Register a Demo POD via Postman collection (by SAP Team)
 
 This is the collection from [SAP API Hub](https://api.sap.com/package/SAPDigitalManufacturingCloud/rest), you can also download the below collection to work with postman.
 
@@ -126,6 +128,13 @@ Environment:
 
 Collection:
 ![Screenshot](assets/postman_exec.png)
+
+After you see the newly registered POD in "POD Designer", you can enter into this POD and publish it. So that you will see it on Home page under the group "Manufacturing Execution" as a tile, or search it by its title, and use it. See [SAP Help Portal | Publishing a POD as a Tile](https://help.sap.com/docs/sap-digital-manufacturing/execution/publishing-pod-as-tile)
+
+
+### Step 11 - Add All Work Center under Your Assignment
+Go to "Manage User Assignments" app to add yourself as a member of all work centers. 
+
 
 ## BTP Services for DMC Extensions
 * SAP Business Application Studio
