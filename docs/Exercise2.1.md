@@ -305,10 +305,9 @@ This step is to help you test the code locally and get a better understanding of
 
 4. Add the process variables to define the version of your target Operation and Data Collection Group, the Data Collection Parameters Name and Nonconformance Code Name.
 
-
-	|  |  |  |
-	|--|--|--|
+	
 	|	Name				| Default Value 	|		Type|
+	|--|--|--|
 	|	InOperationVersion	| ERP001					| String|
 	|	InDcGroupVersion	| ERP001					| String|
 	|	InDCName_Left		| TORQUE_LEFT 			| String|
@@ -332,6 +331,7 @@ This step is to help you test the code locally and get a better understanding of
 6. For the DMC "Retrieve_SFC_DC_Groups" service, define the input and output parameters as following.
 
 	Input Parameter:
+
 	|  Parameter Name|  Value| 
 	|--|--|		
 	|	operation (String):		|'InOperation'|
@@ -460,9 +460,9 @@ This step is to help you test the code locally and get a better understanding of
 
 	Evaluation Expression:
 	
-	|  |  |
-	|--|--|
+
 	| Branch | Evaluation Expression |
+		|--|--|
 	|	(1)		|'Ext_Evaluate_Torque#evaluationHistory' == 1|
 	|	(2)		|'Ext_Evaluate_Torque#evaluationHistory' == 0|
 	
@@ -553,5 +553,5 @@ This step is to help you test the code locally and get a better understanding of
 	
 	![](assets/Exercise3.1_TestScenario7.png)
 	
-8. To check the MS SQL database table running in Kyma, you can access the URL `https://<API_URL>:<API_PORT>/api/v1/listAll` in the browser (or make a GET request to the URL) to see all the records in the table.
+8. To check the MS SQL database table running in Kyma, you can access the URL `https://<API_URL>:<API_PORT>/api/v1/listAll` in the browser (or make a GET request to the URL from Postman) to see all the records in the table.
 	![](assets/Exercise3.1_TestScenario8.png)
