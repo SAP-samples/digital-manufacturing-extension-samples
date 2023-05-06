@@ -9,6 +9,15 @@ In this exercise, we would like to show you how to write your own business appli
 - [Docker](https://www.docker.com/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime. Please also refer to SAP Tutorial for Install the Kubernetes Command Line Tool. [https://developers.sap.com/tutorials/cp-kyma-download-cli.html](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) 
 
+
+## Step 0: Understand the Functionality and Prepare Sample Data
+For end users, they will use the extension to validate if the torque values of the materials in their SFC release are within standard range. The trigger of the extension is done by selecting Activity and click the Validate button in the customized POD. 
+
+In the last exercise you might have created a Production Order (from ERP system or in SAP DM) and released RFC. In case you don't have one, you can follow these steps to prepare the RFC needed in this exercise. Go to "Manage Orders" app > click "create" > for Material choose "LIFTER-ASSY" > for Quantity set 100 > create and release. In that case the SFC will be released to Work Center "WC-LIFT (Lifter Work Center)", with the Resource "TORQUE-5" and containing Operation Activity "LA-ASSEMBLY".
+
+Go to your POD created during the preparation session, and select an SFC (e.g. the one you released in exercise 1.2), and make sure th corresponding Data Collection Group of it is `Torque`. Note down the SFC number for later use as sample data. 
+
+
 ## Step 1: Build your own business application
 1. Access to your Kyma Dashboard.
 ![](assets/Exercise1.1_AccessKymaDashboard.png)
@@ -26,7 +35,7 @@ In this exercise, we would like to show you how to write your own business appli
 
 This folder contains the codes for three DM process extensions, and in this exercise we will use the first one:
 
-- api-mssql-nodejs
+-  &check; api-mssql-nodejs
 - dm-nextnumber-extensions
 - sample-service-extension
 
@@ -68,7 +77,7 @@ This folder contains the codes for three DM process extensions, and in this exer
 - leave the rest as as they are, and click "Create" button to create API rule for the service.
 
 | Field |  Value  |
-|:-----|:--------:|
+| :----- | :-------- |
 | Name   | randomly generated |
 | Service Name | `mssqlnodejs-service` |
 | Port | `80` |
@@ -82,7 +91,7 @@ This folder contains the codes for three DM process extensions, and in this exer
 14. To test the API, you can use Postman to send a POST request to `https://<API_URL>:<API_PORT>/api/v1/dcs` with the below sample JSON content in the body.
 
 		{
-		    "SFC": "EBC100005",
+		    "SFC": "{your-sfc}",
 		    "TorqueLeftValue": 50,
 		    "TorqueLeftLowerValue": 40,
 		    "TorqueLeftUpperValue": 60,
@@ -91,9 +100,32 @@ This folder contains the codes for three DM process extensions, and in this exer
 		    "TorqueRightUpperValue": 80
 		}
 
-## Step 2: Run the Docker image locally (Optional)
+> Note: you should use port 443 for HTTPS.
 
-1. To run the Docker image locally.
+The attributes here, "TorqueLeftValue" means the value of Left Torque, "TorqueLeftLowerValue" means the minimun value of Left Torque, "TorqueLeftUpperValue" means the maximum value of Left Torque, and the right values are similar.
+
+## Step 2: (Optional) Run the Docker image locally 
+
+This step is to help you test the code locally and get a better understanding of the architecture and logic. You can skip it if you don't have enough time.
+
+
+> Note: The docker image we use here, mcr.microsoft.com/mssql/server:2017-CU24-ubuntu-16.04, supports amd64 processors only (if you want to try it locally, first check your computer CPU architecture). 
+
+
+1. Replace the database records with your SFC.
+
+	In "setup.sql" file under "app" folder, replace the first attribute in each record with your SFC value.
+
+		INSERT INTO DCs
+			(SFC, TorqueLeftValue, TorqueLeftLowerValue, TorqueLeftUpperValue, TorqueRightValue, TorqueRightLowerValue, TorqueRightUpperValue, Evaluation, Count)
+		VALUES("{your-sfc-1}", 20, 40, 60, 88, 20, 80, 0, 1)
+		INSERT INTO DCs
+			(SFC, TorqueLeftValue, TorqueLeftLowerValue, TorqueLeftUpperValue, TorqueRightValue, TorqueRightLowerValue, TorqueRightUpperValue, Evaluation, Count)
+		VALUES("{your-sfc-2}", 19, 40, 60, 89, 20, 80, 0, 2)
+		GO
+
+
+2. To run the Docker image locally.
 
 		docker run -e ACCEPT_EULA=Y -e SA_PASSWORD=DMC_Bootcamp123 -p 1433:1433 -p 8080:8080 --name sql1 -d {docker id}/mssqlnodejs
 
@@ -109,7 +141,7 @@ This folder contains the codes for three DM process extensions, and in this exer
 3. To test the API locally, you can use Postman to send a POST request to [http://localhost:8080/api/v1/dcs](http://localhost:8080/api/v1/dcs) with the below sample JSON content in the body.
 
 		{
-		    "SFC": "EBC100005",
+		    "SFC": "{your-sfc}",
 		    "TorqueLeftValue": 50,
 		    "TorqueLeftLowerValue": 40,
 		    "TorqueLeftUpperValue": 60,
@@ -127,7 +159,7 @@ This folder contains the codes for three DM process extensions, and in this exer
 
 3. Under "Header" tab, enter the Web Server name (e.g. DMC_Bootcamp_EvaluateTorque).
 
-4. Under "Header" tab, select the specific plant (e.g. EBC100).
+4. Under "Header" tab, select the specific plant (e.g. EBC400).
 
 5. Under "Server Details" tab, select the server type, which is "Cloud services".
 
@@ -268,42 +300,54 @@ This folder contains the codes for three DM process extensions, and in this exer
 3. Design the Production Process as following.
 ![](assets/Exercise3.1_CreateProductionProcess.png)
 
+	If you don't have the time to do this, you can import the [*.dmcbak](./assets/Exercise2.1_DMC_Bootcamp_EvaluateTorque_to_be_imported.dmcbak) file. 
+
+
 4. Add the process variables to define the version of your target Operation and Data Collection Group, the Data Collection Parameters Name and Nonconformance Code Name.
 
-		Name				Default Value 			Type
-		InOperationVersion	ERP001					String
-		InDcGroupVersion	ERP001					String
-		InDCName_Left		TORQUE_LEFT 			String
-		InDCName_Right		TORQUE_RIGHT			String
-		InNCCode			ASSEMBLY_TORQUE			String
+
+	|  |  |  |
+	|--|--|--|
+	|	Name				| Default Value 	|		Type|
+	|	InOperationVersion	| ERP001					| String|
+	|	InDcGroupVersion	| ERP001					| String|
+	|	InDCName_Left		| TORQUE_LEFT 			| String|
+	|	InDCName_Right		| TORQUE_RIGHT			| String|
+	|	InNCCode			| ASSEMBLY_TORQUE			| String|
+
+	This is related to the corresponding Data Collection's Group of your SFC. 
 
 5. For the "Start" control, define the input parameters as following.
 
 	Input Parameter:
 
-		Parameter Name				Value 
-		InOperation (String):*		leave it empty
-		InPlant (String):*			leave it empty
-		InResource (String):*		leave it empty
-		InSFC (String):*			leave it empty
-		InWorkcenter (String):*		leave it empty
+	|  Parameter Name (Data Format)|  Value| 
+	|--|--|			 
+	|	InOperation (String)		|leave it empty|
+	|	InPlant (String)			|leave it empty|
+	|	InResource (String)		|leave it empty|
+	|	InSFC (String)			|leave it empty|
+	|	InWorkcenter (String)		|leave it empty|
 
 6. For the DMC "Retrieve_SFC_DC_Groups" service, define the input and output parameters as following.
 
 	Input Parameter:
-
-		Parameter Name			Value 
-		operation (String):		'InOperation'
-		plant (String):*		'InPlant'	
-		resource (String):*		'InResource' 
-		sfc (String):*			'InSFC'
-		stepId (String):		leave it empty
-		workCenter (String):	'InWorkcenter'
+	|  Parameter Name|  Value| 
+	|--|--|		
+	|	operation (String):		|'InOperation'|
+	|	plant (String):*		|'InPlant'	|
+	|	resource (String):*		|'InResource' |
+	|	sfc (String):*			|'InSFC'|
+	|	stepId (String):		|leave it empty|
+	|	workCenter (String):	|'InWorkcenter'|
 	
 	Output Parameter:		
-		
-		Parameter Name											Value
-		httpResponse (StructureArray / GroupsListResponse):		leave it empty
+	|  Parameter Name|  Value| 
+	|--|--|	
+	|	httpResponse (StructureArray / GroupsListResponse):		|leave it empty|
+
+
+	If you want to refer to an existing parameter or variable, you can choose the value for the parameters from the dropdown list, and they will be added in a pair of backtick quotes. For instance, the Input Parameter "operation" here gets its value from the Input Parameter of the previous step "Start".
 		
 7. For the DMC "Get_Logged_Parameters" service, define the input and output parameters as following.
 
@@ -323,6 +367,8 @@ This folder contains the codes for three DM process extensions, and in this exer
 		
 		Parameter Name												Value
 		httpResponse (StructureArray / LoggedSfcDataResponse):		leave it empty
+
+	Here in the value of Input Parameter "dcGroup.name", `Retrieve_SFC_DC_Groups#httpResponse` means the value is from the Output Parameter "httpResponse" of the previous step "Retrieve_SFC_DC_Groups". 
 		
 8. For the custom "Get latest collected data by DC Name" Script Task, define the input and output parameters and script as following.
 
@@ -332,6 +378,8 @@ This folder contains the codes for three DM process extensions, and in this exer
 		InDCName_Left (String):*									'InDCName_Left'
 		InDCName_Right (String):*									'InDCName_Right'
 		InLoggedDCs (StructureArray / LoggedSfcDataResponse):*		'Get_Logged_Parameters#httpResponse'
+
+ 	
 
 	Output Parameter:		
 		
@@ -404,13 +452,19 @@ This folder contains the codes for three DM process extensions, and in this exer
 		Parameter Name						Value
 		evaluationCurrent (Integer):		leave it empty
 		evaluationHistory (Integer):		leave it empty
+
+
+	Note the actual ID of your three Script Tasks might be different from the sample value here.
 		
-11. For the "Condition" control, define the evaluation expression as following.
+11. For the "Condition" control, define the evaluation expressions for two branches separately, as following.
 
 	Evaluation Expression:
 	
-		(1)		'Ext_Evaluate_Torque#evaluationHistory' == 1
-		(2)		'Ext_Evaluate_Torque#evaluationHistory' == 0
+	|  |  |
+	|--|--|
+	| Branch | Evaluation Expression |
+	|	(1)		|'Ext_Evaluate_Torque#evaluationHistory' == 1|
+	|	(2)		|'Ext_Evaluate_Torque#evaluationHistory' == 0|
 	
 12. For the DMC "Log_Nonconformances" service, define the input parameters as following.
 
@@ -442,7 +496,17 @@ This folder contains the codes for three DM process extensions, and in this exer
 		
 		$output.oMessage = "There is an issue for " + $input.InSFC + " at " + $input.InWorkCenter + ".";
 
-14. To test the Production Process directly, you can click the "Run" button and use the following sample data.
+14. Deploy and activate the process after saving it. To test the Production Process directly, you can click the "Run" button and use the following sample data.
+
+	| Name |  Value  |
+	|:-----|:--------|
+	| InOperation | `LA-ASSEMBLY` |
+	| InPlant   | `EBC400` |
+	| InResource | `TORQUE-5` |
+	| InSFC | `{your-sfc}` |
+	| InWorkcenter | `WC-LIFT` |
+
+	Sample inputs are like this:
 	![](assets/Exercise3.1_TestProductionProcess.png)
 	
 15. To check the testing result, you can go to "Monitor Production Processes" App to see the details of running results.
@@ -476,7 +540,7 @@ This folder contains the codes for three DM process extensions, and in this exer
 3. Enter the Data Collection Value and click "Save" button to perform the data collection.
 	![](assets/Exercise3.1_TestScenario2.png)
 	
-4. Click the "Evaluate" button to trigger the evaluation process. 
+4. Click the "Validate" button to trigger the evaluation process. 
 	![](assets/Exercise3.1_TestScenario3.png)
 	
 5. Go to "Monitor Production Process" App to check the details.
@@ -489,5 +553,5 @@ This folder contains the codes for three DM process extensions, and in this exer
 	
 	![](assets/Exercise3.1_TestScenario7.png)
 	
-8. To check the MS SQL database table running in Kyma, you can access the URL `https://<API_URL>:<API_PORT>/api/v1/listAll` in the browser to see all the records in the table.
+8. To check the MS SQL database table running in Kyma, you can access the URL `https://<API_URL>:<API_PORT>/api/v1/listAll` in the browser (or make a GET request to the URL) to see all the records in the table.
 	![](assets/Exercise3.1_TestScenario8.png)
