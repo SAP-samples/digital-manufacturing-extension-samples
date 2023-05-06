@@ -40,14 +40,16 @@ In this exercise, we would like to show you how you can release Production Order
 | plant   | your default plant, e.g. `EBC300` |    optional |
 | order   | your default order, e.g. `1890392` |    optional |
 
-		
-	![](assets/Exercise1.2_EnvironmentVariable.png)
 
-	For the secret variables, go to Configuration > Secrets tab to create secret.
-	![](assets/Exercise1.2_CreateSecret.png)
 
-	You can maintain some security artifacts within this secret. In our case, it should be client id and client secret of your DMC tenant.
-	![](assets/Exercise1.2_SecretValue.png)
+![](assets/Exercise1.2_EnvironmentVariable.png)
+
+For the secret variables, go to Configuration > Secrets tab to create secret.
+![](assets/Exercise1.2_CreateSecret.png)
+
+You can maintain some security artifacts within this secret. In our case, it should be client id and client secret of your DMC tenant.
+![](assets/Exercise1.2_SecretValue.png)
+
 
 10. Click "Save" button, which automatically triggers the build and deployment process. Once it is finished, your function will be in the "RUNNING" status.
 ![](assets/Exercise1.1_SaveCodeChanges.png)
