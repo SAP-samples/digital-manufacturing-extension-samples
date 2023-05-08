@@ -6,14 +6,14 @@ In this exercise, we would like to show you how to write your own business appli
 ## Prerequisites
 
 - SAP BTP, Kyma runtime instance
-- [Docker](https://www.docker.com/)
+- (Optional) [Docker](https://www.docker.com/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime. Please also refer to SAP Tutorial for Install the Kubernetes Command Line Tool. [https://developers.sap.com/tutorials/cp-kyma-download-cli.html](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) 
 
 
 ## Step 0: Understand the Functionality and Prepare Sample Data
-For end users, they will use the extension to validate if the torque values of the materials in their SFC release are within standard range. The trigger of the extension is done by selecting Activity and click the Validate button in the customized POD. 
+For production operators, they will use the customized "DMC BOOTCAMP POD" to collect data in the manufactoring process, typically the Operation Activities for certain Materials. And after the data gathering of materials with the torque values, they will need to validate if the torque values are within standard range. The trigger of the extension is done by clicking the Validate button in the customized POD. 
 
-In the last exercise you might have created a Production Order (from ERP system or in SAP DM) and released RFC. In case you don't have one, you can follow these steps to prepare the RFC needed in this exercise. Go to "Manage Orders" app > click "create" > for Material choose "LIFTER-ASSY" > for Quantity set 100 > create and release. In that case the SFC will be released to Work Center "WC-LIFT (Lifter Work Center)", with the Resource "TORQUE-5" and containing Operation Activity "LA-ASSEMBLY".
+In the last exercise you might have created a Production Order (from ERP system or in SAP DM) and released RFC. In case you don't have one, you can follow these steps to prepare the RFC number needed in this exercise. Go to "Manage Orders" app > click "create" > give a randam "O" > for Material choose "LIFTER-ASSY" > for Quantity set 100 > create and release. In that case the SFC will be released to Work Center "WC-LIFT (Lifter Work Center)", with the Resource "TORQUE-5" and containing Operation Activity "LA-ASSEMBLY".
 
 Go to your POD created during the preparation session, and select an SFC (e.g. the one you released in exercise 1.2), and make sure th corresponding Data Collection Group of it is `Torque`. Note down the SFC number for later use as sample data. 
 
@@ -33,15 +33,14 @@ Go to your POD created during the preparation session, and select an SFC (e.g. t
 
 5. Download the sample code [dm-process-extensions](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/dm-inapp-service-extensions) from DM Extensibility Bootcamp Github Samples.
 
-This folder contains the codes for three DM process extensions, and in this exercise we will use the first one:
-
--  &check; api-mssql-nodejs
-- dm-nextnumber-extensions
-- sample-service-extension
+	This folder contains the codes for three DM process extensions, and in this exercise we will use the first one:
+	-  &check; api-mssql-nodejs
+	- dm-nextnumber-extensions
+	- sample-service-extension
 
 6. Open the folder "api-mssql-nodejs" which is under "dm-process-extensions" in the Visual Studio Code.
 
-![](assets/Exercise3.1_OpenInVSCode.png)
+	![](assets/Exercise3.1_OpenInVSCode.png)
  
 7. (Optional) Build and push the image to your Docker repository. This step may take a long time, you can skip it.
 	
@@ -50,7 +49,7 @@ This folder contains the codes for three DM process extensions, and in this exer
 		docker push {your-docker-account}/mssqlnodejs
 
 8. (Optional) Replace the image name with your docker account in the /k8s/deployment.yaml file.
-![](assets/Exercise3.1_ModifyDeploymentFile.png)
+	![](assets/Exercise3.1_ModifyDeploymentFile.png)
 
 9. Apply the Deployment. The command means to deply using the configuration in the file `deployment.yaml` onto the namespace `dmc-extension`.
 
@@ -76,17 +75,17 @@ This folder contains the codes for three DM process extensions, and in this exer
 - Under "Gateway" section, for the field "Host", choose from the dropdown list `*.<your-cluster-id>.kyma.ondemand.com`. Note the assertion message "Host can not be a wildcard, replace * with subdomain name", so replace the asterisk mark with a subdomain name, e.g. `dmc-bp-nodejs-api`. Note the folded fields here are "Namespace" and "Name", these have assigned the default value `kyma-system` and `kyma-gateway`, so we can leave them as they are.
 - leave the rest as as they are, and click "Create" button to create API rule for the service.
 
-| Field |  Value  |
-| :----- | :-------- |
-| Name   | randomly generated |
-| Service Name | `mssqlnodejs-service` |
-| Port | `80` |
-| Host | e.g. `<subdomain>.<your-cluster-id>.kyma.ondemand.com` |
+	| Field |  Value  |
+	| :----- | :-------- |
+	| Name   | randomly generated |
+	| Service Name | `mssqlnodejs-service` |
+	| Port | `80` |
+	| Host | e.g. `<subdomain>.<your-cluster-id>.kyma.ondemand.com` |
 
-![](assets/Exercise3.1_ExposeService.png)
+	![](assets/Exercise3.1_ExposeService.png)
 
-13. Enter the name (e.g dmc-bp-nodejs-api) and Subdomain name (e.g dmc-bp-nodejs-api) to create API rule.
-![](assets/Exercise3.1_CreateAPIRule.png)
+13. Enter the name (e.g `dmc-bp-nodejs-api`) and Subdomain name (unique one, e.g `dmc-bp-nodejs-api`) to create API rule.
+	![](assets/Exercise3.1_CreateAPIRule.png)
 
 14. To test the API, you can use Postman to send a POST request to `https://<API_URL>:<API_PORT>/api/v1/dcs` with the below sample JSON content in the body.
 
@@ -100,9 +99,9 @@ This folder contains the codes for three DM process extensions, and in this exer
 		    "TorqueRightUpperValue": 80
 		}
 
-> Note: you should use port 443 for HTTPS.
+	> Note: you should use port 443 for HTTPS.
 
-The attributes here, "TorqueLeftValue" means the value of Left Torque, "TorqueLeftLowerValue" means the minimun value of Left Torque, "TorqueLeftUpperValue" means the maximum value of Left Torque, and the right values are similar.
+	The attributes here, "TorqueLeftValue" means the value of Left Torque, "TorqueLeftLowerValue" means the minimun value of Left Torque, "TorqueLeftUpperValue" means the maximum value of Left Torque, and the right values are similar.
 
 ## Step 2: (Optional) Run the Docker image locally 
 
@@ -150,9 +149,9 @@ This step is to help you test the code locally and get a better understanding of
 		    "TorqueRightUpperValue": 80
 		}
 
-## Step 3: Create Web Server in SAP DMC
+## Step 3: Create Web Server in SAP DM
 
-1. Open "Manage Web Servers" App in SAP DMC.
+1. Open "Manage Web Servers" App in SAP DM.
 
 2. Click "Create" Button.
 ![](assets/Exercise3.1_CreateWebServer.png)
@@ -320,7 +319,7 @@ This step is to help you test the code locally and get a better understanding of
 
 	Input Parameter:
 
-	|  Parameter Name (Data Format)|  Value| 
+	|  Parameter Name (Data Type)|  Value| 
 	|--|--|			 
 	|	InOperation (String)		|leave it empty|
 	|	InPlant (String)			|leave it empty|
@@ -459,12 +458,11 @@ This step is to help you test the code locally and get a better understanding of
 11. For the "Condition" control, define the evaluation expressions for two branches separately, as following.
 
 	Evaluation Expression:
-	
 
 	| Branch | Evaluation Expression |
-		|--|--|
-	|	(1)		|'Ext_Evaluate_Torque#evaluationHistory' == 1|
-	|	(2)		|'Ext_Evaluate_Torque#evaluationHistory' == 0|
+	|--|--|
+	|(1)|'Ext_Evaluate_Torque#evaluationHistory' == 1|
+	|(2)|'Ext_Evaluate_Torque#evaluationHistory' == 0|
 	
 12. For the DMC "Log_Nonconformances" service, define the input parameters as following.
 
