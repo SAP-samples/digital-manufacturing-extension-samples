@@ -36,18 +36,22 @@ In this exercise, we would like to show you how to integrate Microsoft Teams wit
 ![](assets/Exercise3.2_AddIncomingApp6.png)
 
 7. The Webhook is created. Copy the URL and click "Done". 
-Example URL: [https://sap.webhook.office.com/webhookb2/20b14fbd-0620-4c4d-889c-e9565a081d5a@42f7676c-f455-423c-82f6-dc2d99791af7/IncomingWebhook/b009f9784511407a847bcff236846a05/e0dbc132-05b7-4f39-a07a-c4cd6294b290](https://sap.webhook.office.com/webhookb2/20b14fbd-0620-4c4d-889c-e9565a081d5a@42f7676c-f455-423c-82f6-dc2d99791af7/IncomingWebhook/b009f9784511407a847bcff236846a05/e0dbc132-05b7-4f39-a07a-c4cd6294b290)
+Example URL: `https://sap.webhook.office.com/webhookb2/20b14fbd-0620-4c4d-889c-e9565a081d5a@42f7676c-f455-423c-82f6-dc2d99791af7/IncomingWebhook/b009f9784511407a847bcff236846a05/e0dbc132-05b7-4f39-a07a-c4cd6294b290`.
 ![](assets/Exercise3.2_AddIncomingApp7.png)
 
 8. You will see a message displayed in your teams channel showing the connector which you've created.
 ![](assets/Exercise3.2_AddIncomingApp8.png)
 
+
+Official document see [Learn | Microsoft Teams | Create Incoming Webhooks](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=dotnet).
+
 ## Step 3: Create the destination in SAP BTP
 
-1. Log into your BTP cockpit and click the "Destinations" section in the left pane.
+1. Log into your BTP cockpit (the subaccount hosting SAP DM tenant) and click the "Destinations" section in the left pane.
+
 ![](assets/Exercise3.2_CreateDestination.png)
 
-2. Click "New Destination" button. Enter the name of the destination, e.g. MicrosoftTeams. For the "URL", enter the base URL of your Webhook service URL, e.g. [https://sap.webhook.office.com/](https://sap.webhook.office.com/)
+2. Click "New Destination" button. Enter the name of the destination, e.g. MicrosoftTeams. For the "URL", enter the base URL of your Webhook service URL, e.g. `https://sap.webhook.office.com/`.
 ![](assets/Exercise3.2_CreateDestination2.png)
 
 ## Step 4: Create the Web Server in SAP DMC
@@ -60,7 +64,7 @@ Example URL: [https://sap.webhook.office.com/webhookb2/20b14fbd-0620-4c4d-889c-e
 3. Under the "Header" tab, enter the name of the web server, e.g. MicrosoftTeams_DMCBootcamp. Enter the description of the web server, e.g. Microsoft Teams integration for DMC Bootcamp. Select the Plant accordingly.
 ![](assets/Exercise3.2_CreateWebServer2.png)
 
-4. Under the "Server Details" tab, select "Cloud services" as the server type. For the parameter "Host URL", enter the base URL of your Webhook service URL, e.g. [https://sap.webhook.office.com/](https://sap.webhook.office.com/)
+4. Under the "Server Details" tab, select "Cloud services" as the server type. For the parameter "Host URL", enter the base URL of your Webhook service URL, e.g. `https://sap.webhook.office.com/`.
 ![](assets/Exercise3.2_CreateWebServer3.png)
 
 5. Click "Create" button and your destination is created.
@@ -104,7 +108,7 @@ Example URL: [https://sap.webhook.office.com/webhookb2/20b14fbd-0620-4c4d-889c-e
 		        "text"
 		    ]
 		}
-![](assets/Exercise3.2_RegisterService6.png)
+	![](assets/Exercise3.2_RegisterService6.png)
 
 8. Click "Create" button. Now your service is ready to use.
 ![](assets/Exercise3.2_RegisterService7.png)
@@ -112,8 +116,8 @@ Example URL: [https://sap.webhook.office.com/webhookb2/20b14fbd-0620-4c4d-889c-e
 ## Step 6: Design Production Process
 1. Go to "Design Production Process" App.
 
-2. Select the Production Process "DMC_Bootcamp_EvaluateTorque" which is created in the exercise 3.1. Click "Edit" button.
-![](assets/Exercise3.2_DesignProductionProcess.png)
+2. Select the Production Process "DMC_Bootcamp_EvaluateTorque" which is created in the exercise 2.1. Click "Edit" button.
+	![](assets/Exercise3.2_DesignProductionProcess.png)
 
 3. Click "Save as New Version".
 
@@ -125,6 +129,9 @@ MicrosoftTeams_DMCBootcamp" and custom service "MicrosoftTeams_DMCBootcamp". Cli
 
 5. Drag and Drop the services into the production process right after the "Generate output message" script.
 ![](assets/Exercise3.2_DesignProductionProcess5.png)
+
+	For Input Parameter "text", choose the value from dropdown list, to be the output value of the previous step, e.g. 'ScriptTask_2#Message'. 
+	![](assets/Exercise2.2_DesignProductionProcess5.2.png)
 
 6. Click "Save All" and click "Quick Deploy" button. Now your Production Process is ready to test.
 ![](assets/Exercise3.2_DesignProductionProcess6.png)
