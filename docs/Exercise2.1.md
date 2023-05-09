@@ -299,7 +299,7 @@ This step is to help you test the code locally and get a better understanding of
 3. Design the Production Process as following.
 ![](assets/Exercise3.1_CreateProductionProcess.png)
 
-	If you don't have the time to do this, you can import the [*.dmcbak](./assets/Exercise2.1_DMC_Bootcamp_EvaluateTorque_to_be_imported.dmcbak) file. 
+	If you don't have the time to do this, you can import the [*.dmcbak](./assets/Exercise2.1_DMC_Bootcamp_EvaluateTorque_to_be_imported.dmcbak) file, with the password `BootCamp2023:)`. Please remember to replace the extension service Web Server "DMC_Bootcamp_EvaluateTorque" with yours. 
 
 
 4. Add the process variables to define the version of your target Operation and Data Collection Group, the Data Collection Parameters Name and Nonconformance Code Name.
@@ -346,7 +346,7 @@ This step is to help you test the code locally and get a better understanding of
 	|	httpResponse (StructureArray / GroupsListResponse):		|leave it empty|
 
 
-	If you want to refer to an existing parameter or variable, you can choose the value for the parameters from the dropdown list, and they will be added in a pair of backtick quotes. For instance, the Input Parameter "operation" here gets its value from the Input Parameter of the previous step "Start".
+	If you want to refer to an existing parameter or variable, you can choose the value for the parameters from the dropdown list, and they will be added in a pair of single quotes (do not leave them out). For instance, the Input Parameter "operation" here gets its value from the Input Parameter of the previous step "Start".
 		
 7. For the DMC "Get_Logged_Parameters" service, define the input and output parameters as following.
 
