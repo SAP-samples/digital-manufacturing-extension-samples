@@ -13,7 +13,7 @@ In this exercise, we would like to show you how to write your own business appli
 ## Step 0: Understand the Functionality and Prepare Sample Data
 For production operators, they will use the customized "DMC BOOTCAMP POD" to collect data in the manufactoring process, typically the Operation Activities for certain Materials. And after the data gathering of materials with the torque values, they will need to validate if the torque values are within standard range. The trigger of the extension is done by clicking the Validate button in the customized POD. 
 
-In the last exercise you might have created a Production Order (from ERP system or in SAP DM) and released RFC. In case you don't have one, you can follow these steps to prepare the RFC number needed in this exercise. Go to "Manage Orders" app > click "create" > give a randam "O" > for Material choose "LIFTER-ASSY" > for Quantity set 100 > create and release. In that case the SFC will be released to Work Center "WC-LIFT (Lifter Work Center)", with the Resource "TORQUE-5" and containing Operation Activity "LA-ASSEMBLY".
+In the last exercise you might have created a Production Order (from ERP system or in SAP DM) and released SFC. In case you don't have one, you can follow these steps to prepare the SFC number needed in this exercise. Go to "Manage Orders" app > click "create" > give a randam "O" > for Material choose "LIFTER-ASSY" > for Quantity set 100 > create and release. In that case the SFC will be released to Work Center "WC-LIFT (Lifter Work Center)", with the Resource "TORQUE-5" and containing Operation Activity "LA-ASSEMBLY".
 
 Go to your POD created during the preparation session, and select an SFC (e.g. the one you released in exercise 1.2), and make sure th corresponding Data Collection Group of it is `Torque`. Note down the SFC number for later use as sample data. 
 
@@ -295,6 +295,8 @@ This step is to help you test the code locally and get a better understanding of
 1. Open "Design Production Processes" App in SAP DMC.
 
 2. Create a new Production Process Design (e.g. DMC_Bootcamp_EvaluateTorque) and create a new cloud type process (e.g. DMC_Bootcamp_EvaluateTorque) inside.
+
+	Remember to turn "Publish to Service Registry" (and "Visible to Production Connector/Plant Connectivity Runtime") on. 
 
 3. Design the Production Process as following.
 ![](assets/Exercise3.1_CreateProductionProcess.png)
