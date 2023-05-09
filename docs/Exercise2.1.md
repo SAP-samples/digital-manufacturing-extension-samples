@@ -296,6 +296,8 @@ This step is to help you test the code locally and get a better understanding of
 
 2. Create a new Production Process Design (e.g. DMC_Bootcamp_EvaluateTorque) and create a new cloud type process (e.g. DMC_Bootcamp_EvaluateTorque) inside.
 
+	Remember to turn "Publish to Service Registry" (and "Visible to Production Connector/Plant Connectivity Runtime") on. 
+
 3. Design the Production Process as following.
 ![](assets/Exercise3.1_CreateProductionProcess.png)
 
