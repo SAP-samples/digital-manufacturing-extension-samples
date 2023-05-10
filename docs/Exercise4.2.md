@@ -5,8 +5,8 @@
 1. Login into your Application Business Studio
 2. Create a pod plugin:
     - Create from scrach (refer [Production Operator Dashboard Plugin Developer's Guide][1])
-    - Copy and modify from SAP [samples](../dm-ui-extensions/ViewPodPluginTemplate_And_Example/project/ViewPodPlugin/)
-    - Using the finished [sample](../dm-ui-extensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
+    - Copy and modify from SAP [samples](../dm-podplugin-extensions/PodPlugin_UrlIntegration/)
+    - Using the finished [sample](../dm-podplugin-extensions/PodPlugin_CustomScrapConfirmation) to skip the below section **Modify the content**
 3. Download the samples and extract it.
 4. Go back to Applicaton Business Studio, and select 'Terminal' from menu and click 'New Terminal'
 ![](assets/New_TERMINAL.png)
