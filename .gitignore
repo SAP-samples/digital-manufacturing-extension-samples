@@ -24,3 +24,5 @@ APIExternalProducer.js
 docs/.DS_Store
 docs/assets/.DS_Store
 docs/theme/.DS_Store
+**/mta_archives/*
+**/node_modules/*
