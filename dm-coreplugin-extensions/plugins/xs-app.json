@@ -1,0 +1,13 @@
+{
+  "authenticationMethod": "none",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+      "source": "^/plugins/(.*)$",
+      "target": "$1",
+      "localDir": "webapp"
+    }
+  ]
+}
