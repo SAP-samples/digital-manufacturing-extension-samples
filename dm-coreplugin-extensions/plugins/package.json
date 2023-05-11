@@ -1,0 +1,12 @@
+{
+  "name": "plugins",
+  "version": "0.0.1",
+  "description": "",
+  "dependencies": {
+    "@sap/approuter": "latest"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js",
+    "test": "grunt unit_and_integration_tests"
+  }
+}
