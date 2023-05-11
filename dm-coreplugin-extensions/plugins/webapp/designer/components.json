@@ -12,6 +12,16 @@
            ]
         },
         {
+            "provider": "sap/example/plugins/orderListExtensionProvider/ExtensionProvider",
+            "controller": "sap.dm.dme.plugins.orderSelectionListPlugin",
+            "inclusions": [
+                {
+                    "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                    "plants": ["1010"]
+                }
+            ]
+         },
+        {
            "provider": "sap/example/plugins/guidedStepsExtensionProvider/ExtensionProvider",
            "controller": "sap.dm.dme.plugins.guidedStepsPlugin",
            "inclusions": [

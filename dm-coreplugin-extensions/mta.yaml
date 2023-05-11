@@ -2,7 +2,7 @@ _schema-version: '3.2'
 ID: ExampleCustomCorePluginsMTA
 version: 0.0.1
 modules:
- - name: plugins
+ - name: corepluginextension
    type: html5
    path: plugins
    parameters:
@@ -16,27 +16,20 @@ modules:
                {\"host\": \"localhost\",\"protocol\": \"http\",\"port\": 10000}],
                \"allowedMethods\": [\"GET\",\"OPTIONS\"],
                \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
-                     \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
-                     \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"],
+               \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
+               \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"],
                \"exposeHeaders\": [\"Accept\",\"Authorization\",\"X-Requested-With\",\"X-Sap-Cid\",
-                     \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"X-Csrf-Token\",
-                     \"Content-Type\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"]}]"
+               \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"X-Csrf-Token\",
+               \"Content-Type\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"]}]"
    build-parameters:
     supported-platforms: [CF]
    requires:
-    - name: uaa_ExampleCustomPluginsMTA
-    - name: dest_ExampleCustomPluginsMTA
+    - name: uaa_ExampleCustomCorePluginsMTA
 resources:
- - name: uaa_ExampleCustomPluginsMTA
+ - name: uaa_ExampleCustomCorePluginsMTA
    parameters:
       path: ./xs-security.json
       service-plan: application
       service: xsuaa
-   type: org.cloudfoundry.managed-service
-
- - name: dest_ExampleCustomPluginsMTA
-   parameters:
-      service-plan: lite
-      service: destination
    type: org.cloudfoundry.managed-service
 
