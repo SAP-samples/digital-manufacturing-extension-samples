@@ -1,0 +1,21 @@
+{
+	"components": [
+		{
+			"id": "co_plugin",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "dmc.custom.collectiveorder",
+			"propertyEditor": "dmc.custom.collectiveorder.builder.PropertyEditor",
+			"i18n": "dmc.custom.collectiveorder.i18n.i18n",
+			"productionProcessEnabled": true,
+			"productionProcessTitle": "co_plugin",
+			"supportedPodTypes": [
+				"WORK_CENTER",
+				"OPERATION",
+				"ORDER",
+				"OTHER",
+				"MONITOR"
+			]
+		}
+	]
+}
