@@ -1,6 +1,36 @@
 {
     "components" : [],
     "extensions": [
+      {
+        "provider": "sap/example/plugins/workInstructionListExtensionProvider/ExtensionProvider",
+        "controller": "sap.dm.dme.wiplugins.workInstructionListPlugin",
+        "inclusions": [
+          {
+            "pods": ["DG_DEFAULT_OPERATION_POD"],
+            "plants": ["1010"]
+          }
+        ]
+      },
+      {
+        "provider": "sap/example/plugins/workInstructionViewerExtensionProvider/ExtensionProvider",
+        "controller": "sap.dm.dme.wiplugins.workInstructionViewPlugin",
+        "inclusions": [
+          {
+            "pods": ["DG_DEFAULT_OPERATION_POD"],
+            "plants": ["1010"]
+          }
+        ]
+      },
+      {
+        "provider": "sap/example/plugins/packingExtensionProvider/ExtensionProvider",
+        "controller": "sap.dm.dme.packingplugins.packingPlugin",
+        "inclusions": [
+          {
+            "pods": ["1010 WC PACKING"],
+            "plants": ["1010"]
+          }
+        ]
+      },
         {
            "provider": "sap/example/plugins/worklistExtensionProvider/ExtensionProvider",
            "controller": "sap.dm.dme.plugins.worklistPlugin",
@@ -34,6 +64,66 @@
         {
            "provider": "sap/example/plugins/assemblyPointExtensionProvider/ExtensionProvider",
            "controller": "sap.dm.dme.assyplugins.assemblyPointPlugin",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        },
+        {
+           "provider": "sap/example/plugins/componentListExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.assyplugins.componentListPlugin",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        },
+        {
+           "provider": "sap/example/plugins/dataCollectionListExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.dcplugins.dataCollectionListPlugin",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        },
+        {
+           "provider": "sap/example/plugins/dataCollectionEntryExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.dcplugins.dataCollectionEntryPlugin",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        },
+        {
+           "provider": "sap/example/plugins/downtimeExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.oeeplugins.downtimePlugin",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        },
+        {
+           "provider": "sap/example/plugins/resourceStatusExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.plugins.resourceStatus",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
+        },
+        {
+           "provider": "sap/example/plugins/sfcCardExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.plugins.headerInformationPlugin",
            "inclusions": [
                {
                    "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
