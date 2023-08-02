@@ -35,14 +35,14 @@ The [POD Plugins Developer Guide](https://help.sap.com/docs/sap-digital-manufact
 | [Core Work Instruction List Plugin Extension](./dm-coreplugin-extensions/plugins/webapp/workInstructionListExtensionProvider/) | This sample demonstrates how to extend the standard Work Instruction List plugin to show custom work instructions. |
 | [Inbound Integration Extension with XSLT](./dm-integration-extensions/)                       | Sample XSLT to map custom fields for Production Order                                              | 
 | [Outbound Integration Extension with customized workflows](./dm-integration-extensions/)                                          | This sample demonstrates using customized CPI workflow to pass additional information from DM to ERP                                                                         | 
-| [Next Number Extension with Mongo DB ](./dm-nextnumber-extensions/batch-nn-mongo-db/)                               | This sample demonstrates how to build write an extension function to generate next numbers using Mongo DB                                                     | 
-| [Next Number Extension with Postgres](./dm-nextnumber-extensions/batch-nn-postgresql/) | This sample demonstrates how to build write an extension function to generate next numbers using Postgres | 
-| [DM Execution - storing temporary process variables in MSSQL](./dm-proess-extensions/api-mssql-nodejs/) | This sample demonstrates how to store variables from DM execution in an external DB managed from kyma |
-| [Custom URL Integration POD plugin](./dm-ui-extensions/PodPlugin_UrlIntegration/) | This sample demonstrates how to build a sample custom plugin for URL Integration |  
-| [Custom Scrap Confirmation with PPD](./dm-ui-extensions/PodPlugin_CustomScrapConfirmation/) | This sample demonstrates how to build a sample custom plugin for Scrap Confirmation |  
-| [Custom Assembly POD](./dm-ui-extensions/SideBySide_AssemblyPOD_CF/) | This sample demonstrates how to build a side by side extension for Assembly using DM public APIs |  
-| [Side by side Extension Template on Kyma](./dm-ui-extensions/SideBySide_UI5/) | This sample demonstrates how to build a side by side extension in Kyma | 
-| [Custom AuditLog App](./dm-ui-extensions/AuditlogUIExtension/) | This sample demonstrates how to build a side by side extension for customized auditlog app |
+| [Next Number Extension with Mongo DB ](./dm-inapp-service-extensions/dm-nextnumber-extensions/batch-nn-mongo-db/)                               | This sample demonstrates how to build write an extension function to generate next numbers using Mongo DB                                                     | 
+| [Next Number Extension with Postgres](./dm-inapp-service-extensions/dm-nextnumber-extensions/batch-nn-postgresql/) | This sample demonstrates how to build write an extension function to generate next numbers using Postgres | 
+| [DM Execution - storing temporary process variables in MSSQL](./dm-inapp-service-extensions/api-mssql-nodejs/) | This sample demonstrates how to store variables from DM execution in an external DB managed from kyma |
+| [Custom URL Integration POD plugin](./dm-podplugin-extensions/PodPlugin_UrlIntegration/) | This sample demonstrates how to build a sample custom plugin for URL Integration |  
+| [Custom Scrap Confirmation with PPD](./dm-podplugin-extensions/PodPlugin_CustomScrapConfirmation/) | This sample demonstrates how to build a sample custom plugin for Scrap Confirmation |  
+| [Custom Assembly POD](./dm-sidebyside-extension/SideBySide_AssemblyPOD_CF/) | This sample demonstrates how to build a side by side extension for Assembly using DM public APIs |  
+| [Side by side Extension Template on Kyma](./dm-sidebyside-extension/SideBySide_UI5/) | This sample demonstrates how to build a side by side extension in Kyma | 
+| [Custom AuditLog App](./dm-sidebyside-extension/AuditlogUIExtension/) | This sample demonstrates how to build a side by side extension for customized auditlog app |
 
 ## Reference Blogs
 
