@@ -17,6 +17,8 @@ sap.ui.define([
                 return OverrideExecution.After;
             } else if (sOverrideMember === PluginEventConstants.ON_WORKLIST_SELECTION_CHANGE_EVENT) {
                 return OverrideExecution.After;
+            } else if (sOverrideMember === PluginEventConstants.ON_PRODUCTION_PROCESS_SUCCESS_EVENT) {
+                return OverrideExecution.After;
             } else if (sOverrideMember === PluginEventConstants.ON_REFRESH_EVENT) {
                 return OverrideExecution.After;
             } else if (sOverrideMember === PluginEventConstants.ON_OPERATION_CHANGE_EVENT) {
@@ -49,6 +51,10 @@ sap.ui.define([
 
         onWorklistSelectionChangeEvent : function(oData){
             this._oExtensionUtilities.logMessage("PluginEventExtension.onWorklistSelectionChangeEvent: hi");
+        },
+
+        onProductionProcessSuccessEvent : function(oData){
+            this._oExtensionUtilities.logMessage("PluginEventExtension.onProductionProcessSuccessEvent: hi");
         },
 
         onWorklistRefreshEvent : function(oData){
