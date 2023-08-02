@@ -4,10 +4,11 @@
 SAP Digital Manufacturing provides an out-of-the-box Manufacturing Execution System (MES) to run production on the shop floor. However, based on the experience gained from customer and partner projects, we also know that a successful MES must have the capability to be extended. With the new releases of Digital Manufacturing, the options for extensibility have made a significant step forward. Using the sample extensions provided will allow you to learn and understand how to build your own extensions to use with SAP Digital Manufacturing.
 
 ## Description
-In SAP Digital Manufacturing we distinguish between the following major areas for extensions:
+The [POD Plugins Developer Guide](https://help.sap.com/docs/sap-digital-manufacturing/pod-plugin-developer-s-guide/introduction) provides more details on developing custom plugins. Some of the templates can be referred as following code snippets.
+
 - POD Plugin Extension
-- Side by side Extension
 - Core Plugin Extension
+- Side by side Extension
 - Integration Extension
 - In-App Service Extension
 - ML Extension
@@ -76,15 +77,11 @@ In SAP Digital Manufacturing we distinguish between the following major areas fo
 - [Embedding SAP Analytics Cloud (SAC) Stories](https://blogs.sap.com/2021/11/16/dashboard-designer-embedding-sap-analytics-cloud-sac-stories-into-sap-digital-manufacturing-cloud-dmc-dashboards/)
 
 ## Note
-Our recommended extensibility platform for DMC is Kyma, however, it can be use case specific which may lead into different recommendations. Please know that DMC extensions can also be done with Cloud Foundry using a PaaS environment (or hyperscaler options which have not been fully explored).  The main difference picking between these two options, outside of our recommendation, is the lifecycle and costs. Kyma takes care of the lifecycle, scalability, monitoring, deployment, etc. of the extensions but is more expensive while Cloud Foundry/PaaS will have lower upfront costs but can be costly in terms of complexity, time, etc. to implement lifecycle management separately.
+Our recommended extensibility platform for Digital Manufacturing is Kyma, however, it can be use case specific which may lead into different recommendations. Please know that DMC extensions can also be done with Cloud Foundry using a PaaS environment (or hyperscaler options which have not been fully explored).  The main difference picking between these two options, outside of our recommendation, is the lifecycle and costs. Kyma takes care of the lifecycle, scalability, monitoring, deployment, etc. of the extensions but is more expensive while Cloud Foundry/PaaS will have lower upfront costs but can be costly in terms of complexity, time, etc. to implement lifecycle management separately.
 
 ## Few Real World Customer Examples
-![](docs/assets/indexLectureSlide33.png)
-![](docs/assets/indexLectureSlide34.png)
+![](bootcampdocs/assets/indexLectureSlide33.png)
 
-Each extension area has a folder in which you can find different sample code according to scenario and to the implementation technology used.
-
-For more information, please check the readme files in the different folders.
 
 ## How to obtain support
 If you have issues with a sample, please open a report using [GitHub issues](../../issues).
