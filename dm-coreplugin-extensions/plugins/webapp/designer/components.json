@@ -130,6 +130,16 @@
                    "plants": ["PLANT1"]
                }
            ]
+        },
+        {
+           "provider": "sap/example/plugins/changeEquipmentStatusExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.plugins.changeEquipmentStatus",
+           "inclusions": [
+               {
+                   "pods": ["EXAMPLE_CUSTOM_PLUGINS_POD"],
+                   "plants": ["PLANT1"]
+               }
+           ]
         }
     ]
 }
