@@ -140,9 +140,9 @@ In this exercise, we would like to show you how to write your own side by side e
 
 ## Step 3: Build UI5 application to consume exposed api
 
-1. Download the sample code from [DMC Extensibility Bootcamp Github Samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_UIExtensions/SideBySide_UI5).
+1. Download the sample code from [DMC Extensibility Bootcamp Github Samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/dm-sidebyside-extension/SideBySide_UI5).
 
-2. Open the folder "SideBySide_UI5" which is under "DMC_UIExtensions" in the Visual Studio Code.
+2. Open the folder "SideBySide_UI5" which is under "dm-sidebyside-extension" in the Visual Studio Code.
     ![](assets/Exercise3.2_UI5OpenInVSCode.png)
 
 
