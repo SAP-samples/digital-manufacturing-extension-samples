@@ -24,9 +24,9 @@ In this exercise, we would like to show you how to write your own side by side e
 4. Under the "Namespaces" section, select the newly created namespace to access that.
 ![](assets/Exercise1.1_namespace.png)
 
-5. Download the sample code from [DMC Extensibility Bootcamp Github Samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/DMC_UIExtensions/SideBySide_MaintPersonnelIdAndReasonCode).
+5. Download the sample code from [DM Extensibility Bootcamp Github Samples](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/dm-sidebyside-extension/SideBySide_MaintPersonnelIdAndReasonCode).
 
-6. Open the folder "SideBySide_MaintPersonnelIdAndReasonCode" which is under "DMC_UIExtensions" in the Visual Studio Code.
+6. Open the folder "SideBySide_MaintPersonnelIdAndReasonCode" which is under "dm-sidebyside-extension" in the Visual Studio Code.
 ![](assets/Exercise3.2_OpenInVSCode.png)
 
 7. Build and push the image to your Docker repository. (optional)
