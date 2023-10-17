@@ -8,15 +8,17 @@
 
 ## Prerequisite
 
-- `node` ([Node.js](https://nodejs.org/en/download/) version 12.x or 14.x is recommended)
--  `SAP Fiori Tools` [https://www.npmjs.com/package/@sap/generator-fiori](https://www.npmjs.com/package/@sap/generator-fiori)
-- `docker` (for example, [Docker Desktop](https://www.docker.com/products/docker-desktop) for macOS or Windows)
+Required:
+- `git` ([Git Downloads](https://git-scm.com/downloads))
 - A source code editor ([Visual Studio Code](https://code.visualstudio.com/) is recommended)
 - `bash` or `zsh` shell to run the command snippets on MacOS or Linux, or [Git Bash](https://gitforwindows.org/) for Windows, MinGW, or [Cygwin](https://www.cygwin.com/)
 - `kubectl` ([Kubernetes Command Line tool](https://kubernetes.io/docs/tasks/tools/)), see this tutorial how to install it
+Nice-to-have:
+- `docker` (for example, [Docker Desktop](https://www.docker.com/products/docker-desktop) for macOS or Windows)
+- `node` ([Node.js](https://nodejs.org/en/download/) version 12.x or 14.x is recommended)
+-  `SAP Fiori Tools` [https://www.npmjs.com/package/@sap/generator-fiori](https://www.npmjs.com/package/@sap/generator-fiori)
 - `cf` ([Cloud Foundry Command Line Interface (CLI)](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html))
 - `mta` ([Multitarget application interface](https://sap.github.io/cloud-mta-build-tool/download/))
-- `git` ([Git Downloads](https://git-scm.com/downloads))
 - Download [postman tool](https://www.postman.com/downloads/)
 
 
