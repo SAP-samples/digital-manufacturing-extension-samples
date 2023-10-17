@@ -100,6 +100,7 @@ module.exports = {
       console.log("Input parameters: " + JSON.stringify(event.data));  
 
       identifiers = event.data.identifiers;
+      console.log("old SFC identifiers: " + identifiers)
 
       orderValue = event.data.extensionParameters.ORDER_NAME;
       plantValue = event.data.extensionParameters.PLANT;
@@ -116,7 +117,6 @@ module.exports = {
     return new Promise((resolve , reject)=>{
       dmcService.getOrderDetail(plantValue, orderValue).then((result)=>{
  
-        //console.log(result);
         orderdetails =  JSON.parse(result);
         
         let customdata;
@@ -126,13 +126,13 @@ module.exports = {
             customdata = orderdetails.customValues[i].value;
           }
         }
-        console.log(customdata);
+        console.log("Sales Order: " + customdata);
 
         let array = [];
         let newSeq;
         for (let iter=0; iter < identifiers.length; iter++) {
           newSeq = customdata + identifiers[iter].substring(identifiers[iter].length-4,identifiers[iter].length);
-          console.log("newSeq: " + newSeq);
+          console.log("new SFC identifiers: " + + newSeq);
           array.push(newSeq);
         }
 

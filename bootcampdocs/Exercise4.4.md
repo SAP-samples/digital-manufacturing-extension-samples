@@ -1,4 +1,4 @@
-# AssemblyPOD
+# Exercise 4.4 - AssemblyPOD
 
 The Assembly Template POD is a UI5 application designed to allow assembly operations for a single SFC
 at an active operation step. It utilizes public APIs published to the Public API Hub for accessing
