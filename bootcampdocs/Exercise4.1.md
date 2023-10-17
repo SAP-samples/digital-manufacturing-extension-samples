@@ -1,5 +1,5 @@
 
-# Side by side Extension
+# Exercise 4.1 - Side by side Extension
 
 In this exercise, we would like to show you how to write your own side by side extension and exposed as an API and UI5 application using mssql DB in the SAP BTP, Kyma Runtime.
 
