@@ -1,7 +1,7 @@
 # Exercise 2.1 - Evaluate Torque Value
 
 ## Overview
-In this exercise, we would like to show you how to write your own business application with persistence layer and exposed as an API in the SAP BTP, Kyma Runtime, how to extend your production process with your own business extensions in SAP DM Production Process Designer and how to trigger your production process from your POD.
+In this exercise, we would like to show you how to write your own business application with persistence layer and exposed as an API in the SAP BTP, Kyma Runtime, how to extend your production process with your own business extensions in SAP DM app, Design Production Processes, and how to trigger your production process from your POD.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ In this exercise, we would like to show you how to write your own business appli
 
 
 ## Step 0: Understand the Functionality and Prepare Sample Data
-For production operators, they will use the customized "DMC BOOTCAMP POD" to collect data in the manufactoring process, typically the Operation Activities for certain Materials. And after the data gathering of materials with the torque values, they will need to validate if the torque values are within standard range. The trigger of the extension is done by clicking the Validate button in the customized POD. 
+For production operators, they will use the customized "DM BOOTCAMP POD" to collect data in the manufactoring process, typically the Operation Activities for certain Materials. And after the data gathering of materials with the torque values, they will need to validate if the torque values are within standard range. The trigger of the extension is done by clicking the Validate button in the customized POD. 
 
 In the last exercise you might have created a Production Order (from ERP system or in SAP DM) and released SFC. In case you don't have one, you can follow these steps to prepare the SFC number needed in this exercise. Go to "Manage Orders" app > click "create" > give a randam "O" > for Material choose "LIFTER-ASSY" > for Quantity set 100 > create and release. In that case the SFC will be released to Work Center "WC-LIFT (Lifter Work Center)", with the Resource "TORQUE-5" and containing Operation Activity "LA-ASSEMBLY".
 
@@ -107,7 +107,7 @@ This step is to help you test the code locally and get a better understanding of
 3. To test the API locally, you can use Postman to send a POST request to [http://localhost:8080/api/v1/dcs](http://localhost:8080/api/v1/dcs) with the below sample JSON content in the body.
 
 		{
-		    "SFC": "{your-sfc}",
+		    "SFC": "0509_115",
 		    "TorqueLeftValue": 50,
 		    "TorqueLeftLowerValue": 40,
 		    "TorqueLeftUpperValue": 60,
@@ -161,7 +161,7 @@ This step is to help you test the code locally and get a better understanding of
 6. To test the API, you can use Postman to send a POST request to `https://<API_URL>:<API_PORT>/api/v1/dcs` with the below sample JSON content in the body.
 
 		{
-		    "SFC": "{your-sfc}",
+		    "SFC": "0509_115",
 		    "TorqueLeftValue": 50,
 		    "TorqueLeftLowerValue": 40,
 		    "TorqueLeftUpperValue": 60,
@@ -170,9 +170,11 @@ This step is to help you test the code locally and get a better understanding of
 		    "TorqueRightUpperValue": 80
 		}
 
-	> Note: you should use port 443 for HTTPS.
+	> Note: you should not use port 80 for HTTPS (leave it blank or use 443).
 
 	The attributes here, "TorqueLeftValue" means the value of Left Torque, "TorqueLeftLowerValue" means the minimun value of Left Torque, "TorqueLeftUpperValue" means the maximum value of Left Torque, and the right values are similar.
+
+	![](assets/Exercise2.1_TestKymaService.png)
 
 
 
@@ -183,7 +185,7 @@ This step is to help you test the code locally and get a better understanding of
 2. Click "Create" Button.
 ![](assets/Exercise3.1_CreateWebServer.png)
 
-3. Under "Header" tab, enter the Web Server name (e.g. DMC_Bootcamp_EvaluateTorque).
+3. Under "Header" tab, enter the Web Server name (e.g. DM_Bootcamp_EvaluateTorque).
 
 4. Under "Header" tab, select the specific plant (e.g. EBC400).
 
@@ -200,7 +202,7 @@ This step is to help you test the code locally and get a better understanding of
 9. Under the "Connections" tab, click "Create" Button.
 ![](assets/Exercise3.1_CreateWebServer4.png)
 
-10. Select the "DMC_Bootcamp_EvaluateTorque" Web Server.
+10. Select the "DM_Bootcamp_EvaluateTorque" Web Server.
 ![](assets/Exercise3.1_CreateWebServer5.png)
 
 ## Step 6: Register your service in SAP DM
@@ -220,7 +222,7 @@ This step is to help you test the code locally and get a better understanding of
 
 7. Under "General Information" tab, for the "Method" parameter, select "POST".
 
-8. Under "General Information" tab, for the "Web Server" parameter, select "DMC_Bootcamp_EvaluateTorque".
+8. Under "General Information" tab, for the "Web Server" parameter, select "DM_Bootcamp_EvaluateTorque".
 
 9. Under "General Information" tab, for the "URL / Path" parameter, enter `/api/v1/dcs`.
 ![](assets/Exercise3.1_CreateService3.png)
@@ -321,14 +323,14 @@ This step is to help you test the code locally and get a better understanding of
 
 1. Open "Design Production Processes" App in SAP DM.
 
-2. Create a new Production Process Design (e.g. DMC_Bootcamp_EvaluateTorque) and create a new cloud type process (e.g. DMC_Bootcamp_EvaluateTorque) inside.
+2. Create a new Production Process Design (e.g. DM_Bootcamp_EvaluateTorque) and create a new cloud type process (e.g. DM_Bootcamp_EvaluateTorque) inside.
 
 	Remember to turn "Publish to Service Registry" (and "Visible to Production Connector/Plant Connectivity Runtime") on. 
 
 3. Design the Production Process as following.
 ![](assets/Exercise3.1_CreateProductionProcess.png)
 
-	If you don't have the time to do this, you can import the [*.dmcbak](./assets/Exercise2.1_DMC_Bootcamp_EvaluateTorque_to_be_imported.dmcbak) file, with the password `BootCamp2023:)`. Please remember to replace the extension service Web Server "DMC_Bootcamp_EvaluateTorque" with yours. 
+	If you don't have the time to do this, you can import the [*.dmcbak](./assets/Exercise2.1_DM_Bootcamp_EvaluateTorque_to_be_imported.dmcbak) file, with the password `BootCamp2023:)`. Please remember to replace the extension service Web Server "DM_Bootcamp_EvaluateTorque" with yours. 
 
 
 4. Add the process variables to define the version of your target Operation and Data Collection Group, the Data Collection Parameters Name and Nonconformance Code Name.
@@ -356,7 +358,7 @@ This step is to help you test the code locally and get a better understanding of
 	|	InSFC (String)			|leave it empty|
 	|	InWorkcenter (String)		|leave it empty|
 
-6. For the DMC "Retrieve_SFC_DC_Groups" service, define the input and output parameters as following.
+6. For the DM "Retrieve_SFC_DC_Groups" service, define the input and output parameters as following.
 
 	Input Parameter:
 
@@ -370,18 +372,18 @@ This step is to help you test the code locally and get a better understanding of
 	|	workCenter (String):	|'InWorkcenter'|
 	
 	Output Parameter:		
-	|  Parameter Name|  Value| 
-	|--|--|	
-	|	httpResponse (StructureArray / GroupsListResponse):		|leave it empty|
+	|  Parameter Name|  Data Type (Schema) | Value| 
+	|--|--|--|
+	|	httpResponse | StructureArray (GroupsListResponse--00001)		|leave it empty|
 
 
 	If you want to refer to an existing parameter or variable, you can choose the value for the parameters from the dropdown list, and they will be added in a pair of single quotes (do not leave them out). For instance, the Input Parameter "operation" here gets its value from the Input Parameter of the previous step "Start".
 		
-7. For the DMC "Get_Logged_Parameters" service, define the input and output parameters as following.
+7. For the DM "Get_Logged_Parameters" service, define the input and output parameters as following.
 
 	Input Parameter:
 
-	|  Parameter Name|  Value| 
+	|  Parameter Name (Data Type)|  Value| 
 	|--|--|		
 	|	dcGroup.name (String):		|'Retrieve_SFC_DC_Groups#httpResponse[0]["group"]["group"]'|
 	|dcGroup.version (String):|'InDcGroupVersion'|
@@ -391,27 +393,31 @@ This step is to help you test the code locally and get a better understanding of
 	|plant (String):*|'InPlant'|
 	|resource (String):*|'InResource'|
 	|sfcs (StringArray):*|'InSFC'|
-					
-						
+
+
+	Here in the value of Input Parameter "dcGroup.name", `Retrieve_SFC_DC_Groups#httpResponse` means the value is from the Output Parameter "httpResponse" of the previous step "Retrieve_SFC_DC_Groups". 
 						
 	
 	Output Parameter:	
 
-	|  Parameter Name|  Value| 
-	|--|--|	
-	|	httpResponse (StructureArray / LoggedSfcDataResponse):|leave it empty|
+	|  Parameter Name|  Data Type (Schema) | Value| 
+	|--|--|--|
+	|httpResponse | StructureArray  (LoggedSfcDataResponse--00001)|leave it empty|
 				
 
-	Here in the value of Input Parameter "dcGroup.name", `Retrieve_SFC_DC_Groups#httpResponse` means the value is from the Output Parameter "httpResponse" of the previous step "Retrieve_SFC_DC_Groups". 
+	
 		
 8. For the custom "Get latest collected data by DC Name" Script Task, define the input and output parameters and script as following.
 
 	Input Parameter:
 
-		Parameter Name												Value 
-		InDCName_Left (String):*									'InDCName_Left'
-		InDCName_Right (String):*									'InDCName_Right'
-		InLoggedDCs (StructureArray / LoggedSfcDataResponse):*		'Get_Logged_Parameters#httpResponse'
+	|  Parameter Name| Data Type (Schema)| Value| 
+	|--|--|--|	
+	|InDCName_Left *|String|'InDCName_Left'|
+	|InDCName_Right *|String|'InDCName_Right'|
+	|InLoggedDCs |StructureArray (LoggedSfcDataResponse--00001)|'Get_Logged_Parameters#httpResponse'|
+
+	When defining the parameter of "InLoggedDCs", please make sure that its schema of the structure is the same as the schema of the previous step "Get_Logged_Parameters"'s output "LoggedSfcDataResponse--00001".
 
  	
 
@@ -421,6 +427,9 @@ This step is to help you test the code locally and get a better understanding of
 		oDCLeftValue (Double):		leave it empty
 		oDCRightValue (Double):		leave it empty
 		
+
+
+
 	Script:
 		
 		var dcArray = $input.InLoggedDCs[0].parameters;
@@ -436,14 +445,16 @@ This step is to help you test the code locally and get a better understanding of
 		$output.oDCLeftValue = filterArrayLeft[lenLeft-1].actualNumber;
 		$output.oDCRightValue = filterArrayRight[lenRight-1].actualNumber;
 		
+
+
 9. For the custom "Get Lower and Upper Value by DC Name" Script Task, define the input and output parameters and script as following.
 
 	Input Parameter:
-
-		Parameter Name											Value 
-		InLeftDCName (String):*									'InDCName_Left'
-		InRightDCName (String):*								'InDCName_Right'
-		InDCGroup (StructureArray / GroupsListResponse):*		'Retrieve_SFC_DC_Groups#httpResponse'
+	|  Parameter Name|  Value| 
+	|--|--|	
+	|InLeftDCName (String):*|'InDCName_Left'|
+	|InRightDCName (String):*|'InDCName_Right'|
+	|InDCGroup (StructureArray / GroupsListResponse--00001)|'Retrieve_SFC_DC_Groups#httpResponse'|
 
 	Output Parameter:		
 		
@@ -488,7 +499,7 @@ This step is to help you test the code locally and get a better understanding of
 		evaluationHistory (Integer):		leave it empty
 
 
-	Note the actual ID of your three Script Tasks might be different from the sample value here.
+	Note: the actual ID of your three Script Tasks might be different from the sample value here.
 		
 11. For the "Condition" control, define the evaluation expressions for two branches separately, as following.
 
@@ -498,7 +509,11 @@ This step is to help you test the code locally and get a better understanding of
 	|--|--|
 	|(1)|'Ext_Evaluate_Torque#evaluationHistory' == 1|
 	|(2)|'Ext_Evaluate_Torque#evaluationHistory' == 0|
-	
+
+	Note: The variable pattern is {your-extension-step-id}#evaluationHistory
+
+
+
 12. For the DMC "Log_Nonconformances" service, define the input parameters as following.
 
 	Input Parameter:
@@ -529,18 +544,23 @@ This step is to help you test the code locally and get a better understanding of
 		
 		$output.oMessage = "There is an issue for " + $input.InSFC + " at " + $input.InWorkCenter + ".";
 
-14. Deploy and activate the process after saving it. To test the Production Process directly, you can click the "Run" button and use the following sample data.
+14. Deploy and activate the process after saving it. Remember to toggle on "Publish to Service Registry" in the Header. To test the Production Process directly, you can click the "Run" button and use the following sample data.
 
 	| Name |  Value  |
 	|:-----|:--------|
 	| InOperation | `LA-ASSEMBLY` |
-	| InPlant   | `EBC400` |
+	| InPlant   | `EBC300` |
 	| InResource | `TORQUE-5` |
-	| InSFC | `{your-sfc}` |
+	| InSFC | `0509_115` |
 	| InWorkcenter | `WC-LIFT` |
 
 	Sample inputs are like this:
 	![](assets/Exercise3.1_TestProductionProcess.png)
+
+
+	Note: please find in your plant for the sample data.
+
+	
 	
 15. To check the testing result, you can go to "Monitor Production Processes" App to see the details of running results.
 	![](assets/Exercise3.1_MonitorProductionProcess.png)
@@ -554,7 +574,7 @@ This step is to help you test the code locally and get a better understanding of
 
 3. Click "Assign Actions" button and click "Add" Button to add the action.
 	For the "Type" parameter, select "Production Process".
-	For the "Type Definition", select your custom Production Process "P_DMC_Bootcamp_EvaluateTorque_DMC_Bootcamp_EvaluateTorque".
+	For the "Type Definition", select your custom Production Process "P_DM_Bootcamp_EvaluateTorque_DM_Bootcamp_EvaluateTorque".
 	![](assets/Exercise3.1_ConfigureEvaulateButton2.png)
 	
 4. Click the "Configuration" button and configure the parameters as following.
@@ -567,7 +587,7 @@ This step is to help you test the code locally and get a better understanding of
 ## Step 8: Test the scenario
 1. Open your own POD. You can get POD access URL by clicking the "URL" button in the "POD Designer" App. E.g. [https://DMC_URL/cp.portal/site#DMEWorkCenterPOD-Display?POD_ID=DMC_BOOTCAMP_POD](https://DMC_URL/cp.portal/site#DMEWorkCenterPOD-Display?POD_ID=DMC_BOOTCAMP_POD)
 
-2. Select the SFC (e.g. 78378_030) and select the operation (e.g. 1879683-0-0010/0010). In the "Data Collection List" tab, click "Collect" button.
+2. Select the SFC and select the operation. In the "Data Collection List" tab, click "Collect" button.
 	![](assets/Exercise3.1_TestScenario.png)
 	
 3. Enter the Data Collection Value and click "Save" button to perform the data collection.
