@@ -1,13 +1,13 @@
 # Exercise 2.1 - Evaluate Torque Value
 
 ## Overview
-In this exercise, we would like to show you how to write your own business application with persistence layer and exposed as an API in the SAP BTP, Kyma Runtime, how to extend your production process with your own business extensions in SAP DMC Shop Floor Designer and how to trigger your production process from your POD.
+In this exercise, we would like to show you how to write your own business application with persistence layer and exposed as an API in the SAP BTP, Kyma Runtime, how to extend your production process with your own business extensions in SAP DM Shop Floor Designer and how to trigger your production process from your POD.
 
 ## Prerequisites
 
 - SAP BTP, Kyma runtime instance
-- (Optional) [Docker](https://www.docker.com/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) configured to use the `KUBECONFIG` file downloaded from the Kyma runtime. Please also refer to SAP Tutorial for Install the Kubernetes Command Line Tool. [https://developers.sap.com/tutorials/cp-kyma-download-cli.html](https://developers.sap.com/tutorials/cp-kyma-download-cli.html) 
+- [kubectl cli](https://kubernetes.io/docs/tasks/tools/install-kubectl/), install it. You can also refer to SAP Tutorial for Install the Kubernetes Command Line Tool. [https://developers.sap.com/tutorials/cp-kyma-download-cli.html](https://developers.sap.com/tutorials/cp-kyma-download-cli.html)
+- (Optional) [Docker](https://www.docker.com/), create an account and install the tool
 
 
 ## Step 0: Understand the Functionality and Prepare Sample Data
@@ -18,7 +18,7 @@ In the last exercise you might have created a Production Order (from ERP system 
 Go to your POD created during the preparation session, and select an SFC (e.g. the one you released in exercise 1.2), and make sure th corresponding Data Collection Group of it is `Torque`. Note down the SFC number for later use as sample data. 
 
 
-## Step 1: Build your own business application
+## Step 1: Set up your kyma environment 
 1. Access to your Kyma Dashboard.
 ![](assets/Exercise1.1_AccessKymaDashboard.png)
 
@@ -31,79 +31,44 @@ Go to your POD created during the preparation session, and select an SFC (e.g. t
 4. Under the "Namespaces" section, select the newly created namespace to access that.
 ![](assets/Exercise1.1_SelectNamespace.png)
 
-5. Download the sample code [dm-process-extensions](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/dm-inapp-service-extensions) from DM Extensibility Bootcamp Github Samples.
+5. Download the cluster's `KUBECONFIG` file. 
 
-	This folder contains the codes for three DM process extensions, and in this exercise we will use the first one:
-	-  &check; api-mssql-nodejs
-	- dm-nextnumber-extensions
-	- sample-service-extension
 
-6. Open the folder "api-mssql-nodejs" which is under "dm-process-extensions" in the Visual Studio Code.
+
+## Step 2: Set up locally
+
+1. On your local machine, configure to use the `KUBECONFIG` file downloaded from the BTP Kyma runtime. 
+
+
+2. Download the sample code [digital-manufacturing-extension-samples
+/dm-inapp-service-extensions/api-mssql-nodejs](https://github.com/SAP-samples/digital-manufacturing-extension-samples/tree/main/dm-inapp-service-extensions/api-mssql-nodejs) from DM Extensibility Bootcamp Github Samples.
+
+	You can donwload the git repo by `git clone https://github.com/SAP-samples/digital-manufacturing-extension-samples.git`. 
+
+3. Open the folder "api-mssql-nodejs" which is under "dm-process-extensions" in the Visual Studio Code.
 
 	![](assets/Exercise3.1_OpenInVSCode.png)
+
+
+## (Optional) Step 3: Docker image
+
+If you choose to use the provided docker image, please skip this step, and directly go to Step 3. 
+
+If you wish to build your docker image, please continue. 
+
+### Build your docker image
  
-7. (Optional) Build and push the image to your Docker repository. This step may take a long time, you can skip it.
+1. Build and push the image to your Docker repository. This step may take a long time, you can skip it.
 	
 		docker build -t {your-docker-account}/mssqlnodejs -f docker/Dockerfile .
 	
 		docker push {your-docker-account}/mssqlnodejs
 
-8. (Optional) Replace the image name with your docker account in the /k8s/deployment.yaml file.
+2. Replace the image name with your docker account in the /k8s/deployment.yaml file.
 	![](assets/Exercise3.1_ModifyDeploymentFile.png)
 
-9. Apply the Deployment. The command means to deply using the configuration in the file `deployment.yaml` onto the namespace `dmc-extension`.
 
-		kubectl -n dmc-extension apply -f ./k8s/deployment.yaml
-
-10. Apply the Service.
-
-		kubectl -n dmc-extension apply -f ./k8s/service.yaml
-
-11. Verify that the Pod is up and running:
-
-		kubectl -n dmc-extension get po
-
-	The expected result shows that the Pod for the `mssqlnodejs mssql` Deployment is running:
-
-	
-		NAME                                READY   STATUS    RESTARTS   AGE
-		mssqlnodejs-5d4bbb47b5-7hjsr        2/2     Running   0          93s
-	
-12. In the Kyma Dashboard, in the namespace `dmc-extension`, under the tab "Discovery and Network", click "API Rules" and click "+ Create API Rule". 
-- You can generate a randum name. 
-- Under "Service" section, for the field "Service Name", choose from the drop down list `mssqlnodejs-service` service, and input for the field "Port" value `80`. 
-- Under "Gateway" section, for the field "Host", choose from the dropdown list `*.<your-cluster-id>.kyma.ondemand.com`. Note the assertion message "Host can not be a wildcard, replace * with subdomain name", so replace the asterisk mark with a subdomain name, e.g. `dmc-bp-nodejs-api`. Note the folded fields here are "Namespace" and "Name", these have assigned the default value `kyma-system` and `kyma-gateway`, so we can leave them as they are.
-- leave the rest as as they are, and click "Create" button to create API rule for the service.
-
-	| Field |  Value  |
-	| :----- | :-------- |
-	| Name   | randomly generated |
-	| Service Name | `mssqlnodejs-service` |
-	| Port | `80` |
-	| Host | e.g. `<subdomain>.<your-cluster-id>.kyma.ondemand.com` |
-
-	![](assets/Exercise3.1_ExposeService.png)
-
-13. Enter the name (e.g `dmc-bp-nodejs-api`) and Subdomain name (unique one, e.g `dmc-bp-nodejs-api`) to create API rule.
-	![](assets/Exercise3.1_CreateAPIRule.png)
-
-14. To test the API, you can use Postman to send a POST request to `https://<API_URL>:<API_PORT>/api/v1/dcs` with the below sample JSON content in the body.
-
-		{
-		    "SFC": "{your-sfc}",
-		    "TorqueLeftValue": 50,
-		    "TorqueLeftLowerValue": 40,
-		    "TorqueLeftUpperValue": 60,
-		    "TorqueRightValue": 60,
-		    "TorqueRightLowerValue": 20,
-		    "TorqueRightUpperValue": 80
-		}
-
-	> Note: you should use port 443 for HTTPS.
-
-	The attributes here, "TorqueLeftValue" means the value of Left Torque, "TorqueLeftLowerValue" means the minimun value of Left Torque, "TorqueLeftUpperValue" means the maximum value of Left Torque, and the right values are similar.
-
-## Step 2: (Optional) Run the Docker image locally 
+### Run and test the Docker image locally 
 
 This step is to help you test the code locally and get a better understanding of the architecture and logic. You can skip it if you don't have enough time.
 
@@ -149,7 +114,67 @@ This step is to help you test the code locally and get a better understanding of
 		    "TorqueRightUpperValue": 80
 		}
 
-## Step 3: Create Web Server in SAP DM
+
+
+
+
+## Step 4: Build your own business application on kyma
+
+1. Apply the Deployment. The command means to deply using the configuration in the file `deployment.yaml` onto the namespace `dmc-extension`.
+
+		kubectl -n dmc-extension apply -f ./k8s/deployment.yaml
+
+2. Apply the Service.
+
+		kubectl -n dmc-extension apply -f ./k8s/service.yaml
+
+3. Verify that the Pod is up and running:
+
+		kubectl -n dmc-extension get po
+
+	The expected result shows that the Pod for the `mssqlnodejs mssql` Deployment is running:
+
+	
+		NAME                                READY   STATUS    RESTARTS   AGE
+		mssqlnodejs-5d4bbb47b5-7hjsr        2/2     Running   0          93s
+	
+4. In the Kyma Dashboard, in the namespace `dmc-extension`, under the tab "Discovery and Network", click "API Rules" and click "+ Create API Rule". 
+- You can generate a randum name. 
+- Under "Service" section, for the field "Service Name", choose from the drop down list `mssqlnodejs-service` service, and input for the field "Port" value `80`. 
+- Under "Gateway" section, for the field "Host", choose from the dropdown list `*.<your-cluster-id>.kyma.ondemand.com`. Note the assertion message "Host can not be a wildcard, replace * with subdomain name", so replace the asterisk mark with a subdomain name, e.g. `dmc-bp-nodejs-api`. Note the folded fields here are "Namespace" and "Name", these have assigned the default value `kyma-system` and `kyma-gateway`, so we can leave them as they are.
+- leave the rest as as they are, and click "Create" button to create API rule for the service.
+
+	| Field |  Value  |
+	| :----- | :-------- |
+	| Name   | randomly generated |
+	| Service Name | `mssqlnodejs-service` |
+	| Port | `80` |
+	| Host | e.g. `<subdomain>.<your-cluster-id>.kyma.ondemand.com` |
+
+	![](assets/Exercise3.1_ExposeService.png)
+
+5. Enter the name (e.g `dmc-bp-nodejs-api`) and Subdomain name (unique one, e.g `dmc-bp-nodejs-api`) to create API rule.
+	![](assets/Exercise3.1_CreateAPIRule.png)
+
+6. To test the API, you can use Postman to send a POST request to `https://<API_URL>:<API_PORT>/api/v1/dcs` with the below sample JSON content in the body.
+
+		{
+		    "SFC": "{your-sfc}",
+		    "TorqueLeftValue": 50,
+		    "TorqueLeftLowerValue": 40,
+		    "TorqueLeftUpperValue": 60,
+		    "TorqueRightValue": 60,
+		    "TorqueRightLowerValue": 20,
+		    "TorqueRightUpperValue": 80
+		}
+
+	> Note: you should use port 443 for HTTPS.
+
+	The attributes here, "TorqueLeftValue" means the value of Left Torque, "TorqueLeftLowerValue" means the minimun value of Left Torque, "TorqueLeftUpperValue" means the maximum value of Left Torque, and the right values are similar.
+
+
+
+## Step 5: Create Web Server in SAP DM
 
 1. Open "Manage Web Servers" App in SAP DM.
 
@@ -176,8 +201,8 @@ This step is to help you test the code locally and get a better understanding of
 10. Select the "DMC_Bootcamp_EvaluateTorque" Web Server.
 ![](assets/Exercise3.1_CreateWebServer5.png)
 
-## Step 4: Register your service in SAP DMC
-1. Open "Manage service registry" App in SAP DMC.
+## Step 6: Register your service in SAP DM
+1. Open "Manage service registry" App in SAP DM.
 
 2. Click "Create" Button.
 ![](assets/Exercise3.1_CreateService.png)
@@ -290,9 +315,9 @@ This step is to help you test the code locally and get a better understanding of
 ![](assets/Exercise3.1_CreateService9.png)
 
 
-## Step 5: Design your Production Process
+## Step 7: Design your Production Process
 
-1. Open "Design Production Processes" App in SAP DMC.
+1. Open "Design Production Processes" App in SAP DM.
 
 2. Create a new Production Process Design (e.g. DMC_Bootcamp_EvaluateTorque) and create a new cloud type process (e.g. DMC_Bootcamp_EvaluateTorque) inside.
 
@@ -354,20 +379,26 @@ This step is to help you test the code locally and get a better understanding of
 
 	Input Parameter:
 
-		Parameter Name					Value 
-		dcGroup.name (String):			'Retrieve_SFC_DC_Groups#httpResponse[0]["group"]["group"]'
-		dcGroup.version (String):		'InDcGroupVersion'
-		operation.name (String):*		'InOperation'
-		operation.version (String):*	'InOperationVersion'
-		parameterName (String):			leave it empty
-		plant (String):*				'InPlant'
-		resource (String):*				'InResource'
-		sfcs (StringArray):*			'InSFC'
+	|  Parameter Name|  Value| 
+	|--|--|		
+	|	dcGroup.name (String):		|'Retrieve_SFC_DC_Groups#httpResponse[0]["group"]["group"]'|
+	|dcGroup.version (String):|'InDcGroupVersion'|
+	|operation.name (String):*|'InOperation'|
+	|operation.version (String):*|'InOperationVersion'|
+	|parameterName (String):|leave it empty|
+	|plant (String):*|'InPlant'|
+	|resource (String):*|'InResource'|
+	|sfcs (StringArray):*|'InSFC'|
+					
+						
+						
 	
-	Output Parameter:		
-		
-		Parameter Name												Value
-		httpResponse (StructureArray / LoggedSfcDataResponse):		leave it empty
+	Output Parameter:	
+
+	|  Parameter Name|  Value| 
+	|--|--|	
+	|	httpResponse (StructureArray / LoggedSfcDataResponse):|leave it empty|
+				
 
 	Here in the value of Input Parameter "dcGroup.name", `Retrieve_SFC_DC_Groups#httpResponse` means the value is from the Output Parameter "httpResponse" of the previous step "Retrieve_SFC_DC_Groups". 
 		
@@ -512,7 +543,7 @@ This step is to help you test the code locally and get a better understanding of
 15. To check the testing result, you can go to "Monitor Production Processes" App to see the details of running results.
 	![](assets/Exercise3.1_MonitorProductionProcess.png)
 	
-## Step 6: Assign your Production Process to POD
+## Step 8: Assign your Production Process to POD
 
 1. 	Open "POD Designer" App and select your own POD (e.g. DMC_BOOTCAMP_POD).
 
@@ -531,7 +562,7 @@ This step is to help you test the code locally and get a better understanding of
 	
 5. Click "Save" button to save the POD.
 
-## Step 7: Test the scenario
+## Step 8: Test the scenario
 1. Open your own POD. You can get POD access URL by clicking the "URL" button in the "POD Designer" App. E.g. [https://DMC_URL/cp.portal/site#DMEWorkCenterPOD-Display?POD_ID=DMC_BOOTCAMP_POD](https://DMC_URL/cp.portal/site#DMEWorkCenterPOD-Display?POD_ID=DMC_BOOTCAMP_POD)
 
 2. Select the SFC (e.g. 78378_030) and select the operation (e.g. 1879683-0-0010/0010). In the "Data Collection List" tab, click "Collect" button.
@@ -540,13 +571,14 @@ This step is to help you test the code locally and get a better understanding of
 3. Enter the Data Collection Value and click "Save" button to perform the data collection.
 	![](assets/Exercise3.1_TestScenario2.png)
 	
-4. Click the "Validate" button to trigger the evaluation process. 
+4. Click the "Validate" button to trigger the evaluation process.
 	![](assets/Exercise3.1_TestScenario3.png)
 	
 5. Go to "Monitor Production Process" App to check the details.
 	![](assets/Exercise3.1_TestScenario4.png)
 	
-6. If either left or right torque value exceeds the min and max value consecutively 3 times, it will automatically log the nonconformance code. Perform the step 7.2 to step 7.4 three times with the torque value out of range, and go to "Monitor Production Process" App to check the details.	![](assets/Exercise3.1_TestScenario5.png)
+6. If either left or right torque value exceeds the min and max value consecutively 3 times, it will automatically log the nonconformance code. Perform the step 8.2 to step 8.4 three times with the torque value out of range, and go to "Monitor Production Process" App to check the details.	
+	![](assets/Exercise3.1_TestScenario5.png)
 
 7. Click "NC List" button, you will see the non conformance is automatically logged.
 	![](assets/Exercise3.1_TestScenario6.png)
