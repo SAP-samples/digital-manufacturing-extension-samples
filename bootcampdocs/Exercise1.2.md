@@ -7,10 +7,15 @@ In this exercise, we would like to show you how you can release Production Order
 1. Access to your Kyma Dashboard.
 ![](assets/Exercise1.1_AccessKymaDashboard.png)
 
+2. Install the Serverless module by clicking "Add Module" and select "serverless".
+![](assets/Exercise1.2_serverlessmodule1.png)
+![](assets/Exercise1.2_serverlessmodule2.png)
+![](assets/Exercise1.2_serverlessmodule3.png)
+
 2. Under the "Namespaces" section, click the "Create Namespace" button to create a new namespace. 
 ![](assets/Exercise1.1_AddNewNamespace2.png)
 
-3. Enter the name of your namespace, e.g dmc-extension.
+3. Enter the name of your namespace, e.g dm-extension.
 ![](assets/Exercise1.1_AddNewNamespace.png)
 
 4. Under the "Namespaces" section, select the newly created namespace to access that.
@@ -54,7 +59,7 @@ You can maintain some security artifacts within this secret. In our case, it sho
 10. Click "Save" button, which automatically triggers the build and deployment process. Once it is finished, your function will be in the "RUNNING" status.
 ![](assets/Exercise1.1_SaveCodeChanges.png)
 
-11. In the Kyma Dashboard, in the namespace `dmc-extension`, under the tab "Discovery and Network", click "API Rules" and click "+ Create API Rule".
+11. In the Kyma Dashboard, in the namespace `dm-extension`, under the tab "Discovery and Network", click "API Rules" and click "+ Create API Rule".
 ![](assets/Exercise1.1_ExposeFunction.png)
 
 12. Enter the name (e.g dmc-in-app-extension) and Subdomain name (e.g dmc-in-app-extension_{function_name}) to create API rule.
@@ -133,7 +138,7 @@ To test the service, you can use Postman to send GET - https://dmc-in-app-extens
 
 4. For the parameter "Sequence Length", enter `3`.
 
-5. For the parameter "Extension", choose the service "Ext_getnextnumber", which you've created in the "Service Registery" App.
+5. For the parameter "Extension", choose the service "Ext_getnextnumber", which you've created in the "Manage Service Registery" App.
 ![](assets/Exercise1.2_DefineNextNumber.png)
 
 ## Step 4: Release the SFC to check the result
