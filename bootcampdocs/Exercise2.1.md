@@ -1,12 +1,12 @@
 # Exercise 2.1 - Evaluate Torque Value
 
 ## Overview
-In this exercise, we would like to show you how to write your own business application with persistence layer and exposed as an API in the SAP BTP, Kyma Runtime, how to extend your production process with your own business extensions in SAP DM Shop Floor Designer and how to trigger your production process from your POD.
+In this exercise, we would like to show you how to write your own business application with persistence layer and exposed as an API in the SAP BTP, Kyma Runtime, how to extend your production process with your own business extensions in SAP DM Production Process Designer and how to trigger your production process from your POD.
 
 ## Prerequisites
 
 - SAP BTP, Kyma runtime instance
-- [kubectl cli](https://kubernetes.io/docs/tasks/tools/install-kubectl/), install it. You can also refer to SAP Tutorial for Install the Kubernetes Command Line Tool. [https://developers.sap.com/tutorials/cp-kyma-download-cli.html](https://developers.sap.com/tutorials/cp-kyma-download-cli.html)
+- [kubectl cli](https://kubernetes.io/docs/tasks/tools/install-kubectl/), install it. 
 - (Optional) [Docker](https://www.docker.com/), create an account and install the tool
 
 
@@ -19,13 +19,13 @@ Go to your POD created during the preparation session, and select an SFC (e.g. t
 
 
 ## Step 1: Set up your kyma environment 
-1. Access to your Kyma Dashboard.
+1. Open your trial account [https://cockpit.hanatrial.ondemand.com/trial/#/home/trial](https://cockpit.hanatrial.ondemand.com/trial/#/home/trial), and access to your Kyma Dashboard.
 ![](assets/Exercise1.1_AccessKymaDashboard.png)
 
 2. Under the "Namespaces" section, click the "Create Namespace" button to create a new namespace. 
 ![](assets/Exercise1.1_AddNewNamespace2.png)
 
-3. Enter the name of your namespace, e.g dmc-extension.
+3. Enter the name of your namespace, e.g dm-extension.
 ![](assets/Exercise1.1_AddNewNamespace.png)
 
 4. Under the "Namespaces" section, select the newly created namespace to access that.
@@ -37,7 +37,9 @@ Go to your POD created during the preparation session, and select an SFC (e.g. t
 
 ## Step 2: Set up locally
 
-1. On your local machine, configure to use the `KUBECONFIG` file downloaded from the BTP Kyma runtime. 
+1. On your local machine, configure to use the `KUBECONFIG` file downloaded from the BTP Kyma runtime. You can refer to SAP Tutorial to Set up the kyma runtime kubeconfig. [https://developers.sap.com/tutorials/cp-kyma-download-cli.html](https://developers.sap.com/tutorials/cp-kyma-download-cli.html)
+
+		mv ~/Downloads/<kubeconfig-file>.yaml ~/.kube/config
 
 
 2. Download the sample code [digital-manufacturing-extension-samples
@@ -120,17 +122,17 @@ This step is to help you test the code locally and get a better understanding of
 
 ## Step 4: Build your own business application on kyma
 
-1. Apply the Deployment. The command means to deply using the configuration in the file `deployment.yaml` onto the namespace `dmc-extension`.
+1. Apply the Deployment. The command means to deply using the configuration in the file `deployment.yaml` onto the namespace `dm-extension`.
 
-		kubectl -n dmc-extension apply -f ./k8s/deployment.yaml
+		kubectl -n dm-extension apply -f ./k8s/deployment.yaml
 
 2. Apply the Service.
 
-		kubectl -n dmc-extension apply -f ./k8s/service.yaml
+		kubectl -n dm-extension apply -f ./k8s/service.yaml
 
 3. Verify that the Pod is up and running:
 
-		kubectl -n dmc-extension get po
+		kubectl -n dm-extension get po
 
 	The expected result shows that the Pod for the `mssqlnodejs mssql` Deployment is running:
 
@@ -138,7 +140,7 @@ This step is to help you test the code locally and get a better understanding of
 		NAME                                READY   STATUS    RESTARTS   AGE
 		mssqlnodejs-5d4bbb47b5-7hjsr        2/2     Running   0          93s
 	
-4. In the Kyma Dashboard, in the namespace `dmc-extension`, under the tab "Discovery and Network", click "API Rules" and click "+ Create API Rule". 
+4. In the Kyma Dashboard, in the namespace `dm-extension`, under the tab "Discovery and Network", click "API Rules" and click "+ Create API Rule". 
 - You can generate a randum name. 
 - Under "Service" section, for the field "Service Name", choose from the drop down list `mssqlnodejs-service` service, and input for the field "Port" value `80`. 
 - Under "Gateway" section, for the field "Host", choose from the dropdown list `*.<your-cluster-id>.kyma.ondemand.com`. Note the assertion message "Host can not be a wildcard, replace * with subdomain name", so replace the asterisk mark with a subdomain name, e.g. `dmc-bp-nodejs-api`. Note the folded fields here are "Namespace" and "Name", these have assigned the default value `kyma-system` and `kyma-gateway`, so we can leave them as they are.
