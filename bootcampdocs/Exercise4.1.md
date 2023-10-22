@@ -86,9 +86,10 @@ In this exercise, we would like to show you how to write your own side by side e
 ![](assets/Exercise3.2_exposeservice.png)
 
 13. Enter the name (e.g nodeapi) and Subdomain name (e.g nodeapi) to create API rule.
-![](assets/Exercise3.2_createapirule.png)
+![](assets/Exercise3.2_createapirule1.png)
+![](assets/Exercise3.2_createapirule2.png)
 
-14. To test the API, you can use Postman to send a POST request to `http://<API_URL>/api/v1/users` with the below sample JSON content in the body.
+15. To test the API, you can use Postman to send a POST request to `http://<API_URL>/api/v1/users` with the below sample JSON content in the body.
 
 		{
             "recordsets": [[{"userId": "tarang.gupta@sap.com","description": "tarang.gupta@sap.com","personalId": "456"}, {"userId": "wei.zhou03@sap.com","description": "wei.zhou03@sap.com","personalId": "123"}]],
@@ -178,9 +179,9 @@ The application loads at `http://localhost:8080`.
     
             kubectl -n dev apply -f ./k8s/configmap.yaml
             kubectl -n dev apply -f ./k8s/deployment.yaml
-            kubectl -n dev apply -f ./k8s/apirule.yaml
 
-3. Use the APIRule to open the application:
+3. Create an API rule for the frontend service.
+4. Use the APIRule to open the application:
 
             https://fe-ui5-mssql.{cluster-domain}
 
