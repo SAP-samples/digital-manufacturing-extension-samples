@@ -60,7 +60,7 @@ In this exercise, we would like to show you how to write your own side by side e
 
     Inside ***mssql***folder
     
-            kubectl -n dev apply -f api/k8s/kymasql.yaml
+            kubectl -n dev apply -f ./k8s/kymasql.yaml
 
 10. Apply the Service.
 
@@ -82,13 +82,13 @@ In this exercise, we would like to show you how to write your own side by side e
             kymasql-7ddb66fbc-mbvrq    1/1     Running   1          3d20h
             nodeapi-86b76cd99b-hbgf9   1/1     Running   1          3d16h
 	
-12. In the Kyma Dashboard, go to "Services" and click "nodeapi-service" service. Clicke "Expose Service" button to create API rule for this service.
+12. In the Kyma Dashboard, go to Discovery and Netowrk > API Rules to create API rule for this service.
 ![](assets/Exercise3.2_exposeservice.png)
 
 13. Enter the name (e.g nodeapi) and Subdomain name (e.g nodeapi) to create API rule.
 ![](assets/Exercise3.2_createapirule.png)
 
-14. To test the API, you can use Postman to send a POST request to `http://<API_URL>:<API_PORT>/api/v1/users` with the below sample JSON content in the body.
+14. To test the API, you can use Postman to send a POST request to `http://<API_URL>/api/v1/users` with the below sample JSON content in the body.
 
 		{
             "recordsets": [[{"userId": "tarang.gupta@sap.com","description": "tarang.gupta@sap.com","personalId": "456"}, {"userId": "wei.zhou03@sap.com","description": "wei.zhou03@sap.com","personalId": "123"}]],
