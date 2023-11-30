@@ -1,0 +1,13 @@
+{
+    "SupplierCollection": [
+        {
+            "SupplierName": "Titanium"
+        }, {
+            "SupplierName": "Red Point Stores"
+        }, {
+            "SupplierName": "Technocom"
+        }, {
+            "SupplierName": "Aemc International"
+        }
+    ]
+}
