@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/dm/dme/podfoundation/extension/PluginControllerExtension",
     "sap/ui/core/mvc/OverrideExecution",
-    "sap/dm/dme/dcplugins/dataCollectionListPlugin/controller/extensions/PluginEventExtensionConstants"
-], function (PluginControllerExtension, OverrideExecution, PluginEventConstants) {
+    "sap/dm/dme/dcplugins/dataCollectionListPlugin/controller/extensions/PluginEventExtensionConstants",
+    "sap/m/Text"
+], function (PluginControllerExtension, OverrideExecution, PluginEventConstants, Text) {
     "use strict";
 
     return PluginControllerExtension.extend("sap.example.plugins.dataCollectionListExtensionProvider.PluginEventExtension", {

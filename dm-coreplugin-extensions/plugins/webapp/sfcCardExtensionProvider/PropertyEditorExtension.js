@@ -26,6 +26,22 @@ sap.ui.define([
                     oLabel = aContent[iIndex-1];
                     oLabel.setText("Log to console");
                 }
+
+                oSwitch = oPropertyEditor.addSwitch(oPropertyFormContainer, "showHelp", oPropertyData);
+                iIndex = oPropertyFormContainer.indexOfContent(oSwitch);
+                aContent = oPropertyFormContainer.getContent();
+                if (aContent[iIndex-1].setText) {
+                    oLabel = aContent[iIndex-1];
+                    oLabel.setText("Show Help");
+                }
+
+                oSwitch = oPropertyEditor.addSwitch(oPropertyFormContainer, "showSupplier", oPropertyData);
+                iIndex = oPropertyFormContainer.indexOfContent(oSwitch);
+                aContent = oPropertyFormContainer.getContent();
+                if (aContent[iIndex-1].setText) {
+                    oLabel = aContent[iIndex-1];
+                    oLabel.setText("Show Supplier");
+                }
             }
             return;
         },
@@ -56,6 +72,12 @@ sap.ui.define([
             if (typeof oPropertyData.logToConsole === "undefined") {
                 oPropertyData.logToConsole = false;
             }
+            if (typeof oPropertyData.showHelp === "undefined") {
+                oPropertyData.showHelp = true;
+            }
+            if (typeof oPropertyData.showSupplier === "undefined") {
+                oPropertyData.showSupplier = true;
+            }
             return oPropertyData;
         },
 
@@ -68,6 +90,15 @@ sap.ui.define([
          */
         setPropertyData: function (oPropertyData) {
             this._oExtensionUtilities.logMessage("PropertyEditorExtension.setPropertyData: hi");
+            if (typeof oPropertyData.logToConsole === "undefined") {
+                oPropertyData.logToConsole = false;
+            }
+            if (typeof oPropertyData.showHelp === "undefined") {
+                oPropertyData.showHelp = true;
+            }
+            if (typeof oPropertyData.showSupplier === "undefined") {
+                oPropertyData.showSupplier = true;
+            }
             return oPropertyData;
         },
 
@@ -80,6 +111,8 @@ sap.ui.define([
          */
         getDefaultPropertyData: function (oPropertyData) {
             oPropertyData.logToConsole = false;
+            oPropertyData.showHelp = true;
+            oPropertyData.showSupplier = true;
             return oPropertyData;
         }
     })

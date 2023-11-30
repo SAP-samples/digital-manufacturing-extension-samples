@@ -2,8 +2,9 @@ sap.ui.define([
     "sap/dm/dme/podfoundation/extension/PluginControllerExtension",
     "sap/dm/dme/plugins/worklistPlugin/controller/extensions/CreateExtensionConstants",
     "sap/ui/core/mvc/OverrideExecution",
-    "sap/m/Text"
-], function (PluginControllerExtension, CreateConstants, OverrideExecution, Text) {
+    "sap/m/Text",
+    "sap/dm/dme/podfoundation/util/PodUtility"
+], function (PluginControllerExtension, CreateConstants, OverrideExecution, Text, PodUtility) {
     "use strict";
 
     return PluginControllerExtension.extend("sap.example.plugins.worklistExtensionProvider.CreateExtension", {
@@ -27,6 +28,8 @@ sap.ui.define([
             } else if (sOverrideMember === CreateConstants.LOAD_WORKLIST_TABLE) {
                 return OverrideExecution.After;
             } else if (sOverrideMember === CreateConstants.LOAD_WORKLIST_COUNT) {
+                return OverrideExecution.After;
+            } else if (sOverrideMember === CreateConstants.UPDATE_SEARCH_FILTER) {
                 return OverrideExecution.After;
             };
             return null;
@@ -110,7 +113,7 @@ sap.ui.define([
                 sortOrder: null,
                 label: "Custom Data",
                 // binding: "{sfc}",
-                showSort: false // hides column from sort
+                showSort: false // to not show column in sort
             })
             this._oExtensionUtilities.logMessage("CreateExtension.getTableConfiguration: hi");
             return oListConfiguration;
@@ -188,6 +191,34 @@ sap.ui.define([
          */
         loadWorklistCount: function (vInputSfc) {
             this._oExtensionUtilities.logMessage("CreateExtension.loadWorklistCount: hi");
+        },
+
+        /**
+         * Allows modifying input search filter for use in loading worklist. This function
+         * can be overriden by custom extensions as follows for OverrideExecution.Instead,
+         * OverrideExecution.Before and OverrideExecution.After.
+         * <p>
+         * Only SFC, Shop Order or Process Lot can be used in a search filter using
+         * the following format:
+         * <pre>
+         *    sfc,SFC001  (SFC)
+         *    pl,PL001  (Process lot)
+         *    ordr,SO001  (Shop Order)
+         * </pre>
+         * The input search filter might already have something defined (i.e.; "sfc,SFC001") so be carfule
+         * before replacing it.  Only one of the filters are allowed to be returned (i.e. multiples not supported)
+         *
+         * @param {string} sSearchFilter
+         * @returns {string} search filter to use
+         * @public
+         */
+        updateSearchFilter: function (sSearchFilter) {
+            let oPodSelectionModel = this.getController().getPodSelectionModel();
+            if (oPodSelectionModel && oPodSelectionModel.customData && 
+                PodUtility.isNotEmpty(oPodSelectionModel.customData.shopOrder)) {
+                return "ordr," + oPodSelectionModel.customData.shopOrder;
+            }
+            return sSearchFilter;
         }
     })
 });

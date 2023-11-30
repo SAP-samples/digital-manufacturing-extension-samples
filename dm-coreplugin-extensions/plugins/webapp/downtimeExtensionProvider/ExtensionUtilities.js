@@ -45,22 +45,30 @@ sap.ui.define([
          * Replace any sap.m.Button cells with our custom DowntimeListButton
          * while keeping the same properties, bindings, and event listeners
          */
-        replaceDowntimeListButtons: function(oTable, sButtonHeight, oController) {
+        replaceDowntimeListButtons: function (oTable, sButtonHeight, oController) {
             let oBindingInfo = oTable.getBindingInfo("items");
             let oRowTemplate = oBindingInfo.template;
             let aCells = oRowTemplate.getCells();
-            let aCellIndices = [];
+            let aButtonCellIndices = [];
+            let aLayoutCellIndices = [];
 
             // find all cells with buttons
             for (let i = 0; i < aCells.length; i++) {
                 if (aCells[i].getMetadata().getElementName() === "sap.m.Button") {
-                    aCellIndices.push(i);
+                    aButtonCellIndices.push(i);
+                }
+            }
+
+            // find all cells with buttons
+            for (let i = 0; i < aCells.length; i++) {
+                if (aCells[i].getMetadata().getElementName() === "sap.ui.layout.HorizontalLayout") {
+                    aLayoutCellIndices.push(i);
                 }
             }
 
             // for each button, replace it with a custom DowntimeListButton
-            for (let i = 0; i < aCellIndices.length; i++) {
-                let iCellIndex = aCellIndices[i];
+            for (let i = 0; i < aButtonCellIndices.length; i++) {
+                let iCellIndex = aButtonCellIndices[i];
                 let oCellSettings = getSettingsForControl(aCells[iCellIndex], oController);
 
                 let oNewButton = new DowntimeListButton(Object.assign(oCellSettings, {
@@ -71,15 +79,32 @@ sap.ui.define([
                 oRowTemplate.insertCell(oNewButton, iCellIndex);
             }
 
+            // for each layout, replace it with a custom DowntimeListButton
+            for (let i = 0; i < aLayoutCellIndices.length; i++) {
+                let iCellIndex = aLayoutCellIndices[i];
+                let oCellSettings = getSettingsForControl(aCells[iCellIndex].getContent()[0], oController);
+
+                let oNewButton = new DowntimeListButton(Object.assign(oCellSettings, {
+                    height: sButtonHeight
+                }));
+
+                oRowTemplate.removeCell(aCells[iCellIndex]);
+                var oHorizontalLayout = new sap.ui.layout.HorizontalLayout();
+                oHorizontalLayout.setAllowWrapping(true);
+                oHorizontalLayout.addContent(oNewButton);
+                oHorizontalLayout.addContent(aCells[iCellIndex].getContent()[1])
+                oRowTemplate.insertCell(oHorizontalLayout, iCellIndex);
+            }
+
             // modifying the template in-place does nothing until rebound
             oTable.bindItems(oBindingInfo);
         },
 
-        setLogToConsole: function(bLogToConsole) {
+        setLogToConsole: function (bLogToConsole) {
             this.bLogToConsole = bLogToConsole;
         },
 
-        logMessage: function(sMessage, oData) {
+        logMessage: function (sMessage, oData) {
             if (!this.bLogToConsole) {
                 return;
             }

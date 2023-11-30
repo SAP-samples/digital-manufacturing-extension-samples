@@ -1,14 +1,18 @@
 sap.ui.define([
     "sap/dm/dme/podfoundation/extension/PluginControllerExtension",
     "sap/ui/core/mvc/OverrideExecution",
-    "sap/dm/dme/podfoundation/controller/extensions/LifecycleExtensionConstants"
-], function (PluginControllerExtension, OverrideExecution, LifecycleConstants) {
+    "sap/dm/dme/podfoundation/controller/extensions/LifecycleExtensionConstants",
+    "sap/base/util/uid"
+], function (PluginControllerExtension, OverrideExecution, LifecycleConstants, uid) {
     "use strict";
 
     return PluginControllerExtension.extend("sap.example.plugins.sfcCardExtensionProvider.LifecycleExtension", {
-        constructor: function (oExtensionUtilities) {
+        constructor: function (oExtensionUtilities, oSfcCardUtility) {
             this._oExtensionUtilities = oExtensionUtilities;
+            this._oSfcCardUtility = oSfcCardUtility;
             this._bInitialized = false;
+            this._bRendered = false;
+            this._sInstanceId = uid();
         },
      
         getOverrideExecution: function(sOverrideMember) {
@@ -44,20 +48,48 @@ sap.ui.define([
                         this._oExtensionUtilities.setLogToConsole(false);
                     }
                 }
+                this._oSfcCardUtility.getPluginEventExtension().updateCustomData();
+                this._bInitialized = true;
             }
-            this._oExtensionUtilities.logMessage("LifecycleExtension.onBeforeRendering: Assembly extension");
+            let sPluginId = "";
+            if (this.getController()) {
+                sPluginId = this.getController().getPluginId();
+            }
+            let sIdInfo = "Plugin ID = '" + sPluginId + "', instance id = " + this._sInstanceId;
+            this._oExtensionUtilities.logMessage("LifecycleExtension.onBeforeRendering: SFC Card extension - " + sIdInfo);
         },
 
         onBeforeRenderingPlugin: function(oEvent){
-            this._oExtensionUtilities.logMessage("LifecycleExtension.onBeforeRenderingPlugin: Assembly extension");
+            this._oExtensionUtilities.logMessage("LifecycleExtension.onBeforeRenderingPlugin: SFC Card extension");
         },
 
         onAfterRendering: function(oEvent){
-            this._oExtensionUtilities.logMessage("LifecycleExtension.onAfterRendering: Assembly extension");
+            this._oExtensionUtilities.logMessage("LifecycleExtension.onAfterRendering: SFC Card extension");
+            if (this._bRendered) {
+                // already rendered, exit
+                return;
+            }
+            this._bRendered = true;
+            let bShowHelp = this._oSfcCardUtility.getConfigurationValue("showHelp");
+            if (typeof bShowHelp !== "boolean") {
+                bShowHelp = true;
+            }
+            let bShowSupplier = this._oSfcCardUtility.getConfigurationValue("showSupplier");
+            if (typeof bShowSupplier !== "boolean") {
+                bShowSupplier = true;
+            }
+            if (!bShowHelp && !bShowSupplier) {
+                return;
+            }
+            let that = this;
+            setTimeout(function() {
+                // delay to allow core view to render before modifying
+                that._oSfcCardUtility.loadHeaderInformation(bShowHelp, bShowSupplier);
+            }, 2000);
         },
 
         onExit: function(oEvent){
-            this._oExtensionUtilities.logMessage("LifecycleExtension.onExit: Assembly extension");
+            this._oExtensionUtilities.logMessage("LifecycleExtension.onExit: SFC Card extension");
         },
     })
 });
