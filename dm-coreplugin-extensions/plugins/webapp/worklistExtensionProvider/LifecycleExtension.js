@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/dm/dme/podfoundation/extension/PluginControllerExtension",
     "sap/ui/core/mvc/OverrideExecution",
-    "sap/dm/dme/plugins/controller/extensions/LifecycleExtensionConstants"
+    "sap/dm/dme/podfoundation/controller/extensions/LifecycleExtensionConstants"
 ], function (PluginControllerExtension, OverrideExecution, LifecycleConstants) {
     "use strict";
 

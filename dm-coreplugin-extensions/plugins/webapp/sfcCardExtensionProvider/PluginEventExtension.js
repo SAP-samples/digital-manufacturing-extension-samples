@@ -2,12 +2,8 @@ sap.ui.define([
     "sap/dm/dme/podfoundation/extension/PluginControllerExtension",
     "sap/ui/core/mvc/OverrideExecution",
     "sap/dm/dme/plugins/headerInformationPlugin/controller/extensions/PluginEventExtensionConstants",
-    "sap/m/Button",
-    "sap/m/Label",
-    "sap/m/MessageToast",
-    "sap/ui/layout/VerticalLayout"
-], function (PluginControllerExtension, OverrideExecution, PluginEventConstants, Button, Label,
-             MessageToast, VerticalLayout) {
+    "sap/ui/model/json/JSONModel"
+], function (PluginControllerExtension, OverrideExecution, PluginEventConstants, JSONModel) {
     "use strict";
 
     return PluginControllerExtension.extend("sap.example.plugins.sfcCardExtensionProvider.PluginEventExtension", {
@@ -39,6 +35,7 @@ sap.ui.define([
         },
 
         onSelectionChangeEvent: function(oEvent){
+            this.updateCustomData();
             this._oExtensionUtilities.logMessage("PluginEventExtension.onSelectionChangeEvent: hi");
         },
 
@@ -47,10 +44,12 @@ sap.ui.define([
         },
 
         onPageChangeEvent: function(oEvent){
+            this.updateCustomData();
             this._oExtensionUtilities.logMessage("PluginEventExtension.onPageChangeEvent: hi");
         },
 
         refreshHeaderInformation: function(bInitialLoading){
+            this.updateCustomData();
             this._oExtensionUtilities.logMessage("PluginEventExtension.refreshHeaderInformation: bInitialLoading = " + bInitialLoading);
             let oConfigurationData, oData;
             let oConfigurationModel = this.getCoreExtension().getInformationConfigurationModel();
@@ -61,64 +60,21 @@ sap.ui.define([
             if (oDataModel) {
                 oData = oDataModel.getData();
             }
-            let oPluginContainer = this.getCoreExtension().getPluginContainer();
-            let oInformationContainer = this.getCoreExtension().getPluginInformationContainer();
-            let oToolbarContainer = this.getCoreExtension().getPluginToolbar();
-            
-            // Multiple SFC Card's can be defined, but only one extension, so
-            // this will make sure new controls are created and added to the current displayed
-            // SFC Card plugin
-
-            if (!this.oChildControls) {
-                this.oChildControls = {};
-            }
-            let oActionButton = null;
-            if (oToolbarContainer && this.oChildControls[oToolbarContainer.getId()]) {
-                oActionButton = this.oChildControls[oToolbarContainer.getId()];
-            }
-            if (oToolbarContainer && !oActionButton) {
-                this.addActionButton(oToolbarContainer);
-            }
-            let oInformationControl = null;
-            if (oInformationContainer && this.oChildControls[oInformationContainer.getId()]) {
-                oInformationControl = this.oChildControls[oInformationContainer.getId()];
-            }
-            if (oInformationContainer && !oInformationControl) {
-                this.addInformationControls(oInformationContainer);
-            }
         },
 
-        addActionButton: function(oToolbar) {
-            let that = this;
-            let oActionButton = new Button({
-                type: "Emphasized",
-                text: "Help",
-                press: [that.onHelpPress, that]
-            });
-            oToolbar.addContent(oActionButton);
-            this.oChildControls[oToolbar.getId()] = oActionButton;
-        },
-		onHelpPress: function (evt) {
-			MessageToast.show("Custom Help button pressed");
-		},
-
-        addInformationControls: function(oInformationContainer) {
-           let oInformationControl = new VerticalLayout();
-           oInformationControl.addStyleClass("sapUiNoContentPadding");
-           oInformationControl.addStyleClass("sapUiMediumMarginEnd");
-           oInformationControl.addStyleClass("sapUiSmallMarginBottom");
-           let oLabel = new Label({
-                text: "Custom Data",
-                tooltip: "Custom Data Information"
-           });
-           let oLabelData = new Label({
-                text: "Testing",
-                tooltip: "Testing station"
-           });
-           oInformationControl.addContent(oLabel);
-           oInformationControl.addContent(oLabelData);
-           oInformationContainer.addItem(oInformationControl);
-           this.oChildControls[oInformationContainer.getId()] = oInformationControl;
+        updateCustomData: function(){
+            let oController = this.getController();
+            if (!oController) {
+                return;
+            }
+            let oPodSelectionModel = oController.getPodSelectionModel();
+            if (oPodSelectionModel) {
+                if (!oPodSelectionModel.customData) {
+                    oPodSelectionModel.customData = {supplier: ""};
+                }
+                let oModel = new JSONModel(oPodSelectionModel.customData);
+                oController.getView().setModel(oModel, "customData");
+            }
         }
     })
 });

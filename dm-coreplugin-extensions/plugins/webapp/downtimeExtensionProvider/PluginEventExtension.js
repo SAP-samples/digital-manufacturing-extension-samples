@@ -1,7 +1,7 @@
 sap.ui.define([
     "sap/dm/dme/podfoundation/extension/PluginControllerExtension",
     "sap/ui/core/mvc/OverrideExecution",
-    "sap/dm/dme/oeeplugins/downtimePlugin/controller/extensions/PluginEventExtensionConstants",
+    "sap/dm/dme/oeetransactionplugins/downtimePlugin/controller/extensions/PluginEventExtensionConstants",
     "sap/ui/core/Fragment"
 ], function (PluginControllerExtension, OverrideExecution, PluginEventConstants, Fragment) {
     "use strict";
