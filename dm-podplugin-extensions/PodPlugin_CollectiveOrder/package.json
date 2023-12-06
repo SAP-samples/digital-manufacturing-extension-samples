@@ -2,7 +2,7 @@
   "name": "co_plugin",
   "version": "0.0.1",
   "devDependencies": {
-    "@sap/approuter": "9.4.x"
+    "@sap/approuter": "14.1.x"
   },
   "ui5": {
     "dependencies": [
