@@ -12,7 +12,7 @@
         "@sap/xsenv": "3.1.1",
         "@sap/xsjs": "6.6.2",
         "@sap/xsodata": "7.5.5",
-        "@sap/xssec": "3.2.10",
+        "@sap/xssec": "3.6.0",
         "append-query": "2.1.1",
         "cfenv": "^1.2.4",
         "express": "4.17.1",
