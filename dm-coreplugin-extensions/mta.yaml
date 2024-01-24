@@ -12,8 +12,7 @@ modules:
         httpHeaders:
         - X-Frame-Options: deny
         CORS: "[{\"uriPattern\": \"^/plugins/(.*)$\",\"allowedOrigin\": [
-               {\"host\": \"dmcdev1-dm-canary-dev-execution.cfapps.sap.hana.ondemand.com\",\"protocol\": \"https\"},
-               {\"host\": \"localhost\",\"protocol\": \"http\",\"port\": 10000}],
+               {\"host\": \"<dm_host_name>\",\"protocol\": \"https\"}],
                \"allowedMethods\": [\"GET\",\"OPTIONS\"],
                \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
                \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
