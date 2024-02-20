@@ -1,0 +1,54 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    controllerName="com.custom.plugins.scanassembly.scanassemblyapp.controller.MainView"
+    width="100%"
+    height="100%"
+>
+    <Panel id="panelPlugin" width="100%" height="100%" expandable="false" expanded="false" accessibleRole="Region" backgroundDesign="Transparent" class="sapUiNoContentPadding">
+        <headerToolbar>
+            <Toolbar height="2rem">
+                <Title id="headerTitle" text="Scan To Assemble" />
+            </Toolbar>
+        </headerToolbar>
+        <content>
+            <HBox>
+                <items>
+                    <VBox width="40%" alignItems="Center">
+                        <HBox>
+                            <Input
+                                id="inputFieldText"
+                                type="Text"
+                                submit="onScanSubmit"
+                                placeholder="{i18n>scanTextBoxGuidanceText}"
+                                showValueHelp="false"
+                                enabled="true"
+                                visible="true"
+                                width="auto"
+                                valueHelpOnly="false"
+                                required="true"
+                                valueStateText=""
+                                valueState="Success"
+                                maxLength="0"
+                                class="sapUiSmallMarginTop"
+                            />
+
+                            <core:Icon id="idloadingIcon" size="1.8rem" visible="false" class="size1 sapUiSmallMargin" src="sap-icon://synchronize" color="orange">
+                                <core:customData>
+                                    <core:CustomData key="pending" value="status-waiting" writeToDom="true" />
+                                </core:customData>
+                                <core:layoutData>
+                                    <FlexItemData growFactor="1" />
+                                </core:layoutData>
+                            </core:Icon>
+                        </HBox>
+                    </VBox>
+                </items>
+            </HBox>
+        </content>
+    </Panel>
+</mvc:View>
