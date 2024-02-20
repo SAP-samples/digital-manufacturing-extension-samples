@@ -1,0 +1,26 @@
+{
+	"components": [
+		{
+			"id": "scanAssemblyApp",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "com.custom.plugins.scanassembly.scanassemblyapp",
+			"propertyEditor": "com.custom.plugins.scanassembly.scanassemblyapp.builder.PropertyEditor",
+			"i18n": "com.custom.plugins.scanassembly.scanassemblyapp.i18n.i18n",
+            "productionProcessEnabled": true,
+           "productionProcessTitle": "Scan Pod Plugin",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		},
+		{
+			"id": "statusApp",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "com.custom.plugins.scanassembly.statusapp",
+			"propertyEditor": "com.custom.plugins.scanassembly.statusapp.builder.PropertyEditor",
+			"i18n": "com.custom.plugins.scanassembly.statusapp.i18n.i18n",
+            "productionProcessEnabled": true,
+           "productionProcessTitle": "Status Pod Plugin",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		}     
+	]
+}

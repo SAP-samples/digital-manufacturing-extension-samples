@@ -1,0 +1,18 @@
+{
+    "eventName": "SCREW_DRIVER_STATUS",
+    "parameters": [
+        {
+            "name": "status",
+            "value": "NOT_READY"
+        },
+        {
+            "name": "message",
+            "value": "Machine is NOT available"
+        }
+    ],
+    "subscription": {
+        "plant": "AA_101",
+        "operation": "TYRE_ASSY",
+        "resource": "RS_TYRE_ASSY"
+    }
+}
