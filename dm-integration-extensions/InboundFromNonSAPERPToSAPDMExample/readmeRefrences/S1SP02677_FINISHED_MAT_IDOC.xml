@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MATMAS05 xmlns="urn:sap-com:document:sap:idoc:soap:messages">
+	<IDOC BEGIN="1">
+		<EDI_DC40 SEGMENT="1">
+			<IDOCTYP>MATMAS05</IDOCTYP>
+			<MESTYP>MATMAS</MESTYP>
+			<SNDPRN>AX2012 Manu</SNDPRN>
+		</EDI_DC40>
+		<E1MARAM SEGMENT="1">
+			<MSGFN>005</MSGFN>
+			<MATNR>S1SP02677</MATNR>
+			<MTART>FERT</MTART>
+			<MEINS>EA</MEINS>
+			<BRGEW/>
+			<NTGEW/>
+			<LGPRO>WH_PL</LGPRO>
+			<E1MAKTM SEGMENT="1">
+				<MSGFN>005</MSGFN>
+				<SPRAS>E</SPRAS>
+				<MAKTX>Gold Ring</MAKTX>
+				<SPRAS_ISO>EN</SPRAS_ISO>
+			</E1MAKTM>
+			<E1MARCM SEGMENT="1">
+				<MSGFN>005</MSGFN>
+				<WERKS>DM01</WERKS>
+			</E1MARCM>
+			<CustomData>
+				<Data>
+					<attribute>BURNOUTPROGRAMID</attribute>
+					<value/>
+				</Data>
+			</CustomData>
+		</E1MARAM>
+	</IDOC>
+</MATMAS05>

@@ -3,21 +3,26 @@
     "sap/example/plugins/lineMonitorSelectionExtensionProvider/LifecycleExtension",
     "sap/example/plugins/lineMonitorSelectionExtensionProvider/PluginEventExtension",
     "sap/example/plugins/lineMonitorSelectionExtensionProvider/PropertyEditorExtension",
+    "sap/example/plugins/lineMonitorSelectionExtensionProvider/ExtensionUtils",
     "sap/example/plugins/utils/ExtensionUtilities"
-], function (PluginExtensionProvider, LifecycleExtension, PluginEventExtension, PropertyEditorExtension, ExtensionUtilities) {
+], function (PluginExtensionProvider, LifecycleExtension, PluginEventExtension, PropertyEditorExtension, ExtensionUtils, LogUtils) {
     "use strict";
 
     return PluginExtensionProvider.extend("sap.example.plugins.lineMonitorSelectionExtensionProvider.ExtensionProvider", {
         constructor: function () {
-            this.oExtensionUtilities = new ExtensionUtilities();
+            this.oExtensionUtils = new ExtensionUtils();
+            this.oLogUtils = new LogUtils();
         },
 
         getExtensions: function () {
-           return [
-               new LifecycleExtension(this.oExtensionUtilities),
-               new PluginEventExtension(this.oExtensionUtilities),
-               new PropertyEditorExtension(this.oExtensionUtilities)
-           ];
+            let oLifecycleExtension = new LifecycleExtension(this.oExtensionUtils, this.oLogUtils);
+            let oPluginEventExtension = new PluginEventExtension(this.oExtensionUtils, this.oLogUtils);
+            let oPropertyEditorExtension = new PropertyEditorExtension(this.oLogUtils);
+
+            this.oExtensionUtils.setPluginEventExtension(oPluginEventExtension);
+            oLifecycleExtension.setPluginEventExtension(oPluginEventExtension);
+
+            return [ oLifecycleExtension, oPluginEventExtension, oPropertyEditorExtension ];
         }
     })
 });

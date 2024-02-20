@@ -98,6 +98,22 @@
             ]
         },
         {
+           "provider": "sap/example/plugins/lineMonitorOrderSummaryExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.lmplugins.orderCardPlugin",
+           "inclusions": [
+               {
+                   "pods": [
+                        "EXAMPLE_CUSTOM_PLUGINS_WC_POD", "EXAMPLE_CUSTOM_PLUGINS_OP_POD", "EXAMPLE_CUSTOM_PLUGINS_ORDER_POD", "EXAMPLE_CUSTOM_PLUGINS_LM_POD"
+                    ],
+                    "plants": [
+                        "1010",
+                        "1710",
+                        "VP100"
+                    ]
+               }
+           ]
+        },
+        {
             "provider": "sap/example/plugins/lineMonitorSelectionExtensionProvider/ExtensionProvider",
             "controller": "sap.dm.dme.lmplugins.lineMonitorSelectionPlugin",
             "inclusions": [
@@ -112,6 +128,22 @@
                     ]
                 }
             ]
+        },
+        {
+           "provider": "sap/example/plugins/lineMonitorYieldAndScrapExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.lmplugins.yieldAndScrapTableCardPlugin",
+           "inclusions": [
+               {
+                   "pods": [
+                        "EXAMPLE_CUSTOM_PLUGINS_WC_POD", "EXAMPLE_CUSTOM_PLUGINS_OP_POD", "EXAMPLE_CUSTOM_PLUGINS_ORDER_POD", "EXAMPLE_CUSTOM_PLUGINS_LM_POD"
+                    ],
+                    "plants": [
+                        "1010",
+                        "1710",
+                        "VP100"
+                    ]
+               }
+           ]
         },
         {
             "provider": "sap/example/plugins/assemblyPointExtensionProvider/ExtensionProvider",
@@ -180,6 +212,22 @@
         {
             "provider": "sap/example/plugins/downtimeExtensionProvider/ExtensionProvider",
             "controller": "sap.dm.dme.oeetransactionplugins.downtimePlugin",
+            "inclusions": [
+                {
+                    "pods": [
+                        "EXAMPLE_CUSTOM_PLUGINS_WC_POD", "EXAMPLE_CUSTOM_PLUGINS_OP_POD", "EXAMPLE_CUSTOM_PLUGINS_ORDER_POD", "EXAMPLE_CUSTOM_PLUGINS_LM_POD"
+                    ],
+                    "plants": [
+                        "1010",
+                        "1710",
+                        "VP100"
+                    ]
+                }
+            ]
+        },
+        {
+            "provider": "sap/example/plugins/speedlossExtensionProvider/ExtensionProvider",
+            "controller": "sap.dm.dme.oeetransactionplugins.speedLossOrderListPlugin",
             "inclusions": [
                 {
                     "pods": [

@@ -1,0 +1,85 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    core:require="{
+        formatter: 'sap/example/plugins/speedlossExtensionProvider/ExtensionFormatters'
+    }">
+    <Dialog
+        title="{i18n>assignReasonCodeDialogHeading}"
+        busy="true"
+        busyIndicatorDelay="10"
+        contentWidth="80%"
+        contentHeight="80%"
+        resizable="true">
+        <content>
+            <VBox
+                fitContainer="true"
+                renderType="Bare">
+                <f:GridList
+                    mode="SingleSelectMaster"
+                    items="{breadcrumbs>/}"
+                    itemPress="onSelectBreadcrumb"
+                    class="sapUiResponsiveContentPadding">
+                    <f:customLayout>
+                        <grid:GridBoxLayout boxWidth="15rem" />
+                    </f:customLayout>
+                    <f:GridListItem type="Active">
+                        <VBox
+                            fitContainer="true"
+                            renderType="Bare"
+                            class="sapUiSmallMargin">
+                            <Title text="{breadcrumbs>description}" wrapping="true" />
+                        </VBox>
+                    </f:GridListItem>
+                </f:GridList>
+                <f:GridList
+                    mode="None"
+                    items="{extensionData>/}"
+                    itemPress="onSelectReasonCode"
+                    class="sapUiResponsiveContentPadding">
+                    <f:customLayout>
+                        <grid:GridBoxLayout boxWidth="15rem" />
+                    </f:customLayout>
+                    <f:GridListItem
+                        type="{
+                            path: 'extensionData>',
+                            formatter: 'formatter.gridListItemType'
+                        }"
+                        highlight="{
+                            path: 'extensionData>',
+                            formatter: 'formatter.gridListItemHighlight'
+                        }">
+                        <VBox
+                            fitContainer="true"
+                            renderType="Bare"
+                            class="sapUiSmallMargin">
+                            <Title text="{extensionData>description}" wrapping="true" />
+                            <Toolbar style="Clear">
+                                <ToolbarSpacer />
+                                <core:Icon
+                                    src="sap-icon://expand-all"
+                                    size="2rem"
+                                    visible="{
+                                        path: 'extensionData>',
+                                        formatter: 'formatter.expandIconVisible'
+                                    }" />
+                                <core:Icon
+                                    src="sap-icon://action"
+                                    size="1.5rem"
+                                    visible="{
+                                        path: 'extensionData>',
+                                        formatter: 'formatter.acceptIconVisible'
+                                    }" />
+                            </Toolbar>
+                        </VBox>
+                    </f:GridListItem>
+                </f:GridList>
+            </VBox>
+        </content>
+        <endButton>
+            <Button text="{i18n-global>cancel}" press="onClickCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
