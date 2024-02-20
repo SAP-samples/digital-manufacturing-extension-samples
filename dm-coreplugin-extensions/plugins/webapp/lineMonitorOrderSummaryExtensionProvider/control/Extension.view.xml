@@ -1,0 +1,11 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <List>
+        <StandardListItem title="Order" description="{/content/Order}" />
+        <StandardListItem title="Category" description="{/content/orderCategory}" />
+        <StandardListItem title="Material" description="{/content/Material}" />
+        <StandardListItem title="Release Status" description="{/content/ReleaseStatus}" />
+        <StandardListItem title="Execution Status" description="{/content/ExecutionStatus}" />
+    </List>
+</mvc:View>
