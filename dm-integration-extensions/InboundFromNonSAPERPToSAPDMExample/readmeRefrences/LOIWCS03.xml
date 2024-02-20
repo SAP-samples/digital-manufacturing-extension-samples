@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><LOIWCS03 xmlns="urn:sap-com:document:sap:idoc:soap:messages">
+  <IDOC BEGIN="1">
+    <EDI_DC40 SEGMENT="1">
+      <MSGFN>005</MSGFN>
+      <SNDPRN>AX2012 Manu</SNDPRN>
+      <CUSTOMED_EXT_DOC_TYPE>LOIWCS03</CUSTOMED_EXT_DOC_TYPE>
+      <MESTYP>LOIWCS</MESTYP>
+    </EDI_DC40>
+    <E1CRHDL SEGMENT="1">
+      <OBJID>40161479</OBJID>
+      <ARBPL>TEST_AZ</ARBPL>
+      <VGWTS>Type</VGWTS>
+      <WERKS>DM01</WERKS>
+      <E1CRTXL SEGMENT="1">
+        <MSGFN>005</MSGFN>
+        <SPRAS>E</SPRAS>
+        <KTEXT>AAA - Inside Operation</KTEXT>
+      </E1CRTXL>
+      <E1CRCOL>
+        <FORML>QTB</FORML>
+        <LANUM>001</LANUM>
+      </E1CRCOL>
+      <E1CRCOL>
+        <FORML>ST</FORML>
+        <LANUM>002</LANUM>
+      </E1CRCOL>
+      <E1CRCOL>
+        <FORML>PT</FORML>
+        <LANUM>003</LANUM>
+      </E1CRCOL>
+      <E1CRCOL>
+        <FORML>PPQ</FORML>
+        <LANUM>004</LANUM>
+      </E1CRCOL>
+      <E1CRCOL>
+        <FORML>TT</FORML>
+        <LANUM>005</LANUM>
+      </E1CRCOL>
+      <E1CRCOL>
+        <FORML>QTA</FORML>
+        <LANUM>006</LANUM>
+      </E1CRCOL>
+    </E1CRHDL>
+  </IDOC>
+</LOIWCS03>

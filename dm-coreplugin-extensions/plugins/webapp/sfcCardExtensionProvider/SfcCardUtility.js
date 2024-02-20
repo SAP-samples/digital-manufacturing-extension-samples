@@ -71,7 +71,11 @@ sap.ui.define([
                 text: "Help",
                 press: [that.onHelpPress, that]
             });
-            oToolbar.addContent(oActionButton);
+            if (oToolbar.addAction) {
+                oToolbar.addAction(oActionButton);
+            } else if (oToolbar.addContent) {
+                oToolbar.addContent(oActionButton);
+            }
             this.oChildControls[oToolbar.getId()] = oActionButton;
         },
 		onHelpPress: function (evt) {

@@ -35,9 +35,9 @@ sap.ui.define([
         },
 
         loadHeaderInformation: function(bShowHelp, bShowSupplier){
-            let oObjectPageLayout = this.getCoreExtension().getPluginContainer();
-            let oHeaderTitle = oObjectPageLayout.getHeaderTitle();
-            let oHeaderContent = oObjectPageLayout.getHeaderContent()[0];
+            
+            let oInformationContainer = this.getCoreExtension().getPluginInformationContainer();
+            let oToolbarContainer = this.getCoreExtension().getPluginToolbar();
             
             // keeps existing controlls so they are now re-created
             if (!this.oChildControls) {
@@ -45,39 +45,48 @@ sap.ui.define([
             }
             if (bShowHelp) {
                 let oActionButton = null;
-                if (oHeaderTitle && this.oChildControls[oHeaderTitle.getId()]) {
-                    oActionButton = this.oChildControls[oHeaderTitle.getId()];
+                if (oToolbarContainer && this.oChildControls[oToolbarContainer.getId()]) {
+                    oActionButton = this.oChildControls[oToolbarContainer.getId()];
                 }
-                if (oHeaderTitle && !oActionButton) {
-                    this.addActionButton(oHeaderTitle);
+                if (oToolbarContainer && !oActionButton) {
+	                // run in delay to give time for core buttons to render
+                    setTimeout(function() {
+                        this.addActionButton(oToolbarContainer);
+                    }.bind(this), 500);
                 }
             }
             if (bShowSupplier) {
                 let oInformationControl = null;
-                if (oHeaderContent && this.oChildControls[oHeaderContent.getId()]) {
-                    oInformationControl = this.oChildControls[oHeaderContent.getId()];
+                if (oInformationContainer && this.oChildControls[oInformationContainer.getId()]) {
+                    oInformationControl = this.oChildControls[oInformationContainer.getId()];
                 }
-                if (oHeaderContent && !oInformationControl) {
-                    this.addInformationControls(oHeaderContent);
+                if (oInformationContainer && !oInformationControl) {
+                    this.addInformationControls(oInformationContainer);
                 }
             }
         },
 
-        addActionButton: function(oHeaderTitle) {
+        addActionButton: function(oToolbar) {
             let that = this;
             let oActionButton = new Button({
                 type: "Emphasized",
                 text: "Help",
                 press: [that.onHelpPress, that]
             });
-            oHeaderTitle.addAction(oActionButton);
-            this.oChildControls[oHeaderTitle.getId()] = oActionButton;
+
+            if (oToolbar.addAction) {
+                oToolbar.addAction(oActionButton);
+            } else if (oToolbar.addContent) {
+                oToolbar.addContent(oActionButton);
+            }
+            this.oChildControls[oToolbar.getId()] = oActionButton;
         },
+
 		onHelpPress: function (evt) {
 			MessageToast.show("Custom Help button pressed");
 		},
 
-        addInformationControls: function(oHeaderContent) {
+        addInformationControls: function(oInformationContainer) {
            let oInformationControl = new VerticalLayout();
            oInformationControl.addStyleClass("sapUiNoContentPadding");
            oInformationControl.addStyleClass("sapUiMediumMarginEnd");
@@ -92,8 +101,8 @@ sap.ui.define([
            });
            oInformationControl.addContent(oLabel);
            oInformationControl.addContent(oLabelData);
-           oHeaderContent.addItem(oInformationControl);
-           this.oChildControls[oHeaderContent.getId()] = oInformationControl;
+           oInformationContainer.addItem(oInformationControl);
+           this.oChildControls[oInformationContainer.getId()] = oInformationControl;
         }
     })
 });
