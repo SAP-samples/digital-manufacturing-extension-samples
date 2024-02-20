@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>sap/dm/dme/plugins/orderSelectionListPlugin/controller/extensions/PluginEventExtension - Documentation</title>
+    <title>sap/dm/dme/lmplugins/yieldAndScrapTableCardPlugin/controller/extensions/PluginEventExtension - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -37,7 +37,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">sap/dm/dme/plugins/orderSelectionListPlugin/controller/extensions/PluginEventExtension</h1>
+    <h1 class="page-title">sap/dm/dme/lmplugins/yieldAndScrapTableCardPlugin/controller/extensions/PluginEventExtension</h1>
     
 
     
@@ -51,13 +51,23 @@
     
         <h2>
         
-            sap/dm/dme/plugins/orderSelectionListPlugin/controller/extensions/PluginEventExtension
+            sap/dm/dme/lmplugins/yieldAndScrapTableCardPlugin/controller/extensions/PluginEventExtension
         
         </h2>
         
-            <div class="class-description usertext"><p><code>sap.dm.dme.plugins.orderSelectionListPlugin.controller.extensions.PluginEventExtension</code> provides
-functions that handles plugin events.  Custom extensions can be created to
-override or modify core behaviour.</p></div>
+            <div class="class-description usertext"><p>The Line Monitor Yield and Scrap PluginEventExtension class allows modification of core plugin
+behaviour when the Line Monitor Yield and Scrap plugin is running. Custom extensions can be created to
+override or modify core behaviour. The following POD Plugin event functions can be overridden
+by custom extensions:</p>
+<pre>
+    onGetCardData
+</pre>
+<p>The following public functions are available to be called by extensions:</p>
+<pre>
+    getCard
+    getCardFilters
+    getYieldAndScrapData
+</pre></div>
         
     
 </header>
@@ -72,7 +82,7 @@ override or modify core behaviour.</p></div>
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="sap/dm/dme/plugins/orderSelectionListPlugin/controller/extensions/PluginEventExtension"><span class="type-signature"></span>new sap/dm/dme/plugins/orderSelectionListPlugin/controller/extensions/PluginEventExtension<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="sap/dm/dme/lmplugins/yieldAndScrapTableCardPlugin/controller/extensions/PluginEventExtension"><span class="type-signature"></span>new sap/dm/dme/lmplugins/yieldAndScrapTableCardPlugin/controller/extensions/PluginEventExtension<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -82,21 +92,7 @@ override or modify core behaviour.</p></div>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Constructor for the Order Selection List plugin Event Extension.
-The following functions can be overridden by custom extensions:</p>
-<pre>
-   onRefreshOrderList()
-   onChangeResource()
-   onChangeWorkCenter()
-   onChangeMaterialNumber()
-   onChangePlannedDateRange()
-   onPodSelectionChangeEvent()
-   onOrderStatusFilterChangeEvent()
-   onSfcStatusFilterChangeEvent()
-   onListPressEvent()
-   onSelectionChangeEvent()
-   onTableModelUpdateFinished()
-</pre></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Constructor for the Line Monitor Yield and Scrap Plugin Event Extension.</p></li></ul></dd>
     
 
     
@@ -198,7 +194,7 @@ The following functions can be overridden by custom extensions:</p>
 
     
 
-    <h4 class="name" id="onRefreshOrderList"><span class="type-signature"></span>onRefreshOrderList<span class="signature">(oData)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="onGetCardData"><span class="type-signature"></span>onGetCardData<span class="signature">(Card, The)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
@@ -208,9 +204,9 @@ The following functions can be overridden by custom extensions:</p>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler to cause order list to load.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for the onGetCardData event.</p>
+<p>An &quot;Instead&quot; override function must return a Promise that resolves to the new card model data.
+An &quot;After&quot; override function can optionally return a Promise that will be used instead of the one returned by the default handler.</p></li></ul></dd>
     
 
     
@@ -283,13 +279,13 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
         <tr>
             
-                <td class="name"><code>oData</code></td>
+                <td class="name"><code>Card</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
 
@@ -300,128 +296,20 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
             
 
-            <td class="description last"><p>Event data payload</p></td>
+            <td class="description last"><p>filters object based on POD selection context</p></td>
         </tr>
 
     
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onChangeResource"><span class="type-signature"></span>onChangeResource<span class="signature">(oData)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for ResourceChangeEvent.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
 
         <tr>
             
-                <td class="name"><code>oData</code></td>
+                <td class="name"><code>The</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -432,1457 +320,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
             
 
-            <td class="description last"><p>Event data payload</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onChangeWorkCenter"><span class="type-signature"></span>onChangeWorkCenter<span class="signature">(oData)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for WorkCenterChangeEvent.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oData</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event data payload</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onChangeOrderId"><span class="type-signature"></span>onChangeOrderId<span class="signature">(oData)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for OrderIdChangeEvent.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oData</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event data payload</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onChangeMaterialNumber"><span class="type-signature"></span>onChangeMaterialNumber<span class="signature">(oData)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for MaterialChangeEvent.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oData</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event data payload</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onChangePlannedDateRange"><span class="type-signature"></span>onChangePlannedDateRange<span class="signature">(oData)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for PlannedDateRangeChangeEvent.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oData</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event data payload</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onPodSelectionChangeEvent"><span class="type-signature"></span>onPodSelectionChangeEvent<span class="signature">(oData)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for PodSelectionChangeEvent.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oData</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event data payload</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onOrderStatusFilterChangeEvent"><span class="type-signature"></span>onOrderStatusFilterChangeEvent<span class="signature">(oData)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for OrderStatusFilterChangeEvent.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oData</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event data payload</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onSfcStatusFilterChangeEvent"><span class="type-signature"></span>onSfcStatusFilterChangeEvent<span class="signature">(oData)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for SfcStatusFilterChangeEvent.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oData</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event data payload</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onListPressEvent"><span class="type-signature"></span>onListPressEvent<span class="signature">(oEvent)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for when list item selected.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oEvent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onSelectionChangeEvent"><span class="type-signature"></span>onSelectionChangeEvent<span class="signature">(oEvent)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for a order selection change.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>oEvent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Event object</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="onTableModelUpdateFinished"><span class="type-signature"></span>onTableModelUpdateFinished<span class="signature">(sReason)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Event handler for table model update events.  This function
-can be overriden by custom extensions as follows for OverrideExecution.Instead,
-OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>sReason</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Reason for update (&quot;Change&quot;, &quot;Sort&quot; or &quot;Refresh&quot;)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getConfigurationValue"><span class="type-signature"></span>getConfigurationValue<span class="signature">(sProperty)</span><span class="type-signature"> &rarr; {object}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Gets value for the input property from the plugins configuration</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>sProperty</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Property name to get from configuration</p></td>
+            <td class="description last"><p>promise returned by the default handler (only defined for OverrideExecution.After)</p></td>
         </tr>
 
     
@@ -1908,7 +346,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
         
 <div class="param-desc">
-    <p>value for property if defined</p>
+    <p>A promise that resolves to the card model data</p>
 </div>
 
 
@@ -1919,7 +357,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
     </dt>
     <dd>
         
-<span class="param-type">object</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -1935,7 +373,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
     
 
-    <h4 class="name" id="getConfiguration"><span class="type-signature"></span>getConfiguration<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="getCard"><span class="type-signature"></span>getCard<span class="signature">()</span><span class="type-signature"> &rarr; {sap.ui.integration.widgets.Card}</span></h4>
 
     
 
@@ -1945,7 +383,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Gets the plugins configuration</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Returns the Yield &amp; Scrap Card.</p></li></ul></dd>
     
 
     
@@ -2011,7 +449,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
         
 <div class="param-desc">
-    <p>configuration data for the plugin</p>
+    <p>Card control</p>
 </div>
 
 
@@ -2022,7 +460,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
     </dt>
     <dd>
         
-<span class="param-type">object</span>
+<span class="param-type">sap.ui.integration.widgets.Card</span>
 
 
 
@@ -2038,7 +476,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
     
 
-    <h4 class="name" id="getOrderListContainerId"><span class="type-signature"></span>getOrderListContainerId<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="getCardFilters"><span class="type-signature"></span>getCardFilters<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
 
@@ -2048,7 +486,19 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Returns the id of the Container the list table is added to</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Returns the current filters for the card, based on the POD selection context.</p>
+<p>For example:</p>
+<pre>
+{
+    plant: "1010",
+    workCenter: "MIXING",
+    order: "100008",
+    timeRange: {
+        start: "2024-01-18T23:00:00.000Z",
+        end: "2024-01-18T18:29:41.000Z"
+    }
+}
+</pre></li></ul></dd>
     
 
     
@@ -2114,7 +564,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
         
 <div class="param-desc">
-    <p>Container id for the table</p>
+    <p>Filters object</p>
 </div>
 
 
@@ -2125,7 +575,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
 
@@ -2141,7 +591,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
     
 
-    <h4 class="name" id="getOrderListTableId"><span class="type-signature"></span>getOrderListTableId<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="getYieldAndScrapData"><span class="type-signature"></span>getYieldAndScrapData<span class="signature">(sPlant, sOrderId, sWorkCenter)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
@@ -2151,7 +601,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Returns the list table id</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Returns the aggregated yield and scrap data for the given filters, without firing the <code>onGetCardData</code> event.</p></li></ul></dd>
     
 
     
@@ -2197,6 +647,104 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
 
 
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sPlant</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sOrderId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sWorkCenter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -2217,7 +765,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 
         
 <div class="param-desc">
-    <p>Table id</p>
+    <p>A promise that resolves to the aggregated response data</p>
 </div>
 
 
@@ -2228,7 +776,7 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">Promise</span>
 
 
 
@@ -2236,168 +784,6 @@ OverrideExecution.Before and OverrideExecution.After.</p></li></ul></dd>
 </dl>
 
     
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getOrderListTable"><span class="type-signature"></span>getOrderListTable<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Returns the list table</p>
-<p>returns {object} List Table object</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="getColumnListItem"><span class="type-signature"></span>getColumnListItem<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Returns the ColumnListItem for the table</p>
-<p>returns {object} ColumnListItem object</p></li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
