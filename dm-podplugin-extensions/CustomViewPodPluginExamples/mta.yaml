@@ -13,19 +13,7 @@ modules:
     httpHeaders:
        - X-Frame-Options: deny
     CORS: "[{\"uriPattern\": \"^/scanassembly/(.*)$\",\"allowedOrigin\": [
-               {\"host\": \"dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap\",\"protocol\": \"https\"}
-              ],
-               \"allowedMethods\": [\"GET\",\"OPTIONS\"],
-               \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
-                     \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
-                     \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"],
-               \"exposeHeaders\": [\"Accept\",\"Authorization\",\"X-Requested-With\",\"X-Sap-Cid\",
-                     \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"X-Csrf-Token\",
-                     \"Content-Type\",\"x-dme-plant\",\"x-dme-industry-type\",\"x-features\"]},
-                     
-                     {\"uriPattern\": \"^/dmeapi/(.*)$\",\"allowedOrigin\": [
-               {\"host\": \"dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap\",\"protocol\": \"https\"}
-                ],
+               {\"host\": \"<DM_HOST>\",\"protocol\": \"https\"}],
                \"allowedMethods\": [\"GET\",\"OPTIONS\"],
                \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
                      \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
