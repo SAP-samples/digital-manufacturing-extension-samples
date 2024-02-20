@@ -12,7 +12,7 @@ modules:
         httpHeaders:
         - X-Frame-Options: deny
         CORS: "[{\"uriPattern\": \"^/plugins/(.*)$\",\"allowedOrigin\": [
-               {\"host\": \"dmcazsysinthc1-dm-internal-azure-az-sysint-execution.cfapps.eu20.hana.ondemand.com\",\"protocol\": \"https\"}],
+               {\"host\": \"<DM_HOST>\",\"protocol\": \"https\"}],
                \"allowedMethods\": [\"GET\",\"OPTIONS\"],
                \"allowedHeaders\":[\"Origin\", \"Accept\",\"X-Requested-With\",\"Content-Type\",
                \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"Authorization\",
