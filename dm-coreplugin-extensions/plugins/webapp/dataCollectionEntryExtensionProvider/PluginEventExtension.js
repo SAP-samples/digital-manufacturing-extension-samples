@@ -2,7 +2,7 @@ sap.ui.define([
     "sap/dm/dme/podfoundation/extension/PluginControllerExtension",
     "sap/ui/core/mvc/OverrideExecution",
     "sap/dm/dme/dcplugins/dataCollectionEntryPlugin/controller/extensions/PluginEventExtensionConstants",
-    "sap/ext/extplugins/utils/ElectronicSignatureHandler",
+    "sap/example/plugins/utils/ElectronicSignatureHandler",
     "sap/m/MessageBox"
 ], function (PluginControllerExtension, OverrideExecution, PluginEventConstants, ElectronicSignatureHandler, 
              MessageBox) {
@@ -11,6 +11,7 @@ sap.ui.define([
     return PluginControllerExtension.extend("sap.example.plugins.dataCollectionEntryExtensionProvider.PluginEventExtension", {
         constructor: function (oExtensionUtilities) {
             this._oExtensionUtilities = oExtensionUtilities;
+            this.oElectronicSignatureHandler = new ElectronicSignatureHandler(this);
         },
 
         getOverrideExecution: function(sOverrideMember) {
@@ -116,7 +117,8 @@ sap.ui.define([
                 styleClass: bCompact ? "sapUiSizeCompact" : "",
                 onClose: function (sAction) {
                     if (sAction === MessageBox.Action.OK) {
-                        that.addSupervisorSignature();
+                        that._oExtensionUtilities.logMessage("PluginEventExtension.onConfirmation: hi");
+                        // that.addSupervisorSignature();
                     }
                 }
             });
@@ -135,15 +137,14 @@ sap.ui.define([
             let mDialogSettings = {
                 parentView: oController.getView(),
                 message: "Add signature to verify data was collected",
-                reason: "",
-                showMessage: true,
-                showReason: true,
-                reasonEditable: true,
-                showComment: true,
+                reason: "sample reason",
+                showMessage: false,
+                showReason: false,
+                reasonEditable: false,
+                showComment: false,
                 showToolbar: false
             };
-            let oHandler = new ElectronicSignatureHandler(this);
-            oHandler.openSignatureDialog(mDialogSettings);
+            this.oElectronicSignatureHandler.openSignatureDialog(mDialogSettings);
         },
 
         onSigningSuccess: function () {
@@ -151,7 +152,7 @@ sap.ui.define([
         },
 
         onSigningError: function (oError) {
-            this.oController.showErrorMessage(oError.message, true, true);
+            this.getController().showErrorMessage(oError.message, true, true);
         },
 
         logDataCollection: function(oParameters){
