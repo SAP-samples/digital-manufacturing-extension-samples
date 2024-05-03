@@ -3,7 +3,7 @@
 
 ## General Business Process Flow
 
-![](./whereUsedPlugin/readmeReferences/image/Picture1.png)
+![](./readmeReferences/image/Picture1.png)
 
 
 ## Sample Content
