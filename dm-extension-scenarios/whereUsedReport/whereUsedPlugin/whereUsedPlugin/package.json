@@ -1,0 +1,14 @@
+{
+  "name": "whereUsedPlugin",
+  "version": "0.0.1",
+  "description": "",
+  "devDependencies": {
+
+  },
+  "dependencies": {
+    "@sap/approuter": "^14.3.2"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  }
+}
