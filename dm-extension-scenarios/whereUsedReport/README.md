@@ -17,7 +17,8 @@ As sample content two parts are provided
 
 Please check out the following blogs on SAP Community which provides you additional background information
 
-[How to use Digital Manufacturing MDOs within Custom Plugins – Example: Where Used Report](https://community.sap.com/t5/blogs/blogworkflowpage/blog-id/plm-blog-sap/article-id/1713)
+[How to use Digital Manufacturing MDOs within Custom Plugins – Example: Where Used Report](https://community.sap.com/t5/product-lifecycle-management-blogs-by-sap/how-to-use-digital-manufacturing-mdos-within-ppd-example-where-used-report/ba-p/13680276)
+[How to use Digital Manufacturing MDOs within Custom Plugins – Example: Where Used Report](https://community.sap.com/t5/product-lifecycle-management-blogs-by-sap/how-to-use-digital-manufacturing-mdos-within-custom-plugins-example-where/ba-p/13690324)
 
 
 ## Preperation Steps ##
