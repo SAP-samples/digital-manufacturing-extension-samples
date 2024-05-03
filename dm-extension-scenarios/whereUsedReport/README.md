@@ -9,16 +9,15 @@
 ## Sample Content
 As sample content two parts are provided
 
-1. a sample Production Process to retrieve the data where the Inventory Id is used
+1. Sample Production Process to retrieve the data where the Inventory Id is used. Please check out [whereUsedPPD](./whereUsedPPD/) Password for Import: DM_Sample_24!
 
-2. a Custom Plugin to provide a UI to the end user
+2. Custom Plugin to provide a UI to the end user. Please check out [whereUsedPlugin](./whereUsedPlugin/)
 
 ## Detailed Scenario Description
 
 Please check out the following blogs on SAP Community which provides you additional background information
 
 [How to use Digital Manufacturing MDOs within Custom Plugins – Example: Where Used Report](https://community.sap.com/t5/blogs/blogworkflowpage/blog-id/plm-blog-sap/article-id/1713)
-
 
 
 ## Preperation Steps ##
