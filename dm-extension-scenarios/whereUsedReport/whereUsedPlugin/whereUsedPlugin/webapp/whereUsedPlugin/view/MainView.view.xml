@@ -1,0 +1,97 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    controllerName="huka.custom.plugin.whereUsedPlugin.whereUsedPlugin.controller.MainView"
+    width="100%"
+    height="100%"
+>
+    <Panel
+        id="panelPlugin"
+        width="auto"
+        expandable="false"
+        expanded="false"
+        backgroundDesign="Transparent"
+        class="sapUiResponsiveMargin"
+        headerText=""
+    >
+        <content>
+            <Text
+                id="textPlugin"
+                text="template"
+                class="textFontSize"
+                textAlign="Center"
+                width="100%"
+            />
+        </content>
+    </Panel>
+
+    <Panel
+        id="panelSearchParameter"
+        headerText="Enter the inventory IDs you looking for"
+        width="auto"
+        expandable="false"
+        expanded="false"
+        backgroundDesign="Transparent"
+        class="sapUiResponsiveMargin"
+    >
+        <content>
+            <FlexBox
+                height="auto"
+                alignItems="Start"
+                justifyContent="Start"
+            >
+                <Input
+                    id="inputInvenntoryId"
+                    placeholder="Enter text the inventory ID"
+                    class="sapUiSmallMarginBottom"
+                    submit="onEnterCompId"
+                />
+                <Button
+                    id="search"
+                    text="Search where used"
+                    visible="true"
+                    tooltip="{i18n>template.search.tooltip}"
+                    press="onEnterCompId"
+                />
+            </FlexBox>
+            <smartTable:SmartTable
+                id="SfcSmartTable"
+                header="SFCs found"
+                showRowCount="true"
+                enableAutoBinding="true"
+                beforeRebindTable="onBeforeRebindTable"
+                smartFilterId="SfcSmartFilterBar"
+                tableType="ResponsiveTable"
+            >
+                <smartTable:layoutData>
+                    <FlexItemData
+                        growFactor="1"
+                        baseSize="0%"
+                    />
+                </smartTable:layoutData>
+                <Table
+                    id="SfcDetailTable"
+                    mode="MultiSelect"
+                    growing="true"
+                    growingThreshold="5"
+                >
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <ToolbarSpacer />
+                            <Button
+                                text="Follow Up Action"
+                                press="onFollowUpAction_01"
+                            />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                </Table>
+            </smartTable:SmartTable>
+        </content>
+    </Panel>
+</mvc:View>

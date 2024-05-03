@@ -1,0 +1,15 @@
+{
+	"components": [
+		{
+			"id": "whereUsedPlugin",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": false,
+			"name": "huka.custom.plugin.whereUsedPlugin.whereUsedPlugin",
+			"propertyEditor": "huka.custom.plugin.whereUsedPlugin.whereUsedPlugin.builder.PropertyEditor",
+			"i18n": "huka.custom.plugin.whereUsedPlugin.whereUsedPlugin.i18n.i18n",
+            "productionProcessEnabled": true,
+           "productionProcessTitle": "whereUsedPlugin",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER", "LINE_MONITOR", "OTHER"]
+		}   
+	]
+}
