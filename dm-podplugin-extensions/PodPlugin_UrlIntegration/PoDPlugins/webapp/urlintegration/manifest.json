@@ -1,7 +1,7 @@
 {
 	"_version": "1.12.0",
 	"sap.app": {
-		"id": "sap.custom.plugins.urlintegration",
+		"id": "dm.custom.ext.dynamic.urlintegration",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -14,20 +14,7 @@
 			"version": "1.40.12"
 		},
 		"dataSources": {
-			"plantModel": {
-				"uri": "/dme/plant.svc/",
-				"type": "OData",
-				"settings": {
-                    "odataVersion": "4.0"
-                }
-			},
-			"demandModel": {
-				"uri": "/dme/demand.svc/",
-				"type": "OData",
-				"settings": {
-                    "odataVersion": "4.0"
-                }
-			}
+			
 		}
 	},
 
@@ -51,7 +38,7 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "sap.custom.plugins.urlintegration.view.MainView",
+			"viewName": "dm.custom.ext.dynamic.urlintegration.view.MainView",
 			"type": "XML",
 			"async": true,
 			"id": "MainView"
@@ -69,28 +56,10 @@
 			"cozy": true
 		},
 		"models": {
-			"plant": {
-                "dataSource": "plantModel",
-                "settings": {
-                    "operationMode": "Server",
-                    "synchronizationMode": "None",
-                    "groupId": "$direct",
-                    "updateGroupId": "update_plant"
-                }
-            },
-            "demand": {
-                "dataSource": "demandModel",
-                "settings": {
-                    "operationMode": "Server",
-                    "synchronizationMode": "None",
-                    "groupId": "$direct",
-                    "updateGroupId": "update_demand"
-                }
-            },
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "sap.custom.plugins.urlintegration.i18n.i18n"
+					"bundleName": "dm.custom.ext.dynamic.urlintegration.i18n.i18n"
 				}
 			}
 		},
@@ -104,7 +73,7 @@
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
 				"async": true,
-				"viewPath": "sap.custom.plugins.urlintegrationiew",
+				"viewPath": "dm.custom.ext.dynamic.urlintegrationiew",
 				"controlAggregation": "pages",
 				"controlId": "app",
 				"clearControlAggregation": false
