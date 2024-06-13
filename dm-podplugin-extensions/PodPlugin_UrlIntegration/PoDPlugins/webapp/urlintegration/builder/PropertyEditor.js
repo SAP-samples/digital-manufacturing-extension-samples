@@ -6,21 +6,18 @@ sap.ui.define([
     
     var oFormContainer;
 
-    return PropertyEditor.extend( "sap.custom.plugins.urlintegration.builder.PropertyEditor" ,{
+    return PropertyEditor.extend( "dm.custom.ext.dynamic.urlintegration.builder.PropertyEditor" ,{
 
 		constructor: function(sId, mSettings){
 			PropertyEditor.apply(this, arguments);
 			
 			this.setI18nKeyPrefix("customComponentListConfig.");
-			this.setResourceBundleName("sap.custom.plugins.urlintegration.i18n.builder");
-			this.setPluginResourceBundleName("sap.custom.plugins.urlintegration.i18n.i18n");
+			this.setResourceBundleName("dm.custom.ext.dynamic.urlintegration.i18n.builder");
+			this.setPluginResourceBundleName("dm.custom.ext.dynamic.urlintegration.i18n.i18n");
 		},
 		
 		addPropertyEditorContent: function(oPropertyFormContainer){
 			var oData = this.getPropertyData();
-			
-			this.addSwitch(oPropertyFormContainer, "backButtonVisible", oData);
-			this.addSwitch(oPropertyFormContainer, "closeButtonVisible", oData);
 			
 			oFormContainer = oPropertyFormContainer;
 			
@@ -29,26 +26,17 @@ sap.ui.define([
 			
 			this.addInputField(oPropertyFormContainer, "Url", oData);
 			
-			
 			this.addInputField(oPropertyFormContainer, "Param1Key", oData);
 			this.addInputField(oPropertyFormContainer, "Param1Value", oData);
 			
 			this.addInputField(oPropertyFormContainer, "Param2Key", oData);
 			this.addInputField(oPropertyFormContainer, "Param2Value", oData);
 			
-			this.addInputField(oPropertyFormContainer, "Param3Key", oData);
-			this.addInputField(oPropertyFormContainer, "Param3Value", oData);
 		},
 		
 		getDefaultPropertyData: function(){
 			return {
-				"backButtonVisible" : true,
-				"closeButtonVisible" : false,
-				"tableConfiguration" : {
-					alternateRowColors : true,
-					fixedLayout : false,
-					stickyHeader : true 
-				} 
+
 			};
 		}
 

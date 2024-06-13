@@ -4,9 +4,9 @@
 			"id": "URLIntegration",
 			"type": "VIEW_PLUGIN",
 			"allowMultipleInstances": true,
-			"name": "sap.custom.plugins.urlintegration",
-			"propertyEditor": "sap.custom.plugins.urlintegration.builder.PropertyEditor",
-			"i18n": "sap.custom.plugins.urlintegration.i18n.i18n",
+			"name": "dm.custom.ext.dynamic.urlintegration",
+			"propertyEditor": "dm.custom.ext.dynamic.urlintegration.builder.PropertyEditor",
+			"i18n": "dm.custom.ext.dynamic.urlintegration.i18n.i18n",
 			"supportedPodTypes": ["WORK_CENTER", "OPERATION"]
 		}
 	]
