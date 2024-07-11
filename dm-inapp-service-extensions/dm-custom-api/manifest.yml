@@ -1,0 +1,11 @@
+---
+applications:
+- name: dm-custom-api
+  buildpack: nodejs_buildpack
+  memory: 256M
+  instances: 1
+  random-route: false
+  command: node index.js
+  services:
+   - dm-custom-api-destination
+   - cap-custom-api-auth
