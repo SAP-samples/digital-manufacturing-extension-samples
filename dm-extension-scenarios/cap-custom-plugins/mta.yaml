@@ -42,7 +42,7 @@ modules:
         - X-Frame-Options: deny
       CORS: "[{\"uriPattern\": \"^/customplugin/(.*)$\",\"allowedOrigin\": [
         {\"host\":
-        \"dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap\",\"protocol\":
+        \"<DM_HOST>\",\"protocol\":
         \"https\"}], \"allowedMethods\": [\"GET\",\"OPTIONS\"],
         \"allowedHeaders\":[\"Origin\",
         \"Accept\",\"X-Requested-With\",\"Content-Type\",
@@ -56,7 +56,7 @@ modules:
         \"Content-Type\",\"x-dme-industry-type\",\"x-dme-plant\",\"x-features\"\
         ]},{\"uriPattern\": \"^/srv/odata/v4/(.*)$\",\"allowedOrigin\": [
         {\"host\":
-        \"dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap\",\"protocol\":
+        \"<DM_HOST>\",\"protocol\":
         \"https\"}], \"allowedMethods\": [\"GET\",\"POST\",\"OPTIONS\"],
         \"allowedHeaders\":[\"Origin\",
         \"Accept\",\"X-Requested-With\",\"Content-Type\",
