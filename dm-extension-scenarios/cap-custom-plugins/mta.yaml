@@ -1,0 +1,95 @@
+_schema-version: '3.1'
+ID: dm-cap-custom-plugins
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci --omit=dev
+        - npx cds build --production
+        - npx cds deploy --profile production
+        - cp -r db.sqlite gen/srv
+
+modules:
+  - name: dm-cap-custom-plugins-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      disk-quota: 1024M
+      memory: 512M
+      buildpack: nodejs_buildpack
+      readiness-health-check-type: http
+      readiness-health-check-http-endpoint: /health
+    build-parameters:
+      builder: npm
+    requires:
+      - name: dm-cap-custom-plugins-auth
+      - name: dm-cap-custom-plugins-destination
+      - name: dm-cap-custom-plugins-logs
+  
+  - name: dm-cap-custom-plugins
+    type: approuter.nodejs
+    path: app/customplugin
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    properties:
+      httpHeaders:
+        - X-Frame-Options: deny
+      CORS: "[{\"uriPattern\": \"^/customplugin/(.*)$\",\"allowedOrigin\": [
+        {\"host\":
+        \"dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap\",\"protocol\":
+        \"https\"}], \"allowedMethods\": [\"GET\",\"OPTIONS\"],
+        \"allowedHeaders\":[\"Origin\",
+        \"Accept\",\"X-Requested-With\",\"Content-Type\",
+        \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"\
+        Authorization\",
+        \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-industry-type\",\"x-dme-plant\",\
+        \"x-features\"], \"exposeHeaders\":
+        [\"Accept\",\"Authorization\",\"X-Requested-With\",\"X-Sap-Cid\",
+        \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"\
+        X-Csrf-Token\",
+        \"Content-Type\",\"x-dme-industry-type\",\"x-dme-plant\",\"x-features\"\
+        ]},{\"uriPattern\": \"^/srv/odata/v4/(.*)$\",\"allowedOrigin\": [
+        {\"host\":
+        \"dmc-az-cons-training.test.execution.eu20.dmc.cloud.sap\",\"protocol\":
+        \"https\"}], \"allowedMethods\": [\"GET\",\"POST\",\"OPTIONS\"],
+        \"allowedHeaders\":[\"Origin\",
+        \"Accept\",\"X-Requested-With\",\"Content-Type\",
+        \"Access-Control-Request-Method\",\"Access-Control-Request-Headers\",\"\
+        Authorization\",
+        \"X-Sap-Cid\",\"X-Csrf-Token\",\"x-dme-industry-type\",\"x-dme-plant\",\
+        \"x-features\", \"odata-maxversion\",\"odata-version\"], \"exposeHeaders\":
+        [\"Accept\",\"Authorization\",\"X-Requested-With\",\"X-Sap-Cid\",
+        \"Access-Control-Allow-Origin\",\"Access-Control-Allow-Credentials\",\"\
+        X-Csrf-Token\",\"odata-maxversion\",\"odata-version\",
+        \"Content-Type\",\"x-dme-industry-type\",\"x-dme-plant\",\"x-features\"\
+        ]}]"
+    requires:
+      - name: dm-cap-custom-plugins-destination
+      - name: dm-cap-custom-plugins-logs
+
+resources:
+  - name: dm-cap-custom-plugins-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: dm-cap-custom-plugins-auth
+        tenant-mode: dedicated
+  - name: dm-cap-custom-plugins-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+  - name: dm-cap-custom-plugins-logs
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: lite

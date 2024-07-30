@@ -1,0 +1,7 @@
+{
+  "xsappname": "dm-cap-custom-plugins-auth",
+  "tenant-mode": "dedicated",
+  "scopes": [],
+  "attributes": [],
+  "role-templates": []
+}
