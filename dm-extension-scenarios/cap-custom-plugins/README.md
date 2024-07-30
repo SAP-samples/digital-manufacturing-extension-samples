@@ -57,7 +57,10 @@ Consumption in MainView.view.xml
 }">																
 ```
 
+
+
 ![](./readMeReferences/image/DataFromLocalDB.png)
+
 
 
 # Scenario 2: Fetching data from Remote protected destination calls
