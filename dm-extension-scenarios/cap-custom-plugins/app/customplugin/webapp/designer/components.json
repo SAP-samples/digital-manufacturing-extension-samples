@@ -1,0 +1,15 @@
+{
+	"components": [
+		{
+			"id": "dm_cap_customplugin_plugin1",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": false,
+			"name": "cap.custom.plugins.customplugin.plugin1",
+			"propertyEditor": "cap.custom.plugins.customplugin.plugin1.builder.PropertyEditor",
+			"i18n": "cap.custom.plugins.customplugin.plugin1.i18n.i18n",
+            "productionProcessEnabled": true,
+           	"productionProcessTitle": "Custom Plugins - Plugin1",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER"]
+		}   
+	]
+}

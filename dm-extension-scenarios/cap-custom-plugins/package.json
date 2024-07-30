@@ -1,0 +1,45 @@
+{
+  "name": "dm-cap-custom-plugins",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/sqlite": "^1.7.2",
+    "@sap-cloud-sdk/http-client": "3.16.0",
+    "@sap-cloud-sdk/resilience": "3.16.0",
+    "@sap/cds": "^7",
+    "@sap/xssec": "^3",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^7",
+    "generator-dmcpodplugin": "^1.0.19"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "cds": {
+    "requires": {
+      "[production]": {
+        "db": {
+          "kind": "sqlite",
+          "impl": "@cap-js/sqlite",
+          "model": "*",
+          "credentials": {
+            "url": "db.sqlite"
+          }
+        },
+        "auth": "jwt",
+        "DMC_Cloud_API": {
+          "kind": "rest",
+          "credentials": {
+            "destination": "DMC_Cloud_API",
+            "requestTimeout": 30000
+          }
+        }
+      }
+    }
+  }
+}
