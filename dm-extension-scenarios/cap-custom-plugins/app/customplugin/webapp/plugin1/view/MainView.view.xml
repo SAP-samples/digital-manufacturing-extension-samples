@@ -1,0 +1,63 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="cap.custom.plugins.customplugin.plugin1.controller.MainView" width="100%" height="100%">
+		
+	<Table class="sapUiSmallMargin"
+									
+									growing="true" 
+									growingThreshold="10"
+									inset="false"
+									width="auto"
+									items="{
+										path: '/CustomEntitySet',
+										sorter: [{
+											path: 'order', 
+											descending: false
+										}],
+										parameters: {
+											$count: true,
+											$$updateGroupId : 'updateGroup1'
+										}
+									}">
+									<headerToolbar>
+												<OverflowToolbar >
+													<Title text="Sample Table from Local DB" level="H2" />
+													<ToolbarSpacer />
+													
+												</OverflowToolbar>
+									</headerToolbar>
+							
+									<columns>
+										<Column
+											width="8em">
+											<Text text="SFC" />
+										</Column>
+										
+										<Column
+											width="8em">
+											<Text text="Order" />
+										</Column>
+
+										<Column
+											width="8em">
+											<Text text="Custom Field1" />
+										</Column>
+
+										<Column
+											width="8em">
+											<Text text="Custom Field2" />
+										</Column>
+										
+										
+									</columns>
+									<items>
+										<ColumnListItem >
+											<cells>
+												<Text text="{sfc}"/>
+												<Text text="{order}"/>
+												<Text text="{customField1}"/>
+												<Text text="{customField2}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+  
+</mvc:View>
