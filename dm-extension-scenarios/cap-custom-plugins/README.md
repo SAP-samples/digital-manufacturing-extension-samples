@@ -57,13 +57,16 @@ Consumption in MainView.view.xml
 }">																
 ```
 
-![](./readmeReferences/image/DataFromLocalDB.png)
+
+
+![](./readMeReferences/image/DataFromLocalDB.png)
+
 
 
 # Scenario 2: Fetching data from Remote protected destination calls
 
 Destination to REST endpoint
-![](./readmeReferences/image/RemoteAPIDestination.png)
+![](./readMeReferences/image/RemoteAPIDestination.png)
 
 Instrumenting in package.json
 
@@ -133,5 +136,5 @@ jsonModel.loadData(sap.ui.require.toUrl('cap/custom/plugins/customplugin') + "/.
 
 ```
 
-![](./readmeReferences/image/RemoteAPITEst.png)
+![](./readMeReferences/image/RemoteAPITEst.png)
 
