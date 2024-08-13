@@ -130,6 +130,22 @@
             ]
         },
         {
+            "provider": "sap/example/plugins/lineMonitorShiftProgressExtensionProvider/ExtensionProvider",
+            "controller": "sap.dm.dme.lmplugins.shiftProductionCardPlugin",
+            "inclusions": [
+                {
+                    "pods": [
+                        "EXAMPLE_CUSTOM_PLUGINS_WC_POD", "EXAMPLE_CUSTOM_PLUGINS_OP_POD", "EXAMPLE_CUSTOM_PLUGINS_ORDER_POD", "EXAMPLE_CUSTOM_PLUGINS_LM_POD"
+                    ],
+                    "plants": [
+                        "1010",
+                        "1710",
+                        "VP100"
+                    ]
+                }
+            ]
+        },
+        {
            "provider": "sap/example/plugins/lineMonitorYieldAndScrapExtensionProvider/ExtensionProvider",
            "controller": "sap.dm.dme.lmplugins.yieldAndScrapTableCardPlugin",
            "inclusions": [
@@ -144,6 +160,20 @@
                     ]
                }
            ]
+        }, 
+        {
+            "provider": "sap/example/plugins/lineMonitorLastIndicatorValueExtensionProvider/ExtensionProvider",
+            "controller": "sap.dm.dme.lmplugins.indicatorActualValuePlugin",
+            "inclusions": [
+                {
+                    "pods": [
+                        "EXAMPLE_CUSTOM_PLUGINS_LM_POD"
+                    ],
+                    "plants": [
+                        "1010"
+                    ]
+                }
+            ]
         },
         {
             "provider": "sap/example/plugins/assemblyPointExtensionProvider/ExtensionProvider",
