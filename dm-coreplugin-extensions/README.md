@@ -28,7 +28,4 @@
 | 24 | [Line Monitor Yield and Scrap Plugin Extension](./plugins/webapp/lineMonitorYieldAndScrapExtensionProvider/) | This sample demonstrates how to extend the Line Monitor Yield and Scrap Plugin to manipulate or combine aggregated yield and scrap data |
 | 25 | [Line Monitor Shift Progress Plugin Extension](./plugins/webapp/lineMonitorShiftProgressExtensionProvider/) | This sample demonstrates how to extend the Line Monitor Shift Progress Plugin to customize resource selection and data formatting |
 | 26 | [Line Monitor Last Indicator Value Plugin Extension](./plugins/webapp/lineMonitorLastIndicatorValueExtensionProvider/) | This sample demonstrates how to extend the Line Monitor Last indicator Value Plugin to manipulate incoming indicator information |
-
-
-
-
+| 27 | [Line Monitor Shift Yield and Scrap Plugin Extension](./plugins/webapp/lineMonitorShiftYieldAndScrapExtensionProvider/) | This sample demonstrates how to extend the Line Monitor Shift Yield and Scrap Plugin to customize resource selection and change yield and scrap data |
