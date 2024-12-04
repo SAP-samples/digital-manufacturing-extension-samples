@@ -176,6 +176,22 @@
             ]
         },
         {
+           "provider": "sap/example/plugins/lineMonitorShiftYieldAndScrapExtensionProvider/ExtensionProvider",
+           "controller": "sap.dm.dme.lmplugins.shiftYieldAndScrapPlugin",
+           "inclusions": [
+               {
+                   "pods": [
+                        "EXAMPLE_CUSTOM_PLUGINS_LM_POD"
+                    ],
+                    "plants": [
+                        "1010",
+                        "1710",
+                        "VP100"
+                    ]
+               }
+           ]
+        },
+        {
             "provider": "sap/example/plugins/assemblyPointExtensionProvider/ExtensionProvider",
             "controller": "sap.dm.dme.assyplugins.assemblyPointPlugin",
             "inclusions": [
