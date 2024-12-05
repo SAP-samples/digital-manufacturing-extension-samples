@@ -30,9 +30,9 @@ sap.ui.define([
         */
         onBeforeRenderingPlugin: function () {
             // retrieve configuration parameters set in during POD configuration in the POD Designer and assign them to view elements or variables
-            this.getView().byId("panelPlugin").setHeaderText(this.getConfiguration().title);
-            this.getView().byId("textPlugin").setText(this.getConfiguration().text);
-            this.swhereUsedPPDKey = this.getConfiguration().whereUsedPPD;
+            this.getView().byId("panelPlugin").setHeaderText(this.getConfiguration().custom_title);
+            this.getView().byId("textPlugin").setText(this.getConfiguration().custom_text);
+            this.swhereUsedPPDKey = this.getConfiguration().custom_whereUsedPPD;
         },
 
 
