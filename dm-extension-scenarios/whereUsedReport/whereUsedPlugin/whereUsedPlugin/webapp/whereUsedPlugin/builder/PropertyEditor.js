@@ -19,22 +19,22 @@ sap.ui.define([
 		addPropertyEditorContent: function(oPropertyFormContainer){
 			var oData = this.getPropertyData();
 			
-			this.addSwitch(oPropertyFormContainer, "backButtonVisible", oData);
-			this.addSwitch(oPropertyFormContainer, "closeButtonVisible", oData);						
-			this.addInputField(oPropertyFormContainer, "title", oData);
-			this.addInputField(oPropertyFormContainer, "text", oData);
-			this.addInputField(oPropertyFormContainer, "whereUsedPPD", oData);
+			this.addSwitch(oPropertyFormContainer, "custom_backButtonVisible", oData);
+			this.addSwitch(oPropertyFormContainer, "custom_closeButtonVisible", oData);						
+			this.addInputField(oPropertyFormContainer, "custom_title", oData);
+			this.addInputField(oPropertyFormContainer, "custom_text", oData);
+			this.addInputField(oPropertyFormContainer, "custom_whereUsedPPD", oData);
             oFormContainer = oPropertyFormContainer;
 		},
 		
 		getDefaultPropertyData: function(){
 			return {
 				
-				"backButtonVisible": true,
-				"closeButtonVisible": true,
-                "title": "whereUsedPlugin",
-				"text": "whereUsedPlugin",
-                "whereUsedPPD": "whereUsedPlugin"
+				"custom_backButtonVisible": true,
+				"custom_closeButtonVisible": true,
+                "custom_title": "whereUsedPlugin",
+				"custom_text": "whereUsedPlugin",
+                "custom_whereUsedPPD": "whereUsedPlugin"
 			};
 		}
 
