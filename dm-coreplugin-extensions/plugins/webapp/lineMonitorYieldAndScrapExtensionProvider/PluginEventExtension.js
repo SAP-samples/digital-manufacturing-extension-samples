@@ -6,6 +6,8 @@ sap.ui.define([
 ], function (PluginControllerExtension, OverrideExecution, ServiceClient, PluginEventConstants) {
     "use strict";
 
+    const BASE_API_PATH = "/sapdmdmepod/fnd/api-gateway-ms";
+
     ServiceClient = new ServiceClient();
 
     const oOverrideExecution = {
@@ -51,14 +53,17 @@ sap.ui.define([
                 oData.content.forEach(a => a.phaseDescription = `Order ${oFilters.order} - ${a.phaseDescription}`);
 
                 // We can also fetch aggregated data for some other order, then combine or modify the results
-                return this._getOrders().then((aOrders) => {
-                    if (!aOrders.length) {
+                const sPlant = oFilters.plant;
+                const sWorkCenter = oFilters.workCenter;
+                const aOrderExecutionStatuses = ["ACTIVE", "NOT_IN_EXECUTION"];
+                return this._getFirstOrder(sPlant, sWorkCenter, aOrderExecutionStatuses).then((oOrder) => {
+                    if (!oOrder) {
                         return oData;
                     }
+                    
+                    const sSecondOrderId = oOrder.order;
+                    this._oLogUtilities.logMessage("PluginEventExtension.onGetCardData: retrieved second order " + sSecondOrderId);
 
-                    const sPlant = oFilters.plant;
-                    const sWorkCenter = oFilters.workCenter;
-                    const sSecondOrderId = aOrders[0].mfgOrder;
                     // Get yield and scrap data for some other order; concat the results
                     return this.getCoreExtension().getYieldAndScrapData(sPlant, sSecondOrderId, sWorkCenter).then((oData2) => {
                         oData2.content.forEach(a => a.phaseDescription = `Order ${sSecondOrderId} - ${a.phaseDescription}`);
@@ -75,11 +80,11 @@ sap.ui.define([
          *
          * Each use case will have different needs as far as order data is concerned, so use an API fetch based on your specific requirements.
          */
-        _getOrders: function() {
-            const oFilters = this.getCoreExtension().getCardFilters();
-            const sUrl = `/sapdmdmelmplugins/dmc/operational-report-ms/api/v1/orderSelection/ActiveOrdersSFCStepStatus(plant='${oFilters.plant}',startDate=${oFilters.timeRange.start},endDate=${oFilters.timeRange.end},threshold=7)/Set?$orderby=actualStart&$filter=workcenter%20eq%20'${oFilters.workCenter}'%20and%20executionStatus%20eq%20'ACTIVE'&$select=actualStart,executionStatus,isCurrent,mfgOrder,orderType,plant,releaseStatus,routingType,workcenter&$skip=0&$top=1`
-            return ServiceClient.get(sUrl).then((oOrderData) => {
-                return oOrderData.value;
+        _getFirstOrder: function(sPlant, sWorkCenter, aExecutionStatuses) {
+            // API details: https://api.sap.com/api/sapdme_order/resource/Order_List
+            const sRequestPath = `${BASE_API_PATH}/order/v1/orders/list?plant=${sPlant}&workCenters=${sWorkCenter}&executionStatuses=${aExecutionStatuses.join(",")}&size=1`;
+            return ServiceClient.get(sRequestPath).then((oResponse) => {
+                return oResponse?.content?.length ? oResponse.content[0] : null;
             });
         }
     })
