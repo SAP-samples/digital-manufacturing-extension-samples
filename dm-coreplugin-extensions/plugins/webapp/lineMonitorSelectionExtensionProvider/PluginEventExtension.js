@@ -14,6 +14,8 @@ sap.ui.define([
     Text, Column, Filter, FilterOperator, FilterType, Sorter) {
     "use strict";
 
+    const BASE_API_PATH = "/sapdmdmepod/fnd/api-gateway-ms";
+
     ServiceClient = new ServiceClient();
 
     const oOverrideExecution = {
@@ -64,22 +66,19 @@ sap.ui.define([
                 }
 
                 // depending on which filter is used, we could be working with a list of workcenters or a single selected one
-                let aWorkcenters;
                 const oPodSelectionModel = this.getController().getPodSelectionModel();
-                if (this.getCoreExtension().isWcFilterVisible()) {
-                    aWorkcenters = oPodSelectionModel.getSelectedWorkCenters();
-                } else {
-                    aWorkcenters = [ oPodSelectionModel.getWorkCenter() ];
-                }
+                const bWcFilterVisible = this.getCoreExtension().isWcFilterVisible();
+                const aWorkcenters = bWcFilterVisible ? oPodSelectionModel.getSelectedWorkCenters() : [ oPodSelectionModel.getWorkCenter() ];
 
                 return this.getShiftAssignmentsForWorkcenters(aWorkcenters).then((oShiftMapping) => {
                     for (const oShift of aCurrentShifts) {
-                        if (oShiftMapping.hasOwnProperty(oShift.ref) && oShiftMapping[oShift.ref].size) {
+                        if (oShiftMapping.hasOwnProperty(oShift.shift)) {
+                            const oSet = bWcFilterVisible ? oShiftMapping[oShift.shift].workCenters : oShiftMapping[oShift.shift].resources;
                             // assign sorted array to shift for binding in the view
-                            oShift._assignedTo = [ ...oShiftMapping[oShift.ref] ].sort().join(", ");
+                            oShift._assignedTo = [ ...oSet ].sort().join(", ");
                         }
                     }
-
+    
                     return aCurrentShifts;
                 });
             });
@@ -112,40 +111,71 @@ sap.ui.define([
             }
         },
 
-        getShiftAssignmentsForWorkcenters: function(aWorkcenters) {
+        getShiftAssignmentsForWorkcenters: function(aWorkCenters) {
             const sPlant = PlantSettings.getCurrentPlant();
-            const aWorkcenterRefs = aWorkcenters.map(sWorkcenter => `'WorkCenterBO:${sPlant},${sWorkcenter}'`);
-            const sUrl = `/dme/plant.svc/Workcenters?$filter=ref in (${aWorkcenterRefs.join(",")})&$select=ref,plant,workcenter&$expand=members($select=ref;$expand=childResource($select=ref,resource;$expand=resourceShifts($expand=shift($select=ref,shift))))`;
-            return ServiceClient.get(sUrl).then((oResponse) => {
-                const oShiftMapping = {};
 
-                if (oResponse && Array.isArray(oResponse.value)) {
-                    for (const oWorkcenter of oResponse.value) {
-                        for (const oMember of oWorkcenter.members) {
-                            if (oMember.childResource && Array.isArray(oMember.childResource.resourceShifts)) {
-                                for (const oShiftAssignment of oMember.childResource.resourceShifts) {
-                                    // index the mapping by shift ref
-                                    // use a Set to prevent duplicates in the list
-                                    const oShift = oShiftAssignment.shift;
-                                    if (!oShiftMapping[oShift.ref]) {
-                                        oShiftMapping[oShift.ref] = new Set();
-                                    }
+            // Fetch shift assignments for each work center
+            const aShiftResourceMappingPromises = aWorkCenters.map(sWorkCenter => this.getShiftAssignmentsForResources(sPlant, sWorkCenter));
 
-                                    // if on the overview page, list the work centers
-                                    if (this.getCoreExtension().isWcFilterVisible()) {
-                                        oShiftMapping[oShift.ref].add(oWorkcenter.workcenter);
-                                    } else {
-                                        // list the resources on the details page
-                                        oShiftMapping[oShift.ref].add(oMember.childResource.resource);
-                                    }
-                                }
-                            }
+            // Once all data is retrieved, build the shift mapping
+            return Promise.all(aShiftResourceMappingPromises).then(aShiftResourceMappings => {
+                let oShiftMapping = {};
+                for (let i = 0; i < aWorkCenters.length; i++) {
+                    for (const [sShift, oResourceSet] of Object.entries(aShiftResourceMappings[i])) {
+                        if (!oShiftMapping[sShift]) {
+                            oShiftMapping[sShift] = {
+                                workCenters: new Set(),
+                                resources: new Set()
+                            };
                         }
+                        oShiftMapping[sShift].workCenters = oShiftMapping[sShift].workCenters.add(aWorkCenters[i]);
+                        oShiftMapping[sShift].resources = oShiftMapping[sShift].resources.union(oResourceSet);
                     }
                 }
-
                 return oShiftMapping;
             });
+        },
+
+        getShiftAssignmentsForResources: function(sPlant, sWorkCenter) {
+            // Fetch the work center resources
+            return this.getWorkCenter(sPlant, sWorkCenter)
+                .then(oWorkCenter => {
+                    if (!oWorkCenter) {
+                        return [];
+                    }
+                    let aResources = oWorkCenter.members.filter(oMember => Boolean(oMember.resource)).map(oMember => oMember.resource.resource);
+                    let aResourcePromises = aResources.map(sResource => this.getResource(sPlant, sResource));
+                    return Promise.all(aResourcePromises);
+                })
+                .then(aResources => {
+                    // Map shifts to resources
+                    let oShifts = {};
+                    for (const oResource of aResources) {
+                        if (!oResource) {
+                            continue;
+                        }
+                        for (const oShiftAssignment of oResource.shifts) {
+                            const sShift = oShiftAssignment.shift;
+                            if (!oShifts[sShift]) {
+                                oShifts[sShift] =  new Set();
+                            }
+                            oShifts[sShift].add(oResource.resource);
+                        }
+                    }
+                    return oShifts;
+                });
+        },
+
+        getWorkCenter: function(sPlant, sWorkCenter) {
+            // API details: https://api.sap.com/api/sapdme_plant_workcenter_v2/resource/readUsingGET
+            const sUrl = `${BASE_API_PATH}/workcenter/v2/workcenters?plant=${sPlant}&workCenter=${sWorkCenter}`;
+            return ServiceClient.get(sUrl).then(aResponse => aResponse?.length ? aResponse[0] : null);
+        },
+
+        getResource: function(sPlant, sResource) {
+            // API details: https://api.sap.com/api/sapdme_plant_resource_v2/resource/getResourcesUsingGET_1
+            const sUrl = `${BASE_API_PATH}/resource/v2/resources?plant=${sPlant}&resource=${sResource}`;
+            return ServiceClient.get(sUrl).then(aResponse => aResponse?.length ? aResponse[0] : null);;
         },
 
         onGetCurrentOrder: function() {
