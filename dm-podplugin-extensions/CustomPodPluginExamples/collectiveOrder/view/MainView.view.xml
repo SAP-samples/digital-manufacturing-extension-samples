@@ -1,0 +1,73 @@
+<mvc:View
+		controllerName="sap.ext.exampleplugins.collectiveOrder.controller.MainView"
+		xmlns="sap.suite.ui.commons.networkgraph"
+		xmlns:layout="sap.suite.ui.commons.networkgraph.layout"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:core="sap.ui.core"
+		xmlns:m="sap.m"
+		xmlns:l="sap.ui.layout"
+		height="100%">
+	<l:FixFlex vertical="true" fixContentSize="5%">
+		<l:fixContent>
+			<m:OverflowToolbar>
+				<m:content>
+					<m:Select id="nodeLayout" tooltip="Node Layout" selectedKey="20" change="onLayoutChanged">
+						<core:Item key="20" text="Simple"/>
+						<core:Item key="40" text="Layered"/>
+					</m:Select>
+				</m:content>
+			</m:OverflowToolbar>
+		</l:fixContent>
+		<l:flexContent>
+			<l:FixFlex vertical="false" fixContentSize="100%">
+				<l:fixContent>
+					<Graph  enableWheelZoom="true"
+							nodes="{/nodes}"
+							lines="{/lines}"
+							orientation="TopBottom"
+							id="graph">
+						
+						<layoutAlgorithm>
+							<layout:LayeredLayout
+										mergeEdges="true"
+										nodePlacement="Simple"
+										nodeSpacing="40"/>
+						</layoutAlgorithm>
+						<nodes>
+							<Node
+									height="{settings>/height}"
+									key="{key}"
+									title="{title}"
+									icon="{icon}"
+									group="{group}"
+									attributes="{path:'attributes', templateShareable:true}"
+									shape="{shape}"
+									status="{status}"
+									x="{x}"
+									y="{y}"
+									press="refreshWorklist">
+								<attributes>
+									<ElementAttribute
+											label="{label}"
+											value="{value}"/>
+								</attributes>
+								<actionButtons>
+									<ActionButton icon="sap-icon://activities" press="showActivities">
+									</ActionButton>
+								</actionButtons>
+							</Node>
+						</nodes>
+						<lines>
+							<Line
+									from="{from}"
+									to="{to}"
+									status="{status}"
+							>
+							</Line>
+						</lines>
+					</Graph>
+				</l:fixContent>
+			</l:FixFlex>
+		</l:flexContent>
+	</l:FixFlex>
+</mvc:View>
