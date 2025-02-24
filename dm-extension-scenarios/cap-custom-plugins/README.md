@@ -1,5 +1,20 @@
 # Description
-This is a sample code for full-stack CAP based custom pod plugin along with in-app custom tables exposed as OData v4 services. 
+This is a sample code for full-stack CAP based custom pod plugin along with in-app custom tables exposed as OData v4 services. The deployment steps are described as below. 
+
+## Step 1
+The sample can be deployed which will create the CAP service endpoint which is a protected endpoint.
+```
+mbt build 
+cf deploy <MTAR_FILE>
+```
+
+## Step 2
+Create a destination as below for the above service endpoint.
+![](./readMeReferences/image/CapDestination.png)
+
+## Step 3
+Deploy the Custom POD plugin under folder app as per guidelines [here](https://help.sap.com/docs/sap-digital-manufacturing/pod-plugin-developer-s-guide/new-creating-and-deploying-custom-pod-plugins?locale=en-US)
+
 
 # Scenario 1: Fetching data from local DB
 
@@ -7,10 +22,10 @@ DB definition schema.cds
 
 ```
 entity CustomTable {
-  sfc             : String(40);
-  order           : String(40);
-  customField1    : String(40);
-  customField2    : String(40);
+  key sfc             : String(40);
+  key order           : String(40);
+  customField1        : String(40);
+  customField2        : String(40);
 }
 ```
 
@@ -27,7 +42,7 @@ service EventsService {
 Model Instantiation and binding in MainView.controller.js
 ```
 let oDataModel = new ODataModel({
-    "serviceUrl" : sap.ui.require.toUrl('cap/custom/plugins/customplugin') + '/../srv/odata/v4/events/',
+  "serviceUrl" : "https://" + window.location.host + "/destination/srv-api/odata/v4/events/",
 	"operationMode" : "Server",
 	"groupId": "$direct",
 	"synchronizationMode": "None",
@@ -132,7 +147,7 @@ Calling from Custom Plugin in MainView.controller.js
 
 ```
 let jsonModel = new JSONModel();
-jsonModel.loadData(sap.ui.require.toUrl('cap/custom/plugins/customplugin') + "/../srv/odata/v4/remote-rest/getOrders(Plant='VP100',fromDate=2024-01-28T00:00:00.000Z,toDate=2024-07-28T00:00:00.000Z)")
+jsonModel.loadData("https://" + window.location.host + "/destination/srv-api/odata/v4/remote-rest/getOrders(Plant='VP100',fromDate=2024-01-28T00:00:00.000Z,toDate=2024-07-28T00:00:00.000Z)");
 
 ```
 

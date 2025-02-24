@@ -6,15 +6,15 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@cap-js/sqlite": "^1.7.2",
-    "@sap-cloud-sdk/http-client": "3.16.0",
-    "@sap-cloud-sdk/resilience": "3.16.0",
-    "@sap/cds": "^7",
-    "@sap/xssec": "^3",
-    "express": "^4"
+    "@cap-js/sqlite": "^1.8.0",
+    "@sap-cloud-sdk/http-client": "3.26.1",
+    "@sap-cloud-sdk/resilience": "3.26.1",
+    "@sap/cds": "^8.7.2",
+    "@sap/xssec": "^4.4.0",
+    "express": "^4.21.2"
   },
   "devDependencies": {
-    "@sap/cds-dk": "^7",
+    "@sap/cds-dk": "^8.7.3",
     "generator-dmcpodplugin": "^1.0.19"
   },
   "scripts": {
@@ -31,7 +31,7 @@
             "url": "db.sqlite"
           }
         },
-        "auth": "jwt",
+        "auth": "xsuaa",
         "DMC_Cloud_API": {
           "kind": "rest",
           "credentials": {

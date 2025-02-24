@@ -11,8 +11,9 @@ sap.ui.define([
 		},
 
         onBeforeRenderingPlugin: function () {
+
 			let oDataModel = new ODataModel({
-                "serviceUrl" : sap.ui.require.toUrl('cap/custom/plugins/customplugin') + '/../srv/odata/v4/events/',
+                "serviceUrl" : "https://" + window.location.host + "/destination/srv-api/odata/v4/events/",
 				"operationMode" : "Server",
 				"groupId": "$direct",
 				"synchronizationMode": "None",
@@ -24,8 +25,7 @@ sap.ui.define([
 
 			// Loading data from Remote REST APIs via the CAP service and remote destination
 			let jsonModel = new JSONModel();
-			jsonModel.loadData(sap.ui.require.toUrl('cap/custom/plugins/customplugin') + "/../srv/odata/v4/remote-rest/getOrders(Plant='VP100',fromDate=2024-01-28T00:00:00.000Z,toDate=2024-07-28T00:00:00.000Z)")
-
+			jsonModel.loadData("https://" + window.location.host + "/destination/srv-api/odata/v4/remote-rest/getOrders(Plant='VP100',fromDate=2024-01-28T00:00:00.000Z,toDate=2024-07-28T00:00:00.000Z)");
 		},
 
         onAfterRendering: function(){
