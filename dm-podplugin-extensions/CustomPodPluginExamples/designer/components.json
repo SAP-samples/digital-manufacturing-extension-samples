@@ -1,6 +1,14 @@
 {
 	"components": [
-		
+		{
+			"id": "auditLogViewer",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.auditLogViewer",
+			"propertyEditor": "sap.ext.exampleplugins.auditLogViewer.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.auditLogViewer.i18n.i18n",
+			"supportedPodTypes": ["OTHER"]
+		},
 		{
 			"id": "collectiveOrder",
 			"type": "VIEW_PLUGIN",
