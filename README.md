@@ -36,13 +36,15 @@ More samples on core plugin extensions can be found here - [Core Plugin Extensio
 
 ## Digital Manufacturing Extensibility Bootcamp 
 
-- [Day 1](https://dam.sap.com/mac/u/a/pDdSZQp?rc=10&doi=SAP957994)[ (Recording) ](https://dam.sap.com/a/dkJWeBZ?rc=10&doi=SAP1140477)
-- [Day 2](https://dam.sap.com/mac/u/a/PbWRLb2?rc=10&doi=SAP957995)[ (Recording) ](https://dam.sap.com/mac/u/a/99zd9N9?rc=10&doi=SAP1140482)
-- [Day 3](https://dam.sap.com/mac/u/a/8UYGinY?rc=10&doi=SAP957996)[ (Recording) ](https://dam.sap.com/mac/u/a/qnKW7DQ?rc=10&doi=SAP1140508)
-- [Day 4](https://dam.sap.com/mac/u/a/xrga4PA?rc=10&doi=SAP957997)[ (Recording) ](https://dam.sap.com/mac/u/a/1Zw1268?rc=10&doi=SAP1140543)
-- [Day 5](https://dam.sap.com/mac/u/a/GLgzgDT?rc=10&doi=SAP957998)[ (Recording) ](https://dam.sap.com/mac/u/a/MtoQ6r1?rc=10&doi=SAP1140547)
-- [Day 6](https://dam.sap.com/mac/u/a/F6yVn4h?rc=10&doi=SAP957999)[ (Recording) ](https://dam.sap.com/mac/u/a/XYckRm8?rc=10&doi=SAP1140550)
-- [Day 7](https://dam.sap.com/mac/u/a/UnYhk5B?rc=10&doi=SAP958000)[ (Recording) ](https://dam.sap.com/mac/u/a/jpYey1X?rc=10&doi=SAP1140552)
+| Day | Content  |
+| --- | -------- | 
+| Day 1  | [PDF](https://dam.sap.com/mac/u/a/pDdSZQp?rc=10&doi=SAP957994)  -   [Recording](https://dam.sap.com/a/dkJWeBZ?rc=10&doi=SAP1140477) |
+| Day 2  | [PDF](https://dam.sap.com/mac/u/a/PbWRLb2?rc=10&doi=SAP957995)  -   [Recording](https://dam.sap.com/mac/u/a/99zd9N9?rc=10&doi=SAP1140482) |
+| Day 3  | [PDF](https://dam.sap.com/mac/u/a/8UYGinY?rc=10&doi=SAP957996)  -   [Recording](https://dam.sap.com/mac/u/a/qnKW7DQ?rc=10&doi=SAP1140508) |
+| Day 4  | [PDF](https://dam.sap.com/mac/u/a/xrga4PA?rc=10&doi=SAP957997)  -  [Recording](https://dam.sap.com/mac/u/a/1Zw1268?rc=10&doi=SAP1140543) |
+| Day 5  | [PDF](https://dam.sap.com/mac/u/a/GLgzgDT?rc=10&doi=SAP957998)  -   [Recording](https://dam.sap.com/mac/u/a/MtoQ6r1?rc=10&doi=SAP1140547) |
+| Day 6  | [PDF](https://dam.sap.com/mac/u/a/F6yVn4h?rc=10&doi=SAP957999)  -  [Recording](https://dam.sap.com/mac/u/a/XYckRm8?rc=10&doi=SAP1140550) |
+| Day 7  | [PDF](https://dam.sap.com/mac/u/a/UnYhk5B?rc=10&doi=SAP958000)  - [Recording](https://dam.sap.com/mac/u/a/jpYey1X?rc=10&doi=SAP1140552) |
 
 
 ## Few Real World Customer Examples
