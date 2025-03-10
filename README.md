@@ -34,12 +34,25 @@ The [POD Plugins Developer Guide](https://help.sap.com/docs/sap-digital-manufact
 More samples on core plugin extensions can be found here - [Core Plugin Extension Samples](./dm-coreplugin-extensions/)
 
 
-## Note
-Our recommended extensibility platform for Digital Manufacturing is Kyma, however, it can be use case specific which may lead into different recommendations. Please know that DMC extensions can also be done with Cloud Foundry using a PaaS environment (or hyperscaler options which have not been fully explored).  The main difference picking between these two options, outside of our recommendation, is the lifecycle and costs. Kyma takes care of the lifecycle, scalability, monitoring, deployment, etc. of the extensions but is more expensive while Cloud Foundry/PaaS will have lower upfront costs but can be costly in terms of complexity, time, etc. to implement lifecycle management separately.
+## Digital Manufacturing Extensibility Bootcamp 
+
+| Day | Content  |
+| --- | -------- | 
+| Day 1  | [PDF](https://dam.sap.com/mac/u/a/pDdSZQp?rc=10&doi=SAP957994)  -   [Recording](https://dam.sap.com/a/dkJWeBZ?rc=10&doi=SAP1140477) |
+| Day 2  | [PDF](https://dam.sap.com/mac/u/a/PbWRLb2?rc=10&doi=SAP957995)  -   [Recording](https://dam.sap.com/mac/u/a/99zd9N9?rc=10&doi=SAP1140482) |
+| Day 3  | [PDF](https://dam.sap.com/mac/u/a/8UYGinY?rc=10&doi=SAP957996)  -   [Recording](https://dam.sap.com/mac/u/a/qnKW7DQ?rc=10&doi=SAP1140508) |
+| Day 4  | [PDF](https://dam.sap.com/mac/u/a/xrga4PA?rc=10&doi=SAP957997)  -  [Recording](https://dam.sap.com/mac/u/a/1Zw1268?rc=10&doi=SAP1140543) |
+| Day 5  | [PDF](https://dam.sap.com/mac/u/a/GLgzgDT?rc=10&doi=SAP957998)  -   [Recording](https://dam.sap.com/mac/u/a/MtoQ6r1?rc=10&doi=SAP1140547) |
+| Day 6  | [PDF](https://dam.sap.com/mac/u/a/F6yVn4h?rc=10&doi=SAP957999)  -  [Recording](https://dam.sap.com/mac/u/a/XYckRm8?rc=10&doi=SAP1140550) |
+| Day 7  | [PDF](https://dam.sap.com/mac/u/a/UnYhk5B?rc=10&doi=SAP958000)  - [Recording](https://dam.sap.com/mac/u/a/jpYey1X?rc=10&doi=SAP1140552) |
+
 
 ## Few Real World Customer Examples
 ![](bootcampdocs/assets/indexLectureSlide33.png)
 
+
+## Useful Links
+- [SAP Customer Influence](https://influence.sap.com/sap/ino/#/campaign/3537)  for Digital Manufacturing
 
 ## How to obtain support
 If you have issues with a sample, please open a report using [GitHub issues](../../issues).
