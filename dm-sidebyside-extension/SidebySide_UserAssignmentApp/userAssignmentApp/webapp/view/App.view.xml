@@ -1,0 +1,189 @@
+<mvc:View
+    controllerName="userAssignmentApp.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:Table="sap.ui.table.Table"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:u="sap.ui.unified"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    width="100%"
+    height="100%"
+>
+    <Panel
+        id="panelPlugin"
+        width="auto"
+        expandable="false"
+        expanded="false"
+        backgroundDesign="Transparent"
+        class="sapUiResponsiveMargin"
+        headerText=""
+    >
+        <content>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <u:FileUploader
+                    class="sapUiTinyMarginBegin"
+                    id="FileUploaderid"
+                    placeholder="Choose a file"
+                    name="myFileUpload"
+                    fileType="xlsx,csv"
+                    uploadComplete="handleUploadComplete"
+                />
+                <Button
+                    text="Upload"
+                    press="handleUploadPress"
+                    id="__uploadButton"
+                    tooltip="Upload CSV File"
+                />
+            </OverflowToolbar>
+            <Table
+                showNoData="true"
+                id="Tableid"
+            />
+
+            <Text
+                id="textPlugin"
+                text="template"
+                class="textFontSize"
+                textAlign="Center"
+                width="100%"
+            />
+
+            <Table
+                id="_IDGenTable1"
+                items="{myModel>/data}"
+            >
+                <columns>
+                    <Column id="_IDGenColumn">
+                        <Text
+                            id="_IDGenText"
+                            text="Column 1"
+                        />
+                    </Column>
+                    <Column id="_IDGenColumn1">
+                        <Text
+                            id="_IDGenText1"
+                            text="Column 2"
+                        />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="_IDGenColumnListItem">
+                        <cells>
+                            <Text
+                                id="_IDGenText2"
+                                text="{myModel>property1}"
+                            />
+                            <Text
+                                id="_IDGenText3"
+                                text="{myModel>property2}"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Panel>
+    <Panel>
+        <content>
+            <Table id="userTable" items="{userListModel>/}">
+  
+                <columns>
+                    <Column>
+                        <Text text="User ID" />
+                    </Column>
+                    <Column>
+                        <Text text="Email" />
+                    </Column>
+                    <Column>
+                        <Text text="First Name" />
+                    </Column>
+                    <Column>
+                        <Text text="Last Name" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{userListModel>ID}" />
+                            <Text text="{userListModel>Email}" />
+                             <Text text="{userListModel>FirstName}" />
+                              <Text text="{userListModel>LastName}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Panel>
+
+    <Panel
+        id="panelSearchParameter"
+        headerText="Enter the inventory IDs you looking for"
+        width="auto"
+        expandable="false"
+        expanded="false"
+        backgroundDesign="Transparent"
+        class="sapUiResponsiveMargin"
+    >
+        <content>
+            <FlexBox
+                id="_IDGenFlexBox"
+                height="auto"
+                alignItems="Start"
+                justifyContent="Start"
+            >
+                <Input
+                    id="inputInvenntoryId"
+                    placeholder="Enter text the inventory ID"
+                    class="sapUiSmallMarginBottom"
+                    submit="onEnterCompId"
+                />
+                <Button
+                    id="search"
+                    text="Search where used"
+                    visible="true"
+                    press="onEnterCompId"
+                />
+            </FlexBox>
+            <smartTable:SmartTable
+                id="SfcSmartTable"
+                header="SFCs found"
+                showRowCount="true"
+                enableAutoBinding="true"
+                beforeRebindTable="onBeforeRebindTable"
+                smartFilterId="SfcSmartFilterBar"
+                tableType="ResponsiveTable"
+            >
+                <smartTable:layoutData>
+                    <FlexItemData
+                        id="_IDGenFlexItemData"
+                        growFactor="1"
+                        baseSize="0%"
+                    />
+                </smartTable:layoutData>
+                <Table
+                    id="SfcDetailTable"
+                    mode="MultiSelect"
+                    growing="true"
+                    growingThreshold="5"
+                >
+                    <headerToolbar>
+                        <OverflowToolbar id="_IDGenOverflowToolbar1">
+                            <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                            <Button
+                                id="_IDGenButton"
+                                text="Follow Up Action"
+                                press="onFollowUpAction_01"
+                            />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                </Table>
+            </smartTable:SmartTable>
+        </content>
+    </Panel>
+</mvc:View>
