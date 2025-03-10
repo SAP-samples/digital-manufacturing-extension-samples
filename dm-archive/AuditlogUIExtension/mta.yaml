@@ -1,0 +1,37 @@
+_schema-version: "3.2"
+ID: dme-advauditapp-ui
+version: 1.0.1
+
+modules:
+  - name: dme-advauditapp-ui
+    type: html5
+    path: auditlogs
+    parameters:
+        disk-quota: 512M
+        memory: 256M
+    build-parameters:
+      supported-platforms: [CF]
+    requires:
+      - name: dme-advauditapp-ui-destination-service
+
+resources:
+  - name: dme-advauditapp-ui-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: dme-advauditapp-ms
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://${org}-${space}-dme-advauditapp-ms.${default-domain}
+                HTML5.ForwardAuthToken: true
+                HTML5.DynamicDestination: true
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: dme-advauditapp-ui-destination-service
+      service-plan: lite

@@ -1,0 +1,26 @@
+/* Enter your custom styles here */
+tr[data-background="TOP"] {
+    background-color: #c9edf1 !Important;
+   }
+
+.size1 {
+	font-size : 1.8rem;
+}
+@media (max-width:599px) {
+	.size1 {
+		font-size : 1.5rem;
+	}
+}
+
+[data-pending="status-waiting"] {
+    animation: rotation 2s infinite linear;
+  }
+  
+@keyframes rotation {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+}
+}

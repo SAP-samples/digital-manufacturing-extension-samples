@@ -1,0 +1,33 @@
+{
+  "sap.app": {
+      "id": "sap.ext.exampleplugins.auditLogViewer",
+      "type": "component",
+      "i18n": "i18n/i18n.properties",
+      "applicationVersion": {
+          "version": "1.0.0"
+      },
+      "embeddedBy": "../",
+      "title": "{{title}}",
+      "description": "{{plugin.description}}"
+  },
+  "sap.ui5": {
+      "rootView": {
+          "viewName": "sap.ext.exampleplugins.auditLogViewer.view.MainView",
+          "type": "XML",
+          "id": "exampleAuditLogViewer"
+      },
+      "resources": {
+          "css": [{
+              "uri": "css/style.css"
+          }]
+      },
+      "models": {
+          "i18n": {
+              "type": "sap.ui.model.resource.ResourceModel",
+              "settings": {
+                  "bundleName": "sap.ext.exampleplugins.auditLogViewer.i18n.i18n"
+              }
+          }
+      }
+  }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" controllerName="sap.ext.exampleplugins.assemblyStatus.controller.MainView" width="100%" height="100%">
+   <Panel id="panelPlugin" width="100%" height="60%" expandable="false" expanded="false" accessibleRole="Region" backgroundDesign="Transparent" class="sapUiNoContentPadding">
+      <headerToolbar>
+         <Toolbar height="2rem">
+            <Title id="headerTitle" text="Assembly Status" />
+            <ToolbarSpacer />
+         </Toolbar>
+      </headerToolbar>
+      <content>
+         <HBox alignItems="Center" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
+            <items>
+               <Label id="componentLabel" text="Last Component: " design="Standard" width="auto" required="false" textAlign="Center" textDirection="Inherit" visible="true" class="sapUiSmallMargin" />
+               <Label id="componentValue" text="" design="Standard" width="auto" required="false" textAlign="Center" textDirection="Inherit" visible="true" class="sapUiSmallMargin" />
+            </items>
+         </HBox>
+         <HBox alignItems="Center" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
+            <items>
+               <Label id="statusLabel" text="Status: " design="Standard" width="auto" required="false" textAlign="Center" textDirection="Inherit" visible="true" class="sapUiSmallMargin" />
+               <Button id="statusButton" text="None" type="{type}" />
+            </items>
+         </HBox>
+         <HBox alignItems="Center" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
+            <items>
+               <Label id="messageLabel" text="Message: " design="Standard" width="auto" required="false" textAlign="Center" textDirection="Inherit" visible="true" class="sapUiSmallMargin" />
+               <Label id="messageValue" text="" design="Standard" width="auto" required="false" textAlign="Center" textDirection="Inherit" visible="true" class="sapUiSmallMargin" />
+            </items>
+         </HBox>
+      </content>
+   </Panel>
+   <Panel id="panelPlugin1" width="100%" height="40%" expandable="false" expanded="false" accessibleRole="Region" backgroundDesign="Transparent" class="sapUiNoContentPadding">
+      <headerToolbar>
+         <Toolbar height="2rem">
+            <Title id="headerTitle1" text="Machine Status" />
+            <ToolbarSpacer />
+            <Button id="refreshMachineStatus" icon="sap-icon://refresh" press="fetchMachineStatus"/>
+         </Toolbar>
+      </headerToolbar>
+      <content>
+         <HBox alignItems="Center" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
+            <items>
+               <Label id="driverStatusLabel" text="Status: " design="Standard" width="auto" required="false" textAlign="Center" textDirection="Inherit" visible="true" class="sapUiSmallMargin" />
+               <Button id="driverStatusButton" text="None" type="{type}" />
+            </items>
+         </HBox>
+         <HBox alignItems="Center" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
+            <items>
+               <Label id="driverMessageLabel" text="Message: " design="Standard" width="auto" required="false" textAlign="Center" textDirection="Inherit" visible="true" class="sapUiSmallMargin" />
+               <Label id="driverMessageValue" text="" design="Standard" width="auto" required="false" textAlign="Center" textDirection="Inherit" visible="true" class="sapUiSmallMargin" />
+            </items>
+         </HBox>
+      </content>
+   </Panel>
+</mvc:View>
