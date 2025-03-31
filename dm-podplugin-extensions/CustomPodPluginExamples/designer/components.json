@@ -1,0 +1,86 @@
+{
+	"components": [
+		{
+			"id": "auditLogViewer",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.auditLogViewer",
+			"propertyEditor": "sap.ext.exampleplugins.auditLogViewer.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.auditLogViewer.i18n.i18n",
+			"supportedPodTypes": ["OTHER"]
+		},
+		{
+			"id": "collectiveOrder",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.collectiveOrder",
+			"propertyEditor": "sap.ext.exampleplugins.collectiveOrder.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.collectiveOrder.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		},
+		{
+			"id": "customScrapConfirmation",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.customScrapConfirmation",
+			"propertyEditor": "sap.ext.exampleplugins.customScrapConfirmation.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.customScrapConfirmation.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		},
+		{
+			"id": "exampleExecution",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.exampleExecution",
+			"propertyEditor": "sap.ext.exampleplugins.exampleExecution.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.exampleExecution.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		},
+		{
+			"id": "exampleView",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.exampleView",
+			"propertyEditor": "sap.ext.exampleplugins.exampleView.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.exampleView.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		},
+		{
+			"id": "exampleWip",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.exampleWip",
+			"propertyEditor": "sap.ext.exampleplugins.exampleWip.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.exampleWip.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		},
+		{
+			"id": "scanAssembly",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.scanAssembly",
+			"propertyEditor": "sap.ext.exampleplugins.scanAssembly.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.scanAssembly.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		},
+		{
+			"id": "assemblyStatus",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.assemblyStatus",
+			"propertyEditor": "sap.ext.exampleplugins.assemblyStatus.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.assemblyStatus.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		},
+		{
+			"id": "urlIntegration",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.exampleplugins.urlIntegration",
+			"propertyEditor": "sap.ext.exampleplugins.urlIntegration.builder.PropertyEditor",
+			"i18n": "sap.ext.exampleplugins.urlIntegration.i18n.i18n",
+			"supportedPodTypes": ["WORK_CENTER","OPERATION","ORDER","OTHER","MONITOR"]
+		}
+		
+	]
+}
