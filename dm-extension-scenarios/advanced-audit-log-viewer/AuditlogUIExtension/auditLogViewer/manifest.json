@@ -1,6 +1,6 @@
 {
   "sap.app": {
-      "id": "sap.ext.exampleplugins.auditLogViewer",
+      "id": "sap.ext.audit.auditLogViewer",
       "type": "component",
       "i18n": "i18n/i18n.properties",
       "applicationVersion": {
@@ -12,7 +12,7 @@
   },
   "sap.ui5": {
       "rootView": {
-          "viewName": "sap.ext.exampleplugins.auditLogViewer.view.MainView",
+          "viewName": "sap.ext.audit.auditLogViewer.view.MainView",
           "type": "XML",
           "id": "exampleAuditLogViewer"
       },
@@ -25,7 +25,7 @@
           "i18n": {
               "type": "sap.ui.model.resource.ResourceModel",
               "settings": {
-                  "bundleName": "sap.ext.exampleplugins.auditLogViewer.i18n.i18n"
+                  "bundleName": "sap.ext.audit.auditLogViewer.i18n.i18n"
               }
           }
       }

@@ -4,7 +4,7 @@ sap.ui.define([
 ], function (ProductionUIComponent, Device) {
 	"use strict";
 
-	return ProductionUIComponent.extend("sap.ext.exampleplugins.auditLogViewer.Component", {
+	return ProductionUIComponent.extend("sap.ext.audit.auditLogViewer.Component", {
 		metadata: {
 			manifest: "json"
 		}
