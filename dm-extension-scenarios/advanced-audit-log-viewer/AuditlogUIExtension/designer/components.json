@@ -1,0 +1,13 @@
+{
+	"components": [
+		{
+			"id": "auditLogViewer",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "sap.ext.audit.auditLogViewer",
+			"propertyEditor": "sap.ext.audit.auditLogViewer.builder.PropertyEditor",
+			"i18n": "sap.ext.audit.auditLogViewer.i18n.i18n",
+			"supportedPodTypes": ["OTHER"]
+		}
+	]
+}

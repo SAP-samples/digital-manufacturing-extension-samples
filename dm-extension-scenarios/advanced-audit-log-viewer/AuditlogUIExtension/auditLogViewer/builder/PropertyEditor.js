@@ -4,14 +4,14 @@ sap.ui.define([
 ], function (ResourceModel, PropertyEditor) {
     "use strict";
     var oFormContainer;
-    return PropertyEditor.extend( "sap.ext.exampleplugins.auditLogViewer.builder.PropertyEditor" ,{
+    return PropertyEditor.extend( "sap.ext.audit.auditLogViewer.builder.PropertyEditor" ,{
 
 		constructor: function(sId, mSettings){
 			PropertyEditor.apply(this, arguments);
 			
 			this.setI18nKeyPrefix("customComponentListConfig.");
-			this.setResourceBundleName("sap.ext.exampleplugins.auditLogViewer.i18n.builder");
-			this.setPluginResourceBundleName("sap.ext.exampleplugins.auditLogViewer.i18n.i18n");
+			this.setResourceBundleName("sap.ext.audit.auditLogViewer.i18n.builder");
+			this.setPluginResourceBundleName("sap.ext.audit.auditLogViewer.i18n.i18n");
 		},
 		addPropertyEditorContent: function(oPropertyFormContainer){
 			var oData = this.getPropertyData();

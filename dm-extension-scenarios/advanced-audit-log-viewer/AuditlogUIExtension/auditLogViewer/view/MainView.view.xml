@@ -1,4 +1,4 @@
-<mvc:View controllerName="sap.ext.exampleplugins.auditLogViewer.controller.MainView"
+<mvc:View controllerName="sap.ext.audit.auditLogViewer.controller.MainView"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:f="sap.f"
