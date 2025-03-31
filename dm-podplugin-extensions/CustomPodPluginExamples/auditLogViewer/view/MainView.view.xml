@@ -1,0 +1,98 @@
+<mvc:View controllerName="sap.ext.exampleplugins.auditLogViewer.controller.MainView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core" height="100%">
+    <f:DynamicPage id="dynamicPageId" showFooter="false" class="sapUiResponsiveContentPadding">
+        <!-- DynamicPage Title -->
+        <!-- <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title id="idPageTitle" text="{i18n>advancedAuditViewer}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title> -->
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <fb:FilterBar id="idFilterBar" reset="onReset" search="handleButtonPress" showRestoreButton="true" showClearButton="true">
+                    <fb:filterGroupItems>
+                        <fb:FilterGroupItem groupName="__$INTERNAL$" name="idFromDateFilter" label="{i18n>fromDateLabel}" partOfCurrentVariant="true" visibleInFilterBar="true" mandatory="true">
+                            <fb:control>
+                                <DateTimePicker id="idFromDate" change="handleChange" value="{oAuditModel>/fromDate}"/>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem groupName="__$INTERNAL$" name="idToDateFilter" label="{i18n>toDateLabel}" partOfCurrentVariant="true" visibleInFilterBar="true" mandatory="true">
+                            <fb:control>
+                                <DateTimePicker id="idToDate" change="handleChange" value="{oAuditModel>/toDate}"/>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem groupName="__$INTERNAL$" name="idMasterDataObjFilter" label="{i18n>masterDataLabel}" labelTooltip="Tooltip Master Data filter" partOfCurrentVariant="true" visibleInFilterBar="true">
+                            <fb:control>
+                                <!-- <Input id="idMasterDataObj" placeholder="Enter Master Data" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/> -->
+                                <Select items="{oAuditModel>/mdo}" selectedKey="" change="handleMDOChanged">
+                                    <core:Item key="{oAuditModel>key}" text="{oAuditModel>key}" />
+                                </Select>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                        <fb:FilterGroupItem groupName="__$INTERNAL$" name="idUserFilter" label="{i18n>userLabel}" labelTooltip="Tooltip User filter" partOfCurrentVariant="true" visibleInFilterBar="true">
+                            <fb:control>
+                                <!-- <Input id="idUser" placeholder="Enter User" showSuggestion="true" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"/> -->
+                                <Select items="{oAuditModel>/users}" selectedKey="" change="handleUserChanged">
+                                    <core:Item key="{oAuditModel>key}" text="{oAuditModel>key}" />
+                                </Select>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="auditLogTable" items="{oAuditModel>/auditlogs}" class="sapFDynamicPageAlignContent" width="auto" growing="true" growingThreshold="100" growingScrollToLoad="true" updateStarted="loadMoreAuditLogs">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title id="masterListTitle" text="{i18n>flpTitle} ({oAuditModel>/auditcount})" level="H3"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="ID"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Master Data Object"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Attribute"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Old Value"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="New Value"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Timestamp"/>
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="User"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier title="{oAuditModel>id}"/>
+                            <Text text="{oAuditModel>type}"/>
+                            <Text text="{oAuditModel>attribute}"/>
+                            <Text text="{oAuditModel>old}"/>
+                            <Text text="{oAuditModel>new}"/>
+                            <Text text="{oAuditModel>time}"/>
+                            <Text text="{oAuditModel>user}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
