@@ -9,7 +9,7 @@ sap.ui.define([
     var PAGING = "paging";
     var APPLICATION_JSON = "application/json";
     
-    return PluginViewController.extend("sap.ext.exampleplugins.auditLogViewer.controller.MainView", {
+    return PluginViewController.extend("sap.ext.audit.auditLogViewer.controller.MainView", {
         mTokenDeferred: null,
 
         onInit: function () {
