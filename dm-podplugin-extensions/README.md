@@ -1,14 +1,21 @@
 # Description
 
 Currently POD Plugins can be deployed in 
-* Hosted directly on DM SaaS account
-* Hosted on BTP PaaS account
+* **Hosted directly on DM SaaS account** - The examples under folder */CustomPodPluginExamples* can be deployed directly in DM. For getting started, download the repository and compress contents of the folder into a zip file and the upload to POD Designer. **While compressing into a zip folder, the root should be "/".**
 
-The examples under folder **/CustomPodPluginExamples** can be deployed directly in DM. For getting started, download the repository and compress contents of the folder into a zip file and the upload to POD Designer. **While compressing into a zip folder, the root should be "/".**
+![](readmeReferences/image/CustomExtensionNamespace.png)
+![](readmeReferences/image/ExamplePlugins.png)
+
+
+* **Hosted on BTP PaaS account** - The examples under folder */ExecutionPodPluginTemplate_and_Example* and */ViewPodPluginTemplate_And_Example* can be deployed in BTP. The deployment and configuration steps are captured inside the documentation folder in them. 
+
+
  
+### Note
+The sample content under folder */CustomPodPluginExamples* contains limited entries in designer/components.json file, to add additional components, make respective changes in the file.
 
 
-The examples under folder **/ExecutionPodPluginTemplate_and_Example** and **/ViewPodPluginTemplate_And_Example** can be deployed in BTP. The deployment and configuration steps are captured inside the documentation folder in them. 
+
 
 
 # Code Snippets

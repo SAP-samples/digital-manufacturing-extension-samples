@@ -89,9 +89,3 @@ resources:
                 clientSecret:
                 User: <SetValueInCockpit>
                 Password: <SetValueInCockpit>
-              - Name: auditlog-destination
-                Description: Auditlog Client Credentials
-                URL: https://services.odata.org/Northwind/Northwind.svc
-                Type: HTTP
-                ProxyType: Internet
-                Authentication: NoAuthentication
