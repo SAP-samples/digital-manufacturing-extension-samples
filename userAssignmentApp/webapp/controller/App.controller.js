@@ -2,45 +2,36 @@ sap.ui.define([
   "sap/ui/core/mvc/Controller",
   "sap/ui/model/json/JSONModel",
   "sap/m/MessageToast",
+  "sap/m/MessageBox",
   "sap/m/Column",
   "sap/m/ColumnListItem",
-"sap/m/Label"
+  "sap/m/Label"
 
-], function (BaseController, JSONModel, MessageToast, Column,ColumnListItem,Label) {
+], function (BaseController, JSONModel, MessageToast, MessageBox, Column, ColumnListItem, Label) {
   "use strict";
 
   return BaseController.extend("userAssignmentApp.controller.App", {
     onInit: function () {
       var that = this;
-      var oModel = new JSONModel();
-      that.getView().setModel(oModel);
-
-      var sampleModel = new sap.ui.model.json.JSONModel();
-      that.getView().setModel(sampleModel, "sampleModel");
-
-      var columnModel = new JSONModel();
-      that.getView().setModel(columnModel, "columnModel");
-
       this.onRestCall();
     },
-    
-    successREST: function(data){
+
+    successREST: function (data) {
       debugger
     },
-    errorREST: function(error)
-    {
+    errorREST: function (error) {
       debugger;
 
     },
 
-    onRestCall: function(){
-      var sURL= "/dmeapi/user/v1/users?Plant=KH01&email=katja.huschle@sap.com";
+    onRestCall: function () {
+      var sURL = "/dmeapi/user/v1/users?Plant=KH01&email=katja.huschle@sap.com";
       $.ajax({
         type: "GET",
-        url:sURL,
-        contentType:"application/json",
-        dataType:"json",
-        success:[this.successREST,this],
+        url: sURL,
+        contentType: "application/json",
+        dataType: "json",
+        success: [this.successREST, this],
         error: [this.errorREST, this]
       });
     },
@@ -60,6 +51,91 @@ sap.ui.define([
 
     },
 
+    onDisplayTemplateUser: function (oEvent) {
+      // Call the onCheckInputs function
+      const isInputsValid = this.onCheckInputs();
+
+      // Handle the return status
+      if (isInputsValid) {
+        var that = this;
+        that.onCheckInputs();
+        var baseURLgetUser = "/dmeapi/user/v1/users"
+        // Get the Input field plant
+        var plant = this.getView().byId("inputPlant").getValue();
+        // Get the Input field userID
+        var userId = this.getView().byId("inputTemplateUser").getValue();
+        // Build the URL
+        var sURL = baseURLgetUser + "?Plant=" + plant + "&userId=" + userId;
+
+        $.ajax({
+          type: "GET",
+          url: sURL,
+          contentType: "application/json",
+          dataType: "json",
+
+          success: function (response) {
+            // Add the response data to the JSON model
+            that.getView().getModel("userModel").setData(response);
+            that.getView().getModel("userModel").refresh(true);
+
+          },
+          error: function (error) {
+            // Check if the status code is 404
+            if (error.status === 404) {
+              console.error("Error 404: User not found");
+              // Display an error message to the user
+              sap.m.MessageBox.error("The requested User could not be found (404). Please check your inputs");
+            } else {
+              console.error("An unexpected error occurred:", error.status);
+              sap.m.MessageBox.error("An unexpected error occurred. Please try again.");
+            }
+          }
+
+        });
+      }
+    },
+
+    onCheckInputs: function () {
+      let isValid = true; // Assume inputs are valid initially
+      // Get the input fields by their IDs
+      const oInput1 = this.getView().byId("inputPlant");
+      const oInput2 = this.getView().byId("inputTemplateUser");
+
+      // Retrieve their values
+      const sValue1 = oInput1.getValue();
+      const sValue2 = oInput2.getValue();
+
+      // Check if either of the input fields is empty
+      if (!sValue1 || !sValue2) {
+        // If one or both are empty, highlight the fields and show a message
+        if (!sValue1) {
+          oInput1.setValueState("Error");
+          oInput1.setValueStateText("This field cannot be empty!");
+          isValid = false; // Mark as invalid
+        } else {
+          oInput1.setValueState("None");
+        }
+
+        if (!sValue2) {
+          oInput2.setValueState("Error");
+          oInput2.setValueStateText("This field cannot be empty!");
+          isValid = false; // Mark as invalid
+        } else {
+          oInput2.setValueState("None");
+        }
+
+        // Show a message to the user
+        sap.m.MessageToast.show("Please fill in all required fields.");
+      } else {
+        // If both inputs are filled, reset their states and proceed
+        oInput1.setValueState("None");
+        oInput2.setValueState("None");
+
+      }
+      return isValid;
+
+    },
+
     handleUploadPress: function () {
       var that = this;
       var oFileUploader = this.getView().byId("FileUploaderid");
@@ -71,15 +147,12 @@ sap.ui.define([
       } else {
         oFileUploader.upload();
       }
-  
-
       //To check the File type of uploaded File.
       if (oFile.type === "text/csv") {
         that.typeCsv();
       }
-      
-    },
 
+    },
 
     /* Function to read the CSV file */
     typeCsv: function () {
@@ -95,7 +168,6 @@ sap.ui.define([
           that.csvJSON(strData);
           that.getView().getModel("userListModel").refresh(true);
           // Step 3: Refresh the Table
-          
           userTable.getBinding("items").refresh();
         };
         reader.onerror = function (exe) {
@@ -120,93 +192,95 @@ sap.ui.define([
         }
         result.push(obj);
       }
-      // Convert the array of objects to JSON
-     // var jsonModel = JSON.stringify(result, null, 2);
-// Step 2: Parse the JSON String into a JavaScript object
-//var dataObject = JSON.parse(jsonString);
-
-// Step 3: Create a new JSON Model with the parsed object
-var jsonModel = new sap.ui.model.json.JSONModel(result);
-
-
-      //that.getView().getModel("userListModel").setProperty("/", jsonModel);
+      // Step 3: Create a new JSON Model with the parsed object
+      var jsonModel = new sap.ui.model.json.JSONModel(result);
       that.getView().setModel(jsonModel, "userListModel");
-     // var oTable = that.getView().byId(userTable);
-    //  oTable.setModel(jsonModel, "userListModel")
-     // oTable.getBinding("items").refresh();
-/*
-      var oNewModel = new sap.ui.model.json.JSONModel(newData);
-
-      // Step 2: Set the Model to the View or Control with a specific name
-      var oView = this.getView();
-      oView.setModel(oNewModel, "mySpecificModel");
-      
-      // Step 3: Access and Refresh the Specific Model in the Table
-      var oTable = oView.byId("yourTableId");
-      oTable.setModel(oNewModel, "mySpecificModel");
-      
-      // Optional: Bind the table items to the named model
-      oTable.bindItems({
-        path: "mySpecificModel>/people",
-        template: new sap.m.ColumnListItem({
-          cells: [
-            new sap.m.Text({ text: "{mySpecificModel>name}" }),
-            new sap.m.Text({ text: "{mySpecificModel>age}" })
-          ]
-        })
-      });
-      
-      // Step 4: Refresh the Table Binding (if required)
-      oTable.getBinding("items").refresh();
-
-
-*/
-
-
-
-
-  
-
-
-     // that.generateTableCsv();
     },
 
-    /*	Function to create the table dynamically for csv File*/
-    generateTableCsv: function () {
+
+    //on create users for all users on the list based on the template User selected
+    onCreateUser: function () {
       var that = this;
-      var oTable = that.getView().byId("Tableid");
-      var oModel = that.getView().getModel();
-      var oModelData = oModel.getProperty("/");
-      var ColumnsData = Object.keys(oModelData[0]);
-      var oColumnNames = [];
-      $.each(ColumnsData, function (i, value) {
-        oColumnNames.push({
-          Text: ColumnsData[i]
-        });
-      });
-      oModel.setProperty("/columnNames", oColumnNames);
-      var columnmodel = that.getView().getModel("columnModel");
-      columnmodel.setProperty("/", oColumnNames);
-      var oTemplate = new Column({
-        header: new Label({
-          text: "{Text}"
-        })
-      });
-      oTable.bindAggregation("columns", "/columnNames", oTemplate);
-      var oItemTemplate = new ColumnListItem();
-      var oTableHeaders = oTable.getColumns();
-      $.each(oTableHeaders, function (j, value) {
-        var oHeaderName = oTableHeaders[j].getHeader().getText();
-        oItemTemplate.addCell(new Text({
-          text: "{" + oHeaderName + "}"
-        }));
-      });
-      oTable.bindAggregation("items", {
-        path: "/",
-        template: oItemTemplate
+      
+      // Get Input values
+      var userList = that.getView().getModel("userListModel").getData();
+      var templateUser = that.getView().getModel("userModel").getData();
 
-      });
+      //Create models to display successful and failed users as a result in the view
+      var successfullyCreatedUsers = [];
+      var failedUserCreation =[];
+      that.getView().setModel(new sap.ui.model.json.JSONModel(successfullyCreatedUsers), "createdUsersModel");
+      that.getView().setModel(new sap.ui.model.json.JSONModel(failedUserCreation), "failedUsersModel");
+      
+      // Check if userList and templateUser are not empty or null
+      if (!userList || userList.length === 0) {
+        console.error("User list is empty or null.");
+        return;
+      }
+      if (!templateUser) {
+        console.error("Template user is empty");
+        return;
+      }
 
+      // Iterate through each user in the userList (except the first entry)
+      for (var i = 0; i < userList.length; i++) {
+        var currentUser = userList[i];
+
+        // Prepare the payload for creating a new user
+        var newUser = {
+          plant: templateUser.plant,
+          userId: currentUser.Email,
+          email: currentUser.Email,
+          firstName: currentUser.FirstName,
+          lastName: currentUser.LastName,
+          userWorkCenters: templateUser.workCenters, // Assign WC assignments from templateUser
+          modifiedDateTime: new Date().toISOString(),
+          createdDateTime: new Date().toISOString()
+        };
+        // Call the API to create the user
+        that.createUserAPI(newUser, successfullyCreatedUsers, failedUserCreation, currentUser);
+      }
+    },
+
+    createUserAPI: function (userPayload, successfullyCreatedUsers,failedUserCreation, currentUser) {
+      var that = this;
+      var baseURLgetUser = "/dmeapi/user/v1/users"
+      // Make an API call to create the user
+  $.ajax({
+        url: baseURLgetUser, // Replace with the correct API endpoint
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(userPayload),
+        success: function (response) {
+          console.log("User created successfully:", response);
+
+          // Add successfully created user to the list
+          successfullyCreatedUsers.push({
+            userId: currentUser.ID,
+            email: currentUser.Email,
+            firstName: currentUser.FirstName,
+            lastName: currentUser.LastName
+          });
+
+          // Update the model dynamically after each successful creation
+          that.getView().getModel("createdUsersModel").setData(successfullyCreatedUsers);
+        },
+        error: function (response) {
+          console.log("Error creating user:", response);
+          // REMOVE Add error into successfully created user to the list to check UI
+          failedUserCreation.push({
+            userId: currentUser.ID,
+            email: currentUser.Email,
+            firstName: currentUser.FirstName,
+            lastName: currentUser.LastName
+          });
+
+          // Update the model dynamically after each successful creation
+          that.getView().getModel("failedUsersModel").setData(failedUserCreation);
+          
+        }
+      });
     }
+
   });
 });

@@ -14,176 +14,293 @@
     width="100%"
     height="100%"
 >
-    <Panel
-        id="panelPlugin"
-        width="auto"
-        expandable="false"
-        expanded="false"
-        backgroundDesign="Transparent"
-        class="sapUiResponsiveMargin"
-        headerText=""
-    >
-        <content>
-            <OverflowToolbar>
-                <ToolbarSpacer />
-                <u:FileUploader
-                    class="sapUiTinyMarginBegin"
-                    id="FileUploaderid"
-                    placeholder="Choose a file"
-                    name="myFileUpload"
-                    fileType="xlsx,csv"
-                    uploadComplete="handleUploadComplete"
-                />
-                <Button
-                    text="Upload"
-                    press="handleUploadPress"
-                    id="__uploadButton"
-                    tooltip="Upload CSV File"
-                />
-            </OverflowToolbar>
-            <Table
-                showNoData="true"
-                id="Tableid"
-            />
-
-            <Text
-                id="textPlugin"
-                text="template"
-                class="textFontSize"
-                textAlign="Center"
-                width="100%"
-            />
-
-            <Table
-                id="_IDGenTable1"
-                items="{myModel>/data}"
-            >
-                <columns>
-                    <Column id="_IDGenColumn">
-                        <Text
-                            id="_IDGenText"
-                            text="Column 1"
-                        />
-                    </Column>
-                    <Column id="_IDGenColumn1">
-                        <Text
-                            id="_IDGenText1"
-                            text="Column 2"
-                        />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem id="_IDGenColumnListItem">
-                        <cells>
-                            <Text
-                                id="_IDGenText2"
-                                text="{myModel>property1}"
-                            />
-                            <Text
-                                id="_IDGenText3"
-                                text="{myModel>property2}"
-                            />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-        </content>
-    </Panel>
-    <Panel>
-        <content>
-            <Table id="userTable" items="{userListModel>/}">
-  
-                <columns>
-                    <Column>
-                        <Text text="User ID" />
-                    </Column>
-                    <Column>
-                        <Text text="Email" />
-                    </Column>
-                    <Column>
-                        <Text text="First Name" />
-                    </Column>
-                    <Column>
-                        <Text text="Last Name" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <Text text="{userListModel>ID}" />
-                            <Text text="{userListModel>Email}" />
-                             <Text text="{userListModel>FirstName}" />
-                              <Text text="{userListModel>LastName}" />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-        </content>
-    </Panel>
-
-    <Panel
-        id="panelSearchParameter"
-        headerText="Enter the inventory IDs you looking for"
-        width="auto"
-        expandable="false"
-        expanded="false"
-        backgroundDesign="Transparent"
-        class="sapUiResponsiveMargin"
-    >
-        <content>
-            <FlexBox
-                id="_IDGenFlexBox"
-                height="auto"
-                alignItems="Start"
-                justifyContent="Start"
-            >
-                <Input
-                    id="inputInvenntoryId"
-                    placeholder="Enter text the inventory ID"
-                    class="sapUiSmallMarginBottom"
-                    submit="onEnterCompId"
-                />
-                <Button
-                    id="search"
-                    text="Search where used"
-                    visible="true"
-                    press="onEnterCompId"
-                />
-            </FlexBox>
-            <smartTable:SmartTable
-                id="SfcSmartTable"
-                header="SFCs found"
-                showRowCount="true"
-                enableAutoBinding="true"
-                beforeRebindTable="onBeforeRebindTable"
-                smartFilterId="SfcSmartFilterBar"
-                tableType="ResponsiveTable"
-            >
-                <smartTable:layoutData>
-                    <FlexItemData
-                        id="_IDGenFlexItemData"
-                        growFactor="1"
-                        baseSize="0%"
-                    />
-                </smartTable:layoutData>
-                <Table
-                    id="SfcDetailTable"
-                    mode="MultiSelect"
-                    growing="true"
-                    growingThreshold="5"
+                <Page >
+                <Panel
+                    id="panelPlugin"
+                    width="auto"
+                    expandable="false"
+                    expanded="false"
+                    backgroundDesign="Transparent"
+                    class="sapUiResponsiveMargin"
+                    headerText=""
                 >
-                    <headerToolbar>
-                        <OverflowToolbar id="_IDGenOverflowToolbar1">
-                            <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                    <content>
+                        <OverflowToolbar>
+                            <ToolbarSpacer />
+                            <u:FileUploader
+                                class="sapUiTinyMarginBegin"
+                                id="FileUploaderid"
+                                placeholder="Choose a file"
+                                name="myFileUpload"
+                                fileType="xlsx,csv"
+                                uploadComplete="handleUploadComplete"
+                            />
                             <Button
-                                id="_IDGenButton"
-                                text="Follow Up Action"
-                                press="onFollowUpAction_01"
+                                text="Upload"
+                                press="handleUploadPress"
+                                id="__uploadButton"
+                                tooltip="Upload CSV File"
                             />
                         </OverflowToolbar>
-                    </headerToolbar>
-                </Table>
-            </smartTable:SmartTable>
-        </content>
-    </Panel>
+
+                        <Table
+                            id="userTable"
+                            items="{userListModel>/}"
+                        >
+                            <columns>
+                                <Column>
+                                    <Text text="User ID" />
+                                </Column>
+                                <Column>
+                                    <Text text="Email" />
+                                </Column>
+                                <Column>
+                                    <Text text="First Name" />
+                                </Column>
+                                <Column>
+                                    <Text text="Last Name" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{userListModel>ID}" />
+                                        <Text text="{userListModel>Email}" />
+                                        <Text
+                                            text="{userListModel>FirstName}"
+                                        />
+                                        <Text text="{userListModel>LastName}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+
+                <Panel
+                    id="panelSearchParameter"
+                    headerText="Enter the template user you would like to use"
+                    width="auto"
+                    height="auto"
+                    expandable="false"
+                    expanded="false"
+                    backgroundDesign="Transparent"
+                    class="sapUiResponsiveMargin"
+                >
+                    <content>
+                        <FlexBox
+                            id="_IDGenFlexBox"
+                            height="auto"
+                            alignItems="Start"
+                            justifyContent="End"
+                        >
+                            <Input
+                                id="inputPlant"
+                                placeholder="Plant ID"
+                                required="true"
+                                class="sapUiSmallMarginBottom"
+                                submit="onDisplayPlant"
+                            />
+                            <Input
+                                id="inputTemplateUser"
+                                placeholder="Template User ID"
+                                required="true"
+                                class="sapUiSmallMarginBottom"
+                                submit="onDisplayTemplateUser"
+                            />
+                            <Button
+                                id="display"
+                                text="Show template user"
+                                visible="true"
+                                press="onDisplayTemplateUser"
+                            />
+                        </FlexBox>
+                        <VBox id="userBox">
+                            <!-- Basic User Information -->
+                            <Label text="Plant" />
+                            <Text text="{userModel>/plant}" />
+                            <Label text="User ID" />
+                            <Text text="{userModel>/userId}" />
+                            <Label text="Email" />
+                            <Text text="{userModel>/email}" />
+                            <Label text="First Name" />
+                            <Text text="{userModel>/firstName}" />
+                            <Label text="Last Name" />
+                            <Text text="{userModel>/lastName}" />
+                            <Label text="Current User" />
+                            <Text text="{userModel>/current}" />
+
+                            <!-- Certifications Table -->
+                            <Label text="User Certifications" />
+                            <Table items="{userModel>/userCertifications}">
+                                <columns>
+                                    <Column>
+                                        <Text text="Certification" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Status" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Certification Date" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Expiration Date" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text
+                                                text="{userModel>certification}"
+                                            />
+                                            <Text text="{userModel>status}" />
+                                            <Text
+                                                text="{userModel>certificationDate}"
+                                            />
+                                            <Text
+                                                text="{userModel>expirationDate}"
+                                            />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <!-- Work Centers Table -->
+                            <Label text="Work Centers" />
+                            <Table items="{userModel>/workCenters}">
+                                <columns>
+                                    <Column>
+                                        <Text text="Work Center" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Description" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text
+                                                text="{userModel>workCenter}"
+                                            />
+                                            <Text
+                                                text="{userModel>description}"
+                                            />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <!-- Timestamps -->
+                            <Label text="Modified Date/Time" />
+                            <Text text="{userModel>/modifiedDateTime}" />
+                            <Label text="Created Date/Time" />
+                            <Text text="{userModel>/createdDateTime}" />
+                        </VBox>
+                    </content>
+                </Panel>
+                <Panel
+                    id="panelCreateUpdateUser"
+                    headerText="Create users based on the uploaded file, equal to the selected Template User"
+                    width="auto"
+                    height="auto"
+                    expandable="false"
+                    expanded="false"
+                    backgroundDesign="Transparent"
+                    class="sapUiResponsiveMargin"
+                >
+                    <content>
+                        <FlexBox
+                            id="_IDGenFlexBox2"
+                            height="auto"
+                            alignItems="Start"
+                            justifyContent="End"
+                        >
+                            <Button
+                                id="createUser"
+                                text="Create Users"
+                                visible="true"
+                                press="onCreateUser"
+                            />
+                        </FlexBox>
+
+                        <Table
+                            id="successfulCreatedUsersTable"
+                            headerText="Successfully Created Users"
+                            mode="None"
+                            items="{createdUsersModel>/}"
+                        >
+                            <columns>
+                                <Column>
+                                    <Text text="User ID" />
+                                </Column>
+                                <Column>
+                                    <Text text="Email" />
+                                </Column>
+                                <Column>
+                                    <Text text="First Name" />
+                                </Column>
+                                <Column>
+                                    <Text text="Last Name" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text
+                                            text="{createdUsersModel>userId}"
+                                        />
+                                        <Text
+                                            text="{createdUsersModel>email}"
+                                        />
+                                        <Text
+                                            text="{createdUsersModel>firstName}"
+                                        />
+                                        <Text
+                                            text="{createdUsersModel>lastName}"
+                                        />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                        <Table
+                            id="failedCreatedUsersTable"
+                            headerText="Creation failed for the belwo users, please check:"
+                            mode="None"
+                            items="{failedUsersModel>/}"
+                        >
+                            <columns>
+                                <Column>
+                                    <Text text="User ID" />
+                                </Column>
+                                <Column>
+                                    <Text text="Email" />
+                                </Column>
+                                <Column>
+                                    <Text text="First Name" />
+                                </Column>
+                                <Column>
+                                    <Text text="Last Name" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text
+                                            text="{failedUsersModel>userId}"
+                                        />
+                                        <Text text="{failedUsersModel>email}" />
+                                        <Text
+                                            text="{failedUsersModel>firstName}"
+                                        />
+                                        <Text
+                                            text="{failedUsersModel>lastName}"
+                                        />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+            </Page>
+     
 </mvc:View>
