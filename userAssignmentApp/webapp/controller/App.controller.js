@@ -13,27 +13,71 @@ sap.ui.define([
   return BaseController.extend("userAssignmentApp.controller.App", {
     onInit: function () {
       var that = this;
-      this.onRestCall();
     },
 
-    successREST: function (data) {
-      debugger
-    },
-    errorREST: function (error) {
-      debugger;
+    /*---------------------------------------Step 1 Upload Users --------------------------------------------*/
+
+    /*Browsing for a file trigger the upload of the CSV file */
+    handleUploadPress: function () {
+      var that = this;
+      var oFileUploader = this.getView().byId("FileUploaderid");
+      var oFileInput = oFileUploader.getDomRef().querySelector("input[type='file']");
+      var oFile = oFileInput.files[0];
+
+      if (oFile.checkFileReadable) {
+        MessageToast.show("The file cannot be read. It may have changed.");
+      } else {
+        oFileUploader.upload();
+      }
+      //To check the File type of uploaded File.
+      if (oFile.type === "text/csv") {
+        that.typeCsv();
+      }
 
     },
 
-    onRestCall: function () {
-      var sURL = "/dmeapi/user/v1/users?Plant=KH01&email=katja.huschle@sap.com";
-      $.ajax({
-        type: "GET",
-        url: sURL,
-        contentType: "application/json",
-        dataType: "json",
-        success: [this.successREST, this],
-        error: [this.errorREST, this]
-      });
+    /* Function to read the CSV file */
+    typeCsv: function () {
+      var that = this;
+      var userTable = this.getView().byId("userTable");
+      var oFileUploader = this.getView().byId("FileUploaderid");
+      var oFileInput = oFileUploader.getDomRef().querySelector("input[type='file']");
+      var oFile = oFileInput.files[0];
+      if (oFile && window.FileReader) {
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+          var strData = evt.target.result;
+          that.csvJSON(strData);
+          // that.getView().getModel("userListModel").refresh(true);
+          // Step 3: Refresh the Table
+          userTable.getBinding("items").refresh();
+        };
+        reader.onerror = function (exe) {
+          console.log(exe);
+        };
+        reader.readAsText(oFile);
+
+      }
+
+    },
+
+    /* Function to convert CSV into JSON */
+    csvJSON: function (csv) {
+      var that = this;
+      var lines = csv.split("\r\n");
+      var result = [];
+      var colheaders = lines[0].split(";");
+      for (var i = 1; i < lines.length; i++) {
+        var obj = {};
+        var currentline = lines[i].split(";");
+        for (var j = 0; j < colheaders.length; j++) {
+          obj[colheaders[j]] = currentline[j];
+        }
+        result.push(obj);
+      }
+      // Step 3: Create a new JSON Model with the parsed object
+      var jsonModel = new sap.ui.model.json.JSONModel(result);
+      that.getView().setModel(jsonModel, "userListModel");
     },
 
 
@@ -51,19 +95,20 @@ sap.ui.define([
 
     },
 
-    onDisplayTemplateUser: function (oEvent) {
-      // Call the onCheckInputs function
-      const isInputsValid = this.onCheckInputs();
 
+    /*---------------------------------------Step 2 - Retrieve the available User Groups and display the details--------------------------------------------*/
+
+    onDisplayUserGroups: function (oEvent) {
+      // Call the onCheckInputs function to check if Plant and maste user group (user) is set
+      const isInputsValid = this.onCheckInputsRetrieveUserGroups();
       // Handle the return status
       if (isInputsValid) {
         var that = this;
-        that.onCheckInputs();
-        var baseURLgetUser = "/dmeapi/user/v1/users"
+        var baseURLgetUser = "/dmeapi/user/v1/supervisors"
         // Get the Input field plant
-        var plant = this.getView().byId("inputPlant").getValue();
+        var plant = this.getView().byId("inputPlant1").getValue();
         // Get the Input field userID
-        var userId = this.getView().byId("inputTemplateUser").getValue();
+        var userId = this.getView().byId("inputUserGroupUser").getValue();
         // Build the URL
         var sURL = baseURLgetUser + "?Plant=" + plant + "&userId=" + userId;
 
@@ -75,8 +120,15 @@ sap.ui.define([
 
           success: function (response) {
             // Add the response data to the JSON model
-            that.getView().getModel("userModel").setData(response);
-            that.getView().getModel("userModel").refresh(true);
+            // Transform supervisedUserIds array into an array of objects
+            const transformedData = response.supervisedUserIds.map(item => ({ supervisedUserId: item }));
+
+            // Create the model
+            const oModel = new sap.ui.model.json.JSONModel({ supervisedUserIds: transformedData });
+            // Set the model to the view
+
+            that.getView().setModel(oModel, "templateUserListModel");
+            that.getView().getModel("templateUserListModel").refresh(true);
 
           },
           error: function (error) {
@@ -90,16 +142,16 @@ sap.ui.define([
               sap.m.MessageBox.error("An unexpected error occurred. Please try again.");
             }
           }
-
         });
+
       }
     },
 
-    onCheckInputs: function () {
+    onCheckInputsRetrieveUserGroups: function () {
       let isValid = true; // Assume inputs are valid initially
       // Get the input fields by their IDs
-      const oInput1 = this.getView().byId("inputPlant");
-      const oInput2 = this.getView().byId("inputTemplateUser");
+      const oInput1 = this.getView().byId("inputPlant1");
+      const oInput2 = this.getView().byId("inputUserGroupUser");
 
       // Retrieve their values
       const sValue1 = oInput1.getValue();
@@ -136,82 +188,81 @@ sap.ui.define([
 
     },
 
-    handleUploadPress: function () {
+    onTemplateUserSelectionChange: function (oEvent) {
       var that = this;
-      var oFileUploader = this.getView().byId("FileUploaderid");
-      var oFileInput = oFileUploader.getDomRef().querySelector("input[type='file']");
-      var oFile = oFileInput.files[0];
-
-      if (oFile.checkFileReadable) {
-        MessageToast.show("The file cannot be read. It may have changed.");
-      } else {
-        oFileUploader.upload();
-      }
-      //To check the File type of uploaded File.
-      if (oFile.type === "text/csv") {
-        that.typeCsv();
-      }
+      // Get the selected row (list item)
+      const oSelectedItem = oEvent.getParameter("listItem");
+      // Get the binding context of the selected item
+      const selectedData = oSelectedItem.getBindingContext("templateUserListModel").getObject();
+      var userId = selectedData.supervisedUserId;
+      // Perform actions with the selected data
+      console.log("Selected Supervisor ID:", selectedData.supervisedUserId);
+      // Get selected userId
+      var userId = selectedData.supervisedUserId;
+      // Get plant from the model or input field
+      var plant = this.getView().byId("inputPlant1").getValue();
+      that.displayTemplateUser(plant, userId);
 
     },
 
-    /* Function to read the CSV file */
-    typeCsv: function () {
-      var that = this;
-      var userTable = this.getView().byId("userTable");
-      var oFileUploader = this.getView().byId("FileUploaderid");
-      var oFileInput = oFileUploader.getDomRef().querySelector("input[type='file']");
-      var oFile = oFileInput.files[0];
-      if (oFile && window.FileReader) {
-        var reader = new FileReader();
-        reader.onload = function (evt) {
-          var strData = evt.target.result;
-          that.csvJSON(strData);
-          that.getView().getModel("userListModel").refresh(true);
-          // Step 3: Refresh the Table
-          userTable.getBinding("items").refresh();
-        };
-        reader.onerror = function (exe) {
-          console.log(exe);
-        };
-        reader.readAsText(oFile);
 
-      }
+    displayTemplateUser: function (plant, templateUserId) {
 
-    },
-    /* Function to convert CSV into JSON */
-    csvJSON: function (csv) {
       var that = this;
-      var lines = csv.split("\r\n");
-      var result = [];
-      var colheaders = lines[0].split(";");
-      for (var i = 1; i < lines.length; i++) {
-        var obj = {};
-        var currentline = lines[i].split(";");
-        for (var j = 0; j < colheaders.length; j++) {
-          obj[colheaders[j]] = currentline[j];
+      var baseURLgetUser = "/dmeapi/user/v1/users"
+      // Get the Input field plant
+      var plant = plant
+      // Get the Input field userID
+      var userId = templateUserId;
+      // Build the URL
+      var sURL = baseURLgetUser + "?Plant=" + plant + "&userId=" + userId;
+
+      $.ajax({
+        type: "GET",
+        url: sURL,
+        contentType: "application/json",
+        dataType: "json",
+
+        success: function (response) {
+          // Add the response data to the JSON model
+          // Create the model
+          const oModel = new sap.ui.model.json.JSONModel(response);
+          that.getView().setModel(oModel, "templateUserModel");
+          that.getView().getModel("templateUserModel").refresh(true);
+
+        },
+        error: function (error) {
+          // Check if the status code is 404
+          if (error.status === 404) {
+            console.error("Error 404: User not found");
+            // Display an error message to the user
+            sap.m.MessageBox.error("The requested User could not be found (404). Please check your inputs");
+          } else {
+            console.error("An unexpected error occurred:", error.status);
+            sap.m.MessageBox.error("An unexpected error occurred. Please try again.");
+          }
         }
-        result.push(obj);
-      }
-      // Step 3: Create a new JSON Model with the parsed object
-      var jsonModel = new sap.ui.model.json.JSONModel(result);
-      that.getView().setModel(jsonModel, "userListModel");
+
+      });
+
     },
 
+    /*------------------------Step 3 - Create Users --------------------------------------------------*/
 
-    //on create users for all users on the list based on the template User selected
+    //create users for all users on the list, using the selected template User
     onCreateUser: function () {
       var that = this;
-      
+
       // Get Input values
       var userList = that.getView().getModel("userListModel").getData();
-      var templateUser = that.getView().getModel("userModel").getData();
+      var templateUser = that.getView().getModel("templateUserModel").getData();
 
       //Create models to display successful and failed users as a result in the view
       var successfullyCreatedUsers = [];
-      var failedUserCreation =[];
+      var failedUserCreation = [];
       that.getView().setModel(new sap.ui.model.json.JSONModel(successfullyCreatedUsers), "createdUsersModel");
       that.getView().setModel(new sap.ui.model.json.JSONModel(failedUserCreation), "failedUsersModel");
-      
+
       // Check if userList and templateUser are not empty or null
       if (!userList || userList.length === 0) {
         console.error("User list is empty or null.");
@@ -233,7 +284,8 @@ sap.ui.define([
           email: currentUser.Email,
           firstName: currentUser.FirstName,
           lastName: currentUser.LastName,
-          userWorkCenters: templateUser.workCenters, // Assign WC assignments from templateUser
+          userCertifications: templateUser.userCertifications,
+          userWorkCenters: templateUser.workCenters,
           modifiedDateTime: new Date().toISOString(),
           createdDateTime: new Date().toISOString()
         };
@@ -242,11 +294,11 @@ sap.ui.define([
       }
     },
 
-    createUserAPI: function (userPayload, successfullyCreatedUsers,failedUserCreation, currentUser) {
+    createUserAPI: function (userPayload, successfullyCreatedUsers, failedUserCreation, currentUser) {
       var that = this;
       var baseURLgetUser = "/dmeapi/user/v1/users"
       // Make an API call to create the user
-  $.ajax({
+      $.ajax({
         url: baseURLgetUser, // Replace with the correct API endpoint
         type: "POST",
         contentType: "application/json",
@@ -277,7 +329,7 @@ sap.ui.define([
 
           // Update the model dynamically after each successful creation
           that.getView().getModel("failedUsersModel").setData(failedUserCreation);
-          
+
         }
       });
     }

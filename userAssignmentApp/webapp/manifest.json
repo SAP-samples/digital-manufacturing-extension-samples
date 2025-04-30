@@ -24,7 +24,7 @@
                 "uri": "model/user.json",
                 "type": "JSON"
             },
-      
+          
            "publicApi-RestSource": {
                 "uri": "../dmeapi/",
                 "type": "JSON"
@@ -67,10 +67,11 @@
             "type": "sap.ui.model.json.JSONModel",
             "dataSource": "userListJSONData"
         },
-        "userModel": {
+        "templateUserModel": {
             "type": "sap.ui.model.json.JSONModel",
             "dataSource": "userJSONData"
         },
+       
         "i18n": {
             "type": "sap.ui.model.resource.ResourceModel",
             "settings": {
