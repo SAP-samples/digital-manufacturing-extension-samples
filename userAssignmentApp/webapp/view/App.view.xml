@@ -22,7 +22,7 @@
         >
             <content>
                 <Title
-                    text="Upload the csv File which contains the users you want to create"
+                    text="Upload the CSV file containing the users to be created."
                     level="H1"
                     class="sapUiSmallMargin"
                 />
@@ -46,7 +46,7 @@
                 </OverflowToolbar>
 
                 <MessageStrip
-                    text="Make sure your csv file is comma separated."
+                    text="Ensure your CSV file is comma-separated."
                     type="Information"
                 />
 
@@ -84,7 +84,7 @@
         >
             <content>
                 <Title
-                    text="Retrieve available user groups. Entering the manin user containing all user groups as supervised users "
+                    text="Retrieve available user groups by entering the main user, which contains all user groups as supervised users."
                     level="H1"
                     class="sapUiSmallMargin"
                 />
@@ -115,7 +115,7 @@
                     />
                 </FlexBox>
                 <Title
-                    text="Available User groups / template users"
+                    text="Available user groups / template users"
                     level="H1"
                     class="sapUiSmallMargin"
                 />
@@ -147,7 +147,7 @@
                     class="sapUiSmallMargin"
                 />
                 <MessageStrip
-                    text="Select the user ID to display the details."
+                    text="Select a user ID to view its details."
                     type="Information"
                 />
                 <VBox class="sapUiSmallMargin">
@@ -263,7 +263,7 @@
         >
             <content>
                 <Title
-                    text="Trigger the user creation"
+                    text="Create the listed users using the user group {templateUserModel>/userId}"
                     level="H2"
                     class="sapUiSmallMargin"
                 />
@@ -310,14 +310,14 @@
             </content>
 
             <Title
-                text="Review the results of user creation"
+                text="Review the user creation results."
                 level="H2"
                 class="sapUiSmallMargin"
             />
             <content>
                 <Table
                     id="successfulCreatedUsersTable"
-                    headerText="Successfully Created Users"
+                    headerText="Users successfully created"
                     mode="None"
                     items="{createdUsersModel>/}"
                 >
@@ -344,7 +344,7 @@
                 </Table>
                 <Table
                     id="failedCreatedUsersTable"
-                    headerText="Creation failed for the belwo users, please check:"
+                    headerText="User creation failed for the following users. Please review the details."
                     mode="None"
                     items="{failedUsersModel>/}"
                 >
