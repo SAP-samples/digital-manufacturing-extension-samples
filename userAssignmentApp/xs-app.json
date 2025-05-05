@@ -1,0 +1,18 @@
+{
+	"welcomeFile": "/ui/index.html",
+	"authenticationMethod": "route",
+	"logout": {
+		"logoutEndpoint": "/do/logout"
+	},
+	"routes": [{
+		"source": "^/ui/(.*)$",
+		"target": "$1",
+		"localDir": "webapp"
+	}, {
+		"source": "^/dmeapi/(.*)$",
+		"target": "$1",
+		"destination": "<enter your destination which has been setup in SAP BTP pointing to DM public API>",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	}]
+}

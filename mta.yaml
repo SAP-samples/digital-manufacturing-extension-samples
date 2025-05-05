@@ -1,0 +1,26 @@
+
+ID: mta_userAssignmentApp
+_schema-version: '2.1'
+version: 0.0.1
+modules:
+  - name: userAssignmentApp
+    type: html5
+    path: userAssignmentApp
+    parameters:
+      disk-quota: 512M
+      memory: 512M
+    requires:
+      - name: uaa_userAssignmentApp
+      - name: destination_public_API
+resources:
+  - name: uaa_userAssignmentApp
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+    type: org.cloudfoundry.managed-service
+  - name: destination_public_API
+    parameters:
+      service-plan: lite
+      service: destination
+    type: org.cloudfoundry.managed-service  

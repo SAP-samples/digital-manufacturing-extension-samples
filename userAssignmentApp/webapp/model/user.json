@@ -1,0 +1,38 @@
+{
+    "plant": "Z01",
+    "userId": "testworker01@xyz.com",
+    "email": "testworker01@xyz.com",
+    "firstName": "Test",
+    "lastName": "Worker01",
+    "badgeNumber": null,
+    "erpPersonnelNumber": null,
+    "current": true,
+    "customValues": [],
+    "userCertifications": [
+      {
+        "certification": "CERTIFICAT-PAINT",
+        "status": "ENABLED",
+        "comments": null,
+        "certificationDate": "2021-09-30T18:30:00.000Z",
+        "expirationDate": "2021-12-31T18:30:00.000Z",
+        "extensionExpirationDate": "2021-12-31T18:30:00.000Z"
+      }
+    ],
+    "userCalendarOverrides": [],
+    "workCenters": [
+      {
+        "workCenter": "WC_CELL_GROUP",
+        "description": "WC_CELL_GROUP"
+      },
+      {
+        "workCenter": "WC_CELL",
+        "description": "WC_CELL"
+      },
+      {
+        "workCenter": "WC-PAINT",
+        "description": "WC-PAINT"
+      }
+    ],
+    "modifiedDateTime": "2025-01-22T17:19:59.536Z",
+    "createdDateTime": "2021-04-06T15:26:07.778Z"
+  }
