@@ -11,7 +11,7 @@
 	}, {
 		"source": "^/dmeapi/(.*)$",
 		"target": "$1",
-		"destination": "KH_DM_API_DESTINATION",
+		"destination": "<enter your destination which has been setup in SAP BTP pointing to DM public API>",
 		"csrfProtection": false,
 		"authenticationType": "xsuaa"
 	}]

@@ -64,12 +64,10 @@
     },
     "models": {
         "userListModel": {
-            "type": "sap.ui.model.json.JSONModel",
-            "dataSource": "userListJSONData"
+            "type": "sap.ui.model.json.JSONModel"
         },
         "templateUserModel": {
-            "type": "sap.ui.model.json.JSONModel",
-            "dataSource": "userJSONData"
+            "type": "sap.ui.model.json.JSONModel"
         },
        
         "i18n": {
