@@ -1,0 +1,375 @@
+<mvc:View
+    controllerName="userAssignmentApp.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:layout="sap.ui.layout"
+    xmlns:Table="sap.ui.table.Table"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:u="sap.ui.unified"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    width="100%"
+    height="100%"
+>
+    <Wizard>
+        <WizardStep
+            title="Upload users"
+            icon="sap-icon://hint"
+        >
+            <content>
+                <Title
+                    text="Upload the CSV file containing the users to be created."
+                    level="H1"
+                    class="sapUiSmallMargin"
+                />
+
+                <OverflowToolbar>
+                    <u:FileUploader
+                        class="sapUiTinyMarginBegin"
+                        id="FileUploaderid"
+                        placeholder="Choose a file"
+                        name="myFileUpload"
+                        fileType="xlsx,csv"
+                        uploadComplete="handleUploadComplete"
+                    />
+                    <Button
+                        text="Upload"
+                        press="handleUploadPress"
+                        id="__uploadButton"
+                        tooltip="Upload CSV File"
+                    />
+                    <ToolbarSpacer />
+                </OverflowToolbar>
+
+                <MessageStrip
+                    text="Ensure your CSV file is comma-separated."
+                    type="Information"
+                />
+
+                <Table
+                    id="userTable"
+                    items="{userListModel>/}"
+                >
+                    <columns>
+                        <Column>
+                            <Text text="Email" />
+                        </Column>
+                        <Column>
+                            <Text text="First Name" />
+                        </Column>
+                        <Column>
+                            <Text text="Last Name" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{userListModel>Email}" />
+                                <Text text="{userListModel>FirstName}" />
+                                <Text text="{userListModel>LastName}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </content>
+        </WizardStep>
+
+        <WizardStep
+            title="Select user group / template user"
+            icon="sap-icon://hint"
+        >
+            <content>
+                <Title
+                    text="Retrieve available user groups by entering the main user, which contains all user groups as supervised users."
+                    level="H1"
+                    class="sapUiSmallMargin"
+                />
+
+                <FlexBox
+                    id="_IDGenFlexBox1"
+                    height="auto"
+                    alignItems="Start"
+                    justifyContent="Start"
+                >
+                    <Input
+                        id="inputPlant1"
+                        placeholder="Plant ID"
+                        required="true"
+                        class="sapUiSmallMarginBottom"
+                    />
+                    <Input
+                        id="inputUserGroupUser"
+                        placeholder="Usergroup User ID"
+                        required="true"
+                        class="sapUiSmallMarginBottom"
+                    />
+                    <Button
+                        id="displayUserGroup"
+                        text="Retrieve user groups / template users"
+                        visible="true"
+                        press="onDisplayUserGroups"
+                    />
+                </FlexBox>
+                <Title
+                    text="Available user groups / template users"
+                    level="H1"
+                    class="sapUiSmallMargin"
+                />
+
+                <Table
+                    items="{templateUserListModel>/supervisedUserIds}"
+                    mode="SingleSelectLeft"
+                    selectionChange="onTemplateUserSelectionChange"
+                >
+                    <columns>
+                        <Column>
+                            <Text text=" User ID" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text
+                                    text="{templateUserListModel>supervisedUserId}"
+                                />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                <Title
+                    text="User Details:"
+                    level="H2"
+                    class="sapUiSmallMargin"
+                />
+                <MessageStrip
+                    text="Select a user ID to view its details."
+                    type="Information"
+                />
+                <VBox class="sapUiSmallMargin">
+                    <f:SimpleForm
+                        id="SimpleFormDisplay354"
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                        labelSpanXL="3"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        labelSpanS="12"
+                        adjustLabelSpan="false"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="1"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false"
+                    >
+                        <f:content>
+                            <Label text="Plant" />
+                            <Text text="{templateUserModel>/plant}" />
+                            <Label text="User ID" />
+                            <Text text="{templateUserModel>/userId}" />
+                            <Label text="Email" />
+                            <Text text="{templateUserModel>/email}" />
+                            <Label text="First Name" />
+                            <Text text="{templateUserModel>/firstName}" />
+                            <Label text="Last Name" />
+                            <Text text="{templateUserModel>/lastName}" />
+                            <Label text="Current User" />
+                            <Text text="{templateUserModel>/current}" />
+                            <!-- Timestamps -->
+                            <Label text="Modified Date/Time" />
+                            <Text
+                                text="{templateUserModel>/modifiedDateTime}"
+                            />
+                            <Label text="Created Date/Time" />
+                            <Text text="{templateUserModel>/createdDateTime}" />
+                        </f:content>
+                    </f:SimpleForm>
+                </VBox>
+
+                <Title
+                    text="User Certifications:"
+                    level="H2"
+                    class="sapUiSmallMargin"
+                />
+
+                <Table items="{templateUserModel>/userCertifications}">
+                    <columns>
+                        <Column>
+                            <Text text="Certification" />
+                        </Column>
+                        <Column>
+                            <Text text="Status" />
+                        </Column>
+                        <Column>
+                            <Text text="Certification Date" />
+                        </Column>
+                        <Column>
+                            <Text text="Expiration Date" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text
+                                    text="{templateUserModel>certification}"
+                                />
+                                <Text text="{templateUserModel>status}" />
+                                <Text
+                                    text="{templateUserModel>certificationDate}"
+                                />
+                                <Text
+                                    text="{templateUserModel>expirationDate}"
+                                />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                <Title
+                    text="Assigned Work Centers:"
+                    level="H2"
+                    class="sapUiSmallMargin"
+                />
+
+                <Table items="{templateUserModel>/workCenters}">
+                    <columns>
+                        <Column>
+                            <Text text="Work Center" />
+                        </Column>
+                        <Column>
+                            <Text text="Description" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{templateUserModel>workCenter}" />
+                                <Text text="{templateUserModel>description}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </content>
+        </WizardStep>
+        <WizardStep
+            title="Create users"
+            icon="sap-icon://hint"
+        >
+            <content>
+                <Title
+                    text="Create the listed users using the user group {templateUserModel>/userId}"
+                    level="H2"
+                    class="sapUiSmallMargin"
+                />
+
+                <Table
+                    id="userTable2"
+                    items="{userListModel>/}"
+                >
+                    <columns>
+                        <Column>
+                            <Text text="Email" />
+                        </Column>
+                        <Column>
+                            <Text text="First Name" />
+                        </Column>
+                        <Column>
+                            <Text text="Last Name" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{userListModel>Email}" />
+                                <Text text="{userListModel>FirstName}" />
+                                <Text text="{userListModel>LastName}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                <FlexBox
+                    id="_IDGenFlexBox2"
+                    height="auto"
+                    alignItems="Start"
+                    justifyContent="Start"
+                >
+                    <Button
+                        id="createUser"
+                        text="Create Users"
+                        visible="true"
+                        press="onCreateUser"
+                    />
+                </FlexBox>
+            </content>
+
+            <Title
+                text="Review the user creation results."
+                level="H2"
+                class="sapUiSmallMargin"
+            />
+            <content>
+                <Table
+                    id="successfulCreatedUsersTable"
+                    headerText="Users successfully created"
+                    mode="None"
+                    items="{createdUsersModel>/}"
+                >
+                    <columns>
+                        <Column>
+                            <Text text="Email" />
+                        </Column>
+                        <Column>
+                            <Text text="First Name" />
+                        </Column>
+                        <Column>
+                            <Text text="Last Name" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{createdUsersModel>email}" />
+                                <Text text="{createdUsersModel>firstName}" />
+                                <Text text="{createdUsersModel>lastName}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                <Table
+                    id="failedCreatedUsersTable"
+                    headerText="User creation failed for the following users. Please review the details."
+                    mode="None"
+                    items="{failedUsersModel>/}"
+                >
+                    <columns>
+                        <Column>
+                            <Text text="Email" />
+                        </Column>
+                        <Column>
+                            <Text text="First Name" />
+                        </Column>
+                        <Column>
+                            <Text text="Last Name" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{failedUsersModel>email}" />
+                                <Text text="{failedUsersModel>firstName}" />
+                                <Text text="{failedUsersModel>lastName}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </content>
+        </WizardStep>
+    </Wizard>
+</mvc:View>
