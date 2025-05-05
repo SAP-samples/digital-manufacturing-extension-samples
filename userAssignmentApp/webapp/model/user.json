@@ -1,7 +1,7 @@
 {
-    "plant": "KH01",
-    "userId": "testworker01@yopmail.com",
-    "email": "testworker01@yopmail.com",
+    "plant": "Z01",
+    "userId": "testworker01@xyz.com",
+    "email": "testworker01@xyz.com",
     "firstName": "Test",
     "lastName": "Worker01",
     "badgeNumber": null,
