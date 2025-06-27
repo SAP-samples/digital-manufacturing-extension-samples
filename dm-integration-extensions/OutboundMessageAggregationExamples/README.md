@@ -1,5 +1,8 @@
 # DMC Integration Extensions for ERP/EWM Integration
-Extension Sample of Message Correlation for Digital Manufacturing Integration
+Extension Samples on how to manage ERP Load with Custom Correlation in SAP Digital Manufacturing.
+
+Pre-read : https://community.sap.com/t5/supply-chain-management-blog-posts-by-sap/managing-erp-load-with-custom-correlation-in-sap-digital-manufacturing/ba-p/13793498
+
 Hope you can enjoy these examples. :)
 
 | System | Scenario | Description | Status |
