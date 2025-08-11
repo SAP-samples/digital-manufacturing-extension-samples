@@ -1,0 +1,138 @@
+{
+  "id": "urn:sap:cloud:scim:schemas:extension:psp:2.0:User",
+  "schemas": [
+    "urn:ietf:params:scim:schemas:core:2.0:Schema"
+  ],
+  "attributes": [
+    {
+      "name": "plantPSPEditDelete",
+      "type": "string",
+      "multiValued": false,
+      "description": "plantPSPEditDelete",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "plantPSPTaskEdit",
+      "type": "string",
+      "multiValued": false,
+      "description": "plantPSPTaskEdit",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "plantPSPEditAsMember",
+      "type": "string",
+      "multiValued": false,
+      "description": "plantPSPEditAsMember",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "plantTaskEdit",
+      "type": "string",
+      "multiValued": false,
+      "description": "plantTaskEdit",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "orgPSPEditDelete",
+      "type": "string",
+      "multiValued": false,
+      "description": "orgPSPEditDelete",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "orgPSPTaskEdit",
+      "type": "string",
+      "multiValued": false,
+      "description": "orgPSPTaskEdit",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "orgPSPEditAsMember",
+      "type": "string",
+      "multiValued": false,
+      "description": "orgPSPEditAsMember",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "orgTaskEdit",
+      "type": "string",
+      "multiValued": false,
+      "description": "orgTaskEdit",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "orgPSPPartnerAdmin",
+      "type": "string",
+      "multiValued": false,
+      "description": "orgPSPPartnerAdmin",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "plantPSPEditCreate",
+      "type": "string",
+      "multiValued": false,
+      "description": "plantPSPEditCreate",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    },
+    {
+      "name": "orgPSPEditCreate",
+      "type": "string",
+      "multiValued": false,
+      "description": "orgPSPEditCreate",
+      "required": false,
+      "caseExact": false,
+      "mutability": "readWrite",
+      "returned": "default",
+      "uniqueness": "none"
+    }
+  ],
+  "name": "User",
+  "description": "User",
+  "meta": {
+    "created": "2024-10-08T08:02:22Z",
+    "lastModified": "2024-10-08T08:02:22Z",
+    "location": "https://dm-preprod.accounts400.ondemand.com/scim/Schemas/urn%3Asap%3Acloud%3Ascim%3Aschemas%3Aextension%3Apsp%3A2.0%3AUser",
+    "resourceType": "Schema",
+    "version": "6ca72b4c-11ca-4f4a-9f47-723b378bd21c"
+  }
+}
