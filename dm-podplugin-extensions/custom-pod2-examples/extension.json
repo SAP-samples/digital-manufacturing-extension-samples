@@ -1,0 +1,8 @@
+{
+    "widgets": [
+        {
+            "modulePath": "custom/pod2/example/plugins/basic",
+            "type": "custom.pod2.example.plugins.basic"
+        }
+    ]
+}
