@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:l="sap.ui.layout">
+        <fb:FilterGroupItem name="Component Status" label="Component Status" groupName="Group1" visibleInFilterBar="true">
+				<fb:control>
+					<MultiComboBox
+						name="Component Status"
+						selectionChange=".onSelectionChange"
+						items="{
+							path: 'statusModel>/ComponentStatus',
+							templateShareable: true
+						}"
+					>
+						<core:Item key="{statusModel>key}" text="{statusModel>value}"/>
+					</MultiComboBox>
+				</fb:control>
+		</fb:FilterGroupItem>
+</core:FragmentDefinition>
