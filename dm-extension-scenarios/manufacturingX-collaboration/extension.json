@@ -1,0 +1,15 @@
+{
+    "widgets": [
+        {
+            "modulePath": "custom/pod2/example/plugins/CustomWorkListFilter",
+            "type": "custom.pod2.example.plugins.CustomWorkListFilter"
+        },
+        {
+            "modulePath": "custom/pod2/example/plugins/CustomWorkListTable",
+            "type": "custom.pod2.example.plugins.CustomWorkListTable"
+        }
+    ],
+    "actions": [
+        
+    ]
+}
