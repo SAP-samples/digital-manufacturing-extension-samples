@@ -1,47 +1,35 @@
 sap.ui.define([
-    "sap/m/Text",
-    "sap/m/ObjectStatus",
-    "sap/m/ToolbarSpacer",
-    "sap/m/MessageToast",
+    "sap/m/library",
     "sap/ui/core/Fragment",
+    "sap/ui/core/format/DateFormat",
     "sap/dm/dme/pod2/widget/core/TableWidget",
     "sap/dm/dme/pod2/context/ModelPath",
     "sap/dm/dme/pod2/context/PodContext",
     "sap/dm/dme/pod2/model/I18nResourceModel",
-    "sap/dm/dme/pod2/widget/metadata/WidgetProperty",
-    "sap/dm/dme/pod2/propertyeditor/IntegerPropertyEditor",
-    "sap/dm/dme/pod2/propertyeditor/PropertyCategory",
-    "custom/pod2/example/client/MdoEnhancedClient"
+    "custom/pod2/example/client/MdoEnhancedClient",
+    "sap/dm/dme/pod2/Logger"
 ], (
-    Text,
-    ObjectStatus,
-    ToolbarSpacer,
-    MessageToast,
+    MobileLibrary,
     Fragment,
+    DateFormat,
     TableWidget,
     ModelPath,
     PodContext,
     I18nResourceModel,
-    WidgetProperty,
-    IntegerPropertyEditor,
-    PropertyCategory,
-    MdoEnhancedClient
+    MdoEnhancedClient,
+    Logger
 ) => {
     "use strict";
 
-    /**
-     * Equipment History Widget
-     * Displays equipment usage history with dynamic resource filtering and pagination
-     */
+    const { Text, ObjectStatus, ToolbarSpacer, MessageToast, MessageStrip } = MobileLibrary;
+
+    const DEFAULT_PAGE_SIZE = 50;
+    const MAX_PAGE_SIZE = 100;
+
+    const oLogger = Logger.getLogger("custom.pod2.example.plugins.EquipmentHistory");
+
     class EquipmentHistory extends TableWidget {
 
-        static PropertyId = Object.freeze({
-            PageSize: "pageSize"
-        });
-
-        static #DEFAULT_PAGE_SIZE = 20;
-        static #MIN_PAGE_SIZE = 1;
-        static #MAX_PAGE_SIZE = 100;
         static #oI18nModel = new I18nResourceModel("custom/pod2/example/plugins/i18n/i18n");
 
         static getI18nModel() {
@@ -57,14 +45,7 @@ sap.ui.define([
         }
 
         static getDescription() {
-            return "Displays equipment usage history with pagination and dynamic resource filtering";
-        }
-
-        static getDefaultConfig() {
-            const oConfig = super.getDefaultConfig();
-            oConfig.properties = oConfig.properties || {};
-            oConfig.properties[EquipmentHistory.PropertyId.PageSize] = this.#DEFAULT_PAGE_SIZE;
-            return oConfig;
+            return "Displays last 50 equipment usage records with dynamic resource filtering";
         }
 
         onInit() {
@@ -72,14 +53,7 @@ sap.ui.define([
             this._bIsLoading = false;
 
             if (PodContext.isRunMode()) {
-                // Subscribe to filter resource changes to refresh data when resource changes
-                PodContext.subscribe(
-                    ModelPath.FilterResources,
-                    this._onResourceChanged,
-                    this
-                );
-
-                // Initial data fetch
+                PodContext.subscribe(ModelPath.FilterResources, this._onResourceChanged, this);
                 this._fetchData();
             }
         }
@@ -87,7 +61,6 @@ sap.ui.define([
         onExit() {
             super.onExit();
             if (PodContext.isRunMode()) {
-                // Unsubscribe from resource changes
                 PodContext.unsubscribe(ModelPath.FilterResources, this._onResourceChanged, this);
             }
         }
@@ -97,164 +70,81 @@ sap.ui.define([
         }
 
         _onResourceChanged() {
-            // Refresh data when resource changes
             this._fetchData();
         }
 
-        /**
-         * Clears the equipment history data in the model
-         * @private
-         */
-        _clearData() {
-            PodContext.set(this._getModelPath(), []);
+        _extractResource(aResources) {
+            const oResource = aResources?.[0];
+            return typeof oResource === "string" ? oResource : oResource?.resource || null;
         }
 
         /**
-         * Extracts the resource string from the filter resources array
-         * @param {Array} aFilterResources - Array of filter resources
-         * @returns {string|null} The resource string or null if not found
+         * Fetches equipment history data from MDO
          * @private
-         */
-        _extractResource(aFilterResources) {
-            if (!aFilterResources || aFilterResources.length === 0) {
-                return null;
-            }
-
-            const oFirstResource = aFilterResources[0];
-
-            // Handle both object with resource property and direct string
-            if (typeof oFirstResource === "string") {
-                return oFirstResource;
-            }
-
-            if (oFirstResource && typeof oFirstResource === "object" && oFirstResource.resource) {
-                return oFirstResource.resource;
-            }
-
-            console.warn("Unable to extract resource from filter resources:", oFirstResource);
-            return null;
-        }
-
-        /**
-         * Validates the API response structure
-         * @param {*} oResponse - The response to validate
-         * @returns {boolean} True if response is valid
-         * @private
-         */
-        _isValidResponse(oResponse) {
-            return oResponse && Array.isArray(oResponse) && oResponse.length > 0;
-        }
-
-        /**
-         * Shows an error message to the user
-         * @param {string} sMessage - The error message to display
-         * @private
-         */
-        _showErrorMessage(sMessage) {
-            MessageToast.show(sMessage, {
-                duration: 3000,
-                width: "15em"
-            });
-        }
-
-        /**
-         * Gets a localized error message
-         * @param {string} sKey - The i18n key
-         * @param {string} sFallback - Fallback message if key not found
-         * @returns {string} The localized message
-         * @private
-         */
-        _getErrorMessage(sKey, sFallback) {
-            try {
-                return this.getI18nText(sKey) || sFallback;
-            } catch (oError) {
-                return sFallback;
-            }
-        }
-
-        /**
-         * Fetches equipment history data from the API
          * @async
-         * @private
+         * @returns {Promise<void>}
          */
         async _fetchData() {
-            // Prevent concurrent requests
             if (this._bIsLoading) {
-                console.warn("Data fetch already in progress, skipping duplicate request");
+                oLogger.debug("[EquipmentHistory] Fetch already in progress");
                 return;
             }
 
             this._bIsLoading = true;
 
             try {
-                // Get plant and resource from PodContext
                 const sPlant = PodContext.getPlant();
+                const sResource = this._extractResource(PodContext.get(ModelPath.FilterResources));
 
-                if (!sPlant) {
-                    console.warn("No plant configured in POD context");
-                    this._clearData();
+                if (!sPlant || !sResource) {
+                    PodContext.set(this._getModelPath(), []);
+                    oLogger.info("[EquipmentHistory] Plant or resource not available");
                     return;
                 }
 
-                const aFilterResources = PodContext.get(ModelPath.FilterResources);
-                const sResource = this._extractResource(aFilterResources);
+                oLogger.info("[EquipmentHistory] Fetching data", {
+                    plant: sPlant,
+                    resource: sResource
+                });
 
-                if (!sResource) {
-                    console.warn("No resource selected in POD context");
-                    this._clearData();
-                    return;
-                }
-
-                // Get and validate page size from configuration
-                let iPageSize = this.getPropertyValue(EquipmentHistory.PropertyId.PageSize);
-
-                if (!iPageSize || iPageSize < EquipmentHistory.#MIN_PAGE_SIZE) {
-                    console.warn(`Invalid page size ${iPageSize}, using default ${EquipmentHistory.#DEFAULT_PAGE_SIZE}`);
-                    iPageSize = EquipmentHistory.#DEFAULT_PAGE_SIZE;
-                } else if (iPageSize > EquipmentHistory.#MAX_PAGE_SIZE) {
-                    console.warn(`Page size ${iPageSize} exceeds maximum, capping at ${EquipmentHistory.#MAX_PAGE_SIZE}`);
-                    iPageSize = EquipmentHistory.#MAX_PAGE_SIZE;
-                }
-
-                // Fetch equipment history data
-                const oMdoClient = new MdoEnhancedClient();
-                const oResponse = await oMdoClient.getEquipmentHistory({
+                const oResponse = await new MdoEnhancedClient().getEquipmentHistory({
                     plant: sPlant,
                     resource: sResource,
-                    pageSize: iPageSize,
-                    page: 0
+                    pageSize: DEFAULT_PAGE_SIZE
                 });
 
-                // Validate and set response
-                if (this._isValidResponse(oResponse)) {
+                if (oResponse?.[0]) {
                     PodContext.set(this._getModelPath(), oResponse[0]);
+                    oLogger.info("[EquipmentHistory] Data loaded successfully", {
+                        recordCount: oResponse[0].length
+                    });
                 } else {
-                    const sMessage = this._getErrorMessage(
-                        "EquipmentHistory.noDataAvailable",
-                        "No equipment history data available"
-                    );
-                    console.warn("Invalid or empty response received:", oResponse);
-                    this._clearData();
-                    this._showErrorMessage(sMessage);
+                    PodContext.set(this._getModelPath(), []);
+                    MessageToast.show(this.getI18nText("EquipmentHistory.noData") || "No equipment history data available");
                 }
             } catch (oError) {
-                // Enhanced error logging with context
-                console.error("Failed to fetch equipment history:", {
-                    error: oError,
-                    message: oError?.message,
-                    stack: oError?.stack,
-                    plant: PodContext.getPlant(),
-                    timestamp: new Date().toISOString()
+                // Log error with context (but don't log sensitive data)
+                oLogger.error("[EquipmentHistory] Fetch failed", {
+                    message: oError.message,
+                    status: oError.status
                 });
 
-                this._clearData();
+                PodContext.set(this._getModelPath(), []);
 
-                // Show user-friendly error message
-                const sErrorMessage = this._getErrorMessage(
-                    "EquipmentHistory.fetchError",
-                    "Failed to load equipment history. Please try again."
-                );
-                this._showErrorMessage(sErrorMessage);
+                // User-friendly error messages based on error type
+                let sErrorMsg = this.getI18nText("EquipmentHistory.loadFailed") || "Failed to load equipment history";
+
+                if (oError.status === 403) {
+                    sErrorMsg = this.getI18nText("EquipmentHistory.accessDenied") || "Access denied to equipment history";
+                } else if (oError.status === 404) {
+                    sErrorMsg = this.getI18nText("EquipmentHistory.notFound") || "Equipment history not found";
+                } else if (oError.status >= 500) {
+                    sErrorMsg = this.getI18nText("EquipmentHistory.serverError") || "Server error. Please try again later";
+                } else if (oError.message && oError.message.includes("illegal characters")) {
+                    sErrorMsg = this.getI18nText("EquipmentHistory.invalidData") || "Invalid plant or resource data";
+                }
+
+                MessageToast.show(sErrorMsg);
             } finally {
                 this._bIsLoading = false;
             }
@@ -263,143 +153,70 @@ sap.ui.define([
         static getFields() {
             const thisI18n = this.getI18nText.bind(this);
             return [
-                {
-                    field: "material",
-                    importance: "High",
-                    sortable: false,
-                    text: thisI18n("EquipmentHistory.material"),
-                    width: "150px"
-                },
-                {
-                    field: "order",
-                    importance: "High",
-                    sortable: false,
-                    text: thisI18n("EquipmentHistory.order"),
-                    width: "150px"
-                },
-                {
-                    field: "sfc",
-                    importance: "High",
-                    sortable: false,
-                    text: thisI18n("EquipmentHistory.sfc"),
-                    width: "150px"
-                },
-                {
-                    field: "sfcstatus",
-                    importance: "High",
-                    sortable: false,
-                    text: thisI18n("EquipmentHistory.sfcstatus"),
-                    width: "150px"
-                },
-                {
-                    field: "startedAt",
-                    importance: "High",
-                    sortable: false,
-                    text: thisI18n("EquipmentHistory.startedAt"),
-                    width: "150px"
-                },
-                {
-                    field: "completedAt",
-                    importance: "High",
-                    sortable: false,
-                    text: thisI18n("EquipmentHistory.completedAt"),
-                    width: "150px"
-                }
+                { field: "material", importance: "High", sortable: false, text: thisI18n("EquipmentHistory.material"), width: "150px" },
+                { field: "order", importance: "High", sortable: false, text: thisI18n("EquipmentHistory.order"), width: "150px" },
+                { field: "sfc", importance: "High", sortable: false, text: thisI18n("EquipmentHistory.sfc"), width: "150px" },
+                { field: "sfcstatus", importance: "High", sortable: false, text: thisI18n("EquipmentHistory.sfcstatus"), width: "150px" },
+                { field: "startedAt", importance: "High", sortable: false, text: thisI18n("EquipmentHistory.startedAt"), width: "150px" },
+                { field: "completedAt", importance: "High", sortable: false, text: thisI18n("EquipmentHistory.completedAt"), width: "150px" }
             ];
+        }
+
+        _formatDateTime(sDateTime) {
+            if (!sDateTime) return "";
+            try {
+                return DateFormat.getDateTimeInstance({ pattern: "yyyy-MM-dd HH:mm:ss" }).format(new Date(sDateTime));
+            } catch (oError) {
+                return sDateTime;
+            }
         }
 
         _createCell(oColumnConfig) {
             const cellMap = {
-                material: () => new Text({
-                    wrapping: true,
-                    text: "{SFCS/0/MATERIAL}"
-                }),
-                order: () => new ObjectStatus({
-                    state: "Information",
-                    text: "{MFG_ORDER}"
-                }),
-                sfc: () => new Text({
-                    wrapping: true,
-                    text: "{SFC}"
-                }),
-                sfcstatus: () => new Text({
-                    wrapping: true,
-                    text: "{SFCS/0/STATUS}"
-                }),
-                startedAt: () => new Text({
-                    wrapping: true,
-                    text: "{STARTED_AT}"
-                }),
-                completedAt: () => new Text({
-                    wrapping: true,
-                    text: "{COMPLETED_AT}"
-                })
+                material: () => new Text({ wrapping: true, text: "{SFCS/0/MATERIAL}" }),
+                order: () => new ObjectStatus({ state: "Information", text: "{MFG_ORDER}" }),
+                sfc: () => new Text({ wrapping: true, text: "{SFC}" }),
+                sfcstatus: () => new Text({ wrapping: true, text: "{SFCS/0/STATUS}" }),
+                startedAt: () => new Text({ wrapping: true, text: { path: "STARTED_AT", formatter: this._formatDateTime.bind(this) } }),
+                completedAt: () => new Text({ wrapping: true, text: { path: "COMPLETED_AT", formatter: this._formatDateTime.bind(this) } })
             };
 
-            const createCellFn = cellMap[oColumnConfig.field];
-            return createCellFn ? createCellFn() : super._createCell(oColumnConfig);
+            return cellMap[oColumnConfig.field]?.() || super._createCell(oColumnConfig);
         }
 
         async _createToolbarContent() {
-            let aControls = super._createToolbarContent();
+            const aControls = super._createToolbarContent().filter(c => !c.getId().endsWith("sort"));
 
-            // Remove sort button
-            aControls = aControls.filter((oControl) => !oControl.getId().endsWith("sort"));
+            const sInfoText = this.getI18nText("EquipmentHistory.showingRecords", [DEFAULT_PAGE_SIZE]) ||
+                `📊 Showing last ${DEFAULT_PAGE_SIZE} records (most recent first)`;
+
+            const oInfoText = new Text({
+                text: sInfoText,
+                class: "sapUiSmallMarginEnd"
+            }).addStyleClass("sapUiTinyMarginTop");
+
+            aControls.unshift(oInfoText);
 
             try {
-                // Load toolbar fragment and add custom buttons
                 const oFragment = await Fragment.load({
                     name: "custom.pod2.example.fragments.EquipmentHistoryToolbar",
                     controller: this
                 });
 
-                // Find spacer index and insert fragment after it
-                const iSpacerIndex = aControls.findIndex((oControl) => oControl instanceof ToolbarSpacer);
-                if (iSpacerIndex >= 0) {
-                    aControls.splice(iSpacerIndex + 1, 0, oFragment);
-                } else {
-                    aControls.push(oFragment);
-                }
+                const iIndex = aControls.findIndex(c => c instanceof ToolbarSpacer);
+                aControls.splice(iIndex + 1 || aControls.length, 0, oFragment);
 
-                // Refresh toolbar
-                const oToolbar = this.getTable()?.getHeaderToolbar();
-                if (oToolbar) {
-                    oToolbar.removeAllContent();
-                    aControls.forEach((oControl) => {
-                        oToolbar.addContent(oControl);
-                    });
-                }
+                this.getTable()?.getHeaderToolbar()?.removeAllContent();
+                aControls.forEach(c => this.getTable()?.getHeaderToolbar()?.addContent(c));
             } catch (oError) {
-                console.error("Failed to load toolbar fragment:", {
-                    error: oError,
-                    message: oError?.message,
-                    fragmentName: "custom.pod2.example.fragments.EquipmentHistoryToolbar"
-                });
+                oLogger.error("[EquipmentHistory] Failed to load toolbar fragment", oError);
             }
 
             return aControls;
         }
 
         onRefreshPress() {
-            // Refresh equipment history data
             this._fetchData();
-        }
-
-        getProperties() {
-            const aProperties = [
-                ...super.getProperties(),
-                new WidgetProperty({
-                    displayName: this.getI18nText("EquipmentHistory.pageSize"),
-                    description: this.getI18nText("EquipmentHistory.pageSizeDesc"),
-                    category: PropertyCategory.Main,
-                    propertyEditor: new IntegerPropertyEditor(
-                        this,
-                        EquipmentHistory.PropertyId.PageSize,
-                        EquipmentHistory.#DEFAULT_PAGE_SIZE
-                    )
-                })
-            ];
-            return aProperties;
         }
     }
 

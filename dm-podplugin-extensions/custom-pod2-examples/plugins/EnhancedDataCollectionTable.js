@@ -1,32 +1,27 @@
 sap.ui.define([
-    "sap/m/Button",
-    "sap/m/Text",
-    "sap/m/ObjectStatus",
+    "sap/m/library",
     "sap/ui/core/library",
     "sap/dm/dme/pod2/widget/datacollection/DataCollectionGroupTableWidget",
     "sap/dm/dme/pod2/context/ModelPath",
     "sap/dm/dme/pod2/context/PodContext",
     "sap/dm/dme/pod2/context/data/DataCollectionDelegate",
-    "sap/dm/dme/pod2/model/I18nResourceModel"
+    "sap/dm/dme/pod2/model/I18nResourceModel",
+    "sap/base/security/encodeXML"
 ], (
-    Button,
-    Text,
-    ObjectStatus,
+    MobileLibrary,
     SapUiCoreLibrary,
     DataCollectionGroupTableWidget,
     ModelPath,
     PodContext,
     DataCollectionDelegate,
-    I18nResourceModel
+    I18nResourceModel,
+    encodeXML
 ) => {
     "use strict";
 
     const { Priority, ValueState } = SapUiCoreLibrary;
+    const { ObjectStatus, Button, Text } = MobileLibrary;
 
-    /**
-     * Enhanced Data Collection Group Table Widget
-     * Adds "Last Collected Value" column showing most recent collected parameter
-     */
     class EnhancedDataCollectionTable extends DataCollectionGroupTableWidget {
 
         static #oI18nModel = new I18nResourceModel("custom/pod2/example/plugins/i18n/i18n");
@@ -46,6 +41,10 @@ sap.ui.define([
 
         static getDescription() {
             return "Data Collection Groups table with last collected values";
+        }
+
+        static getCategory() {
+            return "Sample Custom Extensions";
         }
 
         static getFields() {
@@ -80,8 +79,8 @@ sap.ui.define([
         async _fetchData() {
             try {
                 const aCollections = await DataCollectionDelegate.refreshLoggedData();
-
                 const mCache = {};
+
                 aCollections?.forEach(oCollection => {
                     if (!mCache[oCollection.sfc]) {
                         mCache[oCollection.sfc] = [];
@@ -89,7 +88,6 @@ sap.ui.define([
                     mCache[oCollection.sfc].push(...oCollection.parameters);
                 });
 
-                // Store in PodContext for reactive updates
                 PodContext.set("/collectedParameters", mCache);
             } catch (oError) {
                 console.error("Failed to fetch collected parameters:", oError);
@@ -98,7 +96,7 @@ sap.ui.define([
         }
 
         _createCell(columnConfig) {
-            if (columnConfig.field === EnhancedDataCollectionTable.Field.LastCollectedValue) {
+            if (columnConfig.field === this.constructor.Field.LastCollectedValue) {
                 return new ObjectStatus({
                     text: {
                         parts: [{ path: "" }, { path: "/collectedParameters" }],
@@ -115,26 +113,35 @@ sap.ui.define([
                 });
             }
 
-            switch (columnConfig.field) {
-                case DataCollectionGroupTableWidget.Field.DataCollectionGroupVersion:
-                case DataCollectionGroupTableWidget.Field.Description:
-                case DataCollectionGroupTableWidget.Field.ProgressIndicator:
-                case DataCollectionGroupTableWidget.Field.CollectButton:
-                case DataCollectionGroupTableWidget.Field.PostingsButton:
-                    return super._createCell(columnConfig);
-                default:
-                    return new Text({ text: "" });
-            }
+            const allowedFields = [
+                DataCollectionGroupTableWidget.Field.DataCollectionGroupVersion,
+                DataCollectionGroupTableWidget.Field.Description,
+                DataCollectionGroupTableWidget.Field.ProgressIndicator,
+                DataCollectionGroupTableWidget.Field.CollectButton,
+                DataCollectionGroupTableWidget.Field.PostingsButton
+            ];
+
+            return allowedFields.includes(columnConfig.field)
+                ? super._createCell(columnConfig)
+                : new Text({ text: "" });
         }
 
+        /**
+         * Formats collected parameter values for display
+         * @param {Object} oDcGroup - Data collection group
+         * @param {Object} mCache - Cache of collected parameters
+         * @returns {string} Formatted value string
+         * @private
+         */
         _formatValue(oDcGroup, mCache) {
             const aParams = this._getLastCollectionParams(oDcGroup, mCache);
             if (!aParams?.length) return this.getI18nText("EnhancedDataCollection.noDataCollected");
 
             return aParams.map(oParam => {
-                const sName = oParam.measureName || "";
-                const sValue = oParam.actual ?? "";
-                const sUom = oParam.unitOfMeasure || "";
+                // Use SAP standard encoding to prevent XSS
+                const sName = encodeXML(oParam.measureName || "");
+                const sValue = encodeXML(String(oParam.actual ?? ""));
+                const sUom = encodeXML(oParam.unitOfMeasure || "");
                 return sUom ? `${sName}: ${sValue} ${sUom}` : `${sName}: ${sValue}`;
             }).join(", ");
         }
@@ -143,16 +150,14 @@ sap.ui.define([
             const aParams = this._getLastCollectionParams(oDcGroup, mCache);
             if (!aParams?.length) return ValueState.None;
             if (oDcGroup.allDataCollected) return ValueState.Success;
-            if (oDcGroup.measuredCount > 0) return ValueState.Information;
-            return ValueState.None;
+            return oDcGroup.measuredCount > 0 ? ValueState.Information : ValueState.None;
         }
 
         _getIcon(oDcGroup, mCache) {
             const aParams = this._getLastCollectionParams(oDcGroup, mCache);
             if (!aParams?.length) return "";
             if (oDcGroup.allDataCollected) return "sap-icon://accept";
-            if (oDcGroup.measuredCount > 0) return "sap-icon://history";
-            return "";
+            return oDcGroup.measuredCount > 0 ? "sap-icon://history" : "";
         }
 
         _getLastCollectionParams(oDcGroup, mCache) {
@@ -161,32 +166,26 @@ sap.ui.define([
             const oWorkListItem = PodContext.getLastSelectedWorkListItem();
             if (!oWorkListItem) return null;
 
-            const sSfc = oWorkListItem.sfc;
-            const aParams = mCache[sSfc]?.filter(p => p.measureGroup === oDcGroup.group);
-
+            const aParams = mCache[oWorkListItem.sfc]?.filter(p => p.measureGroup === oDcGroup.group);
             if (!aParams?.length) return null;
 
-            // Get the most recent collection timestamp
             const sLatestDate = aParams.reduce((latest, p) => {
                 const current = new Date(p.dateCreated);
                 return !latest || current > new Date(latest) ? p.dateCreated : latest;
             }, null);
 
-            // Return all parameters from the most recent collection
             return aParams.filter(p => p.dateCreated === sLatestDate);
         }
 
         _createToolbarContent() {
             const aControls = super._createToolbarContent();
 
-            // Add refresh button at the end
-            const oRefreshButton = new Button({
+            aControls.push(new Button({
                 icon: "sap-icon://refresh",
                 tooltip: this.getI18nText("EnhancedDataCollection.refreshTooltip"),
                 press: () => this._fetchData()
-            });
+            }));
 
-            aControls.push(oRefreshButton);
             return aControls;
         }
     }

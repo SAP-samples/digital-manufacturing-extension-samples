@@ -5,8 +5,8 @@
             "type": "custom.pod2.example.plugins.basic"
         },
         {
-            "modulePath": "custom/pod2/example/plugins/ComponentVerificationWidget",
-            "type": "custom.pod2.example.plugins.ComponentVerificationWidget"
+            "modulePath": "custom/pod2/example/plugins/ComponentVerification",
+            "type": "custom.pod2.example.plugins.ComponentVerification"
         },
         {
             "modulePath": "custom/pod2/example/plugins/EquipmentHistory",

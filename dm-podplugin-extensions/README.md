@@ -85,13 +85,13 @@ plugin-name/
 ### Examples (`custom-pod2-examples/`)
 
 **Plugins:**
-- `basic.js` - Minimal implementation example
-- `ComponentVerification.js` - Component verification
-- `EquipmentHistory.js` - Equipment maintenance history
-- `EnhancedDataCollectionTable.js` - Data collection with validation
+- `basic.js` - Minimal implementation example with simple UI controls
+- `ComponentVerification.js` - Component verification with custom verify button
+- `EquipmentHistory.js` - Equipment usage history (last 50 records) with date formatting
+- `EnhancedDataCollectionTable.js` - Data collection table with last collected values
 
 **Actions:**
-- `ExternalDataFetchAction.js` - External system data fetching
+- `ExternalDataFetchAction.js` - Configurable REST API calls (GET/POST) with BTP destination support
 
 ### Structure
 
@@ -210,17 +210,15 @@ sap.ui.define([
 | Operation | Code |
 |-----------|------|
 | Get Plant | `PodContext.getPlant()` |
-| Get User ID | `PodContext.get(ModelPath.UserId)` |
-| Get Filter Resources | `PodContext.get(ModelPath.FilterResources)` |
-| Get Filter Work Centers | `PodContext.get(ModelPath.FilterWorkCenters)` |
-| Get Selected Items | `PodContext.get(ModelPath.SelectedWorkListItems)` |
-| Set Custom Data | `PodContext.set(ModelPath.CustomData, data)` |
+| Get User ID | `PodContext.getUserId()` |
+| Get Filter Resources | `PodContext.getFilterResources()` |
+| Get Filter Work Centers | `PodContext.getFilterWorkCenters()` |
+| Get Selected Items | `PodContext.getSelectedWorkListItems()` |
 | Subscribe to Changes | `PodContext.subscribe(ModelPath.FilterResources, handler, this)` |
 | Unsubscribe | `PodContext.unsubscribe(ModelPath.FilterResources, handler, this)` |
 | Get Property Value | `this.getPropertyValue('propertyName')` |
 | Get i18n Text | `this.getI18nText(key)` |
-| Show Success Message | `this.showSuccessMessage(message)` |
-| Show Error Message | `this.showErrorMessage(message)` |
+| Show Dialog | `this.getPodRuntime().showDialog(dialogId)` |
 
 ---
 

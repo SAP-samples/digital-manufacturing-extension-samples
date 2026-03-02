@@ -1,42 +1,41 @@
 sap.ui.define([
     "sap/m/library",
-    "sap/ui/core/library",
-    "sap/dm/dme/pod2/model/I18nResourceModel",
-    "sap/m/MessageBox",
-    "sap/ui/model/json/JSONModel",
     "sap/dm/dme/pod2/widget/Widget",
     "sap/dm/dme/pod2/widget/metadata/WidgetProperty",
     "sap/dm/dme/pod2/propertyeditor/BooleanPropertyEditor",
-    "sap/dm/dme/pod2/propertyeditor/StringPropertyEditor",
-    "sap/dm/dme/pod2/propertyeditor/SelectPropertyEditor",
-    "sap/dm/dme/pod2/propertyeditor/ColorPropertyEditor",
-    "sap/dm/dme/pod2/propertyeditor/IconPropertyEditor",
-    "sap/dm/dme/pod2/propertyeditor/MenuPropertyEditor",
-    "sap/dm/dme/pod2/propertyeditor/ResourcePropertyEditor",
-    "sap/dm/dme/pod2/propertyeditor/SortingPropertyEditor"
+    "sap/dm/dme/pod2/propertyeditor/PropertyCategory",
+    "sap/dm/dme/pod2/model/I18nResourceModel",
+    "sap/base/Log"
 ], (
-    SapMLibrary,
-    SapUiCoreLibrary,
-    I18nResourceModel,
-    MessageBox,
-    JSONModel,
+    MobileLibrary,
     Widget,
     WidgetProperty,
     BooleanPropertyEditor,
-    StringPropertyEditor,
-    SelectPropertyEditor,
-    ColorPropertyEditor,
-    IconPropertyEditor,
-    MenuPropertyEditor,
-    ResourcePropertyEditor,
-    SortingPropertyEditor
+    PropertyCategory,
+    I18nResourceModel,
+    Log
 ) => {
-
-
     "use strict";
 
-    class basic extends Widget {
+    const { VBox, Input, Button, MessageToast, Text } = MobileLibrary;
 
+    /**
+     * Basic POD 2.0 Plugin Example
+     * Demonstrates minimal plugin implementation with simple UI controls
+     */
+    class BasicPlugin extends Widget {
+
+        static PropertyId = Object.freeze({
+            EnableFeature: "enableFeature"
+        });
+
+        static #oI18nModel = new I18nResourceModel({
+            bundleName: "custom.pod2.example.plugins.i18n.i18n"
+        });
+
+        static getI18nModel() {
+            return this.#oI18nModel;
+        }
 
         static getDisplayName() {
             return "Example POD 2.0 Plugin";
@@ -47,69 +46,71 @@ sap.ui.define([
         }
 
         static getCategory() {
-            return "Sample Custom Extensions"
+            return "Sample Custom Extensions";
         }
 
         static getDescription() {
-            return "Example POD 2.0 Plugin"
+            return "Minimal POD 2.0 plugin demonstrating basic functionality";
         }
 
+        /**
+         * Creates the plugin view
+         * @returns {sap.m.VBox} The plugin view
+         * @private
+         */
         _createView() {
             const oConfig = this.getConfig();
 
-            console.log("Creating UI5 Test Widget View");
-            // Create Text Field
-            const oTextField = new sap.m.Input({
-                value: "Sample Input Value",
-                editable: false
+            // Validate configuration
+            if (!oConfig || !oConfig.id) {
+                Log.error("[BasicPlugin] Invalid configuration");
+                return new VBox({
+                    items: [
+                        new Text({
+                            text: this.getI18nText("BasicPlugin.configError") || "Plugin configuration error"
+                        })
+                    ]
+                });
+            }
+
+            const oInput = new Input({
+                value: this.getI18nText("BasicPlugin.sampleInputValue") || "Sample Input Value",
+                editable: false,
+                width: "100%"
             });
 
-            // Create Button
-            const oButton = new sap.m.Button({
-                text: "Sample Button Text",
+            const oButton = new Button({
+                text: this.getI18nText("BasicPlugin.sampleButton") || "Sample Button",
                 press: () => {
-                    sap.m.MessageToast.show("Button was pressed!");
+                    MessageToast.show(this.getI18nText("BasicPlugin.buttonPressed") || "Button was pressed!");
                 }
             });
 
-            // Optional: Create a simple container to hold them
-            const oVBox = new sap.m.VBox(oConfig.id, {
-                items: [oTextField, oButton],
+            const oView = new VBox(oConfig.id, {
+                items: [oInput, oButton],
                 alignItems: "Start",
                 width: "100%"
             });
 
-            return oVBox;
+            oView.addStyleClass("sapUiSmallMargin");
+            return oView;
         }
 
         getProperties() {
-
-            const aProperties = [];
-            aProperties.push(
+            return [
                 new WidgetProperty({
-                    displayName: "Property 1",
-                    description: "Description 1",
-                    category: "Custom Properties",
-                    propertyEditor: new BooleanPropertyEditor(this,
-                        "SampleBoolean", true)
-                }),
-                new WidgetProperty({
-                    displayName: "Property 2",
-                    description: "Description 2",
-                    category: "Custom Properties",
-                    propertyEditor: new BooleanPropertyEditor(this,
-                        "SampleBoolean", true)
-                }),
-
-            );
-
-            return aProperties;
+                    displayName: "Enable Feature",
+                    description: "Enable or disable the sample feature",
+                    category: PropertyCategory.Main,
+                    propertyEditor: new BooleanPropertyEditor(
+                        this,
+                        this.constructor.PropertyId.EnableFeature,
+                        true
+                    )
+                })
+            ];
         }
-
-
-
     }
 
-
-    return basic;
+    return BasicPlugin;
 });

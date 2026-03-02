@@ -3,128 +3,199 @@ sap.ui.define([
     "sap/dm/dme/pod2/action/metadata/ActionProperty",
     "sap/dm/dme/pod2/context/PodContext",
     "sap/dm/dme/pod2/propertyeditor/StringPropertyEditor",
-    "sap/dm/dme/pod2/api/RestClient"
-],
-/**
- * @param {typeof sap.dm.dme.pod2.action.Action} Action
- * @param {typeof sap.dm.dme.pod2.action.metadata.ActionProperty} ActionProperty
- * @param {typeof sap.dm.dme.pod2.context.PodContext} PodContext
- * @param {typeof sap.dm.dme.pod2.propertyeditor.StringPropertyEditor} StringPropertyEditor
- */
-(
+    "sap/dm/dme/pod2/propertyeditor/SelectPropertyEditor",
+    "sap/dm/dme/pod2/api/RestClient",
+    "sap/dm/dme/pod2/Logger",
+    "custom/pod2/example/util/ValidationErrorHandler"
+], (
     Action,
     ActionProperty,
     PodContext,
     StringPropertyEditor,
-    RestClient
+    SelectPropertyEditor,
+    RestClient,
+    Logger,
+    ValidationErrorHandler
 ) => {
     "use strict";
 
     const PropertyId = Object.freeze({
+        Destination: "destination",
+        HttpMethod: "httpMethod",
         DataURL: "dataURL",
         InputPayload: "inputPayload",
         OutputRESTData: "outputRESTData"
     });
 
-    /**
-     * A simple example action that logs a message to the console. The message can contain bind expressions that
-     * references properties in PodContext.
-     *
-     * @alias sap.sample.extensions.basic.action.ConsoleLogAction
-     * @extends sap.dm.dme.pod2.action.Action
-     */
+    const HttpMethod = Object.freeze({
+        GET: "GET",
+        POST: "POST"
+    });
+
+    const REQUEST_TIMEOUT_MS = 30000; // 30 seconds
+
+    const oLogger = Logger.getLogger("custom.pod2.example.actions.ExternalDataFetchAction");
+
     class ExternalDataFetchAction extends Action {
-        /**
-         * The message to log to the console. The message can contain bind expressions like {/selectedWorkListItem/sfc}.
-         *
-         * @type {string}
-         */
+
+        #sDestination = null;
+        #sHttpMethod = null;
         #sDataUrl = null;
         #inputPayload = null;
         #outputRESTData = null;
 
-        /**
-         * Gets the display name to show in the action palette of the POD Designer.
-         *
-         * @override
-         * @returns {string}
-         */
         static getDisplayName() {
             return "Fetch REST Data";
         }
 
-        /**
-         * Gets a description of the action. The description is shown in the action list of the POD Designer when
-         * creating a new action.
-         *
-         * @override
-         * @returns {string}
-         */
         static getDescription() {
-            return "Data from REST API";
+            return "Fetch data from external REST API with configurable HTTP method";
         }
 
-        /**
-         * Creates a new instance of the ConsoleLogAction class.
-         *
-         * @override
-         * @param {sap.dm.dme.pod2.action.Action.ActionConfig} oConfig The action configuration.
-         */
         constructor(oConfig) {
             super(oConfig);
 
-            this.#sDataUrl = this.getPropertyValue(PropertyId.DataURL);
-            this.#inputPayload = this.getPropertyValue(PropertyId.InputPayload);
-            this.#outputRESTData = this.getPropertyValue(PropertyId.OutputRESTData);
-        }
+            try {
+                // Get destination without whitelist validation
+                const sDestination = this.getPropertyValue(PropertyId.Destination);
+                this.#sDestination = sDestination ? String(sDestination).trim() : null;
 
-        /**
-         * Executes the action.
-         *
-         * @override
-         * @param {sap.dm.dme.pod2.action.ActionContext} oActionContext Contains the context for the action including
-         * the widget it was triggered from and the SAPUI5 event object.
-         * @returns {void|Promise<void>}
-         */
-        async execute(oActionContext) {
-            if (this.#sDataUrl && this.#outputRESTData) {
-                let response = await RestClient.post(this.#sDataUrl, this.#inputPayload);
-
-                if(response.output_context){
-                    PodContext.set("/" + this.#outputRESTData , JSON.parse(response.output_context))
-                }
-                else{
-                    PodContext.set("/" + this.#outputRESTData , response);  
-                }
-
+                this.#sHttpMethod = this.getPropertyValue(PropertyId.HttpMethod) || HttpMethod.POST;
+                this.#sDataUrl = ValidationErrorHandler.validateUrl(
+                    this.getPropertyValue(PropertyId.DataURL),
+                    "Data URL"
+                );
+                this.#inputPayload = this.getPropertyValue(PropertyId.InputPayload);
+                this.#outputRESTData = ValidationErrorHandler.validateContextPath(
+                    this.getPropertyValue(PropertyId.OutputRESTData),
+                    "Output data context"
+                );
+            } catch (oError) {
+                oLogger.error("[ExternalDataFetchAction] Configuration error", oError);
+                throw oError;
             }
         }
 
         /**
-         * Gets the configurable properties of the action.
-         *
-         * @override
-         * @returns {Array<sap.dm.dme.pod2.action.metadata.ActionProperty>} An array of ActionProperty objects or null
-         * if the action has no configurable properties.
+         * Creates a timeout promise
+         * @param {number} iTimeout - Timeout in milliseconds
+         * @returns {Promise} Promise that rejects after timeout
+         * @private
          */
+        _createTimeoutPromise(iTimeout) {
+            return new Promise((_, reject) => {
+                setTimeout(() => reject(new Error("Request timeout")), iTimeout);
+            });
+        }
+
+        async execute(oActionContext) {
+            if (!this.#sDataUrl || !this.#outputRESTData) {
+                oLogger.warning("[ExternalDataFetchAction] Missing required configuration");
+                return;
+            }
+
+            try {
+                let sFullUrl = this.#sDataUrl;
+
+                // Build URL with destination if provided
+                if (this.#sDestination) {
+                    sFullUrl = `/destination/${this.#sDestination}${this.#sDataUrl}`;
+                }
+
+                oLogger.info("[ExternalDataFetchAction] Fetching data", {
+                    method: this.#sHttpMethod,
+                    url: sFullUrl
+                });
+
+                let fetchPromise;
+
+                if (this.#sHttpMethod === HttpMethod.GET) {
+                    fetchPromise = RestClient.get(sFullUrl);
+                } else {
+                    // Validate payload if POST
+                    if (this.#inputPayload) {
+                        ValidationErrorHandler.validateJson(this.#inputPayload, "Input payload");
+                    }
+                    fetchPromise = RestClient.post(sFullUrl, this.#inputPayload);
+                }
+
+                // Race between fetch and timeout
+                const oResponse = await Promise.race([
+                    fetchPromise,
+                    this._createTimeoutPromise(REQUEST_TIMEOUT_MS)
+                ]);
+
+                const oData = oResponse.output_context
+                    ? JSON.parse(oResponse.output_context)
+                    : oResponse;
+
+                PodContext.set("/" + this.#outputRESTData, oData);
+
+                oLogger.info("[ExternalDataFetchAction] Data fetched successfully");
+
+            } catch (oError) {
+                oLogger.error("[ExternalDataFetchAction] Request failed", {
+                    message: oError.message,
+                    method: this.#sHttpMethod
+                });
+
+                // Get user-friendly error message using centralized handler
+                const sErrorMsg = ValidationErrorHandler.getUserFriendlyErrorMessage(
+                    oError,
+                    "Failed to fetch external data"
+                );
+
+                this.showErrorMessage(sErrorMsg);
+
+                // Clear any stale data
+                PodContext.set("/" + this.#outputRESTData, null);
+            }
+        }
+
         getProperties() {
-            return [
+            const aProperties = [
+                new ActionProperty({
+                    displayName: "Destination",
+                    description: "Destination name for external API (optional)",
+                    propertyEditor: new StringPropertyEditor(this, PropertyId.Destination)
+                }),
+                new ActionProperty({
+                    displayName: "HTTP Method",
+                    description: "HTTP method to use for the API call",
+                    propertyEditor: new SelectPropertyEditor(
+                        this,
+                        PropertyId.HttpMethod,
+                        {
+                            GET: "GET",
+                            POST: "POST"
+                        },
+                        HttpMethod.POST
+                    )
+                }),
                 new ActionProperty({
                     displayName: "Data URL",
-                    description: "External URL to be called",
+                    description: "External URL to be called (relative path)",
                     propertyEditor: new StringPropertyEditor(this, PropertyId.DataURL)
-                }),
-                new ActionProperty({
-                    displayName: "Input Payload",
-                    description: "External URL to be called",
-                    propertyEditor: new StringPropertyEditor(this, PropertyId.InputPayload)
-                }),
-                new ActionProperty({
-                    displayName: "Output Data Context",
-                    description: "POD Context to be set",
-                    propertyEditor: new StringPropertyEditor(this, PropertyId.OutputRESTData)
                 })
             ];
+
+            const sHttpMethod = this.getPropertyValue(PropertyId.HttpMethod) || HttpMethod.POST;
+
+            if (sHttpMethod === HttpMethod.POST) {
+                aProperties.push(new ActionProperty({
+                    displayName: "Input Payload",
+                    description: "Request payload for POST method (JSON format)",
+                    propertyEditor: new StringPropertyEditor(this, PropertyId.InputPayload)
+                }));
+            }
+
+            aProperties.push(new ActionProperty({
+                displayName: "Output Data Context",
+                description: "POD Context path to store response (alphanumeric and / only)",
+                propertyEditor: new StringPropertyEditor(this, PropertyId.OutputRESTData)
+            }));
+
+            return aProperties;
         }
     }
 
