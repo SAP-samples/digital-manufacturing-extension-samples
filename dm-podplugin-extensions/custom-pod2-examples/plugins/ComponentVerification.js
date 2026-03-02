@@ -106,7 +106,7 @@ sap.ui.define([
 
                 this.getPodRuntime().showDialog(sDialogId);
             } catch (oError) {
-                this.showErrorMessage(oError.message || this.getI18nText("ComponentVerification.verificationFailed"));
+                throw new Error(oError.message || this.getI18nText("ComponentVerification.verificationFailed"));
             }
         }
 

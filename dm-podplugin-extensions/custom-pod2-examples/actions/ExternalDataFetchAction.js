@@ -145,10 +145,7 @@ sap.ui.define([
                     "Failed to fetch external data"
                 );
 
-                this.showErrorMessage(sErrorMsg);
-
-                // Clear any stale data
-                PodContext.set("/" + this.#outputRESTData, null);
+                throw new Error(sErrorMsg);
             }
         }
 
