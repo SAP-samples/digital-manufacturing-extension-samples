@@ -47,7 +47,7 @@ sap.ui.define([
         }
 
         static getCategory() {
-            return "Custom Examples"
+            return "Sample Custom Extensions"
         }
 
         static getDescription() {
@@ -100,7 +100,7 @@ sap.ui.define([
                     propertyEditor: new BooleanPropertyEditor(this,
                         "SampleBoolean", true)
                 }),
-                
+
             );
 
             return aProperties;

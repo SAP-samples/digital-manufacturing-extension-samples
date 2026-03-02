@@ -1,0 +1,9 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Button
+        id="refreshButton"
+        icon="sap-icon://refresh"
+        tooltip="{i18n>EquipmentHistory.refresh}"
+        press=".onRefreshPress" />
+</core:FragmentDefinition>

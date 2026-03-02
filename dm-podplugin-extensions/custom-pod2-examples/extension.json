@@ -3,6 +3,24 @@
         {
             "modulePath": "custom/pod2/example/plugins/basic",
             "type": "custom.pod2.example.plugins.basic"
+        },
+        {
+            "modulePath": "custom/pod2/example/plugins/ComponentVerificationWidget",
+            "type": "custom.pod2.example.plugins.ComponentVerificationWidget"
+        },
+        {
+            "modulePath": "custom/pod2/example/plugins/EquipmentHistory",
+            "type": "custom.pod2.example.plugins.EquipmentHistory"
+        },
+        {
+            "modulePath": "custom/pod2/example/plugins/EnhancedDataCollectionTable",
+            "type": "custom.pod2.example.plugins.EnhancedDataCollectionTable"
+        }
+    ],
+    "actions": [
+        {
+            "modulePath": "custom/pod2/example/actions/ExternalDataFetchAction",
+            "type": "custom.pod2.example.actions.ExternalDataFetchAction"
         }
     ]
 }
