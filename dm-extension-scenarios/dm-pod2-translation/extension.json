@@ -1,0 +1,8 @@
+{
+    "actions": [
+        {
+            "modulePath": "custom/pod2/global/actions/TranslationAction",
+            "type": "custom.pod2.global.actions.TranslationAction"
+        }
+    ]
+}
