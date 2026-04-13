@@ -7,7 +7,7 @@
     "dependencies": {
         "@sap-cloud-sdk/connectivity": "^3.22.2",
         "@sap-cloud-sdk/http-client": "^3.22.2",
-        "@sap/hana-client": "2.10.20",
+        "@sap/hana-client": "2.21.31",
         "@sap/instance-manager": "3.3.4",
         "@sap/logging": "6.1.1",
         "@sap/xsenv": "3.1.1",
