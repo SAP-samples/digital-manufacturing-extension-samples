@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var sql = require("mssql");
 var cors = require('cors');
+var rateLimit = require('express-rate-limit');
 var app = express();
 
 app.disable('x-powered-by');
@@ -40,7 +41,14 @@ var dbConfig = {
 var finalresult = {};
 const fail_Number = 3;
 
-app.get('/api/v1/listAll', async function(req, res) {
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false
+});
+
+app.get('/api/v1/listAll', apiLimiter, async function(req, res) {
 
     try {
         console.log ("Enter SELECT function");
@@ -59,7 +67,7 @@ app.get('/api/v1/listAll', async function(req, res) {
 });
 
 //POST API
-app.post('/api/v1/dcs', async function (req, res) {
+app.post('/api/v1/dcs', apiLimiter, async function (req, res) {
 
     console.log("input params: %j", req.body);
 
