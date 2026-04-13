@@ -5,7 +5,8 @@
         "npm": ">=8.3.0"
     },
     "dependencies": {
-        "@sap-cloud-sdk/core": "^1.54.2",
+        "@sap-cloud-sdk/connectivity": "^3.22.2",
+        "@sap-cloud-sdk/http-client": "^3.22.2",
         "@sap/hana-client": "2.10.20",
         "@sap/instance-manager": "3.3.4",
         "@sap/logging": "6.1.1",
@@ -13,10 +14,9 @@
         "@sap/xssec": "3.6.0",
         "append-query": "2.1.1",
         "cfenv": "^1.2.4",
-        "express": "4.20.0",
+        "express": "^4.21.2",
         "node-cache": "^5.1.2",
-        "passport": "0.6.0",
-        "request": "2.88.2"
+        "passport": "^0.7.0"
     },
     "scripts": {
         "start": "node server.js"
