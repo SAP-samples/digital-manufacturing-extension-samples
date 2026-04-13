@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mssql": "^6.0.1",
+    "express": "^4.21.2",
+    "mssql": "^11.0.1",
     "uuid": "^8.3.2"
   }
 }
