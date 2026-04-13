@@ -1,7 +1,8 @@
-{ 
+{
   "name": "get-nextnumber",
   "version": "1.0.0",
   "dependencies": {
-    "request": "latest"
+    "axios": "^1.7.9",
+    "qs": "^6.13.0"
   }
 }
