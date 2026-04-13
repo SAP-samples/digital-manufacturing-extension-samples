@@ -4,8 +4,8 @@ const xssec = require('@sap/xssec');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const JWTStrategy = require('@sap/xssec').JWTStrategy;
-const core = require('@sap-cloud-sdk/core');
-const { retrieveJwt } = require('@sap-cloud-sdk/core');
+const { executeHttpRequest } = require('@sap-cloud-sdk/http-client');
+const { retrieveJwt } = require('@sap-cloud-sdk/connectivity');
 
 const port = process.env.PORT || 5001;
 
@@ -116,7 +116,7 @@ app.get('/srv/subscriptions', function (req, res) {
 app.get('/srv/destinations', async function (req, res) {
     if (req.authInfo.checkScope('$XSAPPNAME.User')) {
         try {
-            let res1 = await core.executeHttpRequest(
+            let res1 = await executeHttpRequest(
                 {
                     destinationName: req.query.destination,
                     jwt: retrieveJwt(req)
