@@ -1,25 +1,31 @@
 sap.ui.define([
     "sap/m/library",
     "sap/dm/dme/pod2/sfccomponents/consumption/widget/ComponentConsumptionListWidget",
+    "sap/dm/dme/pod2/widget/metadata/WidgetEvent",
     "sap/dm/dme/pod2/widget/metadata/WidgetProperty",
     "sap/dm/dme/pod2/propertyeditor/StringPropertyEditor",
-    "sap/dm/dme/pod2/model/I18nResourceModel",
     "sap/dm/dme/pod2/propertyeditor/PropertyCategory",
-    "sap/dm/dme/pod2/sfccomponents/consumption/context/ConsumptionContext"
+    "sap/dm/dme/pod2/sfccomponents/consumption/context/ConsumptionContext",
+    "sap/dm/dme/pod2/model/I18nResourceModel"
 ], (
     MobileLibrary,
     ComponentConsumptionListWidget,
+    WidgetEvent,
     WidgetProperty,
     StringPropertyEditor,
-    I18nResourceModel,
     PropertyCategory,
-    ConsumptionContext
+    ConsumptionContext,
+    I18nResourceModel
 ) => {
     "use strict";
 
     const { Button, ButtonType } = MobileLibrary;
 
     class ComponentVerification extends ComponentConsumptionListWidget {
+
+        static EventId = Object.freeze({
+            Validate: "validate"
+        });
 
         static Field = Object.freeze({
             verifyButton: "verifyButton"
@@ -115,6 +121,41 @@ sap.ui.define([
             if (!isNaN(sPath)) return +sPath;
             const match = sPath.match(/\d+/);
             return match ? +match[0] : 0;
+        }
+
+        _createToolbarContent() {
+            const aControls = super._createToolbarContent() ?? [];
+
+            aControls.push(new Button({
+                text: this.getI18nText("ComponentVerification.validateButton"),
+                type: ButtonType.Default,
+                press: (oEvent) => this._handleEvent(this.constructor.EventId.Validate, oEvent)
+            }));
+
+            return aControls;
+        }
+
+        onInit() {
+            super.onInit();
+            // Ensure the validate button is present even if the parent rebuilt the toolbar asynchronously
+            const oToolbar = this.getTable?.()?.getHeaderToolbar?.();
+            if (oToolbar && !oToolbar.getContent().some(c => c.getId?.()?.endsWith("-validate-btn"))) {
+                oToolbar.addContent(new Button(`${this.getId()}-validate-btn`, {
+                    text: this.getI18nText("ComponentVerification.validateButton"),
+                    type: ButtonType.Default,
+                    press: (oEvent) => this._handleEvent(this.constructor.EventId.Validate, oEvent)
+                }));
+            }
+        }
+
+        getEvents() {
+            return [
+                new WidgetEvent({
+                    id: this.constructor.EventId.Validate,
+                    displayName: this.getI18nText("ComponentVerification.validateButton")
+                }),
+                ...super.getEvents() ?? []
+            ];
         }
 
         getProperties() {

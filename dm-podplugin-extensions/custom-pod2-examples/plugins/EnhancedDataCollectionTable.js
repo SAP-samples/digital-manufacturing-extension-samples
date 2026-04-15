@@ -1,17 +1,21 @@
 sap.ui.define([
     "sap/m/library",
     "sap/ui/core/library",
-    "sap/dm/dme/pod2/widget/datacollection/DataCollectionGroupTableWidget",
+    "sap/dm/dme/pod2/datacollection/widget/DataCollectionGroupTableWidget",
+    "sap/dm/dme/pod2/api/ApiClient",
     "sap/dm/dme/pod2/context/ModelPath",
+    "sap/dm/dme/pod2/datacollection/context/DataCollectionModelPath",
     "sap/dm/dme/pod2/context/PodContext",
-    "sap/dm/dme/pod2/context/data/DataCollectionDelegate",
+    "sap/dm/dme/pod2/datacollection/context/data/DataCollectionDelegate",
     "sap/dm/dme/pod2/model/I18nResourceModel",
     "sap/base/security/encodeXML"
 ], (
     MobileLibrary,
     SapUiCoreLibrary,
     DataCollectionGroupTableWidget,
+    ApiClient,
     ModelPath,
+    DataCollectionModelPath,
     PodContext,
     DataCollectionDelegate,
     I18nResourceModel,
@@ -63,7 +67,7 @@ sap.ui.define([
         onInit() {
             super.onInit();
             if (PodContext.isRunMode()) {
-                PodContext.subscribe(ModelPath.DataCollectionGroups, this._fetchData, this);
+                PodContext.subscribe(DataCollectionModelPath.DataCollectionGroups, this._fetchData, this);
                 PodContext.subscribe(ModelPath.SelectedWorkListItems, this._fetchData, this);
             }
         }
@@ -71,13 +75,18 @@ sap.ui.define([
         onExit() {
             super.onExit();
             if (PodContext.isRunMode()) {
-                PodContext.unsubscribe(ModelPath.DataCollectionGroups, this._fetchData, this);
+                PodContext.unsubscribe(DataCollectionModelPath.DataCollectionGroups, this._fetchData, this);
                 PodContext.unsubscribe(ModelPath.SelectedWorkListItems, this._fetchData, this);
             }
         }
 
         async _fetchData() {
             try {
+                await ApiClient.ready();
+                if (!ApiClient.internal.datacollection) {
+                    PodContext.set("/collectedParameters", this._getMockCollectedParameters());
+                    return;
+                }
                 const aCollections = await DataCollectionDelegate.refreshLoggedData();
                 const mCache = {};
 
@@ -93,6 +102,34 @@ sap.ui.define([
                 console.error("Failed to fetch collected parameters:", oError);
                 PodContext.set("/collectedParameters", {});
             }
+        }
+
+        _getMockCollectedParameters() {
+            const oWorkListItem = PodContext.getLastSelectedWorkListItem();
+            const sSfc = oWorkListItem?.sfc ?? "SFC-MOCK";
+            const aGroups = PodContext.getModel().getProperty(DataCollectionModelPath.DataCollectionGroups) ?? [];
+            const sDate = new Date().toISOString();
+
+            const aMockParams = aGroups
+                .filter(oGroup => oGroup.measuredCount > 0)
+                .flatMap(oGroup => [
+                    {
+                        measureGroup: oGroup.group,
+                        measureName: "Temperature",
+                        actual: (20 + Math.random() * 10).toFixed(1),
+                        unitOfMeasure: "°C",
+                        dateCreated: sDate
+                    },
+                    {
+                        measureGroup: oGroup.group,
+                        measureName: "Pressure",
+                        actual: (100 + Math.random() * 20).toFixed(1),
+                        unitOfMeasure: "bar",
+                        dateCreated: sDate
+                    }
+                ]);
+
+            return { [sSfc]: aMockParams };
         }
 
         _createCell(columnConfig) {
@@ -126,22 +163,14 @@ sap.ui.define([
                 : new Text({ text: "" });
         }
 
-        /**
-         * Formats collected parameter values for display
-         * @param {Object} oDcGroup - Data collection group
-         * @param {Object} mCache - Cache of collected parameters
-         * @returns {string} Formatted value string
-         * @private
-         */
         _formatValue(oDcGroup, mCache) {
             const aParams = this._getLastCollectionParams(oDcGroup, mCache);
-            if (!aParams?.length) return this.getI18nText("EnhancedDataCollection.noDataCollected");
+            if (!aParams?.length) return "";
 
             return aParams.map(oParam => {
-                // Use SAP standard encoding to prevent XSS
                 const sName = encodeXML(oParam.measureName || "");
                 const sValue = encodeXML(String(oParam.actual ?? ""));
-                const sUom = encodeXML(oParam.unitOfMeasure || "");
+                const sUom = oParam.unitOfMeasure || "";
                 return sUom ? `${sName}: ${sValue} ${sUom}` : `${sName}: ${sValue}`;
             }).join(", ");
         }
