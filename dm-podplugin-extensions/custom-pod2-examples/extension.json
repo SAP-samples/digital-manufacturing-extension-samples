@@ -21,6 +21,10 @@
         {
             "modulePath": "custom/pod2/example/actions/ExternalDataFetchAction",
             "type": "custom.pod2.example.actions.ExternalDataFetchAction"
+        },
+        {
+            "modulePath": "custom/pod2/example/actions/ServerNotificationHandlerAction",
+            "type": "custom.pod2.example.actions.ServerNotificationHandlerAction"
         }
     ]
 }

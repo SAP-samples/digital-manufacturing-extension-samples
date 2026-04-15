@@ -55,25 +55,12 @@ sap.ui.define([
         constructor(oConfig) {
             super(oConfig);
 
-            try {
-                // Get destination without whitelist validation
-                const sDestination = this.getPropertyValue(PropertyId.Destination);
-                this.#sDestination = sDestination ? String(sDestination).trim() : null;
-
-                this.#sHttpMethod = this.getPropertyValue(PropertyId.HttpMethod) || HttpMethod.POST;
-                this.#sDataUrl = ValidationErrorHandler.validateUrl(
-                    this.getPropertyValue(PropertyId.DataURL),
-                    "Data URL"
-                );
-                this.#inputPayload = this.getPropertyValue(PropertyId.InputPayload);
-                this.#outputRESTData = ValidationErrorHandler.validateContextPath(
-                    this.getPropertyValue(PropertyId.OutputRESTData),
-                    "Output data context"
-                );
-            } catch (oError) {
-                oLogger.error("[ExternalDataFetchAction] Configuration error", oError);
-                throw oError;
-            }
+            const sDestination = this.getPropertyValue(PropertyId.Destination);
+            this.#sDestination = sDestination ? String(sDestination).trim() : null;
+            this.#sHttpMethod = this.getPropertyValue(PropertyId.HttpMethod) || HttpMethod.POST;
+            this.#sDataUrl = this.getPropertyValue(PropertyId.DataURL);
+            this.#inputPayload = this.getPropertyValue(PropertyId.InputPayload);
+            this.#outputRESTData = this.getPropertyValue(PropertyId.OutputRESTData);
         }
 
         /**
@@ -89,17 +76,17 @@ sap.ui.define([
         }
 
         async execute(oActionContext) {
-            if (!this.#sDataUrl || !this.#outputRESTData) {
-                oLogger.warning("[ExternalDataFetchAction] Missing required configuration");
-                return;
-            }
-
             try {
-                let sFullUrl = this.#sDataUrl;
+                const sDataUrl = ValidationErrorHandler.validateUrl(this.#sDataUrl, "Data URL");
+                const sOutputRESTData = ValidationErrorHandler.validateContextPath(
+                    this.#outputRESTData, "Output data context"
+                );
+
+                let sFullUrl = sDataUrl;
 
                 // Build URL with destination if provided
                 if (this.#sDestination) {
-                    sFullUrl = `/destination/${this.#sDestination}${this.#sDataUrl}`;
+                    sFullUrl = `/destination/${this.#sDestination}${sDataUrl}`;
                 }
 
                 oLogger.info("[ExternalDataFetchAction] Fetching data", {
@@ -129,7 +116,7 @@ sap.ui.define([
                     ? JSON.parse(oResponse.output_context)
                     : oResponse;
 
-                PodContext.set("/" + this.#outputRESTData, oData);
+                PodContext.set("/" + sOutputRESTData, oData);
 
                 oLogger.info("[ExternalDataFetchAction] Data fetched successfully");
 
