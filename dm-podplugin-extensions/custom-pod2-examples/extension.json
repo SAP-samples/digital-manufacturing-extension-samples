@@ -15,6 +15,12 @@
         {
             "modulePath": "custom/pod2/example/plugins/EnhancedDataCollectionTable",
             "type": "custom.pod2.example.plugins.EnhancedDataCollectionTable"
+        },
+        {
+            "modulePath": "custom/pod2/example/plugins/WorkCenterSelectionWidget",
+            "type": "custom.pod2.example.plugins.WorkCenterSelectionWidget",
+            "name": "Work Center Selection",
+            "description": "Dropdown populated from a Workcenter custom field (comma-separated values). Writes the selected value to PodContext at /custom/workcenterSelection."
         }
     ],
     "actions": [
