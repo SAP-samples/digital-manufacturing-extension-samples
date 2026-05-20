@@ -86,9 +86,42 @@ The skill will:
 
 ---
 
+### 4. Work Center Selection Widget (`WorkCenterSelectionWidget.js`)
+
+**Purpose:** Renders a labelled dropdown whose items are populated at runtime from a configurable custom field on the active Workcenter. The custom field holds a comma-separated list of valid values (e.g. `"Option A,Option B,Option C"`). When the operator picks a value it is written to `PodContext` at `/custom/workcenterSelection` so any other widget can react to it.
+
+**Key behaviour:**
+- Subscribes to `ModelPath.FilterWorkCenters` — reloads items automatically whenever the POD work center filter changes
+- Calls `WorkCenterPublicApiClient.getWorkCenters({ plant, workCenter })` using the plant and first work center from the POD filter
+- Locates the `customValues` entry whose `attribute` matches the **Custom Field Key** property, splits its `value` by commas, and populates the `sap.m.Select`
+- On selection change, writes the selected key string to `PodContext` at `/custom/workcenterSelection`
+- Other widgets subscribe to `/custom/workcenterSelection` via `PodContext.subscribe` or read it with `PodContext.get` to respond to the operator's choice
+
+**POD Designer configuration:**
+
+| Property | Category | Description | Default |
+|---|---|---|---|
+| **Custom Field Key** | Data | The `attribute` name of the Workcenter custom field that holds the comma-separated values (e.g. `selectionOptions`) | _(empty)_ |
+| **Label** | Appearance | Text displayed above the dropdown | `Selection` |
+| **Width** | Dimension | CSS width of the widget (e.g. `200px`, `50%`, `15rem`) | `100%` |
+| **Height** | Dimension | CSS height of the widget (e.g. `80px`, `auto`) | `auto` |
+
+**Inter-plugin wiring example:**
+
+```js
+// Any other widget that should react to the operator's selection:
+PodContext.subscribe("/custom/workcenterSelection", (sValue) => {
+    // sValue is the selected item key
+}, this);
+```
+
+**Extends:** `sap.dm.dme.pod2.widget.Widget`
+
+---
+
 ## Actions
 
-### 4. External Data Fetch Action (`ExternalDataFetchAction.js`)
+### 5. External Data Fetch Action (`ExternalDataFetchAction.js`)
 
 **Display name:** Fetch REST Data
 
@@ -119,7 +152,7 @@ The skill will:
 
 ---
 
-### 5. Server Notification Handler Action (`ServerNotificationHandlerAction.js`)
+### 6. Server Notification Handler Action (`ServerNotificationHandlerAction.js`)
 
 **Display name:** Server Notification Handler
 
@@ -157,7 +190,7 @@ The skill will:
 
 ## Utilities
 
-### 6. MDO Enhanced Client (`client/MdoEnhancedClient.js`)
+### 7. MDO Enhanced Client (`client/MdoEnhancedClient.js`)
 
 **Purpose:** Wrapper around the standard MDO API client with added input validation — rejects filter values that are empty, contain illegal characters, or exceed the maximum allowed length. Used by `EquipmentHistory` to safely query MDO data.
 
@@ -226,7 +259,9 @@ Standard shared paths are defined in `ModelPath`. Custom extensions can use any 
         { "modulePath": "custom/pod2/example/plugins/basic",                       "type": "custom.pod2.example.plugins.basic" },
         { "modulePath": "custom/pod2/example/plugins/ComponentVerification",       "type": "custom.pod2.example.plugins.ComponentVerification" },
         { "modulePath": "custom/pod2/example/plugins/EquipmentHistory",            "type": "custom.pod2.example.plugins.EquipmentHistory" },
-        { "modulePath": "custom/pod2/example/plugins/EnhancedDataCollectionTable", "type": "custom.pod2.example.plugins.EnhancedDataCollectionTable" }
+        { "modulePath": "custom/pod2/example/plugins/EnhancedDataCollectionTable", "type": "custom.pod2.example.plugins.EnhancedDataCollectionTable" },
+        { "modulePath": "custom/pod2/example/plugins/WorkCenterSelectionWidget",   "type": "custom.pod2.example.plugins.WorkCenterSelectionWidget",
+          "name": "Work Center Selection", "description": "Dropdown populated from a Workcenter custom field (comma-separated values). Writes the selected value to PodContext at /custom/workcenterSelection." }
     ],
     "actions": [
         { "modulePath": "custom/pod2/example/actions/ExternalDataFetchAction",          "type": "custom.pod2.example.actions.ExternalDataFetchAction" },
