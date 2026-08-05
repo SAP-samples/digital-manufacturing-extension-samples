@@ -44,12 +44,16 @@ app.get('/ui/jwt', function (req, res) {
 
 // subscribe/onboard a subscriber tenant
 app.put('/callback/v1.0/tenants/*', function (req, res) {
-    let tenantHost = req.body.subscribedSubdomain + '-' + appEnv.app.space_name.toLowerCase().replace(/_/g, '-') + '-' + services.registry.appName.toLowerCase().replace(/_/g, '-');
-    let tenantURL = 'https:\/\/' + tenantHost + /\.(.*)/gm.exec(appEnv.app.application_uris[0])[0];
-    console.log('Subscribe: ', req.body.subscribedSubdomain, req.body.subscribedTenantId, tenantHost, tenantURL);
+    const subdomain = req.body.subscribedSubdomain;
+    if (!subdomain || !/^[a-zA-Z0-9-]+$/.test(subdomain)) {
+        return res.status(400).send('Invalid subdomain');
+    }
+    let tenantHost = subdomain + '-' + appEnv.app.space_name.toLowerCase().replace(/_/g, '-') + '-' + services.registry.appName.toLowerCase().replace(/_/g, '-');
+    let tenantURL = 'https://' + tenantHost + /\.(.*)/gm.exec(appEnv.app.application_uris[0])[0];
+    console.log('Subscribe: ', subdomain, req.body.subscribedTenantId, tenantHost, tenantURL);
     lib.createRoute(tenantHost, services.registry.appName).then(
         function (result) {
-            res.status(200).send(tenantURL);
+            res.status(200).json(tenantURL);
         },
         function (err) {
             console.log(err.stack);
