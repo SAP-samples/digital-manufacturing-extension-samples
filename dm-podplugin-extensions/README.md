@@ -9,6 +9,7 @@ Sample implementations for building custom POD (Production Operator Dashboard) p
 - [POD 2.0](#pod-20)
 - [Deployment](#deployment)
 - [API Reference](#api-reference)
+- [POD 1.0 to POD 2.0 Migration](#pod-10-to-pod-20-migration)
 - [Resources](#resources)
 
 ---
@@ -219,6 +220,14 @@ sap.ui.define([
 | Get Property Value | `this.getPropertyValue('propertyName')` |
 | Get i18n Text | `this.getI18nText(key)` |
 | Show Dialog | `this.getPodRuntime().showDialog(dialogId)` |
+
+---
+
+## POD 1.0 to POD 2.0 Migration
+
+Your existing custom POD 1.0 plugins can be migrated for use with the Manage PODs 2.0 application. For detailed guidance, please refer to the POD Plugin Migration Guide available at [SAP Help Portal](https://help.sap.com/docs/sap-digital-manufacturing/application-help-for-manage-pods-2-0/pod-plugin-migration-guide?ai=true&utm_source=chatgpt.com).
+
+In addition, one of our SAP partners has developed an AI-based tool to assist with custom POD migration. For more information, please visit [Delaware DM4Mill POD 2.0 Migration Tool](https://www.delaware.pro/en-de/d-dm4mill?utm_source=chatgpt.com#POD20Migration-anchor). Customers can evaluate and use this tool or the services offered along with this tool independently to help accelerate their POD migration activities.
 
 ---
 
