@@ -1,21 +1,11 @@
 sap.ui.define([
     "sap/dm/dme/pod2/action/Action",
     "sap/dm/dme/pod2/action/metadata/ActionProperty",
-    "sap/dm/dme/pod2/context/MessageHistory",
-    "sap/dm/dme/pod2/context/PodContext",
-    "sap/dm/dme/pod2/propertyeditor/IntegerPropertyEditor",
-    "sap/dm/dme/pod2/notification/EventType",
-    "sap/dm/dme/pod2/notification/Filter",
-    "sap/dm/dme/pod2/notification/PodNotificationWebSocket"
+    "sap/dm/dme/pod2/propertyeditor/IntegerPropertyEditor"
 ], (
     Action,
     ActionProperty,
-    MessageHistory,
-    PodContext,
-    IntegerPropertyEditor,
-    EventType,
-    Filter,
-    PodNotificationWebSocket
+    IntegerPropertyEditor
 ) => {
     "use strict";
 
