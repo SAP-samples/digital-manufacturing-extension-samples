@@ -31,6 +31,10 @@
         {
             "modulePath": "custom/pod2/example/actions/ServerNotificationHandlerAction",
             "type": "custom.pod2.example.actions.ServerNotificationHandlerAction"
+        },
+        {
+            "modulePath": "custom/pod2/example/actions/WaitAction",
+            "type": "custom.pod2.example.actions.Wait"
         }
     ]
 }
