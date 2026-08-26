@@ -227,7 +227,7 @@ sap.ui.define([
 
 Your existing custom POD 1.0 plugins can be migrated for use with the Manage PODs 2.0 application. For detailed guidance, please refer to the POD Plugin Migration Guide available at [SAP Help Portal](https://help.sap.com/docs/sap-digital-manufacturing/application-help-for-manage-pods-2-0/pod-plugin-migration-guide).
 
-In addition, one of our SAP partners has developed an AI-based tool to assist with custom POD migration. For more information, please visit [Delaware DM4Mill POD 2.0 Migration Tool](https://www.delaware.pro/en-de/d-dm4mill?#POD20Migration-anchor). Customers can evaluate and use this tool or the services offered along with this tool independently to help accelerate their POD migration activities.
+In addition, one of our SAP partners has developed an AI-based tool to assist with custom POD migration. For more information, please visit [Delaware DM4Mill POD 2.0 Migration Tool](https://www.delaware.pro/en-de/blogs/pod-2-0-migration-service). Customers can evaluate and use this tool or the services offered along with this tool independently to help accelerate their POD migration activities.
 
 ---
 
