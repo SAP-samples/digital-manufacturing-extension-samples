@@ -1390,7 +1390,7 @@ sap.ui.define([
 		*/
 		/* Function for Reading URL Parameters*/
 		_urlParam: function (name) {
-			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			var results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
 			if (results === null) {
 				return null;
 			} else {
