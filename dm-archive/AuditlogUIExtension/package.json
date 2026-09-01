@@ -10,7 +10,7 @@
         "undeploy": "cf undeploy dme-advauditapp-ui --delete-services --delete-service-keys"
     },
     "dependencies": {
-        "@sap/approuter": "19.0.0"
+        "@sap/approuter": "23.0.0"
     },
     "devDependencies": {
         "@ui5/cli": "^4.0.13",
